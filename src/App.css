@@ -1,0 +1,86 @@
+
+
+/* Navbar Container */
+.Navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: var(--Gunmetal);
+  color: var(--usa-white);
+  height: 4.5rem;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  box-shadow: var(--jet) 0px 2px 2px, 
+    var(--usa-dark) 0px 5px 10px -3px, 
+    var(--Gunmetal) 0px -3px 0px inset;
+  }
+
+
+/* Logo/Brand */
+.navbar-brand {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--usa-white);
+  text-decoration: none;
+}
+
+.navbar-brand:active {
+    color: var(--CoralPink)
+}
+
+/* Nav Links */
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.NavLink {
+  color: var(--usa-white);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.NavLink:hover {
+  color: var(--CoralPink);
+}
+
+/* Collapse button (hamburger) */
+.Collapse-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 4.5rem;
+    left: 0;
+    right: 0;
+    background-color: var(--usa-dark);
+    padding: 1rem;
+    border-top: 1px solid var(--jet);
+    box-shadow: var(--jet) 0px 2px 4px, 
+    var(--usa-dark) 0px 7px 13px -3px, 
+    var(--Gunmetal) 0px -3px 0px inset;
+  }
+
+  .navbar-links.show {
+    display: flex;
+  }
+
+  .Collapse-btn {
+    display: block;
+  }
+}
+

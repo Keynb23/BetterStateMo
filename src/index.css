@@ -1,0 +1,29 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/*============================ color scheme =================================*/
+:root {
+  /* darks */
+  --jet: rgb(52, 49, 53);           /* jet gray */
+  --usa-dark: rgb(0, 73, 82);       /* Midnight Green */
+
+  /* white */
+  --usa-white: rgb(247, 240, 240);  /* Snow */
+
+  /* blue */
+  --usa-blue: rgb(0, 136, 204);      
+  --sky-blue: rgb(173, 247, 255);   /* Celeste */
+  --Gunmetal: rgb(15, 40, 46); /* gunmetal blue */
+
+  /* red */
+  --usa-red: rgb(216, 61, 53);      /* Subtle coral red */
+  --vibrantRed: rgb(202, 15, 2);
+  --CoralPink: rgb(254, 141, 133); 
+}
+
+body, html, :root {
+  background-color: var(--usa-white)
+}
+
