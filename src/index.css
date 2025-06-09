@@ -27,3 +27,25 @@ body, html, :root {
   background-color: var(--usa-white)
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--jet)
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--jet)
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--jet)
+}
+
+p {
+  font-size: 1rem;
+  color: var(--jet)
+}

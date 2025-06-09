@@ -84,3 +84,140 @@
   }
 }
 
+/* ======================== ABOUT STYLES ==================*/
+
+.about-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 5rem 2rem 2rem;
+  gap: 20rem;
+}
+
+/* ABOUT SECTION: align right but h1 centered */
+.about-section {
+  width: 50%;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  padding-right: 3rem;
+}
+
+/* MEET US SECTION: align left but h1 centered */
+.meet-us {
+  width: 50%;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  transform: translateY(-30px);
+  -webkit-transform: translateY(-30px);
+  -moz-transform: translateY(-30px);
+  -ms-transform: translateY(-30px);
+  -o-transform: translateY(-30px);
+}
+
+/* Shared heading style — center above paragraph */
+.section-title {
+  align-self: center;
+  text-align: center;
+}
+
+/* New wrapper to center Meet Us title and text together */
+.meet-us-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Meet Us internals */
+.meet-us-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* Optional: slogan */
+.slogan {
+  padding: 5rem 0;
+  align-self: center;
+  text-align: center;
+}
+
+/* Global heading styles */
+.about-container h1,
+.about-container h2,
+.about-container h3 {
+  margin: 0;
+}
+
+/* Paragraphs */
+.about-container p {
+  text-indent: 1rem;
+  line-height: 1.8rem;
+  text-align: left;
+}
+
+/* Phone Styles */
+@media (max-width: 450px) {
+  .about-container {
+    padding: 2rem 0.5rem;
+    gap: 3rem;
+  }
+
+  .about-section,
+  .meet-us {
+    gap: 1rem;
+  }
+
+  .about-container p {
+    line-height: 1.6rem;
+    text-indent: 0;
+  }
+
+  .slogan {
+    padding: 2rem 0;
+  }
+}
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 3rem 1rem;
+    gap: 5rem;
+  }
+
+  .about-section,
+  .meet-us {
+    width: 100%;
+    align-self: center;
+    padding-right: 0;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
+
+  .about-section {
+    align-items: center;
+  }
+
+  .meet-us {
+    align-items: center;
+  }
+
+  .about-container p {
+    text-align: center;
+  }
+
+  .slogan {
+    padding: 3rem 0;
+  }
+}

@@ -7,3 +7,15 @@
 // also they will be given the option to choose what time is best to contact them. morning, noon, or evening. This is not required. 
 
 // rememeber that old people will be the majority of the clients, so this needs can't be to confusing.
+
+import React from 'react'
+
+const SetApt = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default SetApt

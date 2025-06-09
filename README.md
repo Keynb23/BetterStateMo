@@ -42,7 +42,8 @@ The design uses custom CSS variables defined in `index.css`:
 
 ## 🛠️ Coming Soon
 
-- Route pages: Home, About Us, Contact, What We Do, Book Online
+- Route pages: Home, About Us images, Contact, What We Do, Book Online
+- Single page application
 - Scroll animations and section-based layout
 - Backend integration with Firebase and Vercel Deployment
 

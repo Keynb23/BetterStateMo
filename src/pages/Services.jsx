@@ -14,3 +14,14 @@
 // <p> slightly more in depth of what this service is 
 
 // quote button and schedule button on each service card.
+
+export default function Services () {
+    return (
+        <div>
+            <h1> What We Do </h1>
+            <p></p>
+            <h2> pool cleaning </h2>
+            <p></p>
+        </div>
+    )
+}
