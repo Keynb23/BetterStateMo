@@ -9,7 +9,7 @@
   background-color: var(--Gunmetal);
   color: var(--usa-white);
   height: 4.5rem;
-  position: relative;
+  position: fixed;
   z-index: 10;
   width: 100%;
   box-shadow: var(--jet) 0px 2px 2px, 
@@ -19,15 +19,16 @@
 
 
 /* Logo/Brand */
-.navbar-brand {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--usa-white);
-  text-decoration: none;
-}
+.navbar-brand img {
+  position: fixed;
+  top: .5rem;
+  left: 1rem;
+  border-radius: 50px;
+  height: 100%;
+  width: 100%;
+  max-width: 60px;
+  max-height: 60px;
 
-.navbar-brand:active {
-    color: var(--CoralPink)
 }
 
 /* Nav Links */
@@ -45,6 +46,21 @@
 }
 
 .NavLink:hover {
+  color: var(--CoralPink);
+}
+
+.NavScroll-btn {
+  color: var(--usa-white);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.NavScroll-btn:hover {
   color: var(--CoralPink);
 }
 
@@ -98,71 +114,89 @@
 /* ABOUT SECTION: align right but h1 centered */
 .about-section {
   width: 50%;
-  align-self: flex-end;
+  align-self: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 1rem;
-  padding-right: 3rem;
+  padding: 3rem 0 3rem;
 }
 
 /* MEET US SECTION: align left but h1 centered */
+
 .meet-us {
-  width: 50%;
-  align-self: flex-start;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-  transform: translateY(-30px);
-  -webkit-transform: translateY(-30px);
-  -moz-transform: translateY(-30px);
-  -ms-transform: translateY(-30px);
-  -o-transform: translateY(-30px);
+  align-items: center;
+  gap: 3rem;
+  border: red 2px solid;
 }
 
-/* Shared heading style — center above paragraph */
-.section-title {
-  align-self: center;
-  text-align: center;
+#josh-row {
+  justify-content: flex-end;
+  margin-right: 10%;
+  border: red 2px solid;
 }
 
-/* New wrapper to center Meet Us title and text together */
+#andrew-row {
+  justify-content: flex-start;
+  margin-left: 10%;
+  border: red 2px solid;
+}
+
 .meet-us-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1000px;
+  border: red 2px solid;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Shared row styling */
+.meet-row {
+  display: flex;
+  gap: 5rem;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+  border: red 2px solid;
 }
 
 
-/* Meet Us internals */
-.meet-us-section {
+
+/* Text side */
+.text-block {
+  max-width: 400px;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.5rem;
+}
+
+/* Images */
+.meet-row img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* slogan */
+.slogan {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-/* Optional: slogan */
-.slogan {
-  padding: 5rem 0;
-  align-self: center;
-  text-align: center;
-}
-
-/* Global heading styles */
-.about-container h1,
-.about-container h2,
-.about-container h3 {
-  margin: 0;
-}
-
-/* Paragraphs */
-.about-container p {
-  text-indent: 1rem;
-  line-height: 1.8rem;
-  text-align: left;
-}
 
 /* Phone Styles */
 @media (max-width: 450px) {
@@ -220,4 +254,14 @@
   .slogan {
     padding: 3rem 0;
   }
+
+  .meet-row {
+    flex-direction: column;
+  }
+
+  .text-block {
+    text-align: center;
+    align-items: center;
+  }
+
 }

@@ -1,8 +1,12 @@
-import { Link, Outlet } from "react-router-dom"; // ✅ make sure you import `Outlet`
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"; // ✅ make sure you import `Outlet`
 import { useEffect, useState } from "react";
 import HamburgerBtn from "./HamburgerBtn";
+import { useMedia } from '../context/MediaContext'
 
 export default function Navbar() {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -10,6 +14,24 @@ export default function Navbar() {
   useEffect(() => {
     console.log("Menu is now", menuOpen ? "open" : "closed");
   }, [menuOpen]);
+
+  const handleScroll = (sectionId) => {
+    if (location.pathname !== '/') {
+      navigate('/', { replace: false })
+      // Delay scroll to let homepage renger
+      setTimeout(() => scrollToSection(sectionId), 50)
+    } else {
+      scrollToSection(sectionId)
+    }
+  }
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id)
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const { owners } = useMedia()
 
   return (
     <>
@@ -26,20 +48,19 @@ export default function Navbar() {
 
         {/* Brand/Logo */}
         <Link className="navbar-brand" to="/">
-          Better State LLC
+          <img src={owners.logo} alt="Logo" />
         </Link>
 
         {/* Links */}
         <div className={`navbar-links ${menuOpen ? "show" : ""}`} id="nav-btn-collapse">
-          <Link className="NavLink" to="/">Home</Link>
-          <Link className="NavLink" to="/services">Services</Link>
-          <Link className="NavLink" to="/about">About Us</Link>
-          <Link className="NavLink" to="/book_online">Book Online</Link> {/* maybe remove */}
-          <Link className="NavLink" to="/contact">Contact Us</Link>
+          <button className="NavScroll-btn" onClick={() => handleScroll('home')}>Home</button>
+          <button className="NavScroll-btn" onClick={() => handleScroll('services')}>Services</button>
+          <button className="NavScroll-btn" onClick={() => handleScroll('about')}>About</button>
+          <Link className="NavLink" to="/setapt">Set Appointment</Link> {/* maybe remove */}
+          <button className="NavScroll-btn" onClick={() => handleScroll('contact')}>Contact</button>
         </div>
       </nav>
 
-      {/* ✅ Capitalized properly so routing works */}
       <Outlet />
     </>
   );

@@ -24,7 +24,8 @@
 }
 
 body, html, :root {
-  background-color: var(--usa-white)
+  background-color: var(--usa-white);
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 h1 {
