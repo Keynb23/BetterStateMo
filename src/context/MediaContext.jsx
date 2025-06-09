@@ -21,10 +21,18 @@ import pool13 from '../assets/pools/pool.jpg'
 import pool14 from '../assets/pools/pool1.jpg'
 import pool15 from '../assets/pools/whitepool.jpg'
 import pool16 from '../assets/pools/wood-blue-finish.jpg'
+import pool17 from '../assets/pools/aria.jpg'
+import pool18 from '../assets/pools/aria.after.jpg' 
+import pool19 from '../assets/pools/apt.complex.jpg' 
+import pool20 from '../assets/pools/citypool.jpg'
 
 // logo import
 import logo from '../assets/owners/logo.jpg'
 
+// videos 
+
+import Video1 from '../assets/videos/fire.mp4'
+import Video2 from '../assets/videos/fire2.mp4'
 
 
 // 1. Create context
@@ -55,10 +63,20 @@ export const MediaProvider = ({ children }) => {
     pool14,
     pool15,
     pool16,
+    pool17,
+    pool18,
+    pool19,
+    pool20,
   ]
 
+  const videos = [
+    Video1,
+    Video2,
+  ]
+
+
   return (
-    <MediaContext.Provider value={{ owners, pools}}>
+    <MediaContext.Provider value={{ owners, pools, videos}}>
       {children}
     </MediaContext.Provider>
   )

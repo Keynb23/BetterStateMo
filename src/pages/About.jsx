@@ -18,25 +18,26 @@ export default function About() {
       </div>
 
       <div className="meet-us">
-        <div className="meet-us-wrapper">
-          <h1 className="section-title">Meet Us. added borders for a debug thing for later</h1>
+        <h1>Our Staff</h1>
 
-          <div id='josh-row' className="meet-row">
-            <img src={owners.josh} alt="Josh" />
-            <div className="text-block">
-              <h2>Joshua Efferson, CEO</h2>
-              <p>Loves long walks on the beach</p>
-            </div>
+        <div className="meet-row2">
+
+          <div className="text-block2">
+            <h2>Andrew Royer, Co-Owner</h2>
+            <p>When he's not working, he's working out</p>
           </div>
+          <img src={owners.andrew} alt="Andrew" />
+        </div>
 
-          <div id='andrew-row' className="meet-row">
-            <div className="text-block">
-              <h2>Andrew Royer, COO</h2>
-              <p>When he's not working, he's working out</p>
-            </div>
-            <img src={owners.andrew} alt="Andrew" />
+        <div className="meet-row1">
+          <img src={owners.josh} alt="Josh" />
+
+          <div className="text-block1">
+            <h2>Joshua Efferson, Co-Owner</h2>
+            <p>Loves long walks on the beach</p>
           </div>
         </div>
+        
       </div>
 
       <h3 className="slogan">

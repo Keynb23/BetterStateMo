@@ -100,168 +100,113 @@
   }
 }
 
-/* ======================== ABOUT STYLES ==================*/
+/*=======================================================HOME STYLES================================================================== */
 
+
+
+
+
+
+
+
+
+/* ======================================================= ABOUT STYLES ==============================================================*/
+
+/* General Container Styles (Minor Adjustments) */
 .about-container {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center; /* Center all direct children */
   padding: 5rem 2rem 2rem;
-  gap: 20rem;
+  gap: 6rem; /* Adjust gap as needed */
 }
 
-/* ABOUT SECTION: align right but h1 centered */
 .about-section {
-  width: 50%;
-  align-self: center;
+  width: 100%;
+  max-width: 850px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 3rem 0 3rem;
-}
-
-/* MEET US SECTION: align left but h1 centered */
-
-.meet-us {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  border: red 2px solid;
-}
-
-#josh-row {
-  justify-content: flex-end;
-  margin-right: 10%;
-  border: red 2px solid;
-}
-
-#andrew-row {
-  justify-content: flex-start;
-  margin-left: 10%;
-  border: red 2px solid;
-}
-
-.meet-us-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  width: 100%;
-  max-width: 1000px;
-  border: red 2px solid;
-}
-
-.section-title {
+  padding: 3rem 0;
+  line-height: 1.5rem;
   text-align: center;
-  font-size: 2rem;
 }
 
-/* Shared row styling */
-.meet-row {
-  display: flex;
-  gap: 5rem;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 4rem;
-  border: red 2px solid;
-}
-
-
-
-/* Text side */
-.text-block {
-  max-width: 400px;
-  text-align: left;
+/* MEET US SECTION (Refactored) */
+.meet-us {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 5rem;
+  width: 100%;
+  align-items: center; /* Center the h1 and the rows */
 }
 
-/* Images */
-.meet-row img {
+.meet-us h1 {
+  padding-bottom: 3rem;
+}
+
+/* Common Row Styles */
+.meet-row1, .meet-row2 {
+  display: flex;
+  align-items: center;     /* This is key for vertical centering */
+  justify-content: center; /* Center the items horizontally */
+  gap: 3rem;               /* Space between image and text */
+  max-width: 950px;        /* Constrain the max width */
   width: 100%;
-  max-width: 300px;
-  height: auto;
+}
+
+/* Text Block Styling */
+.text-block1, .text-block2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-basis: 50%; /* Allow text block to take up available space */
+}
+
+/* Specific Text Alignments for the Zig-Zag */
+.text-block1 {
+  align-items: flex-end;
+}
+
+.text-block2 {
+  align-items: flex-start;  
+}
+
+/* Image Styles */
+.meet-row1 img, .meet-row2 img {
+  width: 400px;
+  height: 400px;
   border-radius: 10px;
   object-fit: cover;
 }
 
-/* slogan */
+/* Slogan */
 .slogan {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 
-/* Phone Styles */
-@media (max-width: 450px) {
-  .about-container {
-    padding: 2rem 0.5rem;
-    gap: 3rem;
+/* --- RESPONSIVE STYLES --- */
+
+/* For screens smaller than 850px */
+@media (max-width: 850px) {
+  .meet-row1, .meet-row2 {
+    flex-direction: column; /* Stack image and text vertically */
+    text-align: center;     /* Center text when stacked */
   }
 
-  .about-section,
-  .meet-us {
-    gap: 1rem;
-  }
-
-  .about-container p {
-    line-height: 1.6rem;
-    text-indent: 0;
-  }
-
-  .slogan {
-    padding: 2rem 0;
-  }
-}
-
-/* Tablet Styles */
-@media (max-width: 768px) {
-  .about-container {
-    padding: 3rem 1rem;
-    gap: 5rem;
-  }
-
-  .about-section,
-  .meet-us {
-    width: 100%;
-    align-self: center;
-    padding-right: 0;
-    transform: translateY(0);
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -o-transform: translateY(0);
-  }
-
-  .about-section {
+  /* Reset text alignment for stacked view */
+  .text-block1, .text-block2 {
     align-items: center;
   }
-
-  .meet-us {
-    align-items: center;
+  
+  .meet-row2 {
+    flex-direction: column-reverse; /* Keep image on top */
   }
-
-  .about-container p {
-    text-align: center;
-  }
-
-  .slogan {
-    padding: 3rem 0;
-  }
-
-  .meet-row {
-    flex-direction: column;
-  }
-
-  .text-block {
-    text-align: center;
-    align-items: center;
-  }
-
 }
