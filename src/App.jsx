@@ -1,4 +1,5 @@
 // App.jsx
+
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Contact from './components/Contact'
@@ -14,6 +15,7 @@ function App() {
   return (
     <>
       <Navbar />
+      
 
       <Routes>
         {/* Scrollable homepage */}
@@ -22,8 +24,8 @@ function App() {
           element={
             <>
               <section id="home"><Home /></section>
-              <section id="about"><About /></section>
               <section id="services"><Services /></section>
+              <section id="about"><About /></section>
               <section id="contact"><Contact /></section>
             </>
           }

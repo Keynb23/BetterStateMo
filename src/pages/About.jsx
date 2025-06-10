@@ -16,28 +16,25 @@ export default function About() {
       </div>
 
       <div className="meet-us">
-        <h1>Our Staff</h1>
+  <h1>Our Staff</h1>
+  <div className="meet-row">
+    <img src={owners.andrew} alt="Andrew" />
+    <div className="text-block">
+      <h2>Andrew Royer, Co-Owner</h2>
+      <p>Loves basketball, working out, and hard work.</p>
+    </div>
+  </div>
 
-        <div className="meet-row2">
-          <div className="text-block2">
-            <h2>Andrew Royer, Co-Owner</h2>
-            <p>Loves basketball, workingout, and hard work.</p>
-          </div>
-          <img src={owners.andrew} alt="Andrew" />
-        </div>
-
-        <div className="meet-row1">
-          <img src={owners.josh} alt="Josh" />
-
-          <div className="text-block1">
-            <h2>Joshua Efferson, Co-Owner</h2>
-            <p>
-              Joshua is a U.S. Veteran with a commitment to hard work and
-              quality service.
-            </p>
-          </div>
-        </div>
-      </div>
+  <div className="meet-row row-reverse">
+    <img src={owners.josh} alt="Josh" />
+    <div className="text-block">
+      <h2>Joshua Efferson, Co-Owner</h2>
+      <p>
+        Joshua is a U.S. Veteran with a commitment to hard work and
+        quality service.
+      </p>
+    </div>
+  </div>
 
       <div className="slogan">
         <h1>BETTER</h1>
@@ -47,6 +44,7 @@ export default function About() {
           <div>STATE</div>
           <div>TOGETHER</div>
         </div>
+      </div>
       </div>
     </div>
   );

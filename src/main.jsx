@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { MediaProvider } from "./context/MediaContext.jsx";
 
+
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <StrictMode>
