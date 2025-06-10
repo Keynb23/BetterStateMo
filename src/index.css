@@ -1,52 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-/*============================ color scheme =================================*/
+
+/*============================ NEW COLOR SCHEME =================================*/
 :root {
-  /* darks */
-  --jet: rgb(52, 49, 53);           /* jet gray */
-  --usa-dark: rgb(0, 73, 82);       /* Midnight Green */
+  /* Core Palette */
+  --Deep-Sea: rgb(4, 28, 50);          /* A very dark, professional blue for text and deep backgrounds. */
+  --Service-Blue: rgb(0, 119, 255);    /* A bright, confident blue for actions and highlights. */
+  --Mid-Green: rgb(22, 80, 54);        
+  --Dark-Green: rgb(25, 56, 43);
+  --Crystal-Clear: rgb(248, 252, 255); /* A clean, almost-white for primary backgrounds. */
+  --Sandstone: rgb(205, 178, 140);     /* A distinguished, warm accent color. */
 
-  /* white */
-  --usa-white: rgb(247, 240, 240);  /* Snow */
-
-  /* blue */
-  --usa-blue: rgb(0, 136, 204);      
-  --sky-blue: rgb(173, 247, 255);   /* Celeste */
-  --Gunmetal: rgb(15, 40, 46); /* gunmetal blue */
-
-  /* red */
-  --usa-red: rgb(216, 61, 53);      /* Subtle coral red */
-  --vibrantRed: rgb(202, 15, 2);
-  --CoralPink: rgb(254, 141, 133); 
+  /* Supporting Tones */
+  --Light-Steel: rgb(222, 226, 230);  /* For borders and subtle dividers. */
+  --Pool-Shadow: rgba(4, 28, 50, 0.1); /* A soft, clean shadow color. */
 }
 
 body {
-  background-color: var(--sky-blue);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: var(--Crystal-Clear);
+  font-family: 'Poppins', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: var(--Deep-Sea);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  font-size: 2rem;
+h1, h2, h3 {
   font-weight: 600;
-  color: var(--jet)
+  color: var(--Deep-Sea);
 }
 
-h2 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--jet)
-}
-
-h3 {
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: var(--jet)
-}
-
-p {
-  font-size: 1rem;
-  color: var(--jet)
-}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.75rem; font-weight: 500;}
+h3 { font-size: 1.25rem; }
+p  { font-size: 1rem; line-height: 1.6; }

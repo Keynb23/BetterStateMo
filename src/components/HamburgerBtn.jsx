@@ -4,16 +4,16 @@ const HamburgerBtn = () => {
   const [isActive, setIsActive] = useState(false);
 
   const toggleHamburger = () => {
-    setIsActive(prev => !prev);
+    setIsActive((prev) => !prev);
   };
 
   // 🔧 Updated styles for bars
   const lineStyle = {
-    width: "35px",
-    height: "4px",
-    backgroundColor: "var(--usa-white)", // 🧼 Used your USA theme color
+    width: "30px", // Slightly reduced for a cleaner look
+    height: "3px", // Slimmer for a modern feel
+    backgroundColor: "var(--Deep-Sea)", // Using a dark color for contrast on a light navbar
     transition: "all 0.3s ease-in-out",
-    borderRadius: "4px",
+    borderRadius: "3px",
   };
 
   return (
@@ -23,9 +23,9 @@ const HamburgerBtn = () => {
         height: "50px",
         position: "relative",
         cursor: "pointer",
-        display: "flex",               // ✅ Added for centering
-        justifyContent: "center",     // ✅ Horizontal center
-        alignItems: "center",         // ✅ Vertical center
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
       onClick={toggleHamburger}
     >
@@ -34,7 +34,7 @@ const HamburgerBtn = () => {
         style={{
           ...lineStyle,
           position: "absolute",
-          top: isActive ? "22px" : "14px",
+          top: isActive ? "23px" : "15px", // Adjusted positions for new height
           transform: isActive ? "rotate(45deg)" : "none",
         }}
       />
@@ -42,7 +42,7 @@ const HamburgerBtn = () => {
         style={{
           ...lineStyle,
           position: "absolute",
-          top: "22px",
+          top: "23px",
           opacity: isActive ? 0 : 1,
         }}
       />
@@ -50,21 +50,21 @@ const HamburgerBtn = () => {
         style={{
           ...lineStyle,
           position: "absolute",
-          top: isActive ? "22px" : "30px",
+          top: isActive ? "23px" : "31px", // Adjusted positions for new height
           transform: isActive ? "rotate(-45deg)" : "none",
         }}
       />
 
-      {/* Circle ring */}
+      {/* Circle ring, updated with the new color palette */}
       <div
         style={{
           position: "absolute",
-          width: "60px",
-          height: "60px",
+          width: "50px", // Sized to fit the container
+          height: "50px",
           borderRadius: "50%",
           border: isActive
-            ? "3px solid var(--sky-blue)"
-            : "3px solid var(--usa-white)", // ✅ Styled to match USA theme
+            ? "2px solid var(--Service-Blue)" // Active state uses the main action color
+            : "2px solid var(--Light-Steel)", // Default state is subtle
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",

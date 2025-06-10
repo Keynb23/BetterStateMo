@@ -29,16 +29,10 @@ const Contact = () => {
           </section>
 
           <div className="confirm-btns">
-            <div className="customer-type-btns">
-              <button className="New-Customer-btn">New Customer</button>
-              <button className="Current-Customer-btn">Current Customer</button>
-            </div>
-
             <p>
               By submitting this form, you're confirming that the information
               above is correct.
             </p>
-
             <button className="Submit-btn">Submit</button>
           </div>
         </div>
