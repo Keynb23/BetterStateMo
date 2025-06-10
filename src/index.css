@@ -23,8 +23,8 @@
   --CoralPink: rgb(254, 141, 133); 
 }
 
-body, html, :root {
-  background-color: var(--usa-white);
+body {
+  background-color: var(--sky-blue);
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 

@@ -13,7 +13,6 @@ function App() {
 
   return (
     <>
-      {/* Always render navbar */}
       <Navbar />
 
       <Routes>

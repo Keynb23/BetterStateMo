@@ -1,0 +1,1 @@
+body background color and about background colors are linked somehow. 

@@ -1,12 +1,50 @@
-// contact page is okay, but it's dull. goes with the color scheme, but it should contrast more.
-
-// should show business contact information on the left hand side, then on the right side have the customer input contact information , with a devider in the middle.
-
-
 const Contact = () => {
   return (
-    <div>Contact</div>
-  )
-}
+    <div className="Contact-container">
+      <h1>Contact Us</h1>
 
-export default Contact
+      <div className="Contact-content">
+        <div className="Contact-left">
+          <div className="contact-message">
+            <h3>Feel free to reach out to us with any questions</h3>
+            <p>Email us at betterstatemo@gmail.com</p>
+            <p>Call us at 573-826-9529</p>
+            <p>Or 573-823-6325</p>
+          </div>
+        </div>
+
+        <div className="Contact-right">
+          <section>
+            <label>Name:</label>
+            <input type="text" />
+
+            <label>Phone:</label>
+            <input type="tel" />
+
+            <label>Email:</label>
+            <input type="email" />
+
+            <label>Message:</label>
+            <textarea></textarea>
+          </section>
+
+          <div className="confirm-btns">
+            <div className="customer-type-btns">
+              <button className="New-Customer-btn">New Customer</button>
+              <button className="Current-Customer-btn">Current Customer</button>
+            </div>
+
+            <p>
+              By submitting this form, you're confirming that the information
+              above is correct.
+            </p>
+
+            <button className="Submit-btn">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Contact;
