@@ -2,8 +2,8 @@
 .Navbar-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* centered! */
-  padding: 0 2rem;
+  justify-content: space-evenly; /* space between left, center, right */
+  padding: 0 4rem;
   background-color: rgba(248, 252, 255, 0.8);
   box-shadow: var(--Dark-Green) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   backdrop-filter: blur(10px);
@@ -31,7 +31,8 @@
 
 .navbar-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  position: absolute;
 }
 
 .NavLink, .NavScroll-btn {
@@ -49,7 +50,7 @@
 }
 
 /* Underline hover effect */
-.NavLink::after, .NavScroll-btn::after {
+.NavLink::after, .NavScroll-btn::after, .phoneNumber::after {
   content: '';
   position: absolute;
   width: 100%;
@@ -62,7 +63,32 @@
   transition: transform 0.25s ease-out;
 }
 
-.NavLink:hover::after, .NavScroll-btn:hover::after {
+.phoneNumber {
+  position: fixed;
+  top: 0.75rem;
+  right: 3rem;
+  background-color: var(--Mid-Green);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  z-index: 22;
+}
+
+.phoneNumber a {
+  color: var(--Crystal-Clear);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+.NavLink:hover::after, .NavScroll-btn:hover::after, .phoneNumber:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
@@ -82,7 +108,7 @@
   z-index: 25;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1265px) {
   .navbar-links {
     display: none;
     flex-direction: column;
@@ -115,6 +141,17 @@
     left: 8rem;
   }
 
+  /* Show phone icon on smaller screens */
+/* Hide text on small screens, show only icon */
+@media (max-width: 768px) {
+  .phoneNumber .full-text {
+    display: none;
+  }
+
+  .phoneNumber .phone-icon {
+    font-size: 1.25rem;
+  }
+}
 }
 /* =========================================================== SERVICES STYLES ===============================================================================*/
 
@@ -153,7 +190,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0px 10px 30px -5px var(--Pool-Shadow);
+  /* box-shadow: 0px 10px 30px -5px var(--Pool-Shadow); */
   overflow: hidden;
   position: relative;
   transition: width 0.6s cubic-bezier(.28,-0.03,0,.99), box-shadow 0.3s;
@@ -171,23 +208,40 @@
   display: flex;
   align-items: flex-end;
   height: 100%;
+  backdrop-filter: brightness(.9);
 }
 
 .slide-description {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
   padding: 2rem;
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(4,28,50,0.22) 0%, rgba(4,28,50,0.92) 100%);
-  width: 100%;
+  background: linear-gradient(180deg, rgba(4,28,50,0) 0%, rgba(4,28,50,0.22) 20%, var(--Deep-Sea) 100%);
+  width: 850px;
   opacity: 0;
   transform: translateY(30px);
   transition: .3s ease-in-out, opacity .3s .3s, transform .3s .3s;
   color: var(--Crystal-Clear);
   min-height: 110px;
-  max-width: 600px;
 }
+
+.slide-description h1, p {
+  text-shadow: var(--Dark-Green) 6px 8px 25px;
+}
+
+.slide-description h1 {
+  font-weight: 700;
+  color: #fff;
+  padding: 1.5rem;
+}
+
+.slide-description p {
+  text-align: center;
+  padding: 0 2rem 2rem;
+}
+
 
 .service-slide.active .slide-description {
   opacity: 1;
@@ -195,36 +249,191 @@
   transition-delay: .3s;
 }
 
-.Service-cards-names {
+
+/*===============================================================  SERVICE BTN STYLES  ================================================================================== */
+.service-btns-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.select-all-btn button,
+.service-btn,
+.set-apt-btn button {
+  background-color: var(--Mid-Green);
+  color: var(--Crystal-Clear);
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease-in-out;
+}
+
+.select-all-btn button:hover,
+.service-btn:hover,
+.set-apt-btn button:hover {
+  background-color: var(--Sandstone);
+  color: var(--Deep-Sea);
+  transform: scale(1.05);
+}
+
+.select-all-btn button:active,
+.service-btn:active,
+.set-apt-btn button:active {
+  color: var(--Crystal-Clear)
+}
+
+.service-btns-container .select-ind-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   justify-content: center;
-  margin-top: 20px;
+}
+
+.service-btn.selected {
+  background-color: var(--Service-Blue);
+  color: white;
+  font-weight: 600;
+  border: 2px solid var(--Sandstone);
+}
+
+
+
+/*===============================================================  SET APT STYLES  ================================================================================== */
+
+.Set-Apt-container {
+  padding: 8rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  color: var(--Deep-Sea);
+}
+
+.greetings-checker h1 {
+  font-size: 2rem;
+  color: var(--Service-Blue);
+  margin-bottom: 1.5rem;
+}
+
+.calender, .TimeofDay, .customer-apt-info,
+.services-selected-apt, .add-another-service,
+.Early-contact-prompt {
+  margin-bottom: 2rem;
+}
+
+.calender input[type="date"],
+.TimeofDay select,
+.customer-apt-info input {
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--Light-Steel);
+  font-size: 1rem;
+}
+
+.customer-apt-info form {
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
-.service-name-label {
-  padding: 0.5rem 1rem;
-  background-color: var(--Light-Steel);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-  color: var(--Deep-Sea);
+.services-selected-apt ul {
+  list-style: none;
+  padding: 0;
 }
 
-.service-name-label.active {
-  background-color: var(--Service-Blue);
+.services-selected-apt li {
+  background: var(--Crystal-Clear);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 6px var(--Pool-Shadow);
+}
+
+.remove-btn {
+  background: var(--Dark-Green);
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: var(--Service-Blue);
+}
+
+.add-another-service {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, var(--Light-Steel), var(--Service-Blue));
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--Pool-Shadow);
   color: var(--Crystal-Clear);
 }
 
-.service-name-label:hover {
-  background-color: var(--Sandstone);
-  color: var(--Deep-Sea);
+.add-another-service h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
-.services-main-title {
-  margin-bottom: 1rem;
-  color: var(--Service-Blue);
+.unselected-service-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
+
+.service-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--Mid-Green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.service-btn:hover {
+  background-color: var(--Dark-Green);
+}
+
+.Early-contact-prompt {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#Early-contact-btn {
+  background-color: var(--Sandstone);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#Early-contact-btn:hover {
+  background-color: var(--Dark-Green);
+}
+
+
+
 
 
 /* =================================================== REQUEST A QUOTE STYLES ============================================================================= */
@@ -238,6 +447,7 @@
   transition: background-color 0.3s ease;
   border: none;
   cursor: pointer;
+  position: relative;
 }
 
 .request-quote-button:hover {
@@ -246,9 +456,10 @@
 
 /* Modal Overlay */
 .request-quote-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(4, 28, 50, 0.4); /* Matches --Pool-Shadow style */
+  position: absolute;
+  bottom: 5rem;
+  left: 8rem;
+  align-self: flex-end;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -440,6 +651,9 @@
   margin: auto;
   padding: 10rem 2rem 2rem;
   gap: 6rem;
+  width: 1200px;
+  border-radius: 12px; 
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .about-section {
@@ -450,8 +664,7 @@
   width: 1200px;
   height: 400px;
   padding: 0 5rem 0 5rem;
-  /* border-radius: 12px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+
 }
 
 .about-section h1 {
@@ -520,11 +733,12 @@
 }
 
 /* Slogan Section */
+
 .slogan {
   display: flex;
-  align-items: baseline; /* FIX: Aligns "BETTER" and rotating text on the same line. */
+  align-items: baseline;
   justify-content: center;
-  background: linear-gradient(135deg, var(--Deep-Sea), var(--Service-Blue));
+  background: linear-gradient(135deg, var(--Dark-Green), var(--Service-Blue));
   padding: 1rem;
   border-radius: 16px;
   width: 430px;
@@ -568,6 +782,7 @@
   100% { opacity: 0; }
 }
 
+/* ============================== MEDIA ================================================*/
 @media (max-width: 850px) {
 .meet-us {
     width: 98%;

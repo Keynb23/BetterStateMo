@@ -4,14 +4,17 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { MediaProvider } from "./context/MediaContext.jsx";
+import { ServiceProvider } from "./context/ServiceContext.jsx";
 
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+    <ServiceProvider>
       <MediaProvider>
         <App />
       </MediaProvider>
-    </StrictMode>
+    </ServiceProvider>
   </BrowserRouter>
+  </StrictMode>
 );
