@@ -1,23 +1,28 @@
 import { useState } from "react";
+import { useBackendCart } from "./BackendCart";
 
-const RequestQuote = () => {
+const RequestQuote = ({ serviceId }) => {
   const [isActive, setIsActive] = useState(false);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const { addService } = useBackendCart(); // ✅
+
   const toggleRequestQuote = () => {
-    setIsActive((prev) => !prev);
+    setIsActive((prev) => {
+      const newState = !prev;
+
+      if (newState && serviceId) {  
+        addService(serviceId);
+      }
+      return newState;
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Handle submission logic (API call or integration)
-    console.log({ name, number, email, message });
-
-    // Reset and close
     setName("");
     setNumber("");
     setEmail("");

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMedia } from "../context/MediaContext";
-import RequestQuote from "../components/RequestQuote";
+import RequestQuote from "../context/RequestQuote";
 import { ServiceBtns } from "../context/selectServiceBtn";
 
 const serviceDataIndexes = [18, 17, 14, 11];
@@ -62,7 +62,8 @@ export default function Services() {
                   <>
                     <h1>{service.title}</h1>
                     <p>{service.desc}</p>
-                    <RequestQuote serviceId={service.id} />
+                    <RequestQuote serviceId={service.title} />
+
                   </>
                 )}
               </div>
@@ -70,7 +71,8 @@ export default function Services() {
           </div>
         ))}
       </div>
-        <ServiceBtns />
+        <h2>Want to book a service? Select below:</h2>
+          <ServiceBtns />
       </div>
   );
 }

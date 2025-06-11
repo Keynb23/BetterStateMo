@@ -1,17 +1,22 @@
 import { serviceTypes } from "./serviceTypes";
+// IMPORTANT: Destructure the *correct* functions from your ServiceContext
 import { useServiceContext } from "./ServiceContext";
+import { useBackendCart } from "./BackendCart";
 import { useNavigate } from "react-router-dom";
 
 export const ServiceBtns = () => {
-  const { selectedServices, setSelectedServices } = useServiceContext();
+  // CORRECTED: Destructure toggleService, selectAllServices, and clearServices
+  // setSelectedServices is NOT provided by your ServiceContext directly.
+  const { selectedServices, toggleService, selectAllServices } = useServiceContext();
+  const { addService } = useBackendCart();
   const navigate = useNavigate();
 
   const handleServiceClick = (serviceId) => {
-    setSelectedServices((prev) =>
-      prev.includes(serviceId)
-        ? prev.filter((id) => id !== serviceId)
-        : [...prev, serviceId]
-    );
+    // Use the toggleService from your context
+    toggleService(serviceId);
+
+    // Keep your backend cart logic as is
+    addService(serviceId);
   };
 
   const handleSetAptClick = () => {
@@ -20,7 +25,11 @@ export const ServiceBtns = () => {
 
   const handleSelectAll = () => {
     const allIds = serviceTypes.map((service) => service.id);
-    setSelectedServices(allIds);
+    // Use the selectAllServices from your context
+    selectAllServices(allIds);
+
+    // Keep your backend cart logic as is
+    allIds.forEach((id) => addService(id));
   };
 
   return (
@@ -38,7 +47,8 @@ export const ServiceBtns = () => {
             }`}
             onClick={() => handleServiceClick(service.id)}
           >
-            {selectedServices.includes(service.id) ? "✓ " : ""}{service.title}
+            {selectedServices.includes(service.id) ? "✓ " : ""}
+            {service.title}
           </button>
         ))}
       </div>
@@ -51,4 +61,3 @@ export const ServiceBtns = () => {
     </div>
   );
 };
-

@@ -9,12 +9,13 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   useEffect(() => {
-    console.log("Menu is now", menuOpen ? "open" : "closed");
+    
   }, [menuOpen]);
 
   const handleScroll = (sectionId) => {
     if (location.pathname !== "/") {
       navigate("/", { replace: false });
+
       // Delay scroll to let homepage renger
       setTimeout(() => scrollToSection(sectionId), 50);
     } else {
