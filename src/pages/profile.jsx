@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext.jsx'; // Make sure this path is exact
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 // Customer Dashboard Component
 const CustomerDashboard = () => {
   const { user, db, auth } = useAuth();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [customerAppointments, setCustomerAppointments] = useState([]);
   const [loadingAppointments, setLoadingAppointments] = useState(true);
   const [errorAppointments, setErrorAppointments] = useState(null);
-
-  // New state for AI service recommendations
-  const [serviceDescription, setServiceDescription] = useState('');
-  const [aiRecommendations, setAiRecommendations] = useState('');
-  const [loadingAi, setLoadingAi] = useState(false);
-  const [aiError, setAiError] = useState('');
 
   useEffect(() => {
     const fetchCustomerData = async () => {
@@ -21,8 +17,9 @@ const CustomerDashboard = () => {
         setLoadingAppointments(true);
         setErrorAppointments(null);
         try {
+          // Use onSnapshot for real-time updates
           const q = query(collection(db, 'appointments'), where('email', '==', user.email));
-          const querySnapshot = await getDocs(q);
+          const querySnapshot = await getDocs(q); // Use getDocs for initial fetch
           const appointments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           setCustomerAppointments(appointments);
         } catch (error) {
@@ -38,54 +35,13 @@ const CustomerDashboard = () => {
     fetchCustomerData();
   }, [user, db]);
 
-  // Function to call the Gemini API for service recommendations
-  const getServiceRecommendations = async () => {
-    if (!serviceDescription.trim()) {
-      setAiError('Please describe your needs to get recommendations.');
-      return;
-    }
-
-    setLoadingAi(true);
-    setAiRecommendations('');
-    setAiError('');
-
-    try {
-      const prompt = `Based on the following customer description, suggest 3-5 potential pool and outdoor cleaning services. Be concise, list them as bullet points, and do not add any conversational filler.
-      Customer description: "${serviceDescription}"
-      Example services: Pool Cleaning, Algae Removal, Deck Cleaning, Patio Pressure Washing, Gutter Cleaning, Fence Repair, Landscaping, Leaf Removal.`;
-
-      let chatHistory = [];
-      chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-      const payload = { contents: chatHistory };
-      const apiKey = ""; // Canvas will provide this at runtime
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const result = await response.json();
-
-      if (result.candidates && result.candidates.length > 0 &&
-          result.candidates[0].content && result.candidates[0].content.parts &&
-          result.candidates[0].content.parts.length > 0) {
-        const text = result.candidates[0].content.parts[0].text;
-        setAiRecommendations(text);
-      } else {
-        setAiError('Could not get recommendations. Please try again or rephrase.');
-        console.error("Gemini API response structure unexpected:", result);
-      }
-    } catch (error) {
-      console.error("Error calling Gemini API:", error);
-      setAiError('An error occurred while fetching recommendations. Please try again.');
-    } finally {
-      setLoadingAi(false);
-    }
+  const handleViewAppointmentDetails = (id) => {
+    navigate(`/appointment-details/${id}`);
   };
 
+  const handleStartNewRequest = () => {
+    navigate('/setapt'); // Navigate to the Set Appointment page
+  };
 
   return (
     <div className="Profile-wrapper">
@@ -103,31 +59,7 @@ const CustomerDashboard = () => {
         </button>
       </div>
 
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">AI Service Recommendations</h3>
-        <p className="Profile-text Profile-smallText">Describe what you need help with, and our AI will suggest services.</p>
-        <textarea
-          className="Profile-textarea"
-          rows="3"
-          placeholder="e.g., 'My pool water is green and my patio needs cleaning.'"
-          value={serviceDescription}
-          onChange={(e) => setServiceDescription(e.target.value)}
-        ></textarea>
-        <button
-          onClick={getServiceRecommendations}
-          className="Profile-button Profile-aiButton"
-          disabled={loadingAi}
-        >
-          {loadingAi ? 'Getting Recommendations...' : 'Get AI Recommendations'}
-        </button>
-        {aiError && <p className="Profile-message Profile-errorMessage">{aiError}</p>}
-        {aiRecommendations && (
-          <div className="Profile-aiOutput">
-            <h4 className="Profile-aiOutputTitle">Suggested Services:</h4>
-            <div className="Profile-aiOutputContent" dangerouslySetInnerHTML={{ __html: aiRecommendations.replace(/\n/g, '<br>') }} />
-          </div>
-        )}
-      </div>
+      {/* Removed AI Service Recommendations Section */}
 
       <div className="Profile-card">
         <h3 className="Profile-subtitle">Your Past Appointments</h3>
@@ -140,7 +72,11 @@ const CustomerDashboard = () => {
         ) : (
           <ul className="Profile-list Profile-dividedList">
             {customerAppointments.map(apt => (
-              <li key={apt.id} className="Profile-listItem Profile-dividedListItem">
+              <li
+                key={apt.id}
+                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
+                onClick={() => handleViewAppointmentDetails(apt.id)} // Make clickable
+              >
                 <p className="Profile-appointmentTitle">Appointment on {apt.date} at {apt.time}</p>
                 <p className="Profile-appointmentDetail">Services: {apt.selectedServices?.join(', ') || 'N/A'}</p>
                 <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address || 'N/A'}</p>
@@ -153,7 +89,7 @@ const CustomerDashboard = () => {
       <div className="Profile-card">
         <h3 className="Profile-subtitle">Request New Service</h3>
         <p className="Profile-text Profile-smallText">Your contact info (name, email, phone) will be pre-filled automatically.</p>
-        <button className="Profile-button Profile-requestServiceBtn">
+        <button onClick={handleStartNewRequest} className="Profile-button Profile-requestServiceBtn">
           Start New Request
         </button>
       </div>
@@ -164,6 +100,7 @@ const CustomerDashboard = () => {
 // Owner Dashboard Component
 const OwnerDashboard = () => {
   const { db, auth } = useAuth();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [appointments, setAppointments] = useState([]);
   const [quoteRequests, setQuoteRequests] = useState([]);
   const [contactSubmissions, setContactSubmissions] = useState([]);
@@ -194,6 +131,10 @@ const OwnerDashboard = () => {
     fetchAllData();
   }, [db]);
 
+  const handleViewAdminDetails = (collectionName, id) => {
+    navigate(`/admin-details/${collectionName}/${id}`);
+  };
+
   if (loadingData) return <div className="Profile-loadingWrapper"><p className="Profile-loadingText">Loading owner dashboard data...</p></div>;
   if (errorData) return <div className="Profile-loadingWrapper"><p className="Profile-errorMessage">{errorData}</p></div>;
 
@@ -216,7 +157,11 @@ const OwnerDashboard = () => {
         ) : (
           <ul className="Profile-list Profile-dividedList">
             {appointments.map(apt => (
-              <li key={apt.id} className="Profile-listItem Profile-dividedListItem">
+              <li
+                key={apt.id}
+                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
+                onClick={() => handleViewAdminDetails('appointments', apt.id)} // Make clickable
+              >
                 <p className="Profile-appointmentTitle">Appointment for {apt.name} on {apt.date} at {apt.time}</p>
                 <p className="Profile-appointmentDetail">Email: {apt.email}, Phone: {apt.phone}</p>
                 <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address}</p>
@@ -235,7 +180,11 @@ const OwnerDashboard = () => {
         ) : (
           <ul className="Profile-list Profile-dividedList">
             {quoteRequests.map(quote => (
-              <li key={quote.id} className="Profile-listItem Profile-dividedListItem">
+              <li
+                key={quote.id}
+                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
+                onClick={() => handleViewAdminDetails('quoteRequests', quote.id)} // Make clickable
+              >
                 <p className="Profile-quoteTitle">Quote from {quote.name}</p>
                 <p className="Profile-quoteDetail">Email: {quote.email}, Phone: {quote.phone}</p>
                 <p className="Profile-quoteDetail Profile-smallText">Message: {quote.message}</p>
@@ -253,7 +202,11 @@ const OwnerDashboard = () => {
         ) : (
           <ul className="Profile-list Profile-dividedList">
             {contactSubmissions.map(contact => (
-              <li key={contact.id} className="Profile-listItem Profile-dividedListItem">
+              <li
+                key={contact.id}
+                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
+                onClick={() => handleViewAdminDetails('contactSubmissions', contact.id)} // Make clickable
+              >
                 <p className="Profile-contactTitle">Contact from {contact.name}</p>
                 <p className="Profile-contactDetail">Email: {contact.email}, Phone: {contact.phone}</p>
                 <p className="Profile-contactDetail Profile-smallText">Message: {contact.message}</p>
