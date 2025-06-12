@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useAuth } from './AuthContext.js';
+import { useAuth } from './AuthContext.jsx'; // Corrected import path
 
 const LoginReg = () => {
   const [email, setEmail] = useState('');
@@ -13,50 +13,54 @@ const LoginReg = () => {
     setError('');
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      // User will be redirected by the App component's routing logic
     } catch (err) {
       setError('Failed to log in. Check your email and password.');
       console.error(err);
     }
   };
 
-  if (loading) return <div className="login-page loading-container"><p className="loading-text">Loading authentication...</p></div>;
-  if (user) return <div className="login-page logged-in-container"><p className="logged-in-text">You are already logged in as {user.email || 'an anonymous user'}!</p><button onClick={() => signOut(auth)} className="logout-button">Logout</button></div>;
+  if (loading) return <div className="LoginReg-loadingWrapper"><p className="LoginReg-loadingText">Loading authentication...</p></div>;
+  if (user) return <div className="LoginReg-loggedInWrapper"><p className="LoginReg-loggedInText">You are already logged in as {user.email || 'an anonymous user'}!</p><button onClick={() => signOut(auth)} className="LoginReg-logoutBtn">Logout</button></div>;
 
   return (
-    <div className="login-page login-container">
-      <div className="login-form">
-        <h2 className="form-title">Owner Login</h2>
-        <form onSubmit={handleLogin} className="form-content">
-          <div>
-            <label className="input-label" htmlFor="email">
+    <div className="LoginReg-wrapper">
+      <div className="LoginReg-modal">
+        <h2 className="LoginReg-title">Owner Login</h2>
+        <form onSubmit={handleLogin} className="LoginReg-form">
+          <div className="LoginReg-formGroup">
+            <label className="LoginReg-label" htmlFor="email">
               Email
             </label>
             <input
               type="email"
               id="email"
-              className="input-field"
+              className="LoginReg-input"
               placeholder="owner@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <div>
-            <label className="input-label" htmlFor="password">
+          <div className="LoginReg-formGroup">
+            <label className="LoginReg-label" htmlFor="password">
               Password
             </label>
             <input
               type="password"
               id="password"
-              className="input-field"
+              className="LoginReg-input"
               placeholder="********"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="submit-button">
+          {error && <p className="LoginReg-error">{error}</p>}
+          <button
+            type="submit"
+            className="LoginReg-submitBtn"
+          >
             Login as Owner
           </button>
         </form>

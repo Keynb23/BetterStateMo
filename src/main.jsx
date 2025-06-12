@@ -6,18 +6,22 @@ import { BrowserRouter } from "react-router-dom";
 import { MediaProvider } from "./context/MediaContext.jsx";
 import { ServiceProvider } from "./context/ServiceContext.jsx";
 import { BackendCartProvider } from "./context/BackendCart.jsx";
-
+import { AuthProvider } from "./context/AuthContext.jsx"; // Import AuthProvider
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-    <BackendCartProvider>
-      <ServiceProvider>
-        <MediaProvider>
-          <App />
-        </MediaProvider>
-      </ServiceProvider>
-    </BackendCartProvider>
-  </BrowserRouter>
+      {/* AuthProvider must wrap all components that consume the AuthContext,
+          including App and its children like Navbar */}
+      <AuthProvider>
+        <BackendCartProvider>
+          <ServiceProvider>
+            <MediaProvider>
+              <App />
+            </MediaProvider>
+          </ServiceProvider>
+        </BackendCartProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </StrictMode>
 );

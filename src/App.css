@@ -69,7 +69,7 @@
   right: 3rem;
   background-color: var(--Mid-Green);
   border: none;
-  padding: 0.5rem 1rem;
+  padding:1rem;
   border-radius: 12px;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
@@ -84,7 +84,6 @@
   white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
 
@@ -106,6 +105,37 @@
   border: none;
   cursor: pointer;
   z-index: 25;
+}
+
+.Navbar-profileIcon {
+  font-size: 1.5rem; /* Adjust size as needed */
+  color: var(--Service-Blue); /* Or any color that fits your theme */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.25rem; /* Space from Contact button */
+  /* Ensures it's correctly positioned within the flex container */
+}
+
+.Navbar-profileIcon:hover {
+  color: var(--Sandstone); /* Hover effect */
+}
+
+@media (max-width: 1265px) {
+  .Navbar-profileIcon {
+    /* For the dropdown menu, adjust margin and alignment */
+    margin-left: 0;
+    width: 100%; /* Make it take full width in dropdown */
+    justify-content: flex-start; /* Align left in dropdown */
+    padding-top: 0.5rem; /* Add some padding */
+    padding-bottom: 0.5rem;
+    font-size: 1.1rem; /* Match other nav links font size */
+    /* If you want text next to the icon for mobile, you'll need to add it in JSX */
+  }
+
+  .Navbar-profileIcon .fa-user-circle {
+      margin-right: 0.5rem; /* Space between icon and potential text */
+  }
 }
 
 /* Media query for smaller screens */
@@ -1385,249 +1415,318 @@
   }
 }
 
-/* ===================================================================== LOG IN OUT REG STYLES  ====================================================================================*/
-
-.login-page {
+/*======================================================= LOGIN/REGISTER STYLES ==================================================================*/
+.LoginReg-wrapper {
   min-height: 100vh;
-  background-color: var(--Crystal-Clear);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  padding: 1rem; /* p-4 */
 }
 
-.loading-container {
-  background-color: var(--Light-Steel);
+.LoginReg-loadingWrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  padding: 1rem; /* p-4 */
 }
 
-.loading-text {
-  font-size: 1.25rem;
-  color: var(--Deep-Sea);
+.LoginReg-loadingText {
+  font-size: 1.25rem; /* text-xl */
+  color: #4b5563; /* text-gray-700 */
 }
 
-.logged-in-container {
-  background-color: var(--Light-Steel);
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.logged-in-text {
-  font-size: 1.25rem;
-  color: var(--Mid-Green);
-}
-
-.logout-button {
-  background-color: var(--Sandstone);
-  color: var(--Crystal-Clear);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px var(--Pool-Shadow);
-  transition: background-color 0.2s ease-in-out;
-}
-
-.logout-button:hover {
-  background-color: rgb(184, 160, 126);
-}
-
-.login-container {
-  background-color: var(--Light-Steel);
-}
-
-.login-form {
-  background-color: var(--Crystal-Clear);
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px var(--Pool-Shadow);
-  width: 100%;
-  max-width: 28rem;
-}
-
-.form-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: var(--Deep-Sea);
-}
-
-.form-content {
+.LoginReg-loggedInWrapper {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  padding: 1rem; /* p-4 */
 }
 
-.input-label {
+.LoginReg-loggedInText {
+  font-size: 1.25rem; /* text-xl */
+  color: #16a34a; /* text-green-600 */
+}
+
+.LoginReg-modal {
+  background-color: #ffffff; /* bg-white */
+  padding: 2rem; /* p-8 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
+  width: 100%;
+  max-width: 28rem; /* max-w-md */
+}
+
+.LoginReg-title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  margin-bottom: 1.5rem; /* mb-6 */
+  text-align: center;
+  color: #1f2937; /* text-gray-800 */
+}
+
+.LoginReg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* space-y-4 */
+}
+
+/* .LoginReg-formGroup { */
+  /* No specific styles needed for this container, but it helps structure */
+/* } */
+
+.LoginReg-label {
   display: block;
-  color: var(--Deep-Sea);
-  font-size: 0.875rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  color: #374151; /* text-gray-700 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 700; /* font-bold */
+  margin-bottom: 0.5rem; /* mb-2 */
 }
 
-.input-field {
+.LoginReg-input {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow */
+  appearance: none;
+  border: 1px solid #d1d5db; /* border */
+  border-radius: 0.25rem; /* rounded */
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  color: var(--Deep-Sea);
-  background-color: var(--Crystal-Clear);
-  border: 1px solid var(--Light-Steel);
-  border-radius: 0.25rem;
-  box-shadow: 0 1px 2px var(--Pool-Shadow);
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  color: #374151; /* text-gray-700 */
+  line-height: 1.25; /* leading-tight */
 }
 
-.input-field:focus {
+.LoginReg-input:focus {
   outline: none;
-  border-color: var(--Service-Blue);
-  box-shadow: 0 0 0 2px var(--Service-Blue);
+  kerning: 2px solid #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+  border-color: #3b82f6; /* focus:ring-blue-500 implicitly sets border-color */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:shadow-outline for non-ring */
 }
 
-.error-message {
-  color: var(--Sandstone);
-  font-size: 0.875rem;
+.LoginReg-error {
+  color: #ef4444; /* text-red-500 */
+  font-size: 0.875rem; /* text-sm */
   text-align: center;
 }
 
-.submit-button {
+.LoginReg-submitBtn {
   width: 100%;
-  background-color: var(--Service-Blue);
-  color: var(--Crystal-Clear);
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px var(--Pool-Shadow);
-  transition: background-color 0.2s ease-in-out;
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: #ffffff; /* text-white */
+  font-weight: 700; /* font-bold */
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  border-radius: 0.5rem; /* rounded-lg */
+  outline: none;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* focus:shadow-outline */
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; /* transition-colors */
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.submit-button:hover {
-  background-color: rgb(0, 102, 217);
+.LoginReg-submitBtn:hover {
+  background-color: #2563eb; /* hover:bg-blue-600 */
 }
 
-/* ===================================================================== PROFILE STYLES  ====================================================================================*/
-.profile-page {
+/*======================================================= PROFILE STYLES ==================================================================*/
+.Profile-wrapper {
+  padding: 1.5rem; /* p-6 */
+  background-color: #f9fafb; /* bg-gray-50 */
   min-height: 100vh;
-  background-color: var(--Crystal-Clear);
-  padding: 1.5rem;
 }
 
-.loading-container,
-.error-container {
+.Profile-loadingWrapper {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--Light-Steel);
+  background-color: #f3f4f6; /* bg-gray-100 */
 }
 
-.loading-text,
-.error-text {
-  font-size: 1.25rem;
-  color: var(--Deep-Sea);
+.Profile-loadingText {
+  font-size: 1.25rem; /* text-xl */
+  color: #4b5563; /* text-gray-700 */
 }
 
-.error-text {
-  color: var(--Sandstone);
-}
-
-.profile-title {
-  font-size: 1.875rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
+.Profile-errorMessage {
+  font-size: 1.25rem; /* text-xl */
+  color: #ef4444; /* text-red-500 */
   text-align: center;
-  color: var(--Deep-Sea);
 }
 
-.profile-card {
-  background-color: var(--Crystal-Clear);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px var(--Pool-Shadow);
-  margin-bottom: 2rem;
+.Profile-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  margin-bottom: 1.5rem; /* mb-6 */
+  color: #1f2937; /* text-gray-800 */
+  text-align: center;
 }
 
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--Deep-Sea);
+.Profile-card {
+  background-color: #ffffff; /* bg-white */
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
+  margin-bottom: 2rem; /* mb-8 */
+  margin-top: 2rem; /* mt-8 for subsequent cards */
 }
 
-.card-text {
-  color: var(--Deep-Sea);
-  font-size: 1rem;
+.Profile-subtitle {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  margin-bottom: 1rem; /* mb-4 */
+  color: #374151; /* text-gray-700 */
 }
 
-.card-list {
+.Profile-text {
+  color: #4b5563; /* text-gray-600 */
+}
+
+.Profile-smallText {
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* text-gray-500 */
+}
+
+.Profile-list {
   list-style: disc;
-  list-style-position: inside;
-  margin-top: 0.5rem;
-  color: var(--Deep-Sea);
+  padding-left: 1.25rem; /* list-inside implicitly handles padding */
+  color: #4b5563; /* text-gray-600 */
+  margin-top: 0.5rem; /* mt-2 */
 }
 
-.logout-button {
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--Sandstone);
-  color: var(--Crystal-Clear);
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px var(--Pool-Shadow);
-  transition: background-color 0.2s ease-in-out;
+/* .Profile-listItem { */
+  /* No specific styles needed for list items here, spacing handled by list/padding */
+/* } */
+
+.Profile-button {
+  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow */
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: #ffffff;
+  font-weight: 600; /* font-semibold */
+  cursor: pointer;
+  border: none;
 }
 
-.logout-button:hover {
-  background-color: rgb(184, 160, 126);
+.Profile-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.request-button {
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--Mid-Green);
-  color: var(--Crystal-Clear);
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px var(--Pool-Shadow);
-  transition: background-color 0.2s ease-in-out;
+.Profile-logoutBtn {
+  margin-top: 1rem; /* mt-4 */
+  background-color: #ef4444; /* bg-red-500 */
 }
 
-.request-button:hover {
-  background-color: rgb(18, 64, 43);
+.Profile-logoutBtn:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
 }
 
-.appointment-list {
-  border-top: 1px solid var(--Light-Steel);
+.Profile-textarea {
+  width: 100%;
+  padding: 0.75rem; /* p-3 */
+  border: 1px solid #d1d5db; /* border border-gray-300 */
+  border-radius: 0.5rem; /* rounded-lg */
 }
 
-.appointment-item {
-  padding: 1rem 0;
+.Profile-textarea:focus {
+  outline: none;
+  kerning: 2px solid #3b82f6; /* focus:ring-blue-500 */
+  border-color: #3b82f6; /* focus:border-blue-500 */
 }
 
-.appointment-title {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: var(--Service-Blue);
+.Profile-aiButton {
+  margin-top: 1rem; /* mt-4 */
+  background-color: #3b82f6; /* bg-blue-500 */
 }
 
-.quote-title {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: rgb(107, 70, 193);
+.Profile-aiButton:hover {
+  background-color: #2563eb; /* hover:bg-blue-600 */
 }
 
-.contact-title {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: rgb(13, 94, 94);
+.Profile-aiOutput {
+  margin-top: 1rem; /* mt-4 */
+  padding: 1rem; /* p-4 */
+  background-color: #eff6ff; /* bg-blue-50 */
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #bfdbfe; /* border border-blue-200 */
 }
 
-.appointment-text {
-  color: var(--Deep-Sea);
-  font-size: 1rem;
+.Profile-aiOutputTitle {
+  font-weight: 600; /* font-semibold */
+  color: #1d4ed8; /* text-blue-700 */
+  margin-bottom: 0.5rem; /* mb-2 */
 }
 
-.appointment-subtext {
-  color: var(--Deep-Sea);
-  font-size: 0.875rem;
+.Profile-aiOutputContent {
+  /* Tailwind 'prose' class is complex to replicate exactly without a plugin.
+     This will be basic. For full markdown rendering, you might need a library. */
+  max-width: none;
+  line-height: 1.5; /* Default line height for readability */
 }
 
-.empty-text {
-  color: var(--Deep-Sea);
-  font-size: 1rem;
+.Profile-message {
+  margin-top: 0.5rem; /* mt-2 */
   text-align: center;
 }
+
+.Profile-loadingMessage {
+  color: #6b7280; /* text-gray-500 */
+}
+
+.Profile-errorMessage {
+  color: #ef4444; /* text-red-500 */
+}
+
+/* Specific styles for lists in dashboards */
+.Profile-dividedList {
+  border-top: 1px solid #e5e7eb; /* divide-y divide-gray-200 */
+}
+
+.Profile-dividedListItem {
+  padding-top: 1rem; /* py-4 */
+  padding-bottom: 1rem; /* py-4 */
+  border-bottom: 1px solid #e5e7eb; /* part of divide-y */
+}
+
+.Profile-appointmentTitle, .Profile-quoteTitle, .Profile-contactTitle {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 500; /* font-medium */
+}
+
+.Profile-appointmentTitle { color: #2563eb; /* text-blue-600 */ }
+.Profile-quoteTitle { color: #9333ea; /* text-purple-600 */ }
+.Profile-contactTitle { color: #0d9488; /* text-teal-600 */ }
+
+.Profile-appointmentDetail, .Profile-quoteDetail, .Profile-contactDetail {
+  color: #4b5563; /* text-gray-600 */
+  margin-top: 0.25rem; /* small margin for detail lines */
+}
+
+.Profile-requestServiceBtn {
+  margin-top: 1rem; /* mt-4 */
+  background-color: #22c55e; /* bg-green-500 */
+}
+
+.Profile-requestServiceBtn:hover {
+  background-color: #16a34a; /* hover:bg-green-600 */
+}
+
+/* Optional: Add media queries for the new classes if needed for responsiveness */
+/* Example: */
+/* */
+@media (max-width: 768px) {
+  .Profile-card {
+    padding: 1rem;
+  }
+  .Profile-title {
+    font-size: 2rem;
+  }
+}
+
