@@ -1,24 +1,25 @@
-// App.jsx
+import { Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';  
+import Contact from './components/Contact.jsx';  
+import About from './pages/About.jsx';  
+import Services from './pages/Services.jsx';  
+import Home from './pages/Home.jsx';  
+import SetApt from './pages/SetApt.jsx';  
+import LoginReg from './context/login-Reg.jsx';  
+import Profile from './pages/profile.jsx';     
+import './App.css'; 
 
-import { Routes, Route, useLocation } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Contact from './components/Contact'
-import About from './pages/About'
-import Services from './pages/Services'
-import Home from './pages/Home'
-import SetApt from './pages/SetApt'
-import './App.css'
 
 function App() {
-  useLocation()
+  useLocation(); 
 
   return (
     <>
+      {/* Navbar is rendered outside <Routes> so it's always visible */}
       <Navbar />
-      
 
       <Routes>
-        {/* Scrollable homepage */}
+        {/* Scrollable homepage route */}
         <Route
           path="/"
           element={
@@ -31,11 +32,13 @@ function App() {
           }
         />
 
-        {/* Standalone page */}
+        {/* Standalone pages */}
         <Route path="/setapt" element={<SetApt />} />
+        <Route path="/login" element={<LoginReg />} /> 
+        <Route path="/profile" element={<Profile />} /> 
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,33 +1,72 @@
 import { useState } from "react";
-import { useBackendCart } from "./BackendCart";
+import { useBackendCart } from "./BackendCart"; // Assuming this is for selected services for apt, not direct quote
+import { addQuoteRequest } from '../lib/firestoreService'; // New import for quote requests
 
 const RequestQuote = ({ serviceId }) => {
   const [isActive, setIsActive] = useState(false);
   const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [phone, setPhone] = useState(""); // Renamed from 'number' for consistency with contact form
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state for submission status
+  const [submitMessage, setSubmitMessage] = useState(''); // New state for feedback
 
-  const { addService } = useBackendCart(); // ✅
+  const { addService } = useBackendCart(); // This seems to be for backend cart, likely for appointment booking, not direct quote.
 
   const toggleRequestQuote = () => {
     setIsActive((prev) => {
       const newState = !prev;
-
-      if (newState && serviceId) {  
+      // This part adds service to backend cart. Keep this if it's intended
+      // that requesting a quote for a specific service also adds it to a "cart".
+      // If it's *only* for quotes, you might want to remove this or clarify its purpose.
+      if (newState && serviceId) {
         addService(serviceId);
       }
       return newState;
     });
+    // Clear form fields when opening the modal
+    if (!isActive) {
+      setName('');
+      setPhone('');
+      setEmail('');
+      setMessage('');
+      setSubmitMessage('');
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setName("");
-    setNumber("");
-    setEmail("");
-    setMessage("");
-    setIsActive(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    setIsSubmitting(true); // Disable button
+    setSubmitMessage(''); // Clear previous messages
+
+    const quoteData = {
+      name,
+      phone, // Use the state variable for phone
+      email,
+      message,
+      serviceId: serviceId || null, // Include serviceId if provided to the component
+    };
+
+    try {
+      // Call the Firestore service to add the quote request
+      await addQuoteRequest(quoteData);
+      setSubmitMessage('Your quote request has been sent! We will contact you soon.');
+      // Clear form fields on successful submission
+      setName("");
+      setPhone("");
+      setEmail("");
+      setMessage("");
+      // Close the modal after successful submission
+      setTimeout(() => { // Give user time to see success message
+        setIsActive(false);
+        setSubmitMessage(''); // Clear message after closing
+      }, 2000);
+    } catch (error) {
+      console.error("Error submitting quote request:", error);
+      setSubmitMessage('Failed to send your request. Please try again.');
+    } finally {
+      setIsSubmitting(false); // Re-enable button
+    }
   };
 
   return (
@@ -57,8 +96,8 @@ const RequestQuote = ({ serviceId }) => {
               <input
                 type="tel"
                 placeholder="Phone Number"
-                value={number}
-                onChange={(e) => setNumber(e.target.value)}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="request-quote-input"
                 required
               />
@@ -77,9 +116,14 @@ const RequestQuote = ({ serviceId }) => {
                 onChange={(e) => setMessage(e.target.value)}
                 className="request-quote-textarea"
               />
-              <button type="submit" className="request-quote-submit">
-                Submit Request
+              <button type="submit" className="request-quote-submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Submitting...' : 'Submit Request'}
               </button>
+              {submitMessage && (
+                <p className="submit-feedback" style={{ marginTop: '1rem', textAlign: 'center', color: submitMessage.includes('successfully') ? 'green' : 'red' }}>
+                  {submitMessage}
+                </p>
+              )}
             </form>
           </div>
         </div>

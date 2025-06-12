@@ -7,21 +7,31 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+
   const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  // Close the menu when a link is clicked
+  const closeMenu = () => setMenuOpen(false);
+
+  // You don't necessarily need this useEffect unless you have other side effects
+  // tied to menuOpen that are not shown in your provided code.
+  // If not, you can remove it.
   useEffect(() => {
-    
+    // console.log("Menu is open:", menuOpen);
   }, [menuOpen]);
 
   const handleScroll = (sectionId) => {
     if (location.pathname !== "/") {
       navigate("/", { replace: false });
 
-      // Delay scroll to let homepage renger
+      // Delay scroll to let homepage render
       setTimeout(() => scrollToSection(sectionId), 50);
     } else {
       scrollToSection(sectionId);
     }
+    closeMenu(); // Close the menu after handling the scroll/navigation
   };
+
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -43,7 +53,9 @@ export default function Navbar() {
           <HamburgerBtn isActive={menuOpen} />
         </button>
         {/* Brand/Logo */}
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" onClick={closeMenu}>
+          {" "}
+          {/* Close menu on logo click */}
           <img src={owners.logo} alt="Logo" />
         </Link>
         {/* Links */}
@@ -69,7 +81,9 @@ export default function Navbar() {
           >
             About
           </button>
-          <Link className="NavLink" to="/setapt">
+          <Link className="NavLink" to="/setapt" onClick={closeMenu}>
+            {" "}
+            {/* Close menu on Link click */}
             Set Appointment
           </Link>
           <button

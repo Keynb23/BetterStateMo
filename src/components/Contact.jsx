@@ -1,4 +1,48 @@
+import { useState } from 'react';
+import { addContactSubmission } from '../lib/firestoreService'; // New import for contact submissions
+
 const Contact = () => {
+  // State for form inputs
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  // State for submission status and feedback
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    setIsSubmitting(true); // Disable button and show loading indicator
+    setSubmitMessage(''); // Clear previous messages
+
+    const contactData = {
+      name,
+      phone,
+      email,
+      message,
+    };
+
+    try {
+      // Call the Firestore service to add the contact submission
+      await addContactSubmission(contactData);
+      setSubmitMessage('Your message has been sent successfully! We will get back to you shortly.');
+      // Clear form fields on successful submission
+      setName('');
+      setPhone('');
+      setEmail('');
+      setMessage('');
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      setSubmitMessage('Failed to send your message. Please try again.');
+    } finally {
+      setIsSubmitting(false); // Re-enable button
+    }
+  };
+
   return (
     <div className="Contact-container">
       <h1>Contact Us</h1>
@@ -14,27 +58,70 @@ const Contact = () => {
         </div>
 
         <div className="Contact-right">
-          <section>
-            <label>Name:</label>
-            <input type="text" />
+          {/* Wrap inputs in a form element and attach onSubmit handler */}
+          <form onSubmit={handleSubmit}>
+            <div className="form-group"> {/* Added for better organization */}
+              <label htmlFor="contact-name">Name:</label>
+              <input
+                id="contact-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
 
-            <label>Phone:</label>
-            <input type="tel" />
+            <div className="form-group">
+              <label htmlFor="contact-phone">Phone:</label>
+              <input
+                id="contact-phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+            </div>
 
-            <label>Email:</label>
-            <input type="email" />
+            <div className="form-group">
+              <label htmlFor="contact-email">Email:</label>
+              <input
+                id="contact-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-            <label>Message:</label>
-            <textarea></textarea>
-          </section>
+            <div className="form-group">
+              <label htmlFor="contact-message">Message:</label>
+              <textarea
+                id="contact-message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              ></textarea>
+            </div>
 
-          <div className="confirm-btns">
-            <p>
-              By submitting this form, you're confirming that the information
-              above is correct.
-            </p>
-            <button className="Submit-btn">Submit</button>
-          </div>
+            <div className="confirm-btns">
+              <p>
+                By submitting this form, you're confirming that the information
+                above is correct.
+              </p>
+              <button
+                className="Submit-btn"
+                type="submit" // Set type to submit for form submission
+                disabled={isSubmitting} // Disable button while submitting
+              >
+                {isSubmitting ? 'Sending...' : 'Submit'}
+              </button>
+              {submitMessage && (
+                <p className="submit-feedback" style={{ marginTop: '1rem', color: submitMessage.includes('successfully') ? 'green' : 'red' }}>
+                  {submitMessage}
+                </p>
+              )}
+            </div>
+          </form>
         </div>
       </div>
     </div>
