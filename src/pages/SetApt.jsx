@@ -1,17 +1,23 @@
-// SetApt.jsx (Relevant section for changes)
 import { useServiceContext } from "../context/ServiceContext";
 import { serviceTypes } from "../context/serviceTypes";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { addAppointment } from '../lib/firestoreService'; // <-- Import the new function
+import { useState, useEffect } from "react"; // Import useEffect
+import { useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
+import { addAppointment } from '../lib/firestoreService';
 
 const SetApt = () => {
-  const { selectedServices, toggleService } = useServiceContext(); // assuming you went with Option 2 and removed setSelectedServices directly
+  // Service context for selected services
+  const { selectedServices, toggleService } = useServiceContext();
+  
+  // State for early contact preference
   const [earlyContact, setEarlyContact] = useState(false);
+  // State to control thank you message display
   const [showThankYou, setShowThankYou] = useState(false);
+  
+  // React Router hooks for navigation and location state
   const navigate = useNavigate();
+  const location = useLocation(); // Get location object to access state
 
-  // Add state for your form inputs
+  // State for appointment form inputs
   const [appointmentDate, setAppointmentDate] = useState('');
   const [appointmentTime, setAppointmentTime] = useState('');
   const [customerName, setCustomerName] = useState('');
@@ -19,20 +25,46 @@ const SetApt = () => {
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
 
+  /**
+   * Effect to prefill customer information from navigation state.
+   * Runs once on component mount if customerInfo is present in location.state.
+   */
+  useEffect(() => {
+    // Check if customerInfo exists in the navigation state
+    if (location.state && location.state.customerInfo) {
+      const { customerInfo } = location.state;
+      // Set the state for form fields with the prefilled data
+      setCustomerName(customerInfo.name || '');
+      setCustomerEmail(customerInfo.email || '');
+      setCustomerPhone(customerInfo.phone || '');
+      // If you also store address in user object, you can prefill it here as well
+      setCustomerAddress(customerInfo.address || ''); 
+    }
+  }, [location.state]); // Re-run if location.state changes
 
-  // ... (handleAddService and handleRemoveService remain as in your Option 2 choice)
+  /**
+   * Toggles the selection of a service.
+   * @param {string} id - The ID of the service to toggle.
+   */
   const handleAddService = (id) => {
     toggleService(id);
     console.log(`Service with id ${id} added/toggled.`);
   };
 
+  /**
+   * Toggles the selection of a service (effectively removes if already selected).
+   * @param {string} id - The ID of the service to toggle.
+   */
   const handleRemoveService = (id) => {
     toggleService(id);
     console.log(`Service with id ${id} removed/toggled.`);
   };
 
-
-  const handleConfirmAppointment = async () => { // Make this function async
+  /**
+   * Handles the confirmation and submission of the appointment.
+   * Saves appointment data to Firebase.
+   */
+  const handleConfirmAppointment = async () => {
     const appointmentData = {
       selectedServices: selectedServices,
       earlyContact: earlyContact,
@@ -42,7 +74,7 @@ const SetApt = () => {
       phone: customerPhone,
       email: customerEmail,
       address: customerAddress,
-      // Add any other data you want to save
+      createdAt: new Date(), // Add a timestamp for when the appointment was created
     };
 
     try {
@@ -76,16 +108,19 @@ const SetApt = () => {
   return (
     <div className="Set-Apt-container">
       {showThankYou ? (
+        // Thank You Message Section
         <div className="thank-you-message">
           <h2>Thank you for scheduling your appointment!</h2>
           <p>You will be redirected to the home page shortly.</p>
         </div>
       ) : (
+        // Appointment Scheduling Form Section
         <>
           <div className="greetings-checker">
             <h1>Let's get you scheduled!</h1>
           </div>
 
+          {/* Calendar Section */}
           <div className="calender">
             <h2>What days work best for you?</h2>
             <input
@@ -95,6 +130,7 @@ const SetApt = () => {
             />
           </div>
 
+          {/* Time of Day Section */}
           <div className="TimeofDay">
             <h2>What time?</h2>
             <select
@@ -108,6 +144,7 @@ const SetApt = () => {
             </select>
           </div>
 
+          {/* Customer Contact Information Section */}
           <div className="customer-apt-info">
             <h2>Your Contact Information</h2>
             <form>
@@ -145,6 +182,7 @@ const SetApt = () => {
             </form>
           </div>
 
+          {/* Services Selected Section */}
           <div className="services-selected-apt">
             <h2>Services Selected:</h2>
             <ul>
@@ -160,6 +198,7 @@ const SetApt = () => {
             </ul>
           </div>
 
+          {/* Add Another Service Section */}
           {selectedServices.length < serviceTypes.length && (
             <div className="add-another-service">
               <h3>Add Another Service</h3>
@@ -178,6 +217,7 @@ const SetApt = () => {
             </div>
           )}
 
+          {/* Early Contact Prompt Section */}
           <div className="Early-contact-prompt">
             <button
               id="Early-contact-btn"
@@ -189,6 +229,7 @@ const SetApt = () => {
             <p>Please contact me if there is an earlier date available.</p>
           </div>
 
+          {/* Confirm Appointment Button Section */}
           <div className="confirmapt-btn">
             <button onClick={handleConfirmAppointment}>Confirm Appointment</button>
           </div>

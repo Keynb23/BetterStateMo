@@ -15,7 +15,6 @@ function App() {
 
   return (
     <>
-      {/* Navbar is rendered outside <Routes> so it's always visible */}
       <Navbar />
 
       <Routes>

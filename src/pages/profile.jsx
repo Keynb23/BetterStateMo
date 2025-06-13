@@ -1,229 +1,133 @@
-import React, { useState, useEffect } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { useAuth } from '../context/AuthContext.jsx'; // Make sure this path is exact
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useState, useEffect } from 'react';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-// Customer Dashboard Component
-const CustomerDashboard = () => {
-  const { user, db, auth } = useAuth();
-  const navigate = useNavigate(); // Initialize useNavigate
+const ITEMS_PER_VIEW = 5;
+
+const Profile = () => {
+  const { user, db, auth, loading: authLoading, isOwner } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Customer States
   const [customerAppointments, setCustomerAppointments] = useState([]);
-  const [loadingAppointments, setLoadingAppointments] = useState(true);
-  const [errorAppointments, setErrorAppointments] = useState(null);
+  const [loadingCustomerAppointments, setLoadingCustomerAppointments] = useState(true);
+  const [errorCustomerAppointments, setErrorCustomerAppointments] = useState(null);
+  const [selectedCustomerAppointment, setSelectedCustomerAppointment] = useState(null); // Selected customer apt for inline details
 
-  useEffect(() => {
-    const fetchCustomerData = async () => {
-      if (user && user.email) {
-        setLoadingAppointments(true);
-        setErrorAppointments(null);
-        try {
-          // Use onSnapshot for real-time updates
-          const q = query(collection(db, 'appointments'), where('email', '==', user.email));
-          const querySnapshot = await getDocs(q); // Use getDocs for initial fetch
-          const appointments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          setCustomerAppointments(appointments);
-        } catch (error) {
-          console.error("Error fetching customer appointments:", error);
-          setErrorAppointments("Failed to load your past appointments.");
-        } finally {
-          setLoadingAppointments(false);
-        }
-      } else {
-        setLoadingAppointments(false);
-      }
-    };
-    fetchCustomerData();
-  }, [user, db]);
-
-  const handleViewAppointmentDetails = (id) => {
-    navigate(`/appointment-details/${id}`);
-  };
-
-  const handleStartNewRequest = () => {
-    navigate('/setapt'); // Navigate to the Set Appointment page
-  };
-
-  return (
-    <div className="Profile-wrapper">
-      <h2 className="Profile-title">Your Profile</h2>
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">Welcome, {user?.email || 'Customer'}!</h3>
-        <p className="Profile-text">This is your personal dashboard. Here you can:</p>
-        <ul className="Profile-list">
-          <li className="Profile-listItem">View your past service requests and appointments.</li>
-          <li className="Profile-listItem">Request new services without re-entering your information.</li>
-          <li className="Profile-listItem">Update your contact details.</li>
-        </ul>
-        <button onClick={() => auth.signOut()} className="Profile-button Profile-logoutBtn">
-          Logout
-        </button>
-      </div>
-
-      {/* Removed AI Service Recommendations Section */}
-
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">Your Past Appointments</h3>
-        {loadingAppointments ? (
-          <p className="Profile-message Profile-loadingMessage">Loading your appointments...</p>
-        ) : errorAppointments ? (
-          <p className="Profile-message Profile-errorMessage">{errorAppointments}</p>
-        ) : customerAppointments.length === 0 ? (
-          <p className="Profile-message">You have no past appointments recorded.</p>
-        ) : (
-          <ul className="Profile-list Profile-dividedList">
-            {customerAppointments.map(apt => (
-              <li
-                key={apt.id}
-                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
-                onClick={() => handleViewAppointmentDetails(apt.id)} // Make clickable
-              >
-                <p className="Profile-appointmentTitle">Appointment on {apt.date} at {apt.time}</p>
-                <p className="Profile-appointmentDetail">Services: {apt.selectedServices?.join(', ') || 'N/A'}</p>
-                <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address || 'N/A'}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">Request New Service</h3>
-        <p className="Profile-text Profile-smallText">Your contact info (name, email, phone) will be pre-filled automatically.</p>
-        <button onClick={handleStartNewRequest} className="Profile-button Profile-requestServiceBtn">
-          Start New Request
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// Owner Dashboard Component
-const OwnerDashboard = () => {
-  const { db, auth } = useAuth();
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [appointments, setAppointments] = useState([]);
+  // Admin States
+  const [adminAppointments, setAdminAppointments] = useState([]);
   const [quoteRequests, setQuoteRequests] = useState([]);
   const [contactSubmissions, setContactSubmissions] = useState([]);
-  const [loadingData, setLoadingData] = useState(true);
-  const [errorData, setErrorData] = useState(null);
+  const [loadingAdminData, setLoadingAdminData] = useState(true);
+  const [errorAdminData, setErrorAdminData] = useState(null);
+  const [selectedAdminItem, setSelectedAdminItem] = useState(null); // Selected admin item for inline details
+  const [selectedAdminCollection, setSelectedAdminCollection] = useState(null); // Collection for selected admin item
 
+  // useEffect for pre-filling request form (customer-specific)
   useEffect(() => {
-    const fetchAllData = async () => {
-      setLoadingData(true);
-      setErrorData(null);
-      try {
-        const aptsSnapshot = await getDocs(collection(db, 'appointments'));
-        setAppointments(aptsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    if (location.state && location.state.customerInfo) {
+      console.log('Customer info for pre-fill:', location.state.customerInfo);
+    }
+  }, [location.state]);
 
-        const quotesSnapshot = await getDocs(collection(db, 'quoteRequests'));
-        setQuoteRequests(quotesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+  // useEffect for fetching customer appointments
+  useEffect(() => {
+    if (!authLoading && user && !isOwner && user.email && db) {
+      setLoadingCustomerAppointments(true);
+      setErrorCustomerAppointments(null);
+      const q = query(collection(db, 'appointments'), where('email', '==', user.email));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const appointments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setCustomerAppointments(appointments);
+        setLoadingCustomerAppointments(false);
+      }, (error) => {
+        console.error("Error fetching customer appointments:", error);
+        setErrorCustomerAppointments("Failed to load your past appointments.");
+        setLoadingCustomerAppointments(false);
+      });
+      return () => unsubscribe();
+    }
+  }, [user, db, isOwner, authLoading]);
 
-        const contactsSnapshot = await getDocs(collection(db, 'contactSubmissions'));
-        setContactSubmissions(contactsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+  // useEffect for fetching admin data (appointments, quotes, contacts)
+  useEffect(() => {
+    if (!authLoading && user && isOwner && db) {
+      setLoadingAdminData(true);
+      setErrorAdminData(null);
+      const unsubscribes = [];
 
-      } catch (error) {
-        console.error("Error fetching owner dashboard data:", error);
-        setErrorData("Failed to load dashboard data.");
-      } finally {
-        setLoadingData(false);
+      const unsubscribeAppointments = onSnapshot(collection(db, 'appointments'), (querySnapshot) => {
+        setAdminAppointments(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      }, (error) => {
+        console.error("Error fetching admin appointments:", error);
+        setErrorAdminData("Failed to load admin appointments.");
+      });
+      unsubscribes.push(unsubscribeAppointments);
+
+      const unsubscribeQuotes = onSnapshot(collection(db, 'quoteRequests'), (querySnapshot) => {
+        setQuoteRequests(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      }, (error) => {
+        console.error("Error fetching quote requests:", error);
+        setErrorAdminData("Failed to load quote requests.");
+      });
+      unsubscribes.push(unsubscribeQuotes);
+
+      const unsubscribeContacts = onSnapshot(collection(db, 'contactSubmissions'), (querySnapshot) => {
+        setContactSubmissions(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      }, (error) => {
+        console.error("Error fetching contact submissions:", error);
+        setErrorAdminData("Failed to load contact submissions.");
+      });
+      unsubscribes.push(unsubscribeContacts);
+
+      setLoadingAdminData(false);
+      return () => unsubscribes.forEach(unsub => unsub());
+    }
+  }, [user, db, isOwner, authLoading]);
+
+  // Handle new service request (customer-specific)
+  const handleStartNewRequest = () => {
+    navigate('/setapt', {
+      state: {
+        customerInfo: {
+          name: user.displayName || '',
+          email: user.email || '',
+          phone: user.phoneNumber || ''
+        }
       }
-    };
-    fetchAllData();
-  }, [db]);
-
-  const handleViewAdminDetails = (collectionName, id) => {
-    navigate(`/admin-details/${collectionName}/${id}`);
+    });
   };
 
-  if (loadingData) return <div className="Profile-loadingWrapper"><p className="Profile-loadingText">Loading owner dashboard data...</p></div>;
-  if (errorData) return <div className="Profile-loadingWrapper"><p className="Profile-errorMessage">{errorData}</p></div>;
+  // Handle customer appointment detail view
+  const handleViewCustomerAppointmentDetails = (apt) => {
+    setSelectedCustomerAppointment(apt);
+  };
 
-  return (
-    <div className="Profile-wrapper">
-      <h2 className="Profile-title">Owner Dashboard</h2>
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">Welcome, Owner!</h3>
-        <p className="Profile-text">This is your administrative dashboard. You can view all appointments, quote requests, and contact submissions here.</p>
-        <button onClick={() => auth.signOut()} className="Profile-button Profile-logoutBtn">
-          Logout
-        </button>
-      </div>
+  // Handle admin item detail view
+  const handleViewAdminItemDetails = (item, collectionName) => {
+    setSelectedAdminItem(item);
+    setSelectedAdminCollection(collectionName);
+  };
 
-      {/* Appointments Section */}
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">All Appointments ({appointments.length})</h3>
-        {appointments.length === 0 ? (
-          <p className="Profile-message">No appointments found.</p>
-        ) : (
-          <ul className="Profile-list Profile-dividedList">
-            {appointments.map(apt => (
-              <li
-                key={apt.id}
-                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
-                onClick={() => handleViewAdminDetails('appointments', apt.id)} // Make clickable
-              >
-                <p className="Profile-appointmentTitle">Appointment for {apt.name} on {apt.date} at {apt.time}</p>
-                <p className="Profile-appointmentDetail">Email: {apt.email}, Phone: {apt.phone}</p>
-                <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address}</p>
-                <p className="Profile-appointmentDetail Profile-smallText">Services: {apt.selectedServices?.join(', ')}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+  // Close detail view
+  const handleCloseDetails = () => {
+    setSelectedCustomerAppointment(null);
+    setSelectedAdminItem(null);
+    setSelectedAdminCollection(null);
+  };
 
-      {/* Quote Requests Section */}
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">All Quote Requests ({quoteRequests.length})</h3>
-        {quoteRequests.length === 0 ? (
-          <p className="Profile-message">No quote requests found.</p>
-        ) : (
-          <ul className="Profile-list Profile-dividedList">
-            {quoteRequests.map(quote => (
-              <li
-                key={quote.id}
-                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
-                onClick={() => handleViewAdminDetails('quoteRequests', quote.id)} // Make clickable
-              >
-                <p className="Profile-quoteTitle">Quote from {quote.name}</p>
-                <p className="Profile-quoteDetail">Email: {quote.email}, Phone: {quote.phone}</p>
-                <p className="Profile-quoteDetail Profile-smallText">Message: {quote.message}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+  // Format timestamp
+  const formatTimestamp = (timestamp) => {
+    if (timestamp && typeof timestamp.toDate === 'function') {
+      return new Date(timestamp.toDate()).toLocaleString();
+    }
+    return 'N/A';
+  };
 
-      {/* Contact Submissions Section */}
-      <div className="Profile-card">
-        <h3 className="Profile-subtitle">All Contact Submissions ({contactSubmissions.length})</h3>
-        {contactSubmissions.length === 0 ? (
-          <p className="Profile-message">No contact submissions found.</p>
-        ) : (
-          <ul className="Profile-list Profile-dividedList">
-            {contactSubmissions.map(contact => (
-              <li
-                key={contact.id}
-                className="Profile-listItem Profile-dividedListItem Profile-clickableItem"
-                onClick={() => handleViewAdminDetails('contactSubmissions', contact.id)} // Make clickable
-              >
-                <p className="Profile-contactTitle">Contact from {contact.name}</p>
-                <p className="Profile-contactDetail">Email: {contact.email}, Phone: {contact.phone}</p>
-                <p className="Profile-contactDetail Profile-smallText">Message: {contact.message}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
-  );
-};
-
-// Main Profile Component
-const Profile = () => {
-  const { user, loading, isOwner } = useAuth();
-
-  if (loading) {
+  // Main loading and authentication checks
+  if (authLoading) {
     return (
       <div className="Profile-loadingWrapper">
         <p className="Profile-loadingText">Loading profile...</p>
@@ -235,11 +139,213 @@ const Profile = () => {
     return (
       <div className="Profile-loadingWrapper">
         <p className="Profile-errorMessage">You must be logged in to view this page.</p>
-      </div >
+      </div>
     );
   }
 
-  return isOwner ? <OwnerDashboard /> : <CustomerDashboard />;
+  // Admin Section
+  if (isOwner) {
+    if (loadingAdminData) return <div className="Profile-loadingWrapper"><p className="Profile-loadingText">Loading admin dashboard data...</p></div>;
+    if (errorAdminData) return <div className="Profile-loadingWrapper"><p className="Profile-errorMessage">{errorAdminData}</p></div>;
+
+    return (
+      <div className="Profile-wrapper">
+        <div className="Profile-main-content">
+          <div className="Profile-section">
+            <h2 className="Profile-title">Owner Dashboard</h2>
+            <div className="Profile-card">
+              <h3 className="Profile-subtitle">Welcome, Owner!</h3>
+              <p className="Profile-text">This is your administrative dashboard.</p>
+              <button onClick={() => auth.signOut()} className="Profile-button Profile-logoutBtn">
+                Logout
+              </button>
+            </div>
+          </div>
+
+          {/* Admin Appointments */}
+          <div className="Profile-section">
+            <div className="Profile-card">
+              <h3 className="Profile-subtitle">All Appointments ({adminAppointments.length})</h3>
+              {adminAppointments.length === 0 ? (
+                <p className="Profile-message">No appointments found.</p>
+              ) : (
+                <ul className="Profile-list Profile-dividedList">
+                  {adminAppointments.slice(0, ITEMS_PER_VIEW).map(apt => (
+                    <li key={apt.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewAdminItemDetails(apt, 'appointments')}>
+                      <p className="Profile-appointmentTitle">Appointment for {apt.name} on {apt.date} at {apt.time}</p>
+                      <p className="Profile-appointmentDetail">Email: {apt.email}, Phone: {apt.phone}</p>
+                      <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address}</p>
+                      <p className="Profile-appointmentDetail Profile-smallText">Services: {apt.selectedServices?.join(', ')}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* Admin Quote Requests */}
+          <div className="Profile-section">
+            <div className="Profile-card">
+              <h3 className="Profile-subtitle">All Quote Requests ({quoteRequests.length})</h3>
+              {quoteRequests.length === 0 ? (
+                <p className="Profile-message">No quote requests found.</p>
+              ) : (
+                <ul className="Profile-list Profile-dividedList">
+                  {quoteRequests.slice(0, ITEMS_PER_VIEW).map(quote => (
+                    <li key={quote.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewAdminItemDetails(quote, 'quoteRequests')}>
+                      <p className="Profile-quoteTitle">Quote from {quote.name}</p>
+                      <p className="Profile-quoteDetail">Email: {quote.email}, Phone: {quote.phone}</p>
+                      <p className="Profile-quoteDetail Profile-smallText">Message: {quote.message}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* Admin Contact Submissions */}
+          <div className="Profile-section">
+            <div className="Profile-card">
+              <h3 className="Profile-subtitle">All Contact Submissions ({contactSubmissions.length})</h3>
+              {contactSubmissions.length === 0 ? (
+                <p className="Profile-message">No contact submissions found.</p>
+              ) : (
+                <ul className="Profile-list Profile-dividedList">
+                  {contactSubmissions.slice(0, ITEMS_PER_VIEW).map(contact => (
+                    <li key={contact.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewAdminItemDetails(contact, 'contactSubmissions')}>
+                      <p className="Profile-contactTitle">Contact from {contact.name}</p>
+                      <p className="Profile-contactDetail">Email: {contact.email}, Phone: {contact.phone}</p>
+                      <p className="Profile-contactDetail Profile-smallText">Message: {contact.message}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* Admin Details Display */}
+          {selectedAdminItem && (
+            <div className="Profile-section Profile-detail-section">
+              <h3 className="Profile-subtitle">Details for {selectedAdminCollection === 'appointments' ? 'Appointment' : selectedAdminCollection === 'quoteRequests' ? 'Quote Request' : 'Contact Submission'}</h3>
+              <div className="Profile-card">
+                {selectedAdminCollection === 'appointments' && (
+                  <>
+                    <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
+                    <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
+                    <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
+                    <p className="Profile-detailItem"><strong>Date:</strong> {selectedAdminItem.date}</p>
+                    <p className="Profile-detailItem"><strong>Time:</strong> {selectedAdminItem.time}</p>
+                    <p className="Profile-detailItem"><strong>Services:</strong> {selectedAdminItem.selectedServices?.join(', ') || 'N/A'}</p>
+                    <p className="Profile-detailItem"><strong>Address:</strong> {selectedAdminItem.address}</p>
+                    {selectedAdminItem.notes && <p className="Profile-detailItem"><strong>Notes:</strong> {selectedAdminItem.notes}</p>}
+                    <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
+                  </>
+                )}
+                {selectedAdminCollection === 'quoteRequests' && (
+                  <>
+                    <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
+                    <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
+                    <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
+                    <p className="Profile-detailItem"><strong>Message:</strong> {selectedAdminItem.message}</p>
+                    <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
+                  </>
+                )}
+                {selectedAdminCollection === 'contactSubmissions' && (
+                  <>
+                    <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
+                    <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
+                    <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
+                    <p className="Profile-detailItem"><strong>Message:</strong> {selectedAdminItem.message}</p>
+                    <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
+                  </>
+                )}
+                <button onClick={handleCloseDetails} className="Profile-button Profile-requestServiceBtn mt-4">
+                  Close Details
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Customer Section
+  if (loadingCustomerAppointments) return <div className="Profile-loadingWrapper"><p className="Profile-loadingText">Loading your appointments...</p></div>;
+  if (errorCustomerAppointments) return <div className="Profile-loadingWrapper"><p className="Profile-errorMessage">{errorCustomerAppointments}</p></div>;
+
+  return (
+    <div className="Profile-wrapper">
+      <div className="Profile-main-content">
+        <div className="Profile-section">
+          <h2 className="Profile-title">Your Profile</h2>
+          <div className="Profile-card">
+            <h3 className="Profile-subtitle">Welcome, {user?.email || 'Customer'}!</h3>
+            <p className="Profile-text">This is your personal dashboard.</p>
+            <button onClick={() => auth.signOut()} className="Profile-button Profile-logoutBtn">
+              Logout
+            </button>
+          </div>
+        </div>
+
+        {/* Customer Past Appointments */}
+        <div className="Profile-section">
+          <div className="Profile-card">
+            <h3 className="Profile-subtitle">Your Past Appointments</h3>
+            {customerAppointments.length === 0 ? (
+              <p className="Profile-message">You have no past appointments recorded.</p>
+            ) : (
+              <ul className="Profile-list Profile-dividedList">
+                {customerAppointments.slice(0, ITEMS_PER_VIEW).map(apt => (
+                  <li key={apt.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewCustomerAppointmentDetails(apt)}>
+                    <p className="Profile-appointmentDetail">Services: {apt.selectedServices?.join(', ') || 'N/A'}</p>
+                    <p className="Profile-appointmentTitle">Appointment on {apt.date} at {apt.time}</p>
+                    <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address || 'N/A'}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        {/* Customer New Service Request */}
+        <div className="Profile-section">
+          <div className="Profile-card">
+            <h3 className="Profile-subtitle">Request New Service</h3>
+            <p className="Profile-text Profile-smallText">Your contact info will be pre-filled automatically.</p>
+            <button onClick={handleStartNewRequest} className="Profile-button Profile-requestServiceBtn">
+              Start New Request
+            </button>
+          </div>
+        </div>
+
+        {/* Customer Appointment Details Display */}
+        {selectedCustomerAppointment && (
+          <div className="Profile-section Profile-detail-section">
+            <h3 className="Profile-subtitle">Appointment Details</h3>
+            <div className="Profile-card">
+              <p className="Profile-detailItem"><strong>Date:</strong> {selectedCustomerAppointment.date}</p>
+              <p className="Profile-detailItem"><strong>Time:</strong> {selectedCustomerAppointment.time}</p>
+              <p className="Profile-detailItem"><strong>Services:</strong> {selectedCustomerAppointment.selectedServices?.join(', ') || 'N/A'}</p>
+              <p className="Profile-detailItem"><strong>Address:</strong> {selectedCustomerAppointment.address}</p>
+              <p className="Profile-detailItem"><strong>Name:</strong> {selectedCustomerAppointment.name}</p>
+              <p className="Profile-detailItem"><strong>Email:</strong> {selectedCustomerAppointment.email}</p>
+              <p className="Profile-detailItem"><strong>Phone:</strong> {selectedCustomerAppointment.phone}</p>
+              {selectedCustomerAppointment.notes && <p className="Profile-detailItem"><strong>Notes:</strong> {selectedCustomerAppointment.notes}</p>}
+              {selectedCustomerAppointment.createdAt && (
+                <p className="Profile-detailItem Profile-smallText">
+                  Submitted: {formatTimestamp(selectedCustomerAppointment.createdAt)}
+                </p>
+              )}
+              <button onClick={handleCloseDetails} className="Profile-button Profile-requestServiceBtn mt-4">
+                Close Details
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Profile;

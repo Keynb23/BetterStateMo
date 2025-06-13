@@ -1185,12 +1185,12 @@
   margin-bottom: 0.5rem;
 }
 
-/* Slogan Section */
+/* ======================================================================Slogan Section ====================================================================================*/
 .slogan {
   display: flex;
   align-items: baseline;
   justify-content: center;
-  background: linear-gradient(135deg, var(--Dark-Green), var(--Service-Blue));
+  background: linear-gradient(135deg, var(--Mid-Green), var(--Light-Steel));
   padding: 1rem;
   border-radius: 16px;
   width: 430px;
@@ -1209,8 +1209,8 @@
 .rotating-text {
   position: relative;
   width: 220px;
-  height: 2.7rem; /* Match the line-height/font-size */
-  text-align: left; /* Keep rotating words left-aligned within their box */
+  height: 2.7rem; 
+  text-align: left; 
 }
 
 .rotating-text > div {
@@ -1219,8 +1219,6 @@
   white-space: nowrap;
   animation: slideUpFadeInOut 20s infinite;
 }
-
-/* ... (rest of slogan and keyframes are unchanged) ... */
 .rotating-text > div:nth-child(1) { animation-delay: 0s; }
 .rotating-text > div:nth-child(2) { animation-delay: 5s; }
 .rotating-text > div:nth-child(3) { animation-delay: 10s; }
@@ -1318,11 +1316,11 @@
   .about-container {
     gap: 2rem;
     padding: 1.5rem;
-    margin-top: 4rem; /* Further adjust top margin */
+    margin-top: 4rem; 
   }
 
   .about-section {
-    padding: 0 0.5rem; /* Tighter padding */
+    padding: 0 0.5rem; 
   }
 
   .about-section h1 {
@@ -1333,7 +1331,7 @@
   .about-section p {
     font-size: 0.95rem;
     line-height: 1.6rem;
-    padding: 0; /* Remove horizontal padding, let container padding handle it */
+    padding: 0; 
   }
 
   .meet-us {
@@ -1346,7 +1344,7 @@
   }
 
   .meet-row img {
-    width: 250px; /* Even smaller image size */
+    width: 250px; 
     height: 250px;
   }
 
@@ -1355,7 +1353,7 @@
   }
 
   .slogan {
-    max-width: 300px; /* Smaller slogan width */
+    max-width: 300px; 
     padding: 0.5rem;
   }
 
@@ -1365,7 +1363,7 @@
   }
 
   .rotating-text {
-    width: 150px; /* Adjust width */
+    width: 150px; 
     height: 1.8rem;
   }
 }
@@ -1374,8 +1372,8 @@
 @media (max-width: 480px) {
   .about-container {
     padding: 1rem;
-    margin-top: 3rem; /* Further adjust top margin */
-    gap: 1.5rem; /* Smaller gap */
+    margin-top: 3rem; 
+    gap: 1.5rem; 
   }
 
   .about-section h1 {
@@ -1392,7 +1390,7 @@
   }
 
   .meet-row img {
-    width: 200px; /* Even smaller image size */
+    width: 200px; 
     height: 200px;
   }
 
@@ -1401,7 +1399,7 @@
   }
 
   .slogan {
-    max-width: 250px; /* Smallest slogan width */
+    max-width: 250px; 
   }
 
   .slogan h1,
@@ -1410,7 +1408,7 @@
   }
 
   .rotating-text {
-    width: 120px; /* Adjust width */
+    width: 120px; 
     height: 1.5rem;
   }
 }
@@ -1421,8 +1419,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f3f4f6; /* bg-gray-100 */
-  padding: 1rem; /* p-4 */
+  background-color: #f3f4f6; 
+  padding: 1rem; 
 }
 
 .LoginReg-loadingWrapper {
@@ -1430,13 +1428,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f3f4f6; /* bg-gray-100 */
-  padding: 1rem; /* p-4 */
+  background-color: #f3f4f6; 
+  padding: 1rem; 
 }
 
 .LoginReg-loadingText {
-  font-size: 1.25rem; /* text-xl */
-  color: #4b5563; /* text-gray-700 */
+  font-size: 1.25rem; 
+  color: #4b5563; 
 }
 
 .LoginReg-loggedInWrapper {
@@ -1445,288 +1443,325 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f3f4f6; /* bg-gray-100 */
-  padding: 1rem; /* p-4 */
+  background-color: #f3f4f6; 
+  padding: 1rem; 
 }
 
 .LoginReg-loggedInText {
-  font-size: 1.25rem; /* text-xl */
-  color: #16a34a; /* text-green-600 */
+  font-size: 1.25rem; 
+  color: #16a34a; 
 }
 
 .LoginReg-modal {
-  background-color: #ffffff; /* bg-white */
-  padding: 2rem; /* p-8 */
-  border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
+  background-color: #ffffff; 
+  padding: 2rem; 
+  border-radius: 0.5rem; 
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 28rem; /* max-w-md */
+  max-width: 28rem; 
 }
 
 .LoginReg-title {
-  font-size: 1.5rem; /* text-2xl */
-  font-weight: 700; /* font-bold */
-  margin-bottom: 1.5rem; /* mb-6 */
+  font-size: 1.5rem; 
+  font-weight: 700; 
+  margin-bottom: 1.5rem; 
   text-align: center;
-  color: #1f2937; /* text-gray-800 */
+  color: #1f2937;
 }
 
 .LoginReg-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* space-y-4 */
+  gap: 1rem; 
 }
-
-/* .LoginReg-formGroup { */
-  /* No specific styles needed for this container, but it helps structure */
-/* } */
 
 .LoginReg-label {
   display: block;
-  color: #374151; /* text-gray-700 */
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 700; /* font-bold */
-  margin-bottom: 0.5rem; /* mb-2 */
+  color: #374151; 
+  font-size: 0.875rem; 
+  font-weight: 700; 
+  margin-bottom: 0.5rem; 
 }
 
 .LoginReg-input {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
   appearance: none;
-  border: 1px solid #d1d5db; /* border */
-  border-radius: 0.25rem; /* rounded */
+  border: 1px solid #d1d5db; 
+  border-radius: 0.25rem; 
   width: 100%;
-  padding: 0.5rem 0.75rem; /* py-2 px-3 */
-  color: #374151; /* text-gray-700 */
-  line-height: 1.25; /* leading-tight */
+  padding: 0.5rem 0.75rem; 
+  color: #374151; 
+  line-height: 1.25; 
 }
 
 .LoginReg-input:focus {
   outline: none;
-  kerning: 2px solid #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
-  border-color: #3b82f6; /* focus:ring-blue-500 implicitly sets border-color */
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:shadow-outline for non-ring */
+  kerning: 2px solid #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); 
 }
 
 .LoginReg-error {
-  color: #ef4444; /* text-red-500 */
-  font-size: 0.875rem; /* text-sm */
+  color: #ef4444; 
+  font-size: 0.875rem;
   text-align: center;
 }
 
 .LoginReg-submitBtn {
   width: 100%;
-  background-color: #3b82f6; /* bg-blue-500 */
-  color: #ffffff; /* text-white */
-  font-weight: 700; /* font-bold */
-  padding: 0.5rem 1rem; /* py-2 px-4 */
-  border-radius: 0.5rem; /* rounded-lg */
+  background-color: #3b82f6; 
+  color: #ffffff; 
+  font-weight: 700; 
+  padding: 0.5rem 1rem; 
+  border-radius: 0.5rem; 
   outline: none;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* focus:shadow-outline */
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; /* transition-colors */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; 
   transition-duration: 0.15s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .LoginReg-submitBtn:hover {
-  background-color: #2563eb; /* hover:bg-blue-600 */
+  background-color: #2563eb; 
 }
 
 /*======================================================= PROFILE STYLES ==================================================================*/
+
+/* General Wrapper for the Profile Page */
 .Profile-wrapper {
-  padding: 1.5rem; /* p-6 */
-  background-color: #f9fafb; /* bg-gray-50 */
-  min-height: 100vh;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    display: flex; /* Make the wrapper a flex container */
+    
+    align-items: center; /* Center horizontally */
 }
 
-.Profile-loadingWrapper {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f3f4f6; /* bg-gray-100 */
+/* Main Profile Title */
+.Profile-wrapper > .Profile-title { /* Target the main Profile title directly under wrapper */
+    font-size: 2.2rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+    width: 100%; /* Ensure it spans full width */
 }
 
-.Profile-loadingText {
-  font-size: 1.25rem; /* text-xl */
-  color: #4b5563; /* text-gray-700 */
+/* Flex Container for Main Content and Details */
+.Profile-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the start of the cross axis */
+    gap: 30px;
+    width: 100%; /* Take full width of the wrapper */
+    max-width: 1200px; /* Optional: limit overall max width */
 }
 
-.Profile-errorMessage {
-  font-size: 1.25rem; /* text-xl */
-  color: #ef4444; /* text-red-500 */
-  text-align: center;
+/* Main Content Area (Left Column) */
+.Profile-main-content {
+    flex: 1; /* Allows it to grow and shrink */
+    min-width: 300px; /* Prevent it from becoming too small */
+    display: flex;
+    
+    gap: 20px;
 }
 
-.Profile-title {
-  font-size: 1.875rem; /* text-3xl */
-  font-weight: 700; /* font-bold */
-  margin-bottom: 1.5rem; /* mb-6 */
-  color: #1f2937; /* text-gray-800 */
-  text-align: center;
+/* Detail Container (Right Column / Pop-up style) */
+.Profile-detail-container {
+    flex: 0 0 400px; /* Don't grow, don't shrink, base width 400px */
+    max-width: 450px; /* Maximum width for the detail panel */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    position: sticky; /* Make it sticky */
+    top: 20px; /* Stick it 20px from the top */
+    align-self: flex-start; /* Align itself to the start of the cross axis */
 }
 
-.Profile-card {
-  background-color: #ffffff; /* bg-white */
-  padding: 1.5rem; /* p-6 */
-  border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
-  margin-bottom: 2rem; /* mb-8 */
-  margin-top: 2rem; /* mt-8 for subsequent cards */
+/* Individual Sections within Profile (cards) */
+.Profile-section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
 }
 
+/* Profile Titles and Headings */
 .Profile-subtitle {
-  font-size: 1.25rem; /* text-xl */
-  font-weight: 600; /* font-semibold */
-  margin-bottom: 1rem; /* mb-4 */
-  color: #374151; /* text-gray-700 */
+    font-size: 1.6rem;
+    color: #34495e;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
+/* Text and Paragraphs */
 .Profile-text {
-  color: #4b5563; /* text-gray-600 */
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 10px;
 }
 
 .Profile-smallText {
-  font-size: 0.875rem; /* text-sm */
-  color: #6b7280; /* text-gray-500 */
+    font-size: 0.9rem;
+    color: #777;
 }
 
+/* Lists */
 .Profile-list {
-  list-style: disc;
-  padding-left: 1.25rem; /* list-inside implicitly handles padding */
-  color: #4b5563; /* text-gray-600 */
-  margin-top: 0.5rem; /* mt-2 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* .Profile-listItem { */
-  /* No specific styles needed for list items here, spacing handled by list/padding */
-/* } */
+.Profile-listItem {
+    font-size: 1rem;
+    color: #444;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+}
 
+.Profile-listItem::before {
+    content: '•';
+    color: #2ecc71;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.Profile-dividedList .Profile-listItem {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.Profile-dividedList .Profile-listItem:last-child {
+    border-bottom: none;
+}
+
+.Profile-dividedList .Profile-listItem:hover {
+    background-color: #f9f9f9;
+}
+
+/* Appointment/Item Details within Lists */
+.Profile-appointmentTitle,
+.Profile-quoteTitle,
+.Profile-contactTitle {
+    font-weight: 600;
+    color: #34495e;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.Profile-appointmentDetail,
+.Profile-quoteDetail,
+.Profile-contactDetail,
+.Profile-detailItem {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 3px;
+}
+
+/* Buttons */
 .Profile-button {
-  padding: 0.75rem 1.5rem; /* px-6 py-3 */
-  border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow */
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-duration: 0.15s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  color: #ffffff;
-  font-weight: 600; /* font-semibold */
-  cursor: pointer;
-  border: none;
+    background-color: #3498db;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+    display: inline-block;
 }
 
-.Profile-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.Profile-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.Profile-button:active {
+    transform: translateY(0);
 }
 
 .Profile-logoutBtn {
-  margin-top: 1rem; /* mt-4 */
-  background-color: #ef4444; /* bg-red-500 */
+    background-color: #e74c3c;
 }
 
 .Profile-logoutBtn:hover {
-  background-color: #dc2626; /* hover:bg-red-600 */
-}
-
-.Profile-textarea {
-  width: 100%;
-  padding: 0.75rem; /* p-3 */
-  border: 1px solid #d1d5db; /* border border-gray-300 */
-  border-radius: 0.5rem; /* rounded-lg */
-}
-
-.Profile-textarea:focus {
-  outline: none;
-  kerning: 2px solid #3b82f6; /* focus:ring-blue-500 */
-  border-color: #3b82f6; /* focus:border-blue-500 */
-}
-
-.Profile-aiButton {
-  margin-top: 1rem; /* mt-4 */
-  background-color: #3b82f6; /* bg-blue-500 */
-}
-
-.Profile-aiButton:hover {
-  background-color: #2563eb; /* hover:bg-blue-600 */
-}
-
-.Profile-aiOutput {
-  margin-top: 1rem; /* mt-4 */
-  padding: 1rem; /* p-4 */
-  background-color: #eff6ff; /* bg-blue-50 */
-  border-radius: 0.5rem; /* rounded-lg */
-  border: 1px solid #bfdbfe; /* border border-blue-200 */
-}
-
-.Profile-aiOutputTitle {
-  font-weight: 600; /* font-semibold */
-  color: #1d4ed8; /* text-blue-700 */
-  margin-bottom: 0.5rem; /* mb-2 */
-}
-
-.Profile-aiOutputContent {
-  /* Tailwind 'prose' class is complex to replicate exactly without a plugin.
-     This will be basic. For full markdown rendering, you might need a library. */
-  max-width: none;
-  line-height: 1.5; /* Default line height for readability */
-}
-
-.Profile-message {
-  margin-top: 0.5rem; /* mt-2 */
-  text-align: center;
-}
-
-.Profile-loadingMessage {
-  color: #6b7280; /* text-gray-500 */
-}
-
-.Profile-errorMessage {
-  color: #ef4444; /* text-red-500 */
-}
-
-/* Specific styles for lists in dashboards */
-.Profile-dividedList {
-  border-top: 1px solid #e5e7eb; /* divide-y divide-gray-200 */
-}
-
-.Profile-dividedListItem {
-  padding-top: 1rem; /* py-4 */
-  padding-bottom: 1rem; /* py-4 */
-  border-bottom: 1px solid #e5e7eb; /* part of divide-y */
-}
-
-.Profile-appointmentTitle, .Profile-quoteTitle, .Profile-contactTitle {
-  font-size: 1.125rem; /* text-lg */
-  font-weight: 500; /* font-medium */
-}
-
-.Profile-appointmentTitle { color: #2563eb; /* text-blue-600 */ }
-.Profile-quoteTitle { color: #9333ea; /* text-purple-600 */ }
-.Profile-contactTitle { color: #0d9488; /* text-teal-600 */ }
-
-.Profile-appointmentDetail, .Profile-quoteDetail, .Profile-contactDetail {
-  color: #4b5563; /* text-gray-600 */
-  margin-top: 0.25rem; /* small margin for detail lines */
+    background-color: #c0392b;
 }
 
 .Profile-requestServiceBtn {
-  margin-top: 1rem; /* mt-4 */
-  background-color: #22c55e; /* bg-green-500 */
+    background-color: #2ecc71;
 }
 
 .Profile-requestServiceBtn:hover {
-  background-color: #16a34a; /* hover:bg-green-600 */
+    background-color: #27ae60;
 }
 
-/* Optional: Add media queries for the new classes if needed for responsiveness */
-/* Example: */
-/* */
+/* Loading and Error Messages */
+.Profile-loadingWrapper,
+.Profile-errorMessage {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.Profile-loadingText {
+    color: #3498db;
+}
+
+.Profile-errorMessage {
+    color: #e74c3c;
+    font-weight: 500;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .Profile-card {
-    padding: 1rem;
-  }
-  .Profile-title {
-    font-size: 2rem;
-  }
-}
+    .Profile-flex-container {
+        flex-direction: column; /* Stack columns vertically on small screens */
+        align-items: center;
+        gap: 20px;
+    }
 
+    .Profile-main-content,
+    .Profile-detail-container {
+        flex: none; /* Reset flex properties */
+        width: 100%; /* Take full width */
+        max-width: 100%; /* Ensure it doesn't exceed screen width */
+    }
+
+    .Profile-detail-container {
+        position: relative; /* Remove sticky for small screens */
+        top: unset;
+        align-self: auto;
+    }
+
+    .Profile-section {
+        padding: 20px;
+    }
+
+    .Profile-title {
+        font-size: 1.8rem;
+    }
+
+    .Profile-subtitle {
+        font-size: 1.4rem;
+    }
+
+    .Profile-button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
