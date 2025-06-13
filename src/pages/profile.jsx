@@ -3,36 +3,34 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const ITEMS_PER_VIEW = 5;
-
 const Profile = () => {
   const { user, db, auth, loading: authLoading, isOwner } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Customer States
+  const [activeTab, setActiveTab] = useState('appointments'); // Default active tab
+  const [searchTerm, setSearchTerm] = useState('');
+
   const [customerAppointments, setCustomerAppointments] = useState([]);
   const [loadingCustomerAppointments, setLoadingCustomerAppointments] = useState(true);
   const [errorCustomerAppointments, setErrorCustomerAppointments] = useState(null);
-  const [selectedCustomerAppointment, setSelectedCustomerAppointment] = useState(null); // Selected customer apt for inline details
+  const [selectedCustomerAppointment, setSelectedCustomerAppointment] = useState(null);
 
-  // Admin States
   const [adminAppointments, setAdminAppointments] = useState([]);
   const [quoteRequests, setQuoteRequests] = useState([]);
   const [contactSubmissions, setContactSubmissions] = useState([]);
   const [loadingAdminData, setLoadingAdminData] = useState(true);
   const [errorAdminData, setErrorAdminData] = useState(null);
-  const [selectedAdminItem, setSelectedAdminItem] = useState(null); // Selected admin item for inline details
-  const [selectedAdminCollection, setSelectedAdminCollection] = useState(null); // Collection for selected admin item
+  const [selectedAdminItem, setSelectedAdminItem] = useState(null);
+  const [selectedAdminCollection, setSelectedAdminCollection] = useState(null);
 
-  // useEffect for pre-filling request form (customer-specific)
+
   useEffect(() => {
     if (location.state && location.state.customerInfo) {
       console.log('Customer info for pre-fill:', location.state.customerInfo);
     }
   }, [location.state]);
 
-  // useEffect for fetching customer appointments
   useEffect(() => {
     if (!authLoading && user && !isOwner && user.email && db) {
       setLoadingCustomerAppointments(true);
@@ -51,7 +49,6 @@ const Profile = () => {
     }
   }, [user, db, isOwner, authLoading]);
 
-  // useEffect for fetching admin data (appointments, quotes, contacts)
   useEffect(() => {
     if (!authLoading && user && isOwner && db) {
       setLoadingAdminData(true);
@@ -87,7 +84,6 @@ const Profile = () => {
     }
   }, [user, db, isOwner, authLoading]);
 
-  // Handle new service request (customer-specific)
   const handleStartNewRequest = () => {
     navigate('/setapt', {
       state: {
@@ -100,25 +96,23 @@ const Profile = () => {
     });
   };
 
-  // Handle customer appointment detail view
   const handleViewCustomerAppointmentDetails = (apt) => {
     setSelectedCustomerAppointment(apt);
+    setSelectedAdminItem(null);
   };
 
-  // Handle admin item detail view
   const handleViewAdminItemDetails = (item, collectionName) => {
     setSelectedAdminItem(item);
     setSelectedAdminCollection(collectionName);
+    setSelectedCustomerAppointment(null);
   };
 
-  // Close detail view
   const handleCloseDetails = () => {
     setSelectedCustomerAppointment(null);
     setSelectedAdminItem(null);
     setSelectedAdminCollection(null);
   };
 
-  // Format timestamp
   const formatTimestamp = (timestamp) => {
     if (timestamp && typeof timestamp.toDate === 'function') {
       return new Date(timestamp.toDate()).toLocaleString();
@@ -126,7 +120,30 @@ const Profile = () => {
     return 'N/A';
   };
 
-  // Main loading and authentication checks
+  const filterItems = (items) => {
+    if (!searchTerm) {
+      return items;
+    }
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    return items.filter(item => {
+      const nameMatch = item.name?.toLowerCase().includes(lowerCaseSearchTerm);
+      const emailMatch = item.email?.toLowerCase().includes(lowerCaseSearchTerm);
+      const phoneMatch = item.phone?.toLowerCase().includes(lowerCaseSearchTerm);
+      const addressMatch = item.address?.toLowerCase().includes(lowerCaseSearchTerm);
+      const servicesMatch = item.selectedServices?.some(service => service.toLowerCase().includes(lowerCaseSearchTerm));
+      const dateMatch = item.date?.toLowerCase().includes(lowerCaseSearchTerm);
+      const timeMatch = item.time?.toLowerCase().includes(lowerCaseSearchTerm);
+      const messageMatch = item.message?.toLowerCase().includes(lowerCaseSearchTerm);
+
+      return nameMatch || emailMatch || phoneMatch || addressMatch || servicesMatch || dateMatch || timeMatch || messageMatch;
+    });
+  };
+
+  const filteredCustomerAppointments = filterItems(customerAppointments);
+  const filteredAdminAppointments = filterItems(adminAppointments);
+  const filteredQuoteRequests = filterItems(quoteRequests);
+  const filteredContactSubmissions = filterItems(contactSubmissions);
+
   if (authLoading) {
     return (
       <div className="Profile-loadingWrapper">
@@ -143,206 +160,287 @@ const Profile = () => {
     );
   }
 
-  // Admin Section
   if (isOwner) {
-    if (loadingAdminData) return <div className="Profile-loadingWrapper"><p className="Profile-loadingText">Loading admin dashboard data...</p></div>;
-    if (errorAdminData) return <div className="Profile-loadingWrapper"><p className="Profile-errorMessage">{errorAdminData}</p></div>;
+    if (loadingAdminData) return (
+      <div className="Profile-loadingWrapper">
+        <p className="Profile-loadingText">Loading admin dashboard data...</p>
+      </div>
+    );
+    if (errorAdminData) return (
+      <div className="Profile-loadingWrapper">
+        <p className="Profile-errorMessage">{errorAdminData}</p>
+      </div>
+    );
 
     return (
       <div className="Profile-wrapper">
-        <div className="Profile-main-content">
-          <div className="Profile-section">
-            <h2 className="Profile-title">Owner Dashboard</h2>
-            <div className="Profile-card">
-              <h3 className="Profile-subtitle">Welcome, Owner!</h3>
-              <p className="Profile-text">This is your administrative dashboard.</p>
-              <button onClick={() => auth.signOut()} className="Profile-button Profile-logoutBtn">
-                Logout
-              </button>
-            </div>
-          </div>
-
-          {/* Admin Appointments */}
-          <div className="Profile-section">
-            <div className="Profile-card">
-              <h3 className="Profile-subtitle">All Appointments ({adminAppointments.length})</h3>
-              {adminAppointments.length === 0 ? (
-                <p className="Profile-message">No appointments found.</p>
-              ) : (
-                <ul className="Profile-list Profile-dividedList">
-                  {adminAppointments.slice(0, ITEMS_PER_VIEW).map(apt => (
-                    <li key={apt.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewAdminItemDetails(apt, 'appointments')}>
-                      <p className="Profile-appointmentTitle">Appointment for {apt.name} on {apt.date} at {apt.time}</p>
-                      <p className="Profile-appointmentDetail">Email: {apt.email}, Phone: {apt.phone}</p>
-                      <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address}</p>
-                      <p className="Profile-appointmentDetail Profile-smallText">Services: {apt.selectedServices?.join(', ')}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-
-          {/* Admin Quote Requests */}
-          <div className="Profile-section">
-            <div className="Profile-card">
-              <h3 className="Profile-subtitle">All Quote Requests ({quoteRequests.length})</h3>
-              {quoteRequests.length === 0 ? (
-                <p className="Profile-message">No quote requests found.</p>
-              ) : (
-                <ul className="Profile-list Profile-dividedList">
-                  {quoteRequests.slice(0, ITEMS_PER_VIEW).map(quote => (
-                    <li key={quote.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewAdminItemDetails(quote, 'quoteRequests')}>
-                      <p className="Profile-quoteTitle">Quote from {quote.name}</p>
-                      <p className="Profile-quoteDetail">Email: {quote.email}, Phone: {quote.phone}</p>
-                      <p className="Profile-quoteDetail Profile-smallText">Message: {quote.message}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-
-          {/* Admin Contact Submissions */}
-          <div className="Profile-section">
-            <div className="Profile-card">
-              <h3 className="Profile-subtitle">All Contact Submissions ({contactSubmissions.length})</h3>
-              {contactSubmissions.length === 0 ? (
-                <p className="Profile-message">No contact submissions found.</p>
-              ) : (
-                <ul className="Profile-list Profile-dividedList">
-                  {contactSubmissions.slice(0, ITEMS_PER_VIEW).map(contact => (
-                    <li key={contact.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewAdminItemDetails(contact, 'contactSubmissions')}>
-                      <p className="Profile-contactTitle">Contact from {contact.name}</p>
-                      <p className="Profile-contactDetail">Email: {contact.email}, Phone: {contact.phone}</p>
-                      <p className="Profile-contactDetail Profile-smallText">Message: {contact.message}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-
-          {/* Admin Details Display */}
-          {selectedAdminItem && (
-            <div className="Profile-section Profile-detail-section">
-              <h3 className="Profile-subtitle">Details for {selectedAdminCollection === 'appointments' ? 'Appointment' : selectedAdminCollection === 'quoteRequests' ? 'Quote Request' : 'Contact Submission'}</h3>
-              <div className="Profile-card">
-                {selectedAdminCollection === 'appointments' && (
-                  <>
-                    <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
-                    <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
-                    <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
-                    <p className="Profile-detailItem"><strong>Date:</strong> {selectedAdminItem.date}</p>
-                    <p className="Profile-detailItem"><strong>Time:</strong> {selectedAdminItem.time}</p>
-                    <p className="Profile-detailItem"><strong>Services:</strong> {selectedAdminItem.selectedServices?.join(', ') || 'N/A'}</p>
-                    <p className="Profile-detailItem"><strong>Address:</strong> {selectedAdminItem.address}</p>
-                    {selectedAdminItem.notes && <p className="Profile-detailItem"><strong>Notes:</strong> {selectedAdminItem.notes}</p>}
-                    <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
-                  </>
-                )}
-                {selectedAdminCollection === 'quoteRequests' && (
-                  <>
-                    <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
-                    <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
-                    <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
-                    <p className="Profile-detailItem"><strong>Message:</strong> {selectedAdminItem.message}</p>
-                    <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
-                  </>
-                )}
-                {selectedAdminCollection === 'contactSubmissions' && (
-                  <>
-                    <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
-                    <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
-                    <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
-                    <p className="Profile-detailItem"><strong>Message:</strong> {selectedAdminItem.message}</p>
-                    <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
-                  </>
-                )}
-                <button onClick={handleCloseDetails} className="Profile-button Profile-requestServiceBtn mt-4">
-                  Close Details
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // Customer Section
-  if (loadingCustomerAppointments) return <div className="Profile-loadingWrapper"><p className="Profile-loadingText">Loading your appointments...</p></div>;
-  if (errorCustomerAppointments) return <div className="Profile-loadingWrapper"><p className="Profile-errorMessage">{errorCustomerAppointments}</p></div>;
-
-  return (
-    <div className="Profile-wrapper">
-      <div className="Profile-main-content">
-        <div className="Profile-section">
-          <h2 className="Profile-title">Your Profile</h2>
-          <div className="Profile-card">
-            <h3 className="Profile-subtitle">Welcome, {user?.email || 'Customer'}!</h3>
-            <p className="Profile-text">This is your personal dashboard.</p>
+        <div className="Profile-Dashboard-Dashboard Profile-card-base">
+          <h2 className="Profile-Dashboard-title">Owner Dashboard</h2>
+          <div className="Profile-Dashboard-card">
+            <h3 className="Profile-Dashboard-subtitle">Welcome, Owner!</h3>
+            <p className="Profile-Dashboard-text">This is your administrative dashboard.</p>
             <button onClick={() => auth.signOut()} className="Profile-button Profile-logoutBtn">
               Logout
             </button>
           </div>
         </div>
 
-        {/* Customer Past Appointments */}
-        <div className="Profile-section">
-          <div className="Profile-card">
-            <h3 className="Profile-subtitle">Your Past Appointments</h3>
-            {customerAppointments.length === 0 ? (
-              <p className="Profile-message">You have no past appointments recorded.</p>
-            ) : (
-              <ul className="Profile-list Profile-dividedList">
-                {customerAppointments.slice(0, ITEMS_PER_VIEW).map(apt => (
-                  <li key={apt.id} className="Profile-listItem Profile-dividedListItem Profile-clickableItem" onClick={() => handleViewCustomerAppointmentDetails(apt)}>
-                    <p className="Profile-appointmentDetail">Services: {apt.selectedServices?.join(', ') || 'N/A'}</p>
-                    <p className="Profile-appointmentTitle">Appointment on {apt.date} at {apt.time}</p>
-                    <p className="Profile-appointmentDetail Profile-smallText">Address: {apt.address || 'N/A'}</p>
-                  </li>
-                ))}
-              </ul>
-            )}
+        <div className="Profile-main-container">
+          <div className="Profile-search-bar-container">
+            <input
+              type="text"
+              placeholder="Search by name, email, phone, address, etc."
+              className="Profile-search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-        </div>
-
-        {/* Customer New Service Request */}
-        <div className="Profile-section">
-          <div className="Profile-card">
-            <h3 className="Profile-subtitle">Request New Service</h3>
-            <p className="Profile-text Profile-smallText">Your contact info will be pre-filled automatically.</p>
-            <button onClick={handleStartNewRequest} className="Profile-button Profile-requestServiceBtn">
-              Start New Request
+          <div className="Profile-tabs-container">
+            <button
+              className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
+              onClick={() => setActiveTab('appointments')}
+            >
+              Appointments ({filteredAdminAppointments.length})
+            </button>
+            <button
+              className={`Profile-tab-button ${activeTab === 'quotes' ? 'active' : ''}`}
+              onClick={() => setActiveTab('quotes')}
+            >
+              Quote Requests ({filteredQuoteRequests.length})
+            </button>
+            <button
+              className={`Profile-tab-button ${activeTab === 'contacts' ? 'active' : ''}`}
+              onClick={() => setActiveTab('contacts')}
+            >
+              Contact Submissions ({filteredContactSubmissions.length})
             </button>
           </div>
+
+          <div className="Profile-tab-content">
+            <div className="Profile-tab-panel Profile-card-base">
+              {activeTab === 'appointments' && (
+                <>
+                  <h3 className="Profile-Appointments-subtitle">All Appointments</h3>
+                  {filteredAdminAppointments.length === 0 ? (
+                    <p className="Profile-Appointments-message">No appointments found.</p>
+                  ) : (
+                    <ul className="Profile-Appointments-list Profile-Appointments-dividedList">
+                      {filteredAdminAppointments.map(apt => (
+                        <li key={apt.id} className="Profile-Appointments-listItem Profile-Appointments-dividedListItem Profile-Appointments-clickableItem" onClick={() => handleViewAdminItemDetails(apt, 'appointments')}>
+                          <p className="Profile-appointmentTitle">Appointment for {apt.name} on {apt.date} at {apt.time}</p>
+                          <p className="Profile-appointmentDetail">Email: {apt.email}, Phone: {apt.phone}</p>
+                          <p className="Profile-appointmentDetail Profile-Appointments-smallText">Address: {apt.address}</p>
+                          <p className="Profile-appointmentDetail Profile-Appointments-smallText">Services: {apt.selectedServices?.join(', ')}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              )}
+
+              {activeTab === 'quotes' && (
+                <>
+                  <h3 className="Profile-Quote-subtitle">All Quote Requests</h3>
+                  {filteredQuoteRequests.length === 0 ? (
+                    <p className="Profile-Quote-message">No quote requests found.</p>
+                  ) : (
+                    <ul className="Profile-Quote-list Profile-Quote-dividedList">
+                      {filteredQuoteRequests.map(quote => (
+                        <li key={quote.id} className="Profile-Quote-listItem Profile-Quote-dividedListItem Profile-Quote-clickableItem" onClick={() => handleViewAdminItemDetails(quote, 'quoteRequests')}>
+                          <p className="Profile-quoteTitle">Quote from {quote.name}</p>
+                          <p className="Profile-quoteDetail">Email: {quote.email}, Phone: {quote.phone}</p>
+                          <p className="Profile-quoteDetail Profile-Quote-smallText">Message: {quote.message}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              )}
+
+              {activeTab === 'contacts' && (
+                <>
+                  <h3 className="Profile-Contact-subtitle">All Contact Submissions</h3>
+                  {filteredContactSubmissions.length === 0 ? (
+                    <p className="Profile-Contact-message">No contact submissions found.</p>
+                  ) : (
+                    <ul className="Profile-Contact-list Profile-Contact-dividedList">
+                      {filteredContactSubmissions.map(contact => (
+                        <li key={contact.id} className="Profile-Contact-listItem Profile-Contact-dividedListItem Profile-Contact-clickableItem" onClick={() => handleViewAdminItemDetails(contact, 'contactSubmissions')}>
+                          <p className="Profile-contactTitle">Contact from {contact.name}</p>
+                          <p className="Profile-contactDetail">Email: {contact.email}, Phone: {contact.phone}</p>
+                          <p className="Profile-contactDetail Profile-Contact-smallText">Message: {contact.message}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              )}
+            </div>
+
+            <div className="Profile-right-column">
+              {selectedAdminItem && (
+                <div className="Profile-details-panel Profile-card-base">
+                  <h3 className="Profile-detail-subtitle">Details for {selectedAdminCollection === 'appointments' ? 'Appointment' : selectedAdminCollection === 'quoteRequests' ? 'Quote Request' : 'Contact Submission'}</h3>
+                  <div>
+                    {selectedAdminCollection === 'appointments' && (
+                      <>
+                        <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
+                        <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
+                        <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
+                        <p className="Profile-detailItem"><strong>Date:</strong> {selectedAdminItem.date}</p>
+                        <p className="Profile-detailItem"><strong>Time:</strong> {selectedAdminItem.time}</p>
+                        <p className="Profile-detailItem"><strong>Services:</strong> {selectedAdminItem.selectedServices?.join(', ') || 'N/A'}</p>
+                        <p className="Profile-detailItem"><strong>Address:</strong> {selectedAdminItem.address}</p>
+                        {selectedAdminItem.notes && <p className="Profile-detailItem"><strong>Notes:</strong> {selectedAdminItem.notes}</p>}
+                        <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
+                      </>
+                    )}
+                    {selectedAdminCollection === 'quoteRequests' && (
+                      <>
+                        <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
+                        <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
+                        <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
+                        <p className="Profile-detailItem"><strong>Message:</strong> {selectedAdminItem.message}</p>
+                        <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
+                      </>
+                    )}
+                    {selectedAdminCollection === 'contactSubmissions' && (
+                      <>
+                        <p className="Profile-detailItem"><strong>Name:</strong> {selectedAdminItem.name}</p>
+                        <p className="Profile-detailItem"><strong>Email:</strong> {selectedAdminItem.email}</p>
+                        <p className="Profile-detailItem"><strong>Phone:</strong> {selectedAdminItem.phone}</p>
+                        <p className="Profile-detailItem"><strong>Message:</strong> {selectedAdminItem.message}</p>
+                        <p className="Profile-detailItem Profile-smallText"><strong>Submitted:</strong> {formatTimestamp(selectedAdminItem.createdAt)}</p>
+                      </>
+                    )}
+                    <button onClick={handleCloseDetails} className="Profile-button Profile-requestServiceBtn mt-4">
+                      Close Details
+                    </button>
+                  </div>
+                </div>
+              )}
+              <div className="Request-New-Service Profile-card-base">
+                <h3 className="Profile-subtitle">Create New Appointment</h3>
+                <p className="Profile-text Profile-smallText">Fill out the form to create a new appointment for a customer.</p>
+                <button onClick={handleStartNewRequest} className="Profile-button Profile-requestServiceBtn">
+                  Start New Request
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Customer View
+  return (
+    <div className="Profile-wrapper">
+      <div className="Profile-Dashboard-Dashboard Profile-card-base">
+        <h2 className="Profile-Dashboard-title">Your Profile</h2>
+        <div className="Profile-Dashboard-card">
+          <h3 className="Profile-Dashboard-subtitle">Welcome, {user?.email || 'Customer'}!</h3>
+          <p className="Profile-Dashboard-text">This is your personal dashboard.</p>
+          <button onClick={() => auth.signOut()} className="Profile-button Profile-logoutBtn">
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <div className="Profile-main-container">
+        <div className="Profile-search-bar-container">
+          <input
+            type="text"
+            placeholder="Search"
+            className="Profile-search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="Profile-tabs-container">
+          <button
+            className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
+            onClick={() => setActiveTab('appointments')}
+          >
+            Appointments ({filteredCustomerAppointments.length})
+          </button>
+          {/* Customer might have other tabs for future features, even if empty */}
+          <button
+            className={`Profile-tab-button ${activeTab === 'quotes' ? 'active' : ''}`}
+            onClick={() => setActiveTab('quotes')}
+          >
+            Quote Requests (0)
+          </button>
+          <button
+            className={`Profile-tab-button ${activeTab === 'contacts' ? 'active' : ''}`}
+            onClick={() => setActiveTab('contacts')}
+          >
+            Contact Submissions (0)
+          </button>
         </div>
 
-        {/* Customer Appointment Details Display */}
-        {selectedCustomerAppointment && (
-          <div className="Profile-section Profile-detail-section">
-            <h3 className="Profile-subtitle">Appointment Details</h3>
-            <div className="Profile-card">
-              <p className="Profile-detailItem"><strong>Date:</strong> {selectedCustomerAppointment.date}</p>
-              <p className="Profile-detailItem"><strong>Time:</strong> {selectedCustomerAppointment.time}</p>
-              <p className="Profile-detailItem"><strong>Services:</strong> {selectedCustomerAppointment.selectedServices?.join(', ') || 'N/A'}</p>
-              <p className="Profile-detailItem"><strong>Address:</strong> {selectedCustomerAppointment.address}</p>
-              <p className="Profile-detailItem"><strong>Name:</strong> {selectedCustomerAppointment.name}</p>
-              <p className="Profile-detailItem"><strong>Email:</strong> {selectedCustomerAppointment.email}</p>
-              <p className="Profile-detailItem"><strong>Phone:</strong> {selectedCustomerAppointment.phone}</p>
-              {selectedCustomerAppointment.notes && <p className="Profile-detailItem"><strong>Notes:</strong> {selectedCustomerAppointment.notes}</p>}
-              {selectedCustomerAppointment.createdAt && (
-                <p className="Profile-detailItem Profile-smallText">
-                  Submitted: {formatTimestamp(selectedCustomerAppointment.createdAt)}
-                </p>
-              )}
-              <button onClick={handleCloseDetails} className="Profile-button Profile-requestServiceBtn mt-4">
-                Close Details
+        <div className="Profile-tab-content">
+          <div className="Profile-tab-panel Profile-card-base">
+            {activeTab === 'appointments' && (
+              <>
+                <h3 className="Profile-Appointments-subtitle">Your Past Appointments</h3>
+                {filteredCustomerAppointments.length === 0 ? (
+                  <p className="Profile-Appointments-message">You have no past appointments recorded.</p>
+                ) : (
+                  <ul className="Profile-Appointments-list Profile-Appointments-dividedList">
+                    {filteredCustomerAppointments.map(apt => (
+                      <li key={apt.id} className="Profile-Appointments-listItem Profile-Appointments-dividedListItem Profile-Appointments-clickableItem" onClick={() => handleViewCustomerAppointmentDetails(apt)}>
+                        <p className="Profile-appointmentTitle">Appointment on {apt.date} at {apt.time}</p>
+                        <p className="Profile-appointmentDetail">Services: {apt.selectedServices?.join(', ') || 'N/A'}</p>
+                        <p className="Profile-appointmentDetail Profile-Appointments-smallText">Address: {apt.address || 'N/A'}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            )}
+            {/* Other customer tabs could go here, e.g., activeTab === 'quotes' */}
+            {activeTab === 'quotes' && (
+                <p className="Profile-message">No quote requests found for your account.</p>
+            )}
+            {activeTab === 'contacts' && (
+                <p className="Profile-message">No contact submissions found for your account.</p>
+            )}
+          </div>
+
+          <div className="Profile-right-column">
+            {selectedCustomerAppointment && (
+              <div className="Profile-details-panel Profile-card-base">
+                <h3 className="Profile-detail-subtitle">Appointment Details</h3>
+                <div>
+                  <p className="Profile-detailItem"><strong>Date:</strong> {selectedCustomerAppointment.date}</p>
+                  <p className="Profile-detailItem"><strong>Time:</strong> {selectedCustomerAppointment.time}</p>
+                  <p className="Profile-detailItem"><strong>Services:</strong> {selectedCustomerAppointment.selectedServices?.join(', ') || 'N/A'}</p>
+                  <p className="Profile-detailItem"><strong>Address:</strong> {selectedCustomerAppointment.address}</p>
+                  <p className="Profile-detailItem"><strong>Name:</strong> {selectedCustomerAppointment.name}</p>
+                  <p className="Profile-detailItem"><strong>Email:</strong> {selectedCustomerAppointment.email}</p>
+                  <p className="Profile-detailItem"><strong>Phone:</strong> {selectedCustomerAppointment.phone}</p>
+                  {selectedCustomerAppointment.notes && <p className="Profile-detailItem"><strong>Notes:</strong> {selectedCustomerAppointment.notes}</p>}
+                  {selectedCustomerAppointment.createdAt && (
+                    <p className="Profile-detailItem Profile-smallText">
+                      Submitted: {formatTimestamp(selectedCustomerAppointment.createdAt)}
+                    </p>
+                  )}
+                  <button onClick={handleCloseDetails} className="Profile-button Profile-requestServiceBtn mt-4">
+                    Close Details
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="Request-New-Service Profile-card-base">
+              <h3 className="Profile-subtitle">Request New Service</h3>
+              <p className="Profile-text Profile-smallText">Your contact info will be pre-filled automatically.</p>
+              <button onClick={handleStartNewRequest} className="Profile-button Profile-requestServiceBtn">
+                Start New Request
               </button>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

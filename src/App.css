@@ -1415,188 +1415,307 @@
 
 /*======================================================= LOGIN/REGISTER STYLES ==================================================================*/
 .LoginReg-wrapper {
-  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: #f3f4f6; 
-  padding: 1rem; 
-}
-
-.LoginReg-loadingWrapper {
-  min-height: 100vh;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #f3f4f6; 
-  padding: 1rem; 
-}
-
-.LoginReg-loadingText {
-  font-size: 1.25rem; 
-  color: #4b5563; 
-}
-
-.LoginReg-loggedInWrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #f3f4f6; 
-  padding: 1rem; 
-}
-
-.LoginReg-loggedInText {
-  font-size: 1.25rem; 
-  color: #16a34a; 
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  padding: 1rem;
 }
 
 .LoginReg-modal {
-  background-color: #ffffff; 
-  padding: 2rem; 
-  border-radius: 0.5rem; 
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
   width: 100%;
-  max-width: 28rem; 
+  text-align: center;
 }
 
 .LoginReg-title {
-  font-size: 1.5rem; 
-  font-weight: 700; 
-  margin-bottom: 1.5rem; 
-  text-align: center;
-  color: #1f2937;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #102a43;
+  margin-bottom: 1.5rem;
 }
 
 .LoginReg-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem; 
+  gap: 1.2rem;
+}
+
+.LoginReg-formGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .LoginReg-label {
-  display: block;
-  color: #374151; 
-  font-size: 0.875rem; 
-  font-weight: 700; 
-  margin-bottom: 0.5rem; 
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  color: #334e68;
 }
 
 .LoginReg-input {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
-  appearance: none;
-  border: 1px solid #d1d5db; 
-  border-radius: 0.25rem; 
   width: 100%;
-  padding: 0.5rem 0.75rem; 
-  color: #374151; 
-  line-height: 1.25; 
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #bcccdc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
 }
 
 .LoginReg-input:focus {
   outline: none;
-  kerning: 2px solid #3b82f6;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); 
+  border-color: #3a8dff;
+  box-shadow: 0 0 0 2px rgba(58, 141, 255, 0.2);
 }
 
 .LoginReg-error {
-  color: #ef4444; 
-  font-size: 0.875rem;
-  text-align: center;
+  color: #d64545;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .LoginReg-submitBtn {
-  width: 100%;
-  background-color: #3b82f6; 
-  color: #ffffff; 
-  font-weight: 700; 
-  padding: 0.5rem 1rem; 
-  border-radius: 0.5rem; 
-  outline: none;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; 
-  transition-duration: 0.15s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #3a8dff;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .LoginReg-submitBtn:hover {
-  background-color: #2563eb; 
+  background-color: #2667d6;
 }
+
+.LoginReg-loadingWrapper,
+.LoginReg-loggedInWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f7fafc;
+}
+
+.LoginReg-loadingText,
+.LoginReg-loggedInText {
+  font-size: 1.25rem;
+  color: #102a43;
+}
+
+.LoginReg-logoutBtn {
+  margin-top: 1rem;
+  background-color: #ef4444;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.LoginReg-logoutBtn:hover {
+  background-color: #dc2626;
+}
+
+
 
 /*======================================================= PROFILE STYLES ==================================================================*/
 
-/* General Wrapper for the Profile Page */
+/* Overall Page Wrapper */
 .Profile-wrapper {
-    padding: 20px;
+    padding-top: 6rem;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
     background-color: #f4f7f6;
-    display: flex; /* Make the wrapper a flex container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
     
-    align-items: center; /* Center horizontally */
 }
 
-/* Main Profile Title */
-.Profile-wrapper > .Profile-title { /* Target the main Profile title directly under wrapper */
+/* Common Card Styling - applied to top dashboard, details panel, and request new service */
+.Profile-card-base {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* Top Dashboard/Profile Area */
+.Profile-Dashboard-Dashboard {
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 25px;
+    text-align: center;
+    
+}
+
+.Profile-Dashboard-title {
     font-size: 2.2rem;
     color: #2c3e50;
-    text-align: center;
     margin-bottom: 25px;
     font-weight: 700;
-    width: 100%; /* Ensure it spans full width */
 }
 
-/* Flex Container for Main Content and Details */
-.Profile-flex-container {
+/* Top Dashboard's specific card content alignment */
+.Profile-Dashboard-card {
+    align-items: center;
+}
+
+/* Main content area below the top dashboard (contains search, tabs, and tab content) */
+.Profile-main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    gap: 25px;
+}
+
+/* Search Bar Container */
+.Profile-search-bar-container {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align items to the start of the cross axis */
-    gap: 30px;
-    width: 100%; /* Take full width of the wrapper */
-    max-width: 1200px; /* Optional: limit overall max width */
+    margin-bottom: 0px;
 }
 
-/* Main Content Area (Left Column) */
-.Profile-main-content {
-    flex: 1; /* Allows it to grow and shrink */
-    min-width: 300px; /* Prevent it from becoming too small */
+.Profile-search-input {
+    width: 100%;
+    max-width: 800px;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Profile-search-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Tabs Container */
+.Profile-tabs-container {
     display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 25px;
+    gap: 0;
     
-    gap: 20px;
 }
 
-/* Detail Container (Right Column / Pop-up style) */
-.Profile-detail-container {
-    flex: 0 0 400px; /* Don't grow, don't shrink, base width 400px */
-    max-width: 450px; /* Maximum width for the detail panel */
+.Profile-tab-button {
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.Profile-tab-button:hover {
+    color: #34495e;
+    background-color: #f0f0f0;
+}
+
+.Profile-tab-button.active {
+    color: #3498db;
+    border-bottom: 3px solid #3498db;
+    font-weight: 600;
+    background-color: #eef7fc;
+}
+
+/* Tab Content and Details Panel Layout (side-by-side or stacked) */
+.Profile-tab-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    align-items: flex-start;
+    
+}
+
+/* Individual Tab Panel (content inside each tab) */
+.Profile-tab-panel {
+    grid-column: 1 / 2;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 30px;
-    position: sticky; /* Make it sticky */
-    top: 20px; /* Stick it 20px from the top */
-    align-self: flex-start; /* Align itself to the start of the cross axis */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
 }
 
-/* Individual Sections within Profile (cards) */
-.Profile-section {
+/* Details Panel (right side) */
+.Profile-details-panel {
+    grid-column: 2 / 3;
+    position: sticky;
+    top: calc(6rem + 25px);
+    align-self: flex-start;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
     padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 300px;
 }
 
-/* Profile Titles and Headings */
+/* Request New Service (right side) */
+.Request-New-Service {
+    grid-column: 2 / 3;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 120px;
+}
+
+/* All other common styles (subtitles, text, lists, buttons etc.) */
 .Profile-subtitle {
     font-size: 1.6rem;
     color: #34495e;
     margin-bottom: 15px;
     font-weight: 600;
+    
 }
 
-/* Text and Paragraphs */
 .Profile-text {
     font-size: 1rem;
     line-height: 1.6;
@@ -1609,11 +1728,11 @@
     color: #777;
 }
 
-/* Lists */
 .Profile-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    
 }
 
 .Profile-listItem {
@@ -1622,6 +1741,7 @@
     padding: 8px 0;
     display: flex;
     align-items: center;
+    
 }
 
 .Profile-listItem::before {
@@ -1640,17 +1760,19 @@
     transition: background-color 0.2s ease-in-out;
     flex-direction: column;
     align-items: flex-start;
+    
+    
 }
 
 .Profile-dividedList .Profile-listItem:last-child {
     border-bottom: none;
+    
 }
 
 .Profile-dividedList .Profile-listItem:hover {
     background-color: #f9f9f9;
 }
 
-/* Appointment/Item Details within Lists */
 .Profile-appointmentTitle,
 .Profile-quoteTitle,
 .Profile-contactTitle {
@@ -1658,6 +1780,7 @@
     color: #34495e;
     font-size: 1.1rem;
     margin-bottom: 5px;
+    
 }
 
 .Profile-appointmentDetail,
@@ -1667,9 +1790,9 @@
     font-size: 0.95rem;
     color: #666;
     margin-bottom: 3px;
+    
 }
 
-/* Buttons */
 .Profile-button {
     background-color: #3498db;
     color: white;
@@ -1708,7 +1831,6 @@
     background-color: #27ae60;
 }
 
-/* Loading and Error Messages */
 .Profile-loadingWrapper,
 .Profile-errorMessage {
     text-align: center;
@@ -1727,41 +1849,109 @@
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
-    .Profile-flex-container {
-        flex-direction: column; /* Stack columns vertically on small screens */
-        align-items: center;
-        gap: 20px;
+
+@media (max-width: 1024px) {
+    .Profile-tab-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
     }
 
-    .Profile-main-content,
-    .Profile-detail-container {
-        flex: none; /* Reset flex properties */
-        width: 100%; /* Take full width */
-        max-width: 100%; /* Ensure it doesn't exceed screen width */
-    }
-
-    .Profile-detail-container {
-        position: relative; /* Remove sticky for small screens */
+    .Profile-details-panel {
+        position: relative;
         top: unset;
         align-self: auto;
     }
 
-    .Profile-section {
+    .Request-New-Service {
+        grid-column: 1 / 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .Profile-top-area {
+        width: 95%;
         padding: 20px;
     }
 
-    .Profile-title {
+    .Profile-wrapper {
+        padding-top: 5rem;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .Profile-Dashboard-title {
         font-size: 1.8rem;
     }
 
-    .Profile-subtitle {
+    .Profile-card-base {
+        padding: 20px;
+    }
+
+    .Profile-Dashboard-subtitle,
+    .Profile-subtitle,
+    .Profile-detail-subtitle {
         font-size: 1.4rem;
     }
 
-    .Profile-button {
+    .Profile-button,
+    .Profile-tab-button {
         width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
+    }
+
+    .Profile-tabs-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .Profile-tab-button {
+        flex: 1 1 auto;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 450px) {
+    .Profile-wrapper {
+        padding-top: 4rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .Profile-top-area {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .Profile-Dashboard-title {
+        font-size: 1.5rem;
+    }
+
+    .Profile-card-base {
+        padding: 15px;
+    }
+
+    .Profile-Dashboard-subtitle,
+    .Profile-subtitle,
+    .Profile-detail-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .Profile-button,
+    .Profile-tab-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .Profile-text,
+    .Profile-smallText,
+    .Profile-list,
+    .Profile-listItem,
+    .Profile-appointmentTitle,
+    .Profile-quoteTitle,
+    .Profile-contactTitle,
+    .Profile-appointmentDetail,
+    .Profile-quoteDetail,
+    .Profile-contactDetail,
+    .Profile-detailItem {
+        font-size: 0.85rem;
     }
 }
