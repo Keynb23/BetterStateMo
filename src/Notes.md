@@ -2,6 +2,33 @@
 
 TO DO: 
 
+TOO WHITE 
+
+log in, create account menu needs styles
+
+navdrop login button doesn't work
+
+turn down intensity of box shadows on service cards
+
+random line on top of first service card
+
+slogan animated text not clean 
+
+confirm apt button needs styled
+
+
+add footer
+
+Better State
+
+llc
+
+Tel: 573-826-9529
+
+Opening Hours: 8am - 7pm
+
+
+
 create Blaze account with card info (business card) 
 
 add tests with jest
