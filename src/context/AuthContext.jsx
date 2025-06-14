@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, signInWithCustomToken, onAuthStateChanged, signOut } from 'firebase/auth'; // Removed signInAnonymously
 import { getFirestore } from 'firebase/firestore';

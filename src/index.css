@@ -21,12 +21,14 @@
   --Pool-Shadow: rgba(4, 28, 50, 0.1); /* A soft, clean shadow color. */
 }
 
-body {
+body, html {
   background-color: var(--Crystal-Clear);
   font-family: 'Poppins', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: var(--Deep-Sea);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3 {

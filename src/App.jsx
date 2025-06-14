@@ -5,7 +5,7 @@ import About from './pages/About.jsx';
 import Services from './pages/Services.jsx';  
 import Home from './pages/Home.jsx';  
 import SetApt from './pages/SetApt.jsx';  
-import LoginReg from './context/login-Reg.jsx';  
+import LoginReg from './components/loginReg.jsx';  
 import Profile from './pages/profile.jsx';     
 import './App.css'; 
 

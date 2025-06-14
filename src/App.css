@@ -1,9 +1,8 @@
-/*======================================================= NAVBAR ==================================================================*/
 .Navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-evenly; /* space between left, center, right */
-  padding: 0 4rem;
+  justify-content: space-between; /* Changed for better control */
+  padding: 0 2rem; /* Reduced default padding */
   background-color: rgba(248, 252, 255, 0.8);
   box-shadow: var(--Dark-Green) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   backdrop-filter: blur(10px);
@@ -13,30 +12,34 @@
   z-index: 21;
   width: 100%;
   border-bottom: 1px solid var(--Light-Steel);
+  left: 0; /* Ensure it starts at the edge */
+  right: 0; /* Ensure it ends at the edge */
 }
 
 .navbar-brand img {
-  position: fixed;
-  top: .5rem;
+  position: absolute; /* Changed from fixed for simpler context */
+  top: 50%;
+  transform: translateY(-50%);
   left: 1rem;
-  border-radius: 50%; /* Perfect circle */
+  border-radius: 50%;
   height: 60px;
   width: 60px;
-  max-width: 60px;
-  max-height: 60px;
-  border: 2px solid var(--Sandstone); /* Accent border */
+  border: 2px solid var(--Sandstone);
   box-shadow: 0 4px 15px var(--Pool-Shadow);
-  z-index: 21;
+  z-index: 23;
 }
 
+/* Centered navigation links for desktop */
 .navbar-links {
-  display: flex; /* Default for larger screens */
+  display: flex;
   gap: 1.25rem;
-  /* Removed 'position: absolute;' here for larger screens as it might interfere with flexbox centering */
+  position: absolute; /* Position absolutely to center it perfectly */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .NavLink, .NavScroll-btn {
-  padding-right: 0 0.5rem;
+  padding: 0 0.5rem;
   color: var(--Deep-Sea);
   font-weight: 500;
   text-decoration: none;
@@ -49,31 +52,26 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Underline hover effect */
-.NavLink::after, .NavScroll-btn::after, .phoneNumber::after {
-  content: '';
+/* Action icons on the right (Profile, Phone) */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--Sandstone);
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .phoneNumber {
-  position: fixed;
-  top: 0.75rem;
-  right: 3rem;
   background-color: var(--Mid-Green);
   border: none;
-  padding:1rem;
+  padding: 0.75rem 1rem;
   border-radius: 12px;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   z-index: 22;
+  position: relative; /* Changed from fixed */
 }
 
 .phoneNumber a {
@@ -86,162 +84,200 @@
   align-items: center;
 }
 
-
-.NavLink:hover::after, .NavScroll-btn:hover::after, .phoneNumber:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-.NavLink:hover, .NavScroll-btn:hover {
-  color: var(--Service-Blue);
-}
-
 .Collapse-btn {
   position: absolute;
-  top: .75rem;
+  top: 50%;
+  transform: translateY(-50%);
   left: 7rem;
-  display: none; /* Hidden by default */
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
   z-index: 25;
 }
 
-.Navbar-profileIcon {
-  font-size: 1.5rem; /* Adjust size as needed */
-  color: var(--Service-Blue); /* Or any color that fits your theme */
+/* Profile Dropdown */
+.Navbar-dropdown {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-left: 1.25rem; /* Space from Contact button */
-  /* Ensures it's correctly positioned within the flex container */
 }
 
+.Navbar-profileIcon {
+  font-size: 1.8rem;
+  color: var(--Service-Blue);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+}
 .Navbar-profileIcon:hover {
-  color: var(--Sandstone); /* Hover effect */
+  color: var(--Sandstone);
 }
 
-@media (max-width: 1265px) {
-  .Navbar-profileIcon {
-    /* For the dropdown menu, adjust margin and alignment */
-    margin-left: 0;
-    width: 100%; /* Make it take full width in dropdown */
-    justify-content: flex-start; /* Align left in dropdown */
-    padding-top: 0.5rem; /* Add some padding */
-    padding-bottom: 0.5rem;
-    font-size: 1.1rem; /* Match other nav links font size */
-    /* If you want text next to the icon for mobile, you'll need to add it in JSX */
-  }
-
-  .Navbar-profileIcon .fa-user-circle {
-      margin-right: 0.5rem; /* Space between icon and potential text */
-  }
+.Navbar-authDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 15px;
+  width: auto;
+  min-width: 280px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  z-index: 30;
 }
 
-/* Media query for smaller screens */
-@media (max-width: 1265px) {
+/* Underline hover effect */
+.NavLink::after, .NavScroll-btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--Sandstone);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.NavLink:hover::after, .NavScroll-btn:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.NavLink:hover, .NavScroll-btn:hover {
+  color: var(--Service-Blue);
+}
+
+
+/* =======================================================
+   NAVBAR - MEDIA QUERIES
+   =======================================================*/
+
+/* Tablet & Mobile Breakpoint */
+@media (max-width: 1024px) {
   .Navbar-container {
-    padding: 0 1rem; /* Adjust padding for smaller screens */
-    justify-content: space-between; /* Better distribution when menu is hidden */
+    padding: 0 1rem;
   }
-
+  
+  /* Hide the centered links, show the hamburger button */
   .navbar-links {
-    /* HIDDEN BY DEFAULT ON SMALLER SCREENS */
     display: none;
     flex-direction: column;
-    align-items: flex-start; /* Align dropdown items to the left */
+    align-items: flex-start;
     position: absolute;
     top: 4.5rem;
-    left: 0;
-    /* Instead of fixed left/right, use width and margin-left/auto for centering or defined positioning */
-    width: 225px; /* Explicit width for the dropdown */
-    margin-left: 8rem; /* Positioning for the dropdown, relative to left edge of parent */
+    left: 1rem;
+    width: 250px;
     background-color: var(--Crystal-Clear);
     padding: 1.5rem;
     box-shadow: 0px 10px 20px var(--Pool-Shadow);
-    z-index: 20; /* Ensure it's below the fixed navbar */
-    border-bottom: 1px solid var(--Light-Steel); /* Keep the border for the dropdown content */
-    border-radius: 8px; /* Apply border-radius to the dropdown content */
-    height: 350px; /* Explicit height for the dropdown */
-    justify-content: space-around; /* Distribute items more evenly */
-    gap: 0; /* Let justify-content handle spacing */
+    z-index: 20;
+    border-radius: 8px;
+    gap: 1rem;
   }
-
+  
   .navbar-links.show {
-    /* ONLY DISPLAY WHEN THE 'show' CLASS IS PRESENT */
-    display: flex;
+    display: flex; /* This shows the dropdown menu */
   }
-
+  
   .Collapse-btn {
-    display: block; /* Show the hamburger button on smaller screens */
-    left: 7rem; /* Keep it consistent with its position */
+    display: block; /* Show hamburger */
+    left: 6rem;
   }
-
-  .phoneNumber {
-    right: 1rem; /* Move phone number closer to the right edge */
-    top: 0.75rem; /* Maintain top position */
+  
+  .navbar-actions {
+    right: 1rem;
+  }
+}
+/* Tablet & Mobile Breakpoint */
+@media (max-width: 1024px) {
+  .Navbar-container {
+    padding: 0 1rem;
+  }
+  
+  /* Hide the centered links, show the hamburger button */
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 4.5rem;
+    left: 1rem;
+    width: 250px;
+    background-color: var(--Crystal-Clear);
+    padding: 1.5rem;
+    box-shadow: 0px 10px 20px var(--Pool-Shadow);
+    z-index: 20;
+    border-radius: 8px;
+    gap: 1rem;
+  }
+  
+  .navbar-links.show {
+    display: flex; /* This shows the dropdown menu */
+  }
+  
+  .Collapse-btn {
+    display: block; /* Show hamburger */
+    left: 6rem;
+  }
+  
+  .navbar-actions {
+    right: 1rem;
   }
 }
 
-/* Specific adjustments for 768px and smaller for Navbar elements */
+/* Mobile Breakpoint */
 @media (max-width: 768px) {
   .navbar-brand img {
-    height: 50px; /* Slightly smaller logo */
+    height: 50px;
     width: 50px;
-    top: 0.75rem; /* Adjust position */
     left: 0.75rem;
   }
 
   .Collapse-btn {
-    left: 5.5rem; /* Adjust hamburger button position */
-    top: 0.75rem;
-  }
-
-  .phoneNumber {
-    top: 0.75rem;
-    right: 0.75rem; /* Closer to edge */
-    padding: 0.4rem 0.8rem; /* Smaller padding */
+    left: 5rem;
   }
 
   .phoneNumber .full-text {
-    display: none; /* Hide text on small screens */
+    display: none; /* Hide text, show only icon */
+  }
+  
+  .phoneNumber {
+    padding: 0.5rem;
   }
 
   .phoneNumber .phone-icon {
-    font-size: 1.1rem; /* Adjust icon size */
+    font-size: 1.2rem;
+    margin: 0 0.25rem; /* Add some space inside the circle */
   }
-
+  
   .navbar-links {
-    margin-left: 5rem; /* Adjust dropdown position relative to logo/hamburger */
+    left: 0.75rem;
+    width: 220px;
   }
 }
 
 @media (max-width: 480px) {
-  .Navbar-container {
-    padding: 0 0.5rem; /* Even tighter padding */
-  }
-
-  .navbar-brand img {
-    left: 0.5rem;
-  }
-
   .Collapse-btn {
-    left: 4.5rem; /* Further adjust hamburger position */
+    left: 4.5rem;
   }
-
+  
+  .navbar-actions {
+    gap: 0.5rem; /* Bring icons closer together */
+  }
+  
+  .Navbar-profileIcon {
+    font-size: 1.6rem;
+  }
+  
   .navbar-links {
-    margin-left: 4rem; /* Adjust dropdown position */
-    width: 180px; /* Make dropdown narrower */
-    height: 300px; /* Adjust height */
-    padding: 1rem; /* Adjust padding */
-  }
-
-  .NavLink, .NavScroll-btn {
-    font-size: 1rem; /* Smaller font size for links */
+    width: 200px;
   }
 }
 /* =========================================================== SERVICES STYLES ===============================================================================*/
-
 .Service-wrapper {
   position: relative;
   top: 5rem;
@@ -249,7 +285,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10rem;
+  padding: 4rem 1rem;
 }
 
 .services-main-title {
@@ -487,11 +523,10 @@
   border: 2px solid var(--Sandstone);
 }
 
-/* No specific media query changes needed here, as the flex-wrap and gap already handle responsiveness well. */
 /*===============================================================  SET APT STYLES  ================================================================================== */
-
 .Set-Apt-container {
-  padding: 8rem;
+  /* FIX: Changed fixed padding to be responsive */
+  padding: 8rem 2rem 4rem 2rem;
   max-width: 900px;
   margin: 0 auto;
   font-family: 'Poppins', sans-serif;
@@ -531,6 +566,8 @@
   list-style: none;
   padding: 0;
 }
+
+
 
 .services-selected-apt li {
   background: var(--Crystal-Clear);
@@ -613,6 +650,27 @@
 
 #Early-contact-btn:hover {
   background-color: var(--Dark-Green);
+}
+
+.confirmapt-btn {
+  padding: 1rem 2rem;
+  border: none;
+  background-color: var(--Service-Blue);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block; /* Make it a block element */
+  width: 100%;    /* Full width */
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.confirmapt-btn:hover {
+  background-color: var(--Deep-Sea);
+  transform: translateY(-3px);
 }
 
 /* ---------------- Tablet (max-width: 1024px) ---------------- */
@@ -885,6 +943,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 1200px;
   height: auto;
   margin: 8rem auto 4rem;
@@ -1049,9 +1108,7 @@
 /* ----- Mobile (max-width: 768px) ----- */
 @media (max-width: 768px) {
   .Contact-container {
-    margin: 4rem auto 2rem;
     padding: 1.5rem;
-    width: 95%; /* Ensure consistent width */
   }
 
   .Contact-container h1 {
@@ -1076,8 +1133,7 @@
 @media (max-width: 480px) {
   .Contact-container {
     padding: 1rem;
-    margin: 3rem auto 1.5rem;
-  }
+}
 
   .Contact-container h1 {
     font-size: 1.75rem;
@@ -1100,22 +1156,23 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
-  padding: 2rem;
-  gap: 5rem;
-  width: 1200px;
+  padding: 4rem 2rem; /* FIX: Responsive padding */
+  gap: 4rem;
+  width: 100%;
+  max-width: 1200px; 
   border-radius: 12px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  margin-top: 8rem; /* Add top margin to clear fixed navbar */
+  margin-top: 8rem;
 }
-
 .about-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1200px;
-  height: auto; /* Change to auto for content flexibility */
-  padding: 0 5rem; /* Consistent horizontal padding */
+  /* FIX: Width is now inherited and responsive */
+  width: 100%;
+  height: auto;
+  padding: 0;
 }
 
 .about-section h1 {
@@ -1133,7 +1190,7 @@
   display: flex;
   flex-direction: column;
   gap: 5rem;
-  width: 1200px;
+  width: 100%;
   align-items: center;
 }
 
@@ -1414,544 +1471,310 @@
 }
 
 /*======================================================= LOGIN/REGISTER STYLES ==================================================================*/
-.LoginReg-wrapper {
+
+.login-register-header {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.login-register-header button {
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.login-register-header .active {
+  background-color: black;
+  color: hotpink; /* swap to yellow if you prefer */
+}
+
+.login-register-header button:not(.active) {
+  background-color: white;
+  color: black;
+}
+
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   padding: 1rem;
-}
-
-.LoginReg-modal {
-  background-color: #ffffff;
-  padding: 2rem 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-}
-
-.LoginReg-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #102a43;
-  margin-bottom: 1.5rem;
-}
-
-.LoginReg-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.LoginReg-formGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.LoginReg-label {
-  font-size: 0.95rem;
-  margin-bottom: 0.3rem;
-  color: #334e68;
-}
-
-.LoginReg-input {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid #bcccdc;
   border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease-in-out;
+  background-color: #f9f9f9;
+  max-width: 250px;
+  margin: 0 auto;
 }
 
-.LoginReg-input:focus {
-  outline: none;
-  border-color: #3a8dff;
-  box-shadow: 0 0 0 2px rgba(58, 141, 255, 0.2);
-}
-
-.LoginReg-error {
-  color: #d64545;
+.login-register-input {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
   font-size: 0.9rem;
-  margin-top: -0.5rem;
-  margin-bottom: 0.5rem;
 }
 
-.LoginReg-submitBtn {
-  background-color: #3a8dff;
+.login-register-button {
+  padding: 0.4rem 0.6rem;
+  background-color: black;
   color: white;
-  padding: 0.75rem;
-  font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.3s;
 }
 
-.LoginReg-submitBtn:hover {
-  background-color: #2667d6;
+.login-register-button:hover {
+  background-color: #333;
 }
 
-.LoginReg-loadingWrapper,
-.LoginReg-loggedInWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f7fafc;
+.login-register-error {
+  color: red;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
 }
-
-.LoginReg-loadingText,
-.LoginReg-loggedInText {
-  font-size: 1.25rem;
-  color: #102a43;
-}
-
-.LoginReg-logoutBtn {
-  margin-top: 1rem;
-  background-color: #ef4444;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.LoginReg-logoutBtn:hover {
-  background-color: #dc2626;
-}
-
 
 
 /*======================================================= PROFILE STYLES ==================================================================*/
 
-/* Overall Page Wrapper */
 .Profile-wrapper {
-    padding-top: 6rem;
-    padding-bottom: 25px;
-    padding-left: 25px;
-    padding-right: 25px;
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    background-color: #f4f7f6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    
+    padding: 6rem 2rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Common Card Styling - applied to top dashboard, details panel, and request new service */
+.Profile-loadingWrapper {
+    padding-top: 8rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.Profile-errorMessage {
+    color: red;
+}
+
 .Profile-card-base {
-    background-color: #ffffff;
+    background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    
+    padding: 1.5rem;
+    border: 1px solid #eef;
 }
 
-/* Top Dashboard/Profile Area */
+/* Dashboard Header */
 .Profile-Dashboard-Dashboard {
-    width: 100%;
-    max-width: 1000px;
-    margin-bottom: 25px;
-    text-align: center;
-    
+    margin-bottom: 2rem;
 }
 
 .Profile-Dashboard-title {
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 25px;
-    font-weight: 700;
+    font-size: 2rem;
+    color: var(--Deep-Sea);
+    margin-bottom: 1rem;
 }
 
-/* Top Dashboard's specific card content alignment */
 .Profile-Dashboard-card {
-    align-items: center;
+    background-color: var(--Crystal-Clear);
+    padding: 1rem;
+    border-radius: 8px;
 }
 
-/* Main content area below the top dashboard (contains search, tabs, and tab content) */
+.Profile-Dashboard-subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.Profile-Dashboard-text {
+    color: #555;
+}
+
+/* Main Content Area */
 .Profile-main-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1200px;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+        "search right"
+        "tabs right"
+        "content right";
+    gap: 2rem;
 }
 
-/* Search Bar Container */
 .Profile-search-bar-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0px;
+    grid-area: search;
 }
 
 .Profile-search-input {
     width: 100%;
-    max-width: 800px;
-    padding: 12px 20px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--Light-Steel);
     font-size: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.Profile-search-input:focus {
-    border-color: #3498db;
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
-}
-
-/* Tabs Container */
 .Profile-tabs-container {
+    grid-area: tabs;
     display: flex;
-    justify-content: flex-start;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 25px;
-    gap: 0;
-    
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--Light-Steel);
+    margin-bottom: 1rem;
 }
 
 .Profile-tab-button {
-    background-color: transparent;
+    padding: 0.75rem 1.25rem;
     border: none;
-    border-bottom: 3px solid transparent;
-    padding: 12px 20px;
+    background: none;
     font-size: 1rem;
     font-weight: 500;
-    color: #555;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-.Profile-tab-button:hover {
-    color: #34495e;
-    background-color: #f0f0f0;
-}
-
-.Profile-tab-button.active {
-    color: #3498db;
-    border-bottom: 3px solid #3498db;
-    font-weight: 600;
-    background-color: #eef7fc;
-}
-
-/* Tab Content and Details Panel Layout (side-by-side or stacked) */
-.Profile-tab-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 25px;
-    align-items: flex-start;
-    
-}
-
-/* Individual Tab Panel (content inside each tab) */
-.Profile-tab-panel {
-    grid-column: 1 / 2;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    
-}
-
-/* Details Panel (right side) */
-.Profile-details-panel {
-    grid-column: 2 / 3;
-    position: sticky;
-    top: calc(6rem + 25px);
-    align-self: flex-start;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    
-    padding: 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-height: 300px;
-}
-
-/* Request New Service (right side) */
-.Request-New-Service {
-    grid-column: 2 / 3;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 120px;
-}
-
-/* All other common styles (subtitles, text, lists, buttons etc.) */
-.Profile-subtitle {
-    font-size: 1.6rem;
-    color: #34495e;
-    margin-bottom: 15px;
-    font-weight: 600;
-    
-}
-
-.Profile-text {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.Profile-smallText {
-    font-size: 0.9rem;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
     color: #777;
 }
 
-.Profile-list {
+.Profile-tab-button.active {
+    border-bottom-color: var(--Service-Blue);
+    color: var(--Deep-Sea);
+    font-weight: 600;
+}
+
+.Profile-tab-content {
+    grid-area: content;
+}
+
+.Profile-right-column {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* List Styles */
+.Profile-Appointments-list,
+.Profile-Quote-list,
+.Profile-Contact-list {
     list-style: none;
     padding: 0;
-    margin: 0;
-    
-}
-
-.Profile-listItem {
-    font-size: 1rem;
-    color: #444;
-    padding: 8px 0;
     display: flex;
-    align-items: center;
-    
-}
-
-.Profile-listItem::before {
-    content: '•';
-    color: #2ecc71;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-}
-
-.Profile-dividedList .Profile-listItem {
-    border-bottom: 1px solid #eee;
-    padding: 15px 0;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
     flex-direction: column;
-    align-items: flex-start;
-    
-    
+    gap: 1rem;
 }
 
-.Profile-dividedList .Profile-listItem:last-child {
-    border-bottom: none;
-    
+.Profile-Appointments-dividedList > *:not(:last-child) {
+    border-bottom: 1px solid var(--Light-Steel);
+    padding-bottom: 1rem;
 }
 
-.Profile-dividedList .Profile-listItem:hover {
-    background-color: #f9f9f9;
-}
-
-.Profile-appointmentTitle,
-.Profile-quoteTitle,
-.Profile-contactTitle {
-    font-weight: 600;
-    color: #34495e;
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-    
-}
-
-.Profile-appointmentDetail,
-.Profile-quoteDetail,
-.Profile-contactDetail,
-.Profile-detailItem {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 3px;
-    
-}
-
-.Profile-button {
-    background-color: #3498db;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+.Profile-Appointments-clickableItem {
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 15px;
-    display: inline-block;
+    transition: background-color 0.2s;
+    padding: 0.5rem;
+    border-radius: 6px;
 }
 
-.Profile-button:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
+.Profile-Appointments-clickableItem:hover {
+    background-color: var(--Crystal-Clear);
 }
 
-.Profile-button:active {
-    transform: translateY(0);
+.Profile-appointmentTitle, .Profile-quoteTitle, .Profile-contactTitle {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.Profile-logoutBtn {
-    background-color: #e74c3c;
+.Profile-Appointments-smallText {
+    font-size: 0.85rem;
+    color: #666;
 }
 
-.Profile-logoutBtn:hover {
-    background-color: #c0392b;
+/* Right Column Details Panel */
+.Profile-details-panel,
+.Request-New-Service {
+    position: sticky;
+    top: 6rem; /* Navbar height + some */
+}
+
+.Profile-detail-subtitle, .Profile-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--Service-Blue);
+}
+
+.Profile-detailItem {
+    margin-bottom: 0.5rem;
+}
+
+.Profile-detailItem strong {
+    color: #333;
+}
+
+/* Buttons */
+.Profile-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .Profile-requestServiceBtn {
-    background-color: #2ecc71;
+    background-color: var(--Mid-Green);
+    color: white;
+    width: 100%;
 }
 
 .Profile-requestServiceBtn:hover {
-    background-color: #27ae60;
+    background-color: var(--Dark-Green);
 }
 
-.Profile-loadingWrapper,
-.Profile-errorMessage {
-    text-align: center;
-    padding: 20px;
-    font-size: 1.1rem;
-    color: #555;
+.mt-4 {
+    margin-top: 1rem;
 }
 
-.Profile-loadingText {
-    color: #3498db;
-}
-
-.Profile-errorMessage {
-    color: #e74c3c;
-    font-weight: 500;
-}
-
-/* Responsive Adjustments */
+/* =======================================================
+   PROFILE PAGE - MEDIA QUERIES
+   ======================================================= */
 
 @media (max-width: 1024px) {
-    .Profile-tab-content {
+    .Profile-main-container {
         grid-template-columns: 1fr;
-        gap: 25px;
+        grid-template-areas:
+            "search"
+            "tabs"
+            "content"
+            "right";
     }
 
-    .Profile-details-panel {
-        position: relative;
-        top: unset;
-        align-self: auto;
+    .Profile-right-column {
+        flex-direction: row;
+        gap: 1.5rem;
     }
 
+    .Profile-details-panel,
     .Request-New-Service {
-        grid-column: 1 / 2;
+        position: static;
+        flex: 1;
     }
 }
 
 @media (max-width: 768px) {
-    .Profile-top-area {
-        width: 95%;
-        padding: 20px;
-    }
-
     .Profile-wrapper {
-        padding-top: 5rem;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 5rem 1rem 1rem;
     }
-
-    .Profile-Dashboard-title {
-        font-size: 1.8rem;
+    .Profile-right-column {
+        flex-direction: column;
     }
-
-    .Profile-card-base {
-        padding: 20px;
-    }
-
-    .Profile-Dashboard-subtitle,
-    .Profile-subtitle,
-    .Profile-detail-subtitle {
-        font-size: 1.4rem;
-    }
-
-    .Profile-button,
-    .Profile-tab-button {
-        width: 100%;
-    }
-
     .Profile-tabs-container {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap: wrap; /* Allow tabs to wrap on small screens */
     }
-
     .Profile-tab-button {
-        flex: 1 1 auto;
-        min-width: 120px;
-    }
-}
-
-@media (max-width: 450px) {
-    .Profile-wrapper {
-        padding-top: 4rem;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .Profile-top-area {
-        width: 100%;
-        padding: 15px;
-    }
-
-    .Profile-Dashboard-title {
-        font-size: 1.5rem;
-    }
-
-    .Profile-card-base {
-        padding: 15px;
-    }
-
-    .Profile-Dashboard-subtitle,
-    .Profile-subtitle,
-    .Profile-detail-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .Profile-button,
-    .Profile-tab-button {
-        padding: 10px 20px;
+        padding: 0.5rem 0.75rem;
         font-size: 0.9rem;
-    }
-
-    .Profile-text,
-    .Profile-smallText,
-    .Profile-list,
-    .Profile-listItem,
-    .Profile-appointmentTitle,
-    .Profile-quoteTitle,
-    .Profile-contactTitle,
-    .Profile-appointmentDetail,
-    .Profile-quoteDetail,
-    .Profile-contactDetail,
-    .Profile-detailItem {
-        font-size: 0.85rem;
     }
 }
