@@ -37,13 +37,9 @@ export default function About() {
   </div>
 
       <div className="slogan">
-        <h1>BETTER</h1>
-        <div className="rotating-text">
-          <div>HOME</div>
-          <div>BUSINESS</div>
-          <div>STATE</div>
-          <div>TOGETHER</div>
-        </div>
+        <h1>BETTER HOME</h1>
+        <h1>BETTER BUSINESS</h1>
+        <h1>BETTER STATE</h1>
       </div>
       </div>
     </div>

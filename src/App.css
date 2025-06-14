@@ -613,21 +613,6 @@
   gap: 1rem;
 }
 
-.service-btn {
-  padding: 0.5rem 1rem;
-  background-color: var(--Mid-Green);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.service-btn:hover {
-  background-color: var(--Dark-Green);
-}
-
 .Early-contact-prompt {
   display: flex;
   align-items: center;
@@ -635,8 +620,8 @@
 }
 
 #Early-contact-btn {
-  background-color: var(--Sandstone);
-  color: white;
+  background-color: var(--Mid-Green);
+  color: var(--Crystal-Clear);
   border: none;
   border-radius: 50%;
   font-size: 1.2rem;
@@ -649,28 +634,43 @@
 }
 
 #Early-contact-btn:hover {
-  background-color: var(--Dark-Green);
+  background-color: var(--Sandstone);
+  color: var(--Deep-Sea);
+}
+.Early-contact-btn-clicked {
+  background-color: var(--Service-Blue) !important;  
+  color: var(--Crystal-Clear) !important; 
 }
 
-.confirmapt-btn {
+.Early-contact-btn-clicked:hover {
+  background-color: var(--Deep-Sea) !important; 
+  color: var(--Crystal-Clear) !important;
+}
+
+#Early-contact-btn:before,
+#Early-contact-btn:after {
+  background-color: var(--Sandstone);
+  color: var(--Deep-Sea);
+}
+
+.confirmapt-btn button {
   padding: 1rem 2rem;
   border: none;
-  background-color: var(--Service-Blue);
-  color: #fff;
-  border-radius: 8px;
+  background-color: var(--Mid-Green);
+  color: var(--Crystal-Clear);
+  border-radius: 12px;
   font-weight: 600;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  display: block; /* Make it a block element */
-  width: 100%;    /* Full width */
+  display: block;
+  width: 100%;
   text-align: center;
   margin-top: 2rem;
 }
 
-.confirmapt-btn:hover {
-  background-color: var(--Deep-Sea);
-  transform: translateY(-3px);
+.confirmapt-btn button:hover {
+  background-color: var(--Sandstone);
+  color: var(--Deep-Sea);
 }
 
 /* ---------------- Tablet (max-width: 1024px) ---------------- */
@@ -1242,130 +1242,13 @@
   margin-bottom: 0.5rem;
 }
 
-/* ======================================================================Slogan Section ====================================================================================*/
 .slogan {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--Mid-Green), var(--Light-Steel));
-  padding: 1rem;
-  border-radius: 16px;
-  width: 430px;
-  height: auto;
-  gap: 1rem;
-  text-align: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-}
-
-.slogan h1, .rotating-text > div {
-  font-size: 2.5rem;
-  color: #fff;
-  font-weight: 600;
-}
-
-.rotating-text {
-  position: relative;
-  width: 220px;
-  height: 2.7rem; 
-  text-align: left; 
-}
-
-.rotating-text > div {
-  position: absolute;
-  color: var(--Sandstone);
-  white-space: nowrap;
-  animation: slideUpFadeInOut 20s infinite;
-}
-.rotating-text > div:nth-child(1) { animation-delay: 0s; }
-.rotating-text > div:nth-child(2) { animation-delay: 5s; }
-.rotating-text > div:nth-child(3) { animation-delay: 10s; }
-.rotating-text > div:nth-child(4) { animation-delay: 15s; }
-
-@keyframes slideUpFadeInOut {
-  0%   { opacity: 0; transform: translateY(100%); }
-  5%   { opacity: 1; transform: translateY(0); }
-  20%  { opacity: 1; transform: translateY(0); }
-  25%  { opacity: 0; transform: translateY(-100%); }
-  100% { opacity: 0; }
-}
-
-/* ============================== MEDIA ================================================*/
-/* ---------- Tablet (max-width: 1024px) ---------- */
-@media (max-width: 1024px) {
-  .about-container {
-    width: 95%;
-    padding: 2rem;
-    margin-top: 6rem; /* Adjust top margin */
-    gap: 3rem; /* Reduce gap between sections */
-  }
-
-  .about-section {
-    width: 100%; /* Fill container width */
-    height: auto;
-    padding: 0 2rem;
-  }
-
-  .about-section h1 {
-    font-size: 2.25rem; /* Slightly smaller heading */
-    padding-bottom: 2rem;
-  }
-
-  .about-section p {
-    font-size: 1rem;
-    text-align: center;
-    padding: 0 1rem; /* Add horizontal padding for text */
-  }
-
-  .meet-us {
-    width: 100%;
-    gap: 3rem; /* Reduce gap */
-  }
-
-  .meet-us > h1 {
-    font-size: 2rem;
-    padding-bottom: 0.75rem;
-  }
-
-  .meet-row {
-    flex-direction: column; /* Stack image and text vertically */
-    gap: 1.5rem; /* Adjust gap when stacked */
-  }
-
-  .meet-row.row-reverse {
-    flex-direction: column; /* Ensure stacking even with row-reverse */
-  }
-
-  .meet-row img {
-    width: 300px; /* Smaller image size for tablets */
-    height: 300px;
-  }
-
-  .text-block {
-    flex-basis: auto; /* Remove flex-basis for stacked items */
-    max-width: 90%; /* Max width for text block */
-    min-width: unset;
-    text-align: center !important; /* Center text regardless of row direction */
-  }
-
-  .text-block h2 {
-    font-size: 1.4rem;
-  }
-
-  .slogan {
-    width: 100%;
-    max-width: 350px; /* Slightly smaller max-width for slogan */
-    padding: 0.75rem;
-  }
-
-  .slogan h1,
-  .rotating-text > div {
-    font-size: 1.8rem;
-  }
-
-  .rotating-text {
-    width: 180px; /* Adjust width for smaller font */
-    height: 2.2rem;
-  }
+  width: 75%;
+  height: 100px;
+  padding: 3rem;
 }
 
 /* ---------- Mobile (max-width: 768px) ---------- */
@@ -1408,21 +1291,6 @@
   .text-block h2 {
     font-size: 1.25rem;
   }
-
-  .slogan {
-    max-width: 300px; 
-    padding: 0.5rem;
-  }
-
-  .slogan h1,
-  .rotating-text > div {
-    font-size: 1.5rem;
-  }
-
-  .rotating-text {
-    width: 150px; 
-    height: 1.8rem;
-  }
 }
 
 /* ---------- Small Mobile (max-width: 480px) ---------- */
@@ -1453,20 +1321,6 @@
 
   .text-block h2 {
     font-size: 1.1rem;
-  }
-
-  .slogan {
-    max-width: 250px; 
-  }
-
-  .slogan h1,
-  .rotating-text > div {
-    font-size: 1.3rem;
-  }
-
-  .rotating-text {
-    width: 120px; 
-    height: 1.5rem;
   }
 }
 

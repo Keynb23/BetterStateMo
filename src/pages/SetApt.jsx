@@ -221,6 +221,7 @@ const SetApt = () => {
           <div className="Early-contact-prompt">
             <button
               id="Early-contact-btn"
+              className={earlyContact ? "Early-contact-btn-clicked" : ""}
               onClick={() => {
                 setEarlyContact(!earlyContact);
                 console.log("Early contact button clicked, new state:", !earlyContact);
