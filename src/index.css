@@ -9,16 +9,15 @@
 /*============================ NEW COLOR SCHEME =================================*/
 :root {
   /* Core Palette */
-  --Deep-Sea: rgb(4, 28, 50);          /* A very dark, professional blue for text and deep backgrounds. */
-  --Service-Blue: rgb(0, 119, 255);    /* A bright, confident blue for actions and highlights. */
-  --Mid-Green: rgb(22, 80, 54);        
-  --Dark-Green: rgb(25, 56, 43);
-  --Crystal-Clear: rgb(248, 252, 255); /* A clean, almost-white for primary backgrounds. */
-  --Sandstone: rgb(205, 178, 140);     /* A distinguished, warm accent color. */
-
+  --Deep-Sea: rgb(4, 28, 50);             /* A very dark, professional blue for text and deep backgrounds. */
+  --Service-Blue: rgb(0, 119, 255);       /* A bright, confident blue for actions and highlights. */
+  --Mid-Green: rgb(22, 80, 54);           /* As defined by you */
+  --Dark-Green: rgb(25, 56, 43);          /* As defined by you */
+  --Crystal-Clear: rgb(248, 252, 255);    /* A clean, almost-white for primary backgrounds. */
+  --Sandstone: rgb(205, 178, 140);        /* A distinguished, warm accent color. */
   /* Supporting Tones */
-  --Light-Steel: rgb(222, 226, 230);  /* For borders and subtle dividers. */
-  --Pool-Shadow: rgba(4, 28, 50, 0.1); /* A soft, clean shadow color. */
+  --Light-Steel: rgb(222, 226, 230);      /* For borders and subtle dividers. */
+  --Pool-Shadow: rgba(4, 28, 50, 0.1);    /* A soft, clean shadow color. */
 }
 
 body, html {

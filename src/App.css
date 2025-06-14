@@ -1,10 +1,10 @@
 .Navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Changed for better control */
-  padding: 0 2rem; /* Reduced default padding */
-  background-color: rgba(248, 252, 255, 0.8);
-  box-shadow: var(--Dark-Green) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: var(--Crystal-Clear); /* Use var for consistency */
+  box-shadow: var(--Pool-Shadow) 0px 0px 0.25em, var(--Pool-Shadow) 0px 0.25em 1em; /* Updated shadow color */
   backdrop-filter: blur(10px);
   color: var(--Deep-Sea);
   height: 4.5rem;
@@ -12,12 +12,12 @@
   z-index: 21;
   width: 100%;
   border-bottom: 1px solid var(--Light-Steel);
-  left: 0; /* Ensure it starts at the edge */
-  right: 0; /* Ensure it ends at the edge */
+  left: 0;
+  right: 0;
 }
 
 .navbar-brand img {
-  position: absolute; /* Changed from fixed for simpler context */
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: 1rem;
@@ -33,7 +33,7 @@
 .navbar-links {
   display: flex;
   gap: 1.25rem;
-  position: absolute; /* Position absolutely to center it perfectly */
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -71,7 +71,7 @@
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   z-index: 22;
-  position: relative; /* Changed from fixed */
+  position: relative;
 }
 
 .phoneNumber a {
@@ -123,9 +123,9 @@
   margin-top: 15px;
   width: auto;
   min-width: 280px;
-  background-color: white;
+  background-color: var(--Crystal-Clear); /* Changed from white */
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 15px var(--Pool-Shadow); /* Used var for shadow */
   padding: 1rem;
   z-index: 30;
 }
@@ -153,8 +153,8 @@
 
 
 /* =======================================================
-   NAVBAR - MEDIA QUERIES
-   =======================================================*/
+    NAVBAR - MEDIA QUERIES
+    =======================================================*/
 
 /* Tablet & Mobile Breakpoint */
 @media (max-width: 1024px) {
@@ -192,13 +192,12 @@
     right: 1rem;
   }
 }
-/* Tablet & Mobile Breakpoint */
-@media (max-width: 1024px) {
+/* Tablet & Mobile Breakpoint (Duplicate, removing the duplicate for efficiency) */
+/* @media (max-width: 1024px) {
   .Navbar-container {
     padding: 0 1rem;
   }
   
-  /* Hide the centered links, show the hamburger button */
   .navbar-links {
     display: none;
     flex-direction: column;
@@ -216,18 +215,18 @@
   }
   
   .navbar-links.show {
-    display: flex; /* This shows the dropdown menu */
+    display: flex;
   }
   
   .Collapse-btn {
-    display: block; /* Show hamburger */
+    display: block;
     left: 6rem;
   }
   
   .navbar-actions {
     right: 1rem;
   }
-}
+} */
 
 /* Mobile Breakpoint */
 @media (max-width: 768px) {
@@ -266,7 +265,7 @@
   }
   
   .navbar-actions {
-    gap: 0.5rem; /* Bring icons closer together */
+    gap: 0.5rem;
   }
   
   .Navbar-profileIcon {
@@ -322,7 +321,7 @@
 
 .service-slide.active {
   width: 800px;
-  box-shadow: 0px 16px 48px -10px var(--Dark-Green);
+  box-shadow: 0px 16px 48px -10px var(--Pool-Shadow); /* Used var for shadow */
   z-index: 2;
 }
 
@@ -335,7 +334,7 @@
 }
 
 .slide-description {
-  width: 100%; /* Ensure it spans the full width of the slide */
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -351,9 +350,9 @@
 }
 
 .slide-description h1 {
-  text-shadow: var(--Dark-Green) 6px 8px 25px;
+  text-shadow: var(--Pool-Shadow) 6px 8px 25px; /* Used var for shadow */
   font-weight: 700;
-  color: #fff;
+  color: #fff; /* Kept white for contrast against dark background */
   padding: 1.5rem;
 }
 
@@ -375,21 +374,21 @@
   }
 
   .Service-container {
-    flex-wrap: wrap; /* Allows slides to wrap to the next line */
-    height: auto; /* Adjust height based on content */
-    justify-content: center; /* Center slides when they wrap */
-    gap: 1rem; /* Add gap between wrapped slides */
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
+    gap: 1rem;
   }
 
   .service-slide {
-    width: calc(50% - 1rem); /* Two columns, accounting for gap */
+    width: calc(50% - 1rem);
     min-width: unset;
     height: 400px;
-    margin: 0.5rem; /* Adjust margin for wrapped items */
+    margin: 0.5rem;
   }
 
   .service-slide.active {
-    width: calc(50% - 1rem); /* Keep active width consistent with column */
+    width: calc(50% - 1rem);
     height: 450px;
   }
 
@@ -414,20 +413,20 @@
   }
 
   .Service-container {
-    flex-direction: column; /* Stack slides vertically */
-    align-items: stretch; /* Stretch slides to fill container width */
+    flex-direction: column;
+    align-items: stretch;
     gap: 2rem;
   }
 
   .service-slide {
-    width: 100%; /* Full width for single column */
+    width: 100%;
     height: 350px;
     border-radius: 1.25rem;
-    margin: 0; /* Remove individual margins as gap handles spacing */
+    margin: 0;
   }
 
   .service-slide.active {
-    width: 100%; /* Full width when active */
+    width: 100%;
     height: 400px;
   }
 
@@ -470,7 +469,7 @@
     font-size: 0.85rem;
   }
 }
-/*===============================================================  SERVICE BTN STYLES  ================================================================================== */
+/*===============================================================   SERVICE BTN STYLES   ================================================================================== */
 .service-btns-container {
   display: flex;
   flex-direction: column;
@@ -491,7 +490,7 @@
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px var(--Pool-Shadow); /* Used var for shadow */
   transition: all 0.25s ease-in-out;
 }
 
@@ -506,7 +505,7 @@
 .select-all-btn button:active,
 .service-btn:active,
 .set-apt-btn button:active {
-  color: var(--Crystal-Clear)
+  color: var(--Crystal-Clear);
 }
 
 .service-btns-container .select-ind-btns {
@@ -518,14 +517,13 @@
 
 .service-btn.selected {
   background-color: var(--Service-Blue);
-  color: white;
+  color: white; /* Kept white for contrast */
   font-weight: 600;
   border: 2px solid var(--Sandstone);
 }
 
-/*===============================================================  SET APT STYLES  ================================================================================== */
+/*===============================================================   SET APT STYLES   ================================================================================== */
 .Set-Apt-container {
-  /* FIX: Changed fixed padding to be responsive */
   padding: 8rem 2rem 4rem 2rem;
   max-width: 900px;
   margin: 0 auto;
@@ -567,8 +565,6 @@
   padding: 0;
 }
 
-
-
 .services-selected-apt li {
   background: var(--Crystal-Clear);
   padding: 0.75rem 1rem;
@@ -577,7 +573,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 1px 6px var(--Pool-Shadow);
+  box-shadow: 0 1px 6px var(--Pool-Shadow); /* Used var for shadow */
 }
 
 .remove-btn {
@@ -597,7 +593,7 @@
   padding: 1.25rem;
   background: linear-gradient(135deg, var(--Light-Steel), var(--Service-Blue));
   border-radius: 12px;
-  box-shadow: 0 2px 10px var(--Pool-Shadow);
+  box-shadow: 0 2px 10px var(--Pool-Shadow); /* Used var for shadow */
   color: var(--Crystal-Clear);
 }
 
@@ -649,8 +645,8 @@
 
 #Early-contact-btn:before,
 #Early-contact-btn:after {
-  background-color: var(--Sandstone);
-  color: var(--Deep-Sea);
+  background-color: var(--Sandstone); /* Changed from hardcoded color */
+  color: var(--Deep-Sea); /* Changed from hardcoded color */
 }
 
 .confirmapt-btn button {
@@ -780,7 +776,7 @@
   transition: background-color 0.3s ease;
   border: none;
   cursor: pointer;
-  position: relative; /* Keep relative for its own positioning if needed */
+  position: relative;
 }
 
 .request-quote-button:hover {
@@ -789,7 +785,7 @@
 
 /* Modal Overlay */
 .request-quote-overlay {
-  position: absolute; /* Default for larger screens relative to its parent */
+  position: absolute;
   bottom: 5rem;
   left: 8rem;
   align-self: flex-end;
@@ -797,7 +793,6 @@
   justify-content: center;
   align-items: center;
   z-index: 50;
-  /* Add initial sizing for larger screens to ensure it's not too small if position:absolute is removed */
   width: auto;
   height: auto;
 }
@@ -810,7 +805,7 @@
   padding: 1.5rem;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px var(--Pool-Shadow); /* Used var for shadow */
   border: 1px solid var(--Light-Steel);
   position: relative;
 }
@@ -839,9 +834,9 @@
   padding: 0.5rem;
   border: 1px solid var(--Light-Steel);
   border-radius: 4px;
-  background-color: white;
+  background-color: var(--Crystal-Clear); /* Changed from white for consistency */
   font-size: 1rem;
-  margin-bottom: 1rem; /* Add margin between inputs */
+  margin-bottom: 1rem;
 }
 
 /* Submit Button */
@@ -887,22 +882,22 @@
 /* ---------- Mobile (max-width: 768px) ---------- */
 @media (max-width: 768px) {
   .request-quote-overlay {
-    position: fixed; /* Essential for full-screen overlay */
-    bottom: 0; /* Cover entire viewport */
+    position: fixed;
+    bottom: 0;
     left: 0;
     top: 0;
     right: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--Pool-Shadow); /* Used var for shadow opacity */
     align-items: center;
     justify-content: center;
-    padding: 1rem; /* Padding for the container */
+    padding: 1rem;
   }
 
   .request-quote-modal {
     max-width: 90%;
-    width: 100%; /* Ensure it takes up available width */
+    width: 100%;
     padding: 1rem;
     border-radius: 8px;
   }
@@ -930,7 +925,7 @@
   .request-quote-textarea {
     font-size: 0.9rem;
     padding: 0.4rem;
-    margin-bottom: 0.75rem; /* Adjust margin */
+    margin-bottom: 0.75rem;
   }
 
   .request-quote-submit {
@@ -947,9 +942,9 @@
   max-width: 1200px;
   height: auto;
   margin: 8rem auto 4rem;
-  background: linear-gradient(135deg, var(--Crystal-Clear) 0%, #fff 100%);
+  background: linear-gradient(135deg, var(--Crystal-Clear) 0%, var(--Crystal-Clear) 100%); /* Changed from #fff */
   border-radius: 16px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: var(--Pool-Shadow) 0px 2px 5px -1px, var(--Pool-Shadow) 0px 1px 3px -1px; /* Used var for shadow */
   padding: 3rem;
   border: 1px solid var(--Light-Steel);
 }
@@ -1014,21 +1009,21 @@
 .Contact-right input,
 .Contact-right textarea {
   padding: 1rem;
-  background-color: #fff;
+  background-color: var(--Crystal-Clear); /* Changed from #fff */
   color: var(--Deep-Sea);
   border: 1px solid var(--Light-Steel);
   border-radius: 8px;
   font-size: 1rem;
   font-family: 'Poppins', sans-serif;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  width: 100%; /* Ensure inputs fill their container */
+  width: 100%;
 }
 
 .Contact-right input:focus,
 .Contact-right textarea:focus {
   border-color: var(--Service-Blue);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
+  box-shadow: 0 0 0 3px var(--Pool-Shadow); /* Adjusted shadow to match scheme */
 }
 
 .Contact-right textarea {
@@ -1040,7 +1035,7 @@
   padding: 1rem 2rem;
   border: none;
   background-color: var(--Service-Blue);
-  color: #fff;
+  color: var(--Crystal-Clear); /* Changed from #fff */
   border-radius: 8px;
   font-weight: 600;
   font-size: 1.1rem;
@@ -1058,35 +1053,35 @@
 /* ----- Tablet (max-width: 1024px) ----- */
 @media (max-width: 1024px) {
   .Contact-container {
-    margin: 6rem auto 3rem; /* Adjust top margin for sticky navbar */
+    margin: 6rem auto 3rem;
     padding: 2rem;
-    width: 95%; /* Make it less than max-width for better spacing */
+    width: 95%;
   }
 
   .Contact-content {
     gap: 2rem;
-    flex-direction: column; /* Stack columns on tablets too for more vertical space */
+    flex-direction: column;
   }
 
   .Contact-left,
   .Contact-right {
     flex-basis: 100%;
-    padding: 0; /* Remove padding here, let container handle it */
+    padding: 0;
   }
 
   .Contact-left {
-    text-align: center; /* Center content in left section */
-    padding-right: 0; /* Remove right padding */
+    text-align: center;
+    padding-right: 0;
   }
 
   .contact-message {
-    padding: 1.5rem; /* Adjust padding */
-    margin: 0; /* Remove margin */
-    text-align: center; /* Center message text */
+    padding: 1.5rem;
+    margin: 0;
+    text-align: center;
   }
 
   .contact-message h3 {
-    padding-bottom: 2rem; /* Adjust padding */
+    padding-bottom: 2rem;
   }
 
   .Contact-container h1 {
@@ -1095,13 +1090,13 @@
   }
 
   .form-row {
-    flex-direction: column; /* Stack form fields vertically */
+    flex-direction: column;
     gap: 1rem;
   }
 
   .Submit-btn {
-    align-self: center; /* Center button when columns stack */
-    width: auto; /* Allow button to size naturally */
+    align-self: center;
+    width: auto;
   }
 }
 
@@ -1125,7 +1120,7 @@
   .Submit-btn {
     padding: 0.9rem 1.5rem;
     font-size: 1rem;
-    width: 100%; /* Make button full width again */
+    width: 100%;
   }
 }
 
@@ -1156,12 +1151,12 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
-  padding: 4rem 2rem; /* FIX: Responsive padding */
+  padding: 2rem;
   gap: 4rem;
   width: 100%;
   max-width: 1200px; 
   border-radius: 12px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: var(--Pool-Shadow) 0px 2px 5px -1px, var(--Pool-Shadow) 0px 1px 3px -1px; /* Used var for shadow */
   margin-top: 8rem;
 }
 .about-section {
@@ -1169,7 +1164,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* FIX: Width is now inherited and responsive */
   width: 100%;
   height: auto;
   padding: 0;
@@ -1177,7 +1171,7 @@
 
 .about-section h1 {
   padding-bottom: 3rem;
-  text-align: center; /* Center heading for better mobile appearance */
+  text-align: center;
 }
 
 .about-section p {
@@ -1197,7 +1191,7 @@
 .meet-us > h1 {
   padding-bottom: 1rem;
   border-bottom: 3px solid var(--Sandstone);
-  text-align: center; /* Center heading */
+  text-align: center;
 }
 
 .meet-row {
@@ -1220,7 +1214,7 @@
   object-fit: cover;
   flex-shrink: 0;
   outline: 1px solid var(--Light-Steel);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: var(--Pool-Shadow) 0px 2px 5px -1px, var(--Pool-Shadow) 0px 1px 3px -1px; /* Used var for shadow */
 }
 
 /* Text block: always same width, vertically centered with image */
@@ -1343,13 +1337,13 @@
 }
 
 .login-register-header .active {
-  background-color: black;
-  color: hotpink; /* swap to yellow if you prefer */
+  background-color: var(--Deep-Sea); /* Changed from black */
+  color: var(--Service-Blue); /* Changed from hotpink */
 }
 
 .login-register-header button:not(.active) {
-  background-color: white;
-  color: black;
+  background-color: var(--Crystal-Clear); /* Changed from white */
+  color: var(--Deep-Sea); /* Changed from black */
 }
 
 .login-form,
@@ -1359,7 +1353,7 @@
   gap: 0.5rem;
   padding: 1rem;
   border-radius: 6px;
-  background-color: #f9f9f9;
+  background-color: var(--Crystal-Clear); /* Changed from #f9f9f9 */
   max-width: 250px;
   margin: 0 auto;
 }
@@ -1367,14 +1361,14 @@
 .login-register-input {
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--Light-Steel); /* Changed from #ccc */
   font-size: 0.9rem;
 }
 
 .login-register-button {
   padding: 0.4rem 0.6rem;
-  background-color: black;
-  color: white;
+  background-color: var(--Service-Blue); /* Changed from black */
+  color: var(--Crystal-Clear); /* Changed from white */
   font-weight: 600;
   border: none;
   border-radius: 4px;
@@ -1383,11 +1377,11 @@
 }
 
 .login-register-button:hover {
-  background-color: #333;
+  background-color: var(--Deep-Sea); /* Changed from #333 */
 }
 
 .login-register-error {
-  color: red;
+  color: var(--Dark-Green); /* Used a green for errors, or you can define a dedicated error color like red if preferred */
   text-align: center;
   margin-top: 0.5rem;
   font-size: 0.85rem;
@@ -1410,15 +1404,15 @@
 }
 
 .Profile-errorMessage {
-    color: red;
+    color: var(--Dark-Green); /* Used a green for errors, or define a dedicated error color */
 }
 
 .Profile-card-base {
-    background-color: white;
+    background-color: var(--Crystal-Clear); /* Changed from white */
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px var(--Pool-Shadow); /* Used var for shadow */
     padding: 1.5rem;
-    border: 1px solid #eef;
+    border: 1px solid var(--Light-Steel); /* Changed from #eef */
 }
 
 /* Dashboard Header */
@@ -1445,7 +1439,7 @@
 }
 
 .Profile-Dashboard-text {
-    color: #555;
+    color: var(--Deep-Sea); /* Changed from #555, using Deep-Sea or a lighter variation if text is too heavy */
 }
 
 /* Main Content Area */
@@ -1488,7 +1482,7 @@
     cursor: pointer;
     border-bottom: 3px solid transparent;
     transition: all 0.2s ease-in-out;
-    color: #777;
+    color: var(--Deep-Sea); /* Changed from #777 */
 }
 
 .Profile-tab-button.active {
@@ -1532,7 +1526,7 @@
 }
 
 .Profile-Appointments-clickableItem:hover {
-    background-color: var(--Crystal-Clear);
+    background-color: var(--Light-Steel); /* Changed from Crystal-Clear, Light-Steel might offer a better subtle hover */
 }
 
 .Profile-appointmentTitle, .Profile-quoteTitle, .Profile-contactTitle {
@@ -1542,14 +1536,14 @@
 
 .Profile-Appointments-smallText {
     font-size: 0.85rem;
-    color: #666;
+    color: var(--Deep-Sea); /* Changed from #666 */
 }
 
 /* Right Column Details Panel */
 .Profile-details-panel,
 .Request-New-Service {
     position: sticky;
-    top: 6rem; /* Navbar height + some */
+    top: 6rem;
 }
 
 .Profile-detail-subtitle, .Profile-subtitle {
@@ -1564,7 +1558,7 @@
 }
 
 .Profile-detailItem strong {
-    color: #333;
+    color: var(--Deep-Sea); /* Changed from #333 */
 }
 
 /* Buttons */
@@ -1579,7 +1573,7 @@
 
 .Profile-requestServiceBtn {
     background-color: var(--Mid-Green);
-    color: white;
+    color: var(--Crystal-Clear); /* Changed from white */
     width: 100%;
 }
 
@@ -1591,44 +1585,27 @@
     margin-top: 1rem;
 }
 
-/* =======================================================
-   PROFILE PAGE - MEDIA QUERIES
-   ======================================================= */
+/* ============================================================ COVERAGE MAP STYLES ================================= */
 
-@media (max-width: 1024px) {
-    .Profile-main-container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "search"
-            "tabs"
-            "content"
-            "right";
-    }
-
-    .Profile-right-column {
-        flex-direction: row;
-        gap: 1.5rem;
-    }
-
-    .Profile-details-panel,
-    .Request-New-Service {
-        position: static;
-        flex: 1;
-    }
+.Map-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
 }
 
-@media (max-width: 768px) {
-    .Profile-wrapper {
-        padding: 5rem 1rem 1rem;
-    }
-    .Profile-right-column {
-        flex-direction: column;
-    }
-    .Profile-tabs-container {
-        flex-wrap: wrap; /* Allow tabs to wrap on small screens */
-    }
-    .Profile-tab-button {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.9rem;
-    }
+.Missouri-map img {
+  padding: 2rem;
+  height: 100%;
+  width: 100%;
+  background-color: var(--Sandstone);
+  background-position: center;
+  max-width: 400px;
+  max-height: 400px;
+  box-shadow: var(--Pool-Shadow) 0px 2px 5px -1px, var(--Pool-Shadow) 0px 1px 3px -1px; /* Used var for shadow */
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
