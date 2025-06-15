@@ -8,7 +8,8 @@ import SetApt from './pages/SetApt.jsx';
 import LoginReg from './components/loginReg.jsx';  
 import Profile from './pages/profile.jsx';     
 import './App.css'; 
-import CoverageMap from './components/CoverageMap.jsx';
+import ObjectionBlockers from './components/objectionBlockers.jsx';
+
 
 
 function App() {
@@ -27,8 +28,8 @@ function App() {
               <section id="home"><Home /></section>
               <section id="services"><Services /></section>
               <section id="about"><About /></section>
-              <CoverageMap/>
               <section id="contact"><Contact /></section>
+              <ObjectionBlockers />
             </>
           }
         />

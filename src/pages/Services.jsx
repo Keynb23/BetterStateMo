@@ -10,25 +10,25 @@ const serviceData = [
     id: "c1",
     title: "Pool Cleaning",
     desc: "Our comprehensive pool cleaning services ensure your pool remains sparkling and healthy. We handle everything from skimming and vacuuming to water chemistry balancing.",
-    shadowColor: "var(--Sandstone)",
+    shadowColor: "var(--Deep-Sea)",
   },
   {
     id: "c2",
     title: "Pool Servicing",
     desc: "From minor repairs to major equipment overhauls, our expert technicians can diagnose and fix any issue, keeping your pool running efficiently all season long.",
-    shadowColor: "var(--Service-Blue)",
+    shadowColor: "var(--Deep-Sea)",
   },
   {
     id: "c3",
     title: "Open your pool",
     desc: "Get your pool ready for the swimming season with our professional opening services. We'll clean, balance, and inspect your pool to ensure a smooth and enjoyable start.",
-    shadowColor: "var(--Sandstone)",
+    shadowColor: "var(--Deep-Sea)",
   },
   {
     id: "c4",
     title: "Closing your pool",
     desc: "Protect your investment during the off-season with our thorough pool closing services. We'll winterize your pool to prevent damage and ensure an easy opening next year.",
-    shadowColor: "var(--Service-Blue)",
+    shadowColor: "var(--Deep-Sea)",
   },
 ];
 

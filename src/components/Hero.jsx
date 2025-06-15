@@ -1,5 +1,4 @@
 
-
 // import { useMedia } from "../context/MediaContext";
 
 const Hero = () => {
