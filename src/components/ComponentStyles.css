@@ -1,0 +1,504 @@
+/* ======================================================= NAVBAR =======================================================*/
+.Navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg);
+  background-color: var(--Crystal-Clear);
+  box-shadow: 0 0 4px var(--Pool-Shadow), 0 4px 16px var(--Pool-Shadow);
+  backdrop-filter: blur(10px);
+  color: var(--Deep-Sea);
+  height: 4.5rem;
+  position: fixed;
+  z-index: 21;
+  width: 100%;
+  border-bottom: 1px solid var(--Light-Steel);
+  border-radius: 12px;
+  left: 0;
+  right: 0;
+}
+
+.navbar-brand img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: var(--space-md);
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  border: 2px solid var(--Sandstone);
+  box-shadow: 0 4px 15px var(--Pool-Shadow);
+  z-index: 23;
+}
+
+.navbar-links {
+  display: flex;
+  gap: var(--space-md);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.NavLink,
+.NavScroll-btn {
+  padding: 0 var(--space-sm);
+  color: var(--Deep-Sea);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  position: absolute;
+  right: var(--space-lg);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.phoneNumber {
+  background-color: var(--Mid-Green);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  z-index: 22;
+  position: relative;
+}
+
+.phoneNumber a {
+  color: var(--Crystal-Clear);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.Collapse-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 7rem;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 25;
+}
+
+.Navbar-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.Navbar-profileIcon {
+  font-size: 1.8rem;
+  color: var(--Service-Blue);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  transition: color 0.3s;
+}
+
+.Navbar-profileIcon:hover {
+  color: var(--Sandstone);
+}
+
+.Navbar-authDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-md);
+  width: auto;
+  min-width: 280px;
+  background-color: var(--Crystal-Clear);
+  border-radius: var(--space-sm);
+  box-shadow: 0 4px 15px var(--Pool-Shadow);
+  padding: var(--space-md);
+  z-index: 30;
+}
+
+.NavLink::after,
+.NavScroll-btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--Sandstone);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.NavLink:hover::after,
+.NavScroll-btn:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.NavLink:hover,
+.NavScroll-btn:hover {
+  color: var(--Service-Blue);
+}
+
+/* ======================================================= NAVBAR - MEDIA QUERIES =======================================================*/
+@media (max-width: 1024px) {
+  .Navbar-container {
+    padding: 0 var(--space-md);
+  }
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 4.5rem;
+    left: 14rem;
+    width: 250px;
+    background-color: var(--Crystal-Clear);
+    padding: var(--space-md);
+    box-shadow: 0 10px 20px var(--Pool-Shadow);
+    z-index: 20;
+    border-radius: var(--space-sm);
+    gap: var(--space-md);
+  }
+  .navbar-links.show {
+    display: flex;
+  }
+  .Collapse-btn {
+    display: block;
+    left: 6rem;
+  }
+  .navbar-actions {
+    right: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-brand img {
+    height: 50px;
+    width: 50px;
+    left: var(--space-sm);
+  }
+  .Collapse-btn {
+    left: 5rem;
+  }
+  .phoneNumber .full-text {
+    display: none;
+  }
+  .phoneNumber {
+    padding: var(--space-sm);
+  }
+  .phoneNumber .phone-icon {
+    font-size: 1.2rem;
+    margin: 0 var(--space-xs);
+  }
+  .navbar-links {
+    left: 12rem;
+    width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Collapse-btn {
+    left: 4.5rem;
+  }
+  .navbar-actions {
+    gap: var(--space-sm);
+  }
+  .Navbar-profileIcon {
+    font-size: 1.6rem;
+  }
+  .navbar-links {
+    width: 200px;
+    left: 10.5rem;
+  }
+}
+/*======================================================= LOGIN/REGISTER STYLES ==================================================================*/
+.login-register-header {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.login-register-header button {
+  padding: var(--space-sm) var(--space-md);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--space-xs);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.login-register-header .active {
+  background-color: var(--Deep-Sea);
+  color: var(--Service-Blue);
+}
+
+.login-register-header button:not(.active) {
+  background-color: var(--Crystal-Clear);
+  color: var(--Deep-Sea);
+}
+
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-radius: var(--space-sm);
+  background-color: var(--Crystal-Clear);
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.login-register-input {
+  padding: var(--space-sm);
+  border-radius: var(--space-xs);
+  border: 1px solid var(--Light-Steel);
+  font-size: 0.9rem;
+}
+
+.login-register-button {
+  padding: var(--space-sm);
+  background-color: var(--Service-Blue);
+  color: var(--Crystal-Clear);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--space-xs);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-register-button:hover {
+  background-color: var(--Deep-Sea);
+}
+
+.login-register-error {
+  color: var(--Dark-Green);
+  text-align: center;
+  margin-top: var(--space-sm);
+  font-size: 0.85rem;
+}
+/*======================================================= OBJECTION BLOCKERS/MAP/SLOGAN ==================================================================*/
+.objection-blockers-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-xl) 0;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.slogan-container {
+  display: flex;
+  align-items: center;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.slogan-static-part {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slogan-static-part h1 {
+  margin: 0;
+  padding-right: var(--space-sm);
+  white-space: nowrap;
+  height: 1.2em;
+  display: flex;
+  align-items: center;
+}
+
+.slogan-dynamic-word-stack {
+  position: relative;
+  height: 1.2em;
+  width: 10em;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.swap-word {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  margin: 0;
+  line-height: inherit;
+  white-space: nowrap;
+  font-size: inherit;
+  height: 1.2em;
+  display: flex;
+  align-items: center;
+  animation-name: wordVisibility;
+  animation-duration: 9s;
+  animation-iteration-count: infinite;
+  animation-timing-function: steps(1, end);
+}
+
+@keyframes wordVisibility {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  0% {
+    opacity: 1;
+  }
+  33.333% {
+    opacity: 1;
+  }
+  33.334% {
+    opacity: 0;
+  }
+}
+
+.word-1 {
+  animation-delay: 0s;
+}
+
+.word-2 {
+  animation-delay: -3s;
+}
+
+.word-3 {
+  animation-delay: -6s;
+}
+
+.main-content-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-md);
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.Missouri-map-container-styled {
+  background-color: var(--Service-Blue);
+  max-width: 250px;
+  max-height: 250px;
+  box-shadow: 0 2px 5px -1px var(--Pool-Shadow), 0 1px 3px -1px var(--Pool-Shadow);
+  border-radius: var(--space-md);
+  padding: var(--space-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Missouri-map-container-styled img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.map-with-text-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.map-description-text {
+  margin-top: var(--space-md);
+  font-size: 1rem;
+  color: var(--Deep-Sea);
+}
+
+.objection-block-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 200px;
+  text-align: center;
+}
+
+.objection-block-item .obj-img {
+  height: auto;
+  width: 100%;
+  max-width: 120px;
+  max-height: 120px;
+  object-fit: contain;
+  margin-bottom: var(--space-md);
+}
+
+.img-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--Deep-Sea);
+}
+
+@media (max-width: 768px) {
+  .objection-blockers-wrapper {
+    padding: var(--space-lg) var(--space-md);
+    gap: var(--space-lg);
+  }
+  .main-content-row {
+    gap: var(--space-md);
+    padding: var(--space-md);
+  }
+  .Missouri-map-container-styled {
+    max-width: 200px;
+    max-height: 200px;
+    padding: var(--space-md);
+  }
+  .objection-block-item {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .objection-blockers-wrapper {
+    margin-top: var(--space-lg);
+  }
+  .slogan-container {
+    font-size: 2rem;
+  }
+  .Missouri-map-container-styled {
+    max-width: 180px;
+    max-height: 180px;
+    padding: var(--space-md);
+  }
+  .objection-block-item {
+    max-width: 120px;
+  }
+  .objection-block-item .obj-img {
+    max-width: 90px;
+    max-height: 90px;
+  }
+  .img-text,
+  .map-description-text {
+    font-size: 0.85rem;
+  }
+}

@@ -2,17 +2,17 @@
 
 TO DO: 
 
-add gallary of photos
+HERO NEEDS ADDED!!!!!!
 
-add service map
+slogan not centered. NEEDS MOVED
+
+the objection blockers has the coverage map in the middle right now. really just as a place holder. Should be moved to it's own section, like in the corner near the footer or where I put the hours of operation.
+
 
 TOO WHITE 
 
-turn down intensity of box shadows on service cards
 
 random line on top of first service card
-
-slogan animated text not clean 
 
 add footer
 
@@ -33,7 +33,6 @@ add tests with jest
 NEEDS:
 
 Picture of both Andrew and Josh in their work shirts to create trust with customers
-
 
 
 

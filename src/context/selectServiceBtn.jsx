@@ -3,6 +3,7 @@ import { serviceTypes } from "./serviceTypes";
 import { useServiceContext } from "./ServiceContext";
 import { useBackendCart } from "./BackendCart";
 import { useNavigate } from "react-router-dom";
+import './ContextStyles.css'
 
 export const ServiceBtns = () => {
   // CORRECTED: Destructure toggleService, selectAllServices, and clearServices

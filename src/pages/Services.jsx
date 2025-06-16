@@ -1,7 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import { useMedia } from "../context/MediaContext";
 import RequestQuote from "../context/RequestQuote";
 import { ServiceBtns } from "../context/selectServiceBtn";
+import './PageStyles.css'
+import Slider from '../context/Slider';
+
+const useIsMobile = (breakpoint = 1024) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [breakpoint]);
+
+  return isMobile;
+};
 
 const serviceDataIndexes = [18, 17, 14, 11];
 
@@ -35,44 +49,48 @@ const serviceData = [
 export default function Services() {
   const { pools } = useMedia();
   const [selectedId, setSelectedId] = useState("c1");
+  const isMobile = useIsMobile();
 
   return (
     <div className="Service-wrapper">
       <h1 className="services-main-title">Our Services</h1>
-      <div className="Service-container">
-        {serviceData.map((service, i) => (
-          <div
-            className={`service-slide${
-              selectedId === service.id ? " active" : ""
-            }`}
-            key={service.id}
-            onClick={() => setSelectedId(service.id)}
-            style={{
-              backgroundImage: `url(${pools[serviceDataIndexes[i]]})`,
-              boxShadow:
-                selectedId === service.id
-                  ? `0px 16px 48px -10px ${service.shadowColor}`
-                  : "0px 10px 30px -5px var(--Pool-Shadow)",
-            }}
-            aria-label={service.title}
-          >
-            <div className="slide-content">
-              <div className="slide-description">
-                {selectedId === service.id && (
-                  <>
-                    <h1>{service.title}</h1>
-                    <p>{service.desc}</p>
-                    <RequestQuote serviceId={service.title} />
 
-                  </>
-                )}
+      {isMobile ? (
+        <Slider serviceData={serviceData} pools={pools} />
+      ) : (
+        <div className="Service-container">
+          {serviceData.map((service, i) => (
+            <div
+              className={`service-slide${selectedId === service.id ? " active" : ""}`}
+              key={service.id}
+              onClick={() => setSelectedId(service.id)}
+              style={{
+                backgroundImage: `url(${pools[serviceDataIndexes[i]]})`,
+                boxShadow:
+                  selectedId === service.id
+                    ? `0px 16px 48px -10px ${service.shadowColor}`
+                    : "0px 10px 30px -5px var(--Deep-Sea)",
+              }}
+              aria-label={service.title}
+            >
+              <div className="slide-content">
+                <div className="slide-description">
+                  {selectedId === service.id && (
+                    <>
+                      <h1>{service.title}</h1>
+                      <p>{service.desc}</p>
+                      <RequestQuote serviceId={service.title} />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-        <h2>Want to book a service? Select below:</h2>
-          <ServiceBtns />
-      </div>
+          ))}
+        </div>
+      )}
+
+      <h2>Want to book a service? Select below:</h2>
+      <ServiceBtns />
+    </div>
   );
-}
+};

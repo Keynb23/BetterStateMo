@@ -4,6 +4,8 @@ import HamburgerBtn from "./HamburgerBtn.jsx";
 import { useMedia } from "../context/MediaContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx"; // Import useAuth
 import LoginReg from "./loginReg.jsx";
+import './ComponentStyles.css'
+
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -74,7 +76,7 @@ export default function Navbar() {
           <button className="NavScroll-btn" onClick={() => handleScroll("home")}>Home</button>
           <button className="NavScroll-btn" onClick={() => handleScroll("services")}>Services</button>
           <button className="NavScroll-btn" onClick={() => handleScroll("about")}>About</button>
-          <Link className="NavLink" to="/setapt" onClick={closeAllMenus}>Set Appointment</Link>
+          <Link className="NavLink" to="/setapt" onClick={closeAllMenus}>Appointment</Link>
           <button className="NavScroll-btn" onClick={() => handleScroll("contact")}>Contact</button>
         </div>
 

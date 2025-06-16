@@ -3,6 +3,7 @@ import { serviceTypes } from "../context/serviceTypes";
 import { useState, useEffect } from "react"; // Import useEffect
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import { addAppointment } from '../lib/firestoreService';
+import './PageStyles.css'
 
 const SetApt = () => {
   // Service context for selected services

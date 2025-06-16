@@ -5,6 +5,7 @@
 // give it a notification after page loads. 
 
 // set up an easy apt scheduler with the chat bot
+import './ComponentStyles.css'
 
 
 const ChatWithUs = () => {

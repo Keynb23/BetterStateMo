@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useBackendCart } from "./BackendCart"; // Assuming this is for selected services for apt, not direct quote
 import { addQuoteRequest } from '../lib/firestoreService'; // New import for quote requests
+import './ContextStyles.css'
 
 const RequestQuote = ({ serviceId }) => {
   const [isActive, setIsActive] = useState(false);

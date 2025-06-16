@@ -1,3 +1,4 @@
+import './ComponentStyles.css'
 
 export default function Testimonial() {
     return(
@@ -9,4 +10,4 @@ export default function Testimonial() {
                 </div>
             </div>
         </>
-    )}
+    )}``

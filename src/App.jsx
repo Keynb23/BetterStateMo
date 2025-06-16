@@ -7,9 +7,8 @@ import Home from './pages/Home.jsx';
 import SetApt from './pages/SetApt.jsx';  
 import LoginReg from './components/loginReg.jsx';  
 import Profile from './pages/profile.jsx';     
-import './App.css'; 
 import ObjectionBlockers from './components/objectionBlockers.jsx';
-
+import Gallery from './Gallery.jsx';
 
 
 function App() {
@@ -17,6 +16,7 @@ function App() {
 
   return (
     <>
+    <div className="app-container">
       <Navbar />
 
       <Routes>
@@ -30,6 +30,7 @@ function App() {
               <section id="about"><About /></section>
               <section id="contact"><Contact /></section>
               <ObjectionBlockers />
+              <Gallery/>
             </>
           }
         />
@@ -39,6 +40,7 @@ function App() {
         <Route path="/login" element={<LoginReg />} /> 
         <Route path="/profile" element={<Profile />} /> 
       </Routes>
+      </div>  
     </>
   );
 }

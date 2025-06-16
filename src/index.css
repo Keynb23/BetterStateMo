@@ -6,18 +6,25 @@
   box-sizing: border-box;
 }
 
-/*============================ NEW COLOR SCHEME =================================*/
 :root {
+  /*============================ NEW COLOR SCHEME =================================*/
   /* Core Palette */
   --Deep-Sea: rgb(4, 28, 50);             /* A very dark, professional blue for text and deep backgrounds. */
   --Service-Blue: rgb(0, 119, 255);       /* A bright, confident blue for actions and highlights. */
-  --Mid-Green: rgb(22, 80, 54);           /* As defined by you */
+  --Mid-Green: rgb(17, 128, 78);           /* As defined by you */
   --Dark-Green: rgb(25, 56, 43);          /* As defined by you */
   --Crystal-Clear: rgb(248, 252, 255);    /* A clean, almost-white for primary backgrounds. */
   --Sandstone: rgb(205, 178, 140);        /* A distinguished, warm accent color. */
   /* Supporting Tones */
   --Light-Steel: rgb(222, 226, 230);      /* For borders and subtle dividers. */
   --Pool-Shadow: rgba(4, 28, 50, 0.1);    /* A soft, clean shadow color. */
+/*============================ spacing =================================*/
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+/* ========================= LIGHT DARK MODES =================== */
 }
 
 body, html {
@@ -30,12 +37,75 @@ body, html {
   width: 100%;
 }
 
+#root, .app-container {
+  padding: 0 var(--space-md);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.container {
+  padding-inline: var(--space-md);
+  margin-inline: auto;
+  max-width: 1200px;
+}
+
+section {
+  padding-block: var(--space-lg); 
+}
+
+
 h1, h2, h3 {
   font-weight: 600;
   color: var(--Deep-Sea);
+  margin-bottom: var(--space-sm);
 }
 
 h1 { font-size: 2.5rem; }
 h2 { font-size: 1.75rem; font-weight: 500;}
 h3 { font-size: 1.25rem; }
 p  { font-size: 1rem; line-height: 1.6; }
+
+
+/* ===================== GALLERY ============================== */
+
+.Gallery {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md);
+  gap: var(--space-lg);
+  justify-content: space-evenly;
+}
+
+.Gallery h1 {
+  align-self: center;
+}
+
+/* ---- grid ---- */
+.grid {
+  max-width: 1200px;
+}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+.grid-item {
+  padding: var(--space-xs);
+  width: 160px;
+  height: 120px;
+  float: left;
+  border-radius: 5px;
+  box-shadow: 0px 16px 48px -10px var(--Pool-Shadow);
+}
+
+.grid-item--width2 { width: 320px; }
+.grid-item--width3 { width: 480px; }
+.grid-item--width4 { width: 640px; }
+
+.grid-item--height2 { height: 200px; }
+.grid-item--height3 { height: 260px; }
+.grid-item--height4 { height: 360px; }

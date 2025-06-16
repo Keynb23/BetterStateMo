@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate, useLocation } from 'react-router-dom';
+import './PageStyles.css'
 
 const Profile = () => {
-    const { user, db, auth, loading: authLoading, isOwner } = useAuth();
+    const { user, db, loading: authLoading, isOwner } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 

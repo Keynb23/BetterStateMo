@@ -1,6 +1,8 @@
 import ecoFriendly from "../assets/objections/ecoFriendly.png";
 import Savings from "../assets/objections/Savings.png";
 import Missouri from "../assets/states/Missouri.png";
+import './ComponentStyles.css'
+
 
 export default function ObjectionBlockers() {
   return (
@@ -20,7 +22,7 @@ export default function ObjectionBlockers() {
             <img src={Missouri} alt="Missouri" />
           </div>
           <p className="map-description-text">
-            service all of central missouri
+            Move this missouri pic to the bottom of screen
           </p>
         </div>
 

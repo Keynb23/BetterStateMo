@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { addContactSubmission } from '../lib/firestoreService'; // New import for contact submissions
+import './ComponentStyles.css'
 
 const Contact = () => {
   // State for form inputs
