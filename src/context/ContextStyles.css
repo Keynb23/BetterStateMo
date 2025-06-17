@@ -177,7 +177,7 @@
 .select-all-btn button,
 .service-btn,
 .set-apt-btn button {
-  background-color: var(--Mid-Green);
+  background-color: var(--Service-Blue);
   color: var(--Crystal-Clear);
   border: none;
   padding: var(--space-sm) var(--space-md);
@@ -203,7 +203,7 @@
 .service-btn:active,
 .set-apt-btn button:active {
   transform: translateY(0);
-  box-shadow: 0 4px 10px var(--Pool-Shadow);
+  box-shadow: 0 6px 12px var(--Pool-Shadow);
 }
 
 .service-btns-container .select-ind-btns {
@@ -214,11 +214,10 @@
 }
 
 .service-btn.selected {
-  background-color: var(--Service-Blue);
+  background-color: var(--Mid-Green);
   color: var(--Crystal-Clear);
-  font-weight: 600;
-  border: 2px solid var(--Sandstone);
-  box-shadow: 0 0 15px rgba(0, 119, 255, 0.5);
+  /* font-weight: 600; */
+  box-shadow: 0 6px 12px var(--Pool-Shadow);
 }
 /* =================================================== REQUEST A QUOTE STYLES ============================================================================= */
 .request-quote-button {

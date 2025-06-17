@@ -13,7 +13,7 @@
   z-index: 21;
   width: 100%;
   border-bottom: 1px solid var(--Light-Steel);
-  border-radius: 12px;
+  /* border-radius: 12px; */
   left: 0;
   right: 0;
 }
@@ -131,6 +131,60 @@
   padding: var(--space-md);
   z-index: 30;
 }
+
+/* Logged-in dropdown menu styling */
+.profile-dropdown-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Base style for all dropdown buttons */
+.profile-dropdown-button {
+  padding: var(--space-sm) var(--space-md); 
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--space-sm);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem; 
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+}
+
+/* --- Primary Button: Default Action (e.g., "Profile") --- */
+.profile-dropdown-button {
+  background-color: var(--Service-Blue);
+  color: var(--Crystal-Clear);
+}
+
+.profile-dropdown-button:hover,
+.profile-dropdown-button:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--Pool-Shadow);
+  background-color: rgb(0, 105, 224);
+  outline: none; 
+}
+
+/* --- Secondary Button: Logout --- */
+.profile-dropdown-button.logout {
+  background-color: transparent;
+  color: var(--Service-Blue);
+  border: 1px solid var(--Light-Steel);
+}
+
+.profile-dropdown-button.logout:hover,
+.profile-dropdown-button.logout:focus {
+  background-color: var(--Service-Blue);
+  color: var(--Crystal-Clear);
+  border-color: var(--Service-Blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--Pool-Shadow);
+}
+
 
 .NavLink::after,
 .NavScroll-btn::after {
@@ -296,6 +350,7 @@
   margin-top: var(--space-sm);
   font-size: 0.85rem;
 }
+
 /*======================================================= OBJECTION BLOCKERS/MAP/SLOGAN ==================================================================*/
 .objection-blockers-wrapper {
   display: flex;
@@ -400,38 +455,6 @@
   max-width: 1000px;
 }
 
-.Missouri-map-container-styled {
-  background-color: var(--Service-Blue);
-  max-width: 250px;
-  max-height: 250px;
-  box-shadow: 0 2px 5px -1px var(--Pool-Shadow), 0 1px 3px -1px var(--Pool-Shadow);
-  border-radius: var(--space-md);
-  padding: var(--space-lg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.Missouri-map-container-styled img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
-
-.map-with-text-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-}
-
-.map-description-text {
-  margin-top: var(--space-md);
-  font-size: 1rem;
-  color: var(--Deep-Sea);
-}
-
 .objection-block-item {
   display: flex;
   flex-direction: column;
@@ -501,4 +524,124 @@
   .map-description-text {
     font-size: 0.85rem;
   }
+}
+
+/* ===================== GALLERY ============================== */
+
+.Gallery {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md);
+  gap: var(--space-lg);
+  align-items: center;
+  margin-bottom: 120px;
+} 
+
+/* Grid container */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: var(--space-sm);
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Grid items */
+.grid-item {
+  padding: var(--space-xs);
+  width: 160px;
+  height: 120px;
+  border-radius: 5px;
+  box-shadow: 0px 16px 48px -10px var(--Pool-Shadow);
+}
+
+/* Width/height modifiers */
+.grid-item--width2 { width: 320px; }
+.grid-item--width3 { width: 480px; }
+.grid-item--width4 { width: 640px; }
+
+.grid-item--height2 { height: 200px; }
+.grid-item--height3 { height: 260px; }
+.grid-item--height4 { height: 360px; }
+
+
+/* ============================ MAP ============================ */
+
+
+.Missouri-map-container-styled {
+  /* background-color: var(--Service-Blue); */
+  max-width: 150px;
+  /* box-shadow: 0 2px 5px -1px var(--Pool-Shadow), 0 1px 3px -1px var(--Pool-Shadow); */
+  border-radius: var(--space-md);
+  padding: var(--space-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Missouri-map-container-styled img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.map-with-text-section {
+  display: inherit;
+}
+
+.map-description-text {
+  margin-top: var(--space-md);
+  font-size: 1rem;
+  color: var(--Deep-Sea);
+}
+
+/* ================= Footer =================== */
+
+.footer-container {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  align-items: center;
+  padding: var(--space-md);
+  z-index: 100;
+  background: linear-gradient(135deg, var(--Dark-Green), var(--Deep-Sea));
+  color: var(--Crystal-Clear);
+  box-shadow: 0 -2px 10px var(--Pool-Shadow);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+}
+
+/* Clean, centered alignment */
+.footer-coverage,
+.footer-social-media,
+.footer-contact {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+
+.footer-social-media {
+ justify-content: center;
+  margin-left: 15rem;
+flex: 1 1 0;       
+}
+
+/* Modern social icon style */
+.footer-social-media img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  
+}
+
+.footer-social-media img:hover {
+  transform: scale(1.25);
+  cursor: pointer;
 }

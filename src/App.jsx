@@ -8,7 +8,8 @@ import SetApt from './pages/SetApt.jsx';
 import LoginReg from './components/loginReg.jsx';  
 import Profile from './pages/profile.jsx';     
 import ObjectionBlockers from './components/objectionBlockers.jsx';
-import Gallery from './Gallery.jsx';
+import Gallery from './components/Gallery.jsx';
+import Footer from './components/Footer.jsx';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <section id="contact"><Contact /></section>
               <ObjectionBlockers />
               <Gallery/>
+              <Footer />
             </>
           }
         />

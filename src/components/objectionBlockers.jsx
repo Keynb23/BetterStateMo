@@ -1,6 +1,6 @@
 import ecoFriendly from "../assets/objections/ecoFriendly.png";
 import Savings from "../assets/objections/Savings.png";
-import Missouri from "../assets/states/Missouri.png";
+
 import './ComponentStyles.css'
 
 
@@ -17,31 +17,13 @@ export default function ObjectionBlockers() {
           </div>
         </div>
 
-        <div className="map-with-text-section">
-          <div className="Missouri-map-container-styled">
-            <img src={Missouri} alt="Missouri" />
-          </div>
-          <p className="map-description-text">
-            Move this missouri pic to the bottom of screen
-          </p>
-        </div>
+        
 
         <div className="objection-block-item">
           <img className="obj-img" src={Savings} alt="Savings" />
           <div className="img-text">
             <p>We offer competitive pricing and discounts</p>
           </div>
-        </div>
-      </div>
-      {/* Slogan section - remains as is for its internal layout */}
-      <div className="slogan-container">
-        <div className="slogan-static-part">
-          <h1>BETTER</h1>
-        </div>
-        <div className="slogan-dynamic-word-stack">
-          <h1 className="swap-word word-1">POOLS</h1>
-          <h1 className="swap-word word-2">TOGETHER</h1>
-          <h1 className="swap-word word-3">STATE</h1>
         </div>
       </div>
     </div>

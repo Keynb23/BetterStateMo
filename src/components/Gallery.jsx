@@ -1,5 +1,6 @@
-import { useMedia } from "./context/MediaContext";
+import { useMedia } from "../context/MediaContext";
 import { useEffect, useRef } from "react";
+import './ComponentStyles.css'
 
 import Masonry from "masonry-layout";
 
