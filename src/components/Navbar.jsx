@@ -78,6 +78,7 @@ export default function Navbar() {
           <button className="NavScroll-btn" onClick={() => handleScroll("about")}>About</button>
           <Link className="NavLink" to="/setapt" onClick={closeAllMenus}>Appointment</Link>
           <button className="NavScroll-btn" onClick={() => handleScroll("contact")}>Contact</button>
+          <Link className="NavLink" to="/gallery" onClick={closeAllMenus}>Gallery</Link>
         </div>
 
         <div className="navbar-actions">

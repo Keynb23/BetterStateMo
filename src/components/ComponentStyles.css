@@ -566,6 +566,59 @@
 .grid-item--height3 { height: 260px; }
 .grid-item--height4 { height: 360px; }
 
+/* Tablet view: 768px and below */
+@media (max-width: 768px) {
+  .Gallery {
+    padding: var(--space-sm);
+    gap: var(--space-md);
+    margin-bottom: 80px;
+  }
+
+  .grid {
+    gap: var(--space-xs);
+    justify-content: center;
+  }
+
+  .grid-item {
+    width: 140px;
+    height: 100px;
+  }
+
+  .grid-item--width2 { width: 280px; }
+  .grid-item--width3 { width: 420px; }
+  .grid-item--width4 { width: 560px; }
+
+  .grid-item--height2 { height: 180px; }
+  .grid-item--height3 { height: 240px; }
+  .grid-item--height4 { height: 320px; }
+}
+
+/* Small mobile view: 380px and below */
+@media (max-width: 380px) {
+  .Gallery {
+    padding: var(--space-xs);
+    gap: var(--space-sm);
+    margin-bottom: 60px;
+  }
+
+  .grid {
+    gap: 8px;
+  }
+
+  .grid-item {
+    width: 120px;
+    height: 90px;
+  }
+
+  .grid-item--width2 { width: 240px; }
+  .grid-item--width3 { width: 100%; } /* Full width on small screens */
+  .grid-item--width4 { width: 100%; }
+
+  .grid-item--height2 { height: 160px; }
+  .grid-item--height3 { height: 200px; }
+  .grid-item--height4 { height: 280px; }
+}
+
 
 /* ============================ MAP ============================ */
 
@@ -644,4 +697,47 @@ flex: 1 1 0;
 .footer-social-media img:hover {
   transform: scale(1.25);
   cursor: pointer;
+}
+
+/* Tablet view: 768px and below */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    height: auto;
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .footer-coverage,
+  .footer-social-media,
+  .footer-contact {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    margin: 0;
+  }
+
+  .footer-social-media {
+    margin-left: 0;
+  }
+}
+
+/* Small mobile view: 380px and below */
+@media (max-width: 380px) {
+  .footer-container {
+    padding: var(--space-sm);
+    gap: var(--space-md);
+  }
+
+  .footer-social-media img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .footer-coverage,
+  .footer-social-media,
+  .footer-contact {
+    gap: var(--space-sm);
+  }
 }

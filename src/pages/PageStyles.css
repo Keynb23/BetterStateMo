@@ -594,7 +594,16 @@
 
 .about-section p {
   text-align: left;
-  color: var(--Dark-Green)
+  color: var(--Dark-Green);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    width: 90%;
+    flex-wrap: wrap;
+  }
 }
 
 .meet-us {

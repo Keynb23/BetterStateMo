@@ -42,6 +42,7 @@ body, html {
   margin: 0 auto;
 }
 
+
 .container {
   padding-inline: var(--space-md);
   margin-inline: auto;
