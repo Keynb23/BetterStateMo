@@ -33,6 +33,7 @@ import logo from '../assets/owners/logo.jpg'
 
 import Video1 from '../assets/videos/fire.mp4'
 import Video2 from '../assets/videos/fire2.mp4'
+import underWater from '../assets/videos/underwater.mp4'
 
 
 // 1. Create context
@@ -72,6 +73,7 @@ export const MediaProvider = ({ children }) => {
   const videos = [
     Video1,
     Video2,
+    underWater,
   ]
 
 

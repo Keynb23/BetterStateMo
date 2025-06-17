@@ -367,9 +367,9 @@
   height: 100%;
 
   background-image: linear-gradient(
-    to top,
-    rgba(0, 119, 255, 1),
-    rgba(17, 128, 78, 1)
+    to bottom,
+    rgba(0, 0, 0, 0.897),
+    rgb(0, 119, 255)
   );
 
 }
@@ -389,9 +389,7 @@
   text-align: center;
   gap: var(--space-md);
   padding: var(--space-xl);
-  
-  border-bottom: 10px solid rgb(54, 172, 113);
-
+  z-index: 1;
 }
 
 .Hero-title {
@@ -400,6 +398,7 @@
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 5rem;
   text-decoration: underline;
+  z-index: 1;
 }
 
 
@@ -409,6 +408,7 @@
   font-size: 1.2rem;
   line-height: 1.5;
   max-width: 500px;
+  z-index: 1;
 }
 
 .Hero-bottom {
@@ -417,40 +417,70 @@
   left: auto;
   margin: 0 auto;
   padding: var(--space-md);
-  background-color: rgba(4, 28, 50, .5);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 100%;
   height: 535px;
+  z-index: 0;
+}
 
-
-  border: 3px solid yellow;
+.Hero-background-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; 
+  object-fit: fill;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(.75);
+  opacity: 0.75;
 }
 
 .Hero-videos {
+  position: absolute;
+  left: 2.5rem;
+  top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
   margin-top: var(--space-lg);
-  width: 500px;
-  height: 500px;
-
-  border: 2px solid red;
+  z-index: 1;
   }
 
+  .Hero-videos video {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  max-height: 700px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--Pool-Shadow);
+  transition: transform 0.3s ease;
+}
 .Hero-pools {
+  position: absolute;
+  right: 2.5rem;
+  top: 20rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-md);
-  width: 500px;
-  height: 500px;
+  z-index: 1;
+}
 
-  border: 2px solid red;
+.Hero-pools img {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  max-height: 700px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--Pool-Shadow);
+  transition: transform 0.3s ease;
 }
 
 .hero-slogan-section {
@@ -459,6 +489,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-sm);
+  z-index: 1;
 }
 
 .slogan-container {
