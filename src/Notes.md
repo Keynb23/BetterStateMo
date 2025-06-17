@@ -1,4 +1,15 @@
 
+HERO 
+make the hero a pool, instead of the whole page
+this would look better and not have as many
+or any issues with loading
+
+just some ripple effect, who we are, what we do
+and why you should choose us
+
+the slogan can go there too
+
+
 
 TO DO: 
 git add
