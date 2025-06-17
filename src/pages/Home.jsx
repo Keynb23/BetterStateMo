@@ -5,10 +5,8 @@ import './PageStyles.css'
 
 const Home = () => {
   return (
-    <div>
+    <div className="Hero-Home-Container">
       <Hero/>
-
-
     </div>
   )
 }
