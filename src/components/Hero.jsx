@@ -1,49 +1,42 @@
 import "./ComponentStyles.css";
+import { FaPhone, FaEnvelope } from "react-icons/fa";
+import water from "../assets/water.png";
 
 const Hero = () => {
+
   return (
-    <>
-      <div className="Hero-container">
-        <div id="wrapper">
-          {Array.from({ length: 15 }).map((_, index) => (
-            <div key={index}>
-              <span className="dot"></span>
-            </div>
-          ))}
-          </div>
-          <div className="Hero-content">
-            <h1 className="Hero-title">Better State</h1>
-            <p className="Hero-description">
-              Why go with okay, when you can have Better?
-            </p>
+    <div className="hero-container">
+      <img src={water}
+      alt ='water' className="hero-image" />
+      <div className="hero-overlay"></div>
+      
 
-            <div className="fillerContent">
-              
+      <div className="hero-content">
+        <div className="hero-text-block">
+          <h1 className="hero-heading">Better State MO</h1>
+          <p className="hero-subheading">Better Pools  Better Service</p>
+
+          <div className="space-y-8">
+            <button className="hero-button">Request Service</button>
+
+            <div className="hero-contacts">
+              <a href="tel:+1234567890" className="hero-contact-link">
+                <FaPhone className="text-lg" />
+                <span>Call Us: 573-826-9529</span>
+              </a>
+              <a href="mailto:info@betterstate.com" className="hero-contact-link">
+                <FaEnvelope className="text-lg" />
+                <span>Email: betterstatemo@gmail.com</span>
+              </a>
             </div>
           </div>
+        </div>
 
-          {/* <div className="Hero-media">
-          {featuredImage && (
-            <div className="Hero-pool">
-              <img src={featuredImage} alt="Featured Pool" />
-            </div>
-          )}
-        </div> */}
-          <div className="slogan-container">
-            <h1>BETTER TOGETHER</h1>
-            <h1>BETTER SERVICE</h1>
-            <h1>BETTER POOLS</h1>
-            {/* <h1>BETTER STATE</h1> */}
-          </div>
-
-          {/* <button className="LearnMoreBtn">
-          <a href="#about" className="btn">
-            Learn More
-          </a>
-        </button> */}
-        
+        <div className="hero-footer">
+          © 2024 Better State Pool Services. All rights reserved.
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
