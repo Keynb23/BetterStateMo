@@ -1,9 +1,14 @@
 import "./ComponentStyles.css";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import water from "../assets/water.png";
+import { useNavigate } from "react-router-dom";
+
 
 const Hero = () => {
-
+  const navigate = useNavigate();
+  const navigateToSetApt = () => {
+    navigate("/setapt");
+  }
   return (
     <div className="hero-container">
       <img src={water}
@@ -17,7 +22,7 @@ const Hero = () => {
           <p className="hero-subheading">Better Pools  Better Service</p>
 
           <div className="space-y-8">
-            <button className="hero-button">Request Service</button>
+            <button onClick={navigateToSetApt} className="hero-button">Request Service</button>
 
             <div className="hero-contacts">
               <a href="tel:+1234567890" className="hero-contact-link">
