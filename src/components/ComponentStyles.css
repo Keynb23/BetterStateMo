@@ -363,52 +363,66 @@
   border-radius: var(--space-md);
   margin-top: var(--space-lg);
   width: 100%;
-  height: 100%;
-  background-image: url('https://bdc2020.o0bc.com/wp-content/uploads/2022/07/pool_16-62c44083066f4-scaled.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* background-image: linear-gradient(
-    to bottom,
-    rgba(25, 56, 43, 0.897),
-    rgb(4, 28, 50)
-  ); */
+  height: 100vh;
+  overflow: hidden;
+
 }
 
 .Hero-content {
   position: absolute;
-  top: 3rem;
-  left: 3rem;
+  top: 0;
+  left: 0;
   margin: 0 auto;
-
   width: 100%;
-  height: 350px;
-
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;  
   text-align: center;
-  gap: var(--space-md);
+  gap: var(--space-xl);
   padding: var(--space-xl);
   z-index: 1;
+
 }
 
 .Hero-title {
+  position: absolute;
+  top: 32%;
+  left: 10%;
   color: var(--Crystal-Clear);
   font-weight: 500;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 12rem;
+  font-size: 9rem;
   text-decoration: wavy underline;
   z-index: 1;
+  mix-blend-mode: multiply;
+  mask-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .Hero-description {
+  position: absolute;
+  top: 85%;
+  left: 20%;
+  padding: var(--space-md);
   color: rgba(216, 221, 219, 0.904);
   font-weight: 300;
   font-size: 1.2rem;
   line-height: 1.5;
   max-width: 500px;
   z-index: 1;
+}
+
+.fillerContent {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  border-radius: var(--space-sm);
+  box-shadow: 0 4px 15px var(--Pool-Shadow);
+
+  border: white 1px solid ;
 }
 
 .slogan-container {
@@ -418,7 +432,8 @@
   padding: var(--space-xl);
   z-index: 1;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-lg);
 }
 
@@ -426,12 +441,12 @@
   color: var(--Crystal-Clear);
   font-weight: 500;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
   letter-spacing: 2px;
   z-index: 1;
 }
 
-.Hero-media {
+/* .Hero-media {
   position: absolute;
   bottom: 6rem;
   right: 3rem;
@@ -454,7 +469,7 @@
   object-fit: cover;
   transition: transform 0.3s ease;
   z-index: 0;
-}
+} */
 
 .LearnMoreBtn {
   position: absolute;
@@ -472,28 +487,8 @@
   z-index: 1;
 }
 
-.fillerContent {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  width: 500px;
-  height: 200px;
-  z-index: 21;
-  background-color: rgba(205, 178, 140, 0.8);
-  border-radius: var(--space-md);
-  box-shadow: 0 4px 15px var(--Pool-Shadow);
-}
 
-.fillerContent p {
-  color: var(--Crystal-Clear);
-  text-align: center;
-  margin: 0 auto;
-  padding: var(--space-md);
-}
+
 
 
 

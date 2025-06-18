@@ -18,6 +18,9 @@ function App() {
     <>
 
       <div className="app-container">
+        
+        
+        
         <Navbar />
         <Routes>
           {/* Scrollable homepage route */}
