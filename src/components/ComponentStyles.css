@@ -359,25 +359,26 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-xl) var(--space-lg);
-  
   box-shadow: 0 4px 15px var(--Pool-Shadow);
   border-radius: var(--space-md);
   margin-top: var(--space-lg);
   width: 100%;
   height: 100%;
-
-  background-image: linear-gradient(
+  background-image: url('https://bdc2020.o0bc.com/wp-content/uploads/2022/07/pool_16-62c44083066f4-scaled.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.897),
-    rgb(0, 119, 255)
-  );
-
+    rgba(25, 56, 43, 0.897),
+    rgb(4, 28, 50)
+  ); */
 }
 
 .Hero-content {
   position: absolute;
-  top: 1rem;
-  left: auto;
+  top: 3rem;
+  left: 3rem;
   margin: 0 auto;
 
   width: 100%;
@@ -385,7 +386,7 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center;  
   text-align: center;
   gap: var(--space-md);
   padding: var(--space-xl);
@@ -396,11 +397,10 @@
   color: var(--Crystal-Clear);
   font-weight: 500;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 5rem;
-  text-decoration: underline;
+  font-size: 12rem;
+  text-decoration: wavy underline;
   z-index: 1;
 }
-
 
 .Hero-description {
   color: rgba(216, 221, 219, 0.904);
@@ -411,108 +411,88 @@
   z-index: 1;
 }
 
-.Hero-bottom {
+.slogan-container {
   position: absolute;
   bottom: 1rem;
-  left: auto;
+  right: 0;
+  padding: var(--space-xl);
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-lg);
+}
+
+.slogan-container h1 {
+  color: var(--Crystal-Clear);
+  font-weight: 500;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  z-index: 1;
+}
+
+.Hero-media {
+  position: absolute;
+  bottom: 6rem;
+  right: 3rem;
   margin: 0 auto;
-  padding: var(--space-md);
+  padding: var(--space-xl);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 535px;
+  width: 1000px;
+  height: 750px;
   z-index: 0;
 }
 
-.Hero-background-media {
-  position: absolute;
-  top: 0;
-  left: 0;
+.Hero-media img {
   width: 100%;
   height: 100%;
-  z-index: 0; 
-  object-fit: fill;
-  background-size: cover;
-  background-position: center;
-  filter: brightness(.75);
-  opacity: 0.75;
-}
-
-.Hero-videos {
-  position: absolute;
-  left: 2.5rem;
-  top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
-  z-index: 1;
-  }
-
-  .Hero-videos video {
-  width: 100%;
-  height: 100%;
-  max-width: 400px;
-  max-height: 700px;
-  object-fit: cover;
-  border-radius: 12px;
+  max-height: 650px;
+  border-radius: var(--space-md);
   box-shadow: 0 4px 15px var(--Pool-Shadow);
-  transition: transform 0.3s ease;
-}
-.Hero-pools {
-  position: absolute;
-  right: 2.5rem;
-  top: 20rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-md);
-  z-index: 1;
-}
-
-.Hero-pools img {
-  width: 100%;
-  height: 100%;
-  max-width: 400px;
-  max-height: 700px;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px var(--Pool-Shadow);
   transition: transform 0.3s ease;
+  z-index: 0;
 }
 
-.hero-slogan-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-sm);
-  z-index: 1;
-}
-
-.slogan-container {
-  font-size: 3rem;
+.LearnMoreBtn {
+  position: absolute;
+  bottom: 15rem;
+  right: 20rem;
+  transform: translateX(-50%);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--Service-Blue);
+  color: var(--Crystal-Clear);
   font-weight: 600;
+  border: none;
+  border-radius: var(--space-xs);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  z-index: 1;
+}
+
+.fillerContent {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 500px;
+  height: 200px;
+  z-index: 21;
+  background-color: rgba(205, 178, 140, 0.8);
+  border-radius: var(--space-md);
+  box-shadow: 0 4px 15px var(--Pool-Shadow);
+}
+
+.fillerContent p {
   color: var(--Crystal-Clear);
   text-align: center;
-  margin-bottom: var(--space-md);
-}
-
-.Slogan-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-}
-
-.Slogan-content h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: var(--Crystal-Clear);
-  text-align: center;
+  margin: 0 auto;
+  padding: var(--space-md);
 }
 
 

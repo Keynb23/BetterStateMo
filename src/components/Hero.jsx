@@ -1,64 +1,48 @@
 import "./ComponentStyles.css";
-import { useMedia } from "../context/MediaContext"; // Correct import for the hook
-import Slogan from "./Slogan";
+// import { useMedia } from "../context/MediaContext";
 
-const Hero = () => { // <
-  const { videos, pools } = useMedia(); 
+const Hero = () => {
+  // const { pools } = useMedia();
 
-  const backgroundVideo = videos.find((video) =>
-    video.includes("underWater.mp4")
-  );
-
-  const featuredVideo = videos[0];
-  const featuredImage = pools[3];
+  // const featuredImage = pools[0];
 
   return (
     <>
       <div className="Hero-container">
         <div className="Hero-content">
-          <h1 className="Hero-title">Better State</h1>
+          <h1 className="Hero-title">Better State Mo</h1>
           <p className="Hero-description">Your Mid Missouri Pool Guys</p>
         </div>
 
-        <div className="Hero-videos">
-            {featuredVideo && (
-              <div className="Hero-video">
-                <video controls src={featuredVideo}/>
-              </div>
-            )}
-          </div>
-
-          <div className="Hero-pools">
-            {featuredImage && (
-              <div className="Hero-pool">
-                <img
-                  src={featuredImage}
-                  alt="Featured Pool"/>
-              </div>
-            )}
-          </div>
-
-        <div className="Hero-bottom">
-          {backgroundVideo && (
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="Hero-background-media"
-            >
-              <source src={backgroundVideo} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+        {/* <div className="Hero-media">
+          {featuredImage && (
+            <div className="Hero-pool">
+              <img src={featuredImage} alt="Featured Pool" />
+            </div>
           )}
-          
-
-          <div className="hero-slogan-section">
-            <Slogan />
-          </div>
-
-          
+        </div> */}
+        <div className="slogan-container">
+          <h1>BETTER TOGETHER</h1>
+          <h1>BETTER SERVICE</h1>
+          <h1>BETTER POOLS</h1>
+          {/* <h1>BETTER STATE</h1> */}
         </div>
+
+        <button className="LearnMoreBtn">
+          <a href="#about" className="btn">
+            Learn More
+          </a>
+        </button>
+
+        <div className="fillerContent">
+          <p>
+            We are a family-owned and operated pool service company based in
+            Columbia, MO. Our mission is to provide the best pool service in
+            Mid-Missouri. We take pride in our work and strive to exceed our
+            customers' expectations.
+          </p>
+        </div>
+
       </div>
     </>
   );
