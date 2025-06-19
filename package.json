@@ -2,7 +2,6 @@
   "name": "betterstatemo",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "test": "jest",
     "dev": "vite",
@@ -31,6 +30,7 @@
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "babel-jest": "^30.0.0",
+    "cross-fetch": "^4.1.0",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",

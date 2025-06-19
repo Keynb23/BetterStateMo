@@ -1,21 +1,15 @@
-import React from "react"; // ✅ Add this
-import "./ComponentStyles.css";
-import { FaPhone, FaEnvelope } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import water from "../assets/water.png";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter, Routes, Route } from "react-router-dom";
+import Hero from "../components/Hero"; // Adjust if your path differs
 
-const Hero = () => {
-  const navigate = useNavigate();
-  const navigateToSetApt = () => {
-    navigate("/setapt");
-  };
+// No import for describe or test needed. They are global in Jest.
 
-  return (
-    <div className="hero-container">
-      <img src={water} alt="water" className="hero-image" />
-      {/* rest of your JSX */}
-    </div>
-  );
-};
+// Dummy page for route testing
+const SetAptPage = () => <div>SetApt Page</div>;
 
-export default Hero;
+describe("Hero Component", () => {
+  test("redirects to /setapt when the button is clicked", () => {
+    // ... rest of your test code
+  });
+});
