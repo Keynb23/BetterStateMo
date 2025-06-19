@@ -11,225 +11,103 @@
 
 /* =========================================================== SERVICES STYLES ===============================================================================*/
 
-
-
-.service-carousel-wrapper {
+.service-container {
   position: relative;
-  /* overflow: hidden; */
-  width: 100%;
-  height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  padding-bottom: 2rem;
-}
-
-.service-carousel-slide {
-  
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  image-rendering: -webkit-optimize-contrast;
-  background-size: 100% auto;
   display: flex;
   align-items: center;
-}
-
-.service-carousel-slide {
-  position: relative;
-  width: 100%;
+  padding: var(--space-xl) var(--space-lg);
+  width: 1200px;
   height: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+  border-radius: var(--space-md);
+  background-color: #79b2e7;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px var(--Pool-Shadow);
+  border: 1px solid var(--Light-Steel);
 }
 
-.service-carousel-img {
+.services-main-title {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(0.85);
-  -webkit-filter: brightness(0.85);
-  transition: filter 0.3s ease-in-out;
-  object-position: center;
-  object-view-box: cover; 
-  z-index: 0;
-}
-
-.service-carousel-content {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  padding-right: 30%;
-  color: white;
-  text-shadow: 0 5px 10px #0005;
-  animation: fadeInUp 1s ease;
-  animation-delay: 0.5s;
-  animation-fill-mode: both;
+  top: 2.5%;
+  left: 45%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  z-index: 10;
-  width: 600px;
+  align-items: center;
+  text-align: center;
+  color: var(--Dark-Green);
+  padding: var(--space-md);
 }
 
-.service-carousel-content .topic {
-  font-size: 3.5rem;
-  font-weight: bold;
-  color: #f1683a;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  width: 500px;
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
-  text-shadow: var(--Deep-Sea) 2px 2px 4px;
+.services-main-title h1 {
+  margin-bottom: var(--space-md);
 }
 
-.service-carousel-content .description {
-  margin-top: 1rem;
-  font-size: 1.1rem;
-  width: 600px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  width: 500px;
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
-  text-shadow: var(--Deep-Sea) 2px 2px 4px;
-}
-
-.service-carousel-content .buttons {
-  margin-top: 1.5rem;
-  display: flex;;
-  gap: 1rem;
-  width: 200px;
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
-  text-shadow: var(--Mid-Green) 2px 2px 4px;
-}
-
-.service-carousel-content .ghost-btn {
-  background: transparent;
-  border: 1px solid white;
-  padding: 0.5rem 1rem;
-  color: white;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.service-carousel-thumbnails {
-  position: absolute;
-  bottom: 60px;
-  right: 5%;
+.service-content {
   display: flex;
-  gap: 1rem;
-  z-index: 10;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  width: 100%;
+  padding: var(--space-xl);
 }
 
-.thumbnail-item {
-  width: 150px;
-  height: 220px;
-  cursor: pointer;
+.ServiceCard {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--Crystal-Clear);
+  border-radius: var(--space-md);
+  box-shadow: 0 2px 8px var(--Pool-Shadow);
+  padding: var(--space-lg);
+  width: 350px;
+  height: 600px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.thumbnail-item img {
+.ServiceCard-image {
   width: 100%;
   height: 100%;
+  max-height: 200px;
+  border-radius: var(--space-md);
   object-fit: cover;
-  border-radius: 20px;
+  margin-bottom: var(--space-md);
 }
 
-.thumbnail-text {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  color: white;
-  font-size: 0.8rem;
+.ServiceCard-title {
+  color: var(--Dark-Green);
+  margin-bottom: var(--space-sm);
 }
 
-.carousel-arrows {
+.ServiceCard-description {
+  color: var(--Deep-Sea);
+  margin-bottom: var(--space-md);
+}
+
+.rq-btn {
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--space-md);
+  transition: background-color 0.3s, color 0.3s;
   position: absolute;
-  top: 80%;
-  right: 50%;
-  transform: translateX(50%);
+  bottom: 2%;
+  left: 2.5%;
+}
+
+.SS-btn {
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--space-md);
+  transition: background-color 0.3s, color 0.3s;
+  position: absolute;
+  bottom: 2%;
+  right: 2.5%;
+}
+
+.service-card.btns {
+  position: relative;
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
 }
-
-.carousel-arrows button {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.3);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.carousel-arrows button:hover {
-  background: white;
-  color: black;
-}
-
-.carousel-timer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background-color: #f1683a9a;
-  animation: timerBar 7s linear;
-}
-
-.selectService {
-  position: absolute;
-  bottom: 5%;
-  left: 5%;
-  padding: 1rem;
-  z-index: 20;
-}
-
-.Service-subtitle {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--Service-Blue);
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-
-@keyframes timerBar {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    transform: translateY(40px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.service-subtitle {
-  margin-top: 2rem;
-  text-align: center;
-  color: white;
-}
-
-
 
 /*===============================================================  SET APPOINTMENT STYLES  ================================================================================== */
 .Set-Apt-container {

@@ -1,47 +1,43 @@
-import "./ComponentStyles.css";
-import { FaPhone, FaEnvelope } from "react-icons/fa";
-import water from "../assets/water.png";
 import { useNavigate } from "react-router-dom";
-
+import { FaPhone, FaEnvelope } from "react-icons/fa";
+import "./ComponentStyles.css"; 
+import RequestQuote from '../context/RequestQuote';
 
 const Hero = () => {
   const navigate = useNavigate();
-  const navigateToSetApt = () => {
-    navigate("/setapt");
-  }
+
   return (
+    <>
     <div className="hero-container">
-      <img src={water}
-      alt ='water' className="hero-image" />
-      <div className="hero-overlay"></div>
-      
-
-      <div className="hero-content">
-        <div className="hero-text-block">
-          <h1 className="hero-heading">Better State MO</h1>
-          <p className="hero-subheading">Better Pools  Better Service</p>
-
-          <div className="space-y-8">
-            <button onClick={navigateToSetApt} className="hero-button">Request Service</button>
-
-            <div className="hero-contacts">
-              <a href="tel:+1234567890" className="hero-contact-link">
-                <FaPhone className="text-lg" />
-                <span>Call Us: 573-826-9529</span>
-              </a>
-              <a href="mailto:info@betterstate.com" className="hero-contact-link">
-                <FaEnvelope className="text-lg" />
-                <span>Email: betterstatemo@gmail.com</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="hero-footer">
-          © 2024 Better State Pool Services. All rights reserved.
-        </div>
+      <div className="hero-content"></div>
+        <h1 className="hero-title">Welcome to Our Pool Services</h1>
+      </div>
+      <p className="hero-description">
+        Your one-stop solution for all pool maintenance needs. From cleaning to repairs, we ensure your pool is always ready for a swim.
+      </p>
+      <div className="hero-buttons">
+        <button className="hero-button" onClick={() => navigate("/services")}>
+          Explore Our Services
+        </button>
+        <button className="hero-button" onClick={() => navigate("/contact")}>
+          Contact Us
+        </button>
+        <button className="hero-button" onClick={() => navigate("/setapt")}>
+          Set Appointment
+        </button>
+        <RequestQuote />
+      </div>
+    <div className="hero-contacts"> 
+      <div className="hero-contact-item">
+        <FaPhone className="hero-icon" />
+        <span className="hero-contact-text">Call Us: (123) 456-7890</span>
+      </div>
+      <div className="hero-contact-item">
+        <FaEnvelope className="hero-icon" />
+        <span className="hero-contact-text">Email: betterstatemo@gmail.com</span>
       </div>
     </div>
+    </>
   );
 };
 

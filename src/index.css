@@ -37,7 +37,7 @@ body, html {
   color: var(--Deep-Sea);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scrollbar-color: #f1683a var(--Crystal-Clear); ;
+  scrollbar-color: #f0c7b971 var(--Crystal-Clear); ;
 }
 
 h1, h2, h3 {
