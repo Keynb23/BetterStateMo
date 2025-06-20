@@ -8,25 +8,25 @@ const serviceData = [
     id: "c1",
     title: "Pool Cleaning",
     desc: "Our comprehensive pool cleaning services ensure your pool remains sparkling and healthy.",
-    index: 13,
+    index: 2,
   },
   {
     id: "c2",
     title: "Pool Servicing",
     desc: "From minor repairs to major equipment overhauls, our expert technicians can handle it.",
-    index: 3,
+    index: 6,
   },
   {
     id: "c3",
     title: "Open your pool",
     desc: "Get your pool ready for swimming with our seasonal opening service.",
-    index: 15,
+    index: 9,
   },
   {
     id: "c4",
     title: "Closing your pool",
     desc: "Protect your investment with our full winterization service.",
-    index: 16,
+    index: 2,
   },
 ];
 
@@ -34,31 +34,31 @@ const Service = () => {
   const { pools } = useMedia();
 
   return (
-    <div className="service-container">
-      <h1 className="services-main-title">Services</h1>
-      <div className="service-content">
+    <><div className="service-container">      
+      <h1 className="services-main-title">Services</h1><div className="service-content">
         {serviceData.map((service) => (
           <div key={service.id} className="ServiceCard">
             <img
               src={pools[service.index]}
               alt={service.title}
-              className="ServiceCard-image"
-            />
+              className="ServiceCard-image" />
             <h2 className="ServiceCard-title">{service.title}</h2>
             <p className="ServiceCard-description">{service.desc}</p>
-      <div className="service-card-btns">
-        <div className="rq-btn">
-          <RequestQuote serviceId={service.title} />
-        </div>
-        <div className="SS-btn">
-          <SingleServiceBtn serviceId={service.title} />
-        </div>
-      </div>
+            <div className="service-card-btns">
+              <div className="rq-btn">
+                <RequestQuote serviceId={service.title} />
+              </div>
+              <div className="SS-btn">
+                <SingleServiceBtn serviceId={service.title} />
+              </div>
+            </div>
           </div>
         ))}
       </div>
     </div>
+    </>
   );
 };
+
 
 export default Service;

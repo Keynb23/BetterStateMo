@@ -55,3 +55,6 @@ To run the project locally:
 npm install
 npm run dev
 
+
+
+<a href="http://www.freepik.com"></a>

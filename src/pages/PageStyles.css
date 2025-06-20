@@ -1,128 +1,132 @@
-/* =========================================================== HOME STYLES ===============================================================================*/
+/* =============================================================================== HOME STYLES (Hero Section) ===============================================================================*/
 
 .Hero-Home-Container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  height: 100vh;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: var(--color-bg); /* Cleaned up color variable */
+    text-align: center;
+    height: 100vh; /* Ensure full viewport height */
+    display: flex; /* Added to help center content vertically if needed */
+    flex-direction: column; /* Added to help center content vertically if needed */
+    justify-content: center; /* Added to center content vertically */
+    align-items: center; /* Added to center content horizontally */
 }
 
-/* =========================================================== SERVICES STYLES ===============================================================================*/
+.Hero-Home-Container > div {
+    width: 100%;
+}
+
+
+/* =============================================================================== SERVICES STYLES ===============================================================================*/
 
 .service-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: var(--space-xl) var(--space-lg);
-  width: 1200px;
-  height: 100%;
-  border-radius: var(--space-md);
-  background-color: #79b2e7;
-  margin: 0 auto;
-  box-shadow: 0 2px 8px var(--Pool-Shadow);
-  border: 1px solid var(--Light-Steel);
+    /* The services page ends with var(--color-bg) at the top of its gradient */
+    background: linear-gradient(to top, var(--color-bg), var(--color-secondary) 50%, var(--color-secondary));
+    background-size: 100% 200%;
+    background-position: bottom;
+    color: var(--color-text); /* Cleaned up color variable */
+    height: 100vh; /* Already set, but good to confirm */
+    display: flex; /* Added to allow content centering */
+    flex-direction: column; /* Added for vertical layout */
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Horizontally center content */
+    padding: var(--space-xl) var(--space-md); /* Add padding for content spacing */
+    box-sizing: border-box; /* Include padding in height calculation */
 }
 
 .services-main-title {
-  position: absolute;
-  top: 2.5%;
-  left: 45%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: var(--Dark-Green);
-  padding: var(--space-md);
-}
-
-.services-main-title h1 {
-  margin-bottom: var(--space-md);
+    text-align: center;
+    color: var(--color-primary); /* Cleaned up color variable */
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: var(--space-xl);
+    font-weight: 700;
 }
 
 .service-content {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-lg);
-  flex-wrap: wrap;
-  width: 100%;
-  padding: var(--space-xl);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .ServiceCard {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--Crystal-Clear);
-  border-radius: var(--space-md);
-  box-shadow: 0 2px 8px var(--Pool-Shadow);
-  padding: var(--space-lg);
-  width: 350px;
-  height: 600px;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 320px;
+    max-width: 400px;
+    background-color: var(--color-bg); /* Cleaned up color variable */
+    border-radius: var(--space-md);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    text-align: center;
+    padding: var(--space-md);
+    transition: box-shadow 0.3s ease;
+}
+
+.ServiceCard:hover {
+    box-shadow: var(--shadow-lg);
 }
 
 .ServiceCard-image {
-  width: 100%;
-  height: 100%;
-  max-height: 200px;
-  border-radius: var(--space-md);
-  object-fit: cover;
-  margin-bottom: var(--space-md);
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--space-sm);
+    margin-bottom: var(--space-lg);
 }
 
 .ServiceCard-title {
-  color: var(--Dark-Green);
-  margin-bottom: var(--space-sm);
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
 .ServiceCard-description {
-  color: var(--Deep-Sea);
-  margin-bottom: var(--space-md);
+    color: var(--color-text-muted); /* Cleaned up color variable */
 }
 
-.rq-btn {
-  padding: var(--space-md) var(--space-lg);
-  border-radius: var(--space-md);
-  transition: background-color 0.3s, color 0.3s;
-  position: absolute;
-  bottom: 2%;
-  left: 2.5%;
+.service-card-btns {
+    margin-top: auto;
+    padding-top: var(--space-lg);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
 }
 
+.rq-btn,
 .SS-btn {
-  padding: var(--space-md) var(--space-lg);
-  border-radius: var(--space-md);
-  transition: background-color 0.3s, color 0.3s;
-  position: absolute;
-  bottom: 2%;
-  right: 2.5%;
+    flex-grow: 1;
+    padding: var(--space-md) var(--space-sm);
+    background-color: var(--color-primary); /* Cleaned up color variable */
+    color: var(--color-bg); /* Cleaned up color variable */
+}
+.rq-btn:hover,
+.SS-btn:hover {
+    background-color: var(--color-secondary); /* Cleaned up color variable */
 }
 
-.service-card.btns {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-}
 
-/*===============================================================  SET APPOINTMENT STYLES  ================================================================================== */
+/*=============================================================== SET APPOINTMENT STYLES ================================================================================== */
 .Set-Apt-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: var(--space-xl) var(--space-lg);
-  max-width: 900px;
-  margin: 0 auto;
+    background: linear-gradient(to top, var(--color-primary), var(--color-bg) 50%, var(--color-bg));
+    background-size: 100% 200%;
+    background-position: bottom;
+    color: var(--color-text); /* Cleaned up color variable */
+    max-width: 900px; /* Keep max-width for content */
+    margin: 0 auto;
+    height: 100vh; /* Ensure full viewport height */
+    display: flex; /* Added to help center content */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center content vertically */
+    padding: var(--space-xl) var(--space-md); /* Add padding */
+    box-sizing: border-box; /* Include padding in height */
 }
 
 .greetings-checker h1 {
-  color: var(--Service-Blue);
-  margin-bottom: var(--space-lg);
-  padding-top: var(--space-xl)
+    color: var(--color-primary); /* Cleaned up color variable */
+    margin-bottom: var(--space-lg);
+    padding-top: var(--space-xl)
 }
 
 .calender,
@@ -131,483 +135,488 @@
 .services-selected-apt,
 .add-another-service,
 .Early-contact-prompt {
-  margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-lg);
 }
 
 .calender input[type="date"],
 .TimeofDay select,
 .customer-apt-info input {
-  padding: var(--space-sm);
-  margin-top: var(--space-xs);
-  width: 100%;
-  border-radius: var(--space-sm);
-  border: 1px solid var(--Light-Steel);
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
+    padding: var(--space-sm);
+    margin-top: var(--space-xs);
+    width: 100%;
+    border-radius: var(--space-sm);
+    border: 1px solid var(--color-border);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
 }
 
 .customer-apt-info form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 .services-selected-apt ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .services-selected-apt li {
-  background: var(--Crystal-Clear);
-  padding: var(--space-md);
-  margin-bottom: var(--space-sm);
-  border-radius: var(--space-sm);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 1px 6px var(--Pool-Shadow);
+    background: var(--color-bg);
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+    border-radius: var(--space-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .remove-btn {
-  background: var(--Dark-Green);
-  color: var(--Crystal-Clear);
-  border: none;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--space-sm);
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background: var(--color-secondary);
+    color: var(--color-bg); /* Cleaned up color variable */
+    border: none;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--space-sm);
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .remove-btn:hover {
-  background: var(--Sandstone);
+    background: var(--color-accent);
 }
 
 .add-another-service {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-md) 0 var(--space-lg);
-  width: 600px;
-  background: linear-gradient(135deg, var(--Crystal-Clear), var(--Crystal-Clear));
-  border-radius: var(--space-md);
-  box-shadow: 0 2px 10px var(--Pool-Shadow);
-  color: var(--Crystal-Clear);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) 0 var(--space-lg);
+    width: 600px;
+    background: var(--color-bg);
+    border-radius: var(--space-md);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
 .add-another-service h3 {
-  text-align: center;
-  margin-bottom: var(--space-md);
-  color: var(--Deep-Sea);
-  padding-bottom: var(--space-md)
+    text-align: center;
+    margin-bottom: var(--space-md);
+    color: var(--color-text); /* Cleaned up color variable */
+    padding-bottom: var(--space-md)
 }
 
 .unselected-service-btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
 }
 
 .Early-contact-prompt {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
 }
 
 #Early-contact-btn {
-  background-color: var(--Service-Blue);
-  color: var(--Crystal-Clear);
-  border: none;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background-color 0.3s;
+    background-color: var(--color-primary); /* Cleaned up color variable */
+    color: var(--color-bg); /* Cleaned up color variable */
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.3s;
 }
 
 #Early-contact-btn:hover {
-  background-color: var(--Sandstone);
-  color: var(--Deep-Sea);
+    background-color: var(--color-accent); /* Cleaned up color variable */
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
 .Early-contact-btn-clicked {
-  background-color: var(--Mid-Green) !important;
-  color: var(--Crystal-Clear) !important;
+    background-color: var(--color-secondary) !important; /* Cleaned up color variable */
+    color: var(--color-bg) !important; /* Cleaned up color variable */
 }
 
 .Early-contact-btn-clicked:hover {
-  background-color: var(--Sandstone) !important;
+    background-color: var(--color-accent) !important; /* Cleaned up color variable */
 }
 
 .confirmapt-btn button {
-  padding: var(--space-md) var(--space-lg);
-  border: none;
-  background-color: var(--Service-Blue);
-  color: var(--Crystal-Clear);
-  border-radius: var(--space-md);
-  font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  text-align: center;
-  margin-top: var(--space-lg);
-  transition: background-color 0.3s, color 0.3s;
+    padding: var(--space-md) var(--space-lg);
+    border: none;
+    background-color: var(--color-primary); /* Cleaned up color variable */
+    color: var(--color-bg); /* Cleaned up color variable */
+    border-radius: var(--space-md);
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: var(--space-lg);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .confirmapt-btn button:hover {
-  background-color: var(--Sandstone);
-  color: var(--Deep-Sea);
+    background-color: var(--color-accent); /* Cleaned up color variable */
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
-/* ---------------- Tablet (max-width: 1024px) ---------------- */
 @media (max-width: 1024px) {
-  .Set-Apt-container {
-    padding: var(--space-xl) var(--space-md);
-    max-width: 100%;
-  }
-  .greetings-checker h1 {
-    font-size: 2rem;
-  }
+    .Set-Apt-container {
+        max-width: 100%;
+    }
+    .greetings-checker h1 {
+        font-size: 2rem;
+    }
 }
 
-/* ---------------- Mobile (max-width: 768px) ---------------- */
 @media (max-width: 768px) {
-  .Set-Apt-container {
-    padding: var(--space-lg) var(--space-md);
-  }
-  .greetings-checker h1 {
-    text-align: center;
-  }
-  .services-selected-apt li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-sm);
-  }
-  .add-another-service {
-    padding: var(--space-md);
-  }
-  .add-another-service h3 {
-    text-align: center;
-  }
-  .unselected-service-btns {
-    justify-content: center;
-  }
-  .Early-contact-prompt {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-md);
-  }
+    .Set-Apt-container {
+        /* No specific changes needed here beyond general layout adjustments */
+    }
+    .greetings-checker h1 {
+        text-align: center;
+    }
+    .services-selected-apt li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+    .add-another-service {
+        padding: var(--space-md);
+        width: 95%;
+    }
+    .add-another-service h3 {
+        text-align: center;
+    }
+    .unselected-service-btns {
+        justify-content: center;
+    }
+    .Early-contact-prompt {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-md);
+    }
 }
 
-/* ---------------- Small Mobile (max-width: 480px) ---------------- */
 @media (max-width: 480px) {
-  .Set-Apt-container {
-    padding: var(--space-lg) var(--space-sm);
-  }
-  .calender input[type="date"],
-  .TimeofDay select,
-  .customer-apt-info input {
-    font-size: 0.95rem;
-  }
-  .remove-btn {
-    padding: var(--space-xs) var(--space-sm);
-  }
-  #Early-contact-btn {
-    width: 2.25rem;
-    height: 2.25rem;
-    font-size: 1.1rem;
-  }
+    .Set-Apt-container {
+        /* No specific changes needed here beyond general layout adjustments */
+    }
+    .calender input[type="date"],
+    .TimeofDay select,
+    .customer-apt-info input {
+        font-size: 0.95rem;
+    }
+    .remove-btn {
+        padding: var(--space-xs) var(--space-sm);
+    }
+    #Early-contact-btn {
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: 1.1rem;
+    }
 }
-/*======================================================= CONTACT ==================================================================*/
+
+/*======================================================= CONTACT STYLES ==================================================================*/
 .Contact-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1200px;
-  height: auto;
-  margin: var(--space-xl) auto;
-  background: var(--Crystal-Clear);
-  border-radius: var(--space-md);
-  box-shadow: 0 2px 8px var(--Pool-Shadow);
-  padding: var(--space-xl);
-  border: 1px solid var(--Light-Steel);
+    /* The contact page starts with var(--color-primary) at the top of its gradient */
+    background: linear-gradient(to top, var(--color-secondary), var(--color-primary) 50%, var(--color-primary));
+    background-size: 100% 200%;
+    background-position: bottom;
+    color: var(--color-bg); /* Corrected variable to just var(--color-bg) */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh; /* Changed from height: 100vh to min-height: 100vh */
+    margin: 0 auto;
+    padding: var(--space-xl);
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    /* Removed: border-radius: var(--space-md); */
+    /* Removed: box-shadow: var(--shadow-md); */
 }
 
 .Contact-container h1 {
-  text-align: center;
-  margin-bottom: var(--space-lg);
-  color: var(--Dark-Green)
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    color: var(--color-bg); /* Corrected variable to just var(--color-bg) */
 }
 
 .Contact-content {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-xl);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    width: 100%; /* Ensure content spans full width of container */
+    max-width: 1200px; /* Keep max-width for content */
 }
 
 .Contact-left {
-  flex-basis: 45%;
+    flex-basis: 45%;
 }
 
 .contact-message {
-  padding-right: var(--space-lg);
-  color: var(--Dark-Green)
+    padding-right: var(--space-lg);
+    color: var(--color-bg); /* Corrected variable to just var(--color-bg) */
 }
 
 .contact-message h3 {
-  color: var(--Service-Blue);
-  margin-bottom: var(--space-lg);
-  
+    color: var(--color-primary); /* Cleaned up color variable */
+    margin-bottom: var(--space-lg);
 }
 
 .Contact-right {
-  flex-basis: 55%;
+    flex-basis: 55%;
 }
 
 .Contact-right form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  color: var(--Dark-Green)
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
 .form-row {
-  display: flex;
-  gap: var(--space-md);
-  
+    display: flex;
+    gap: var(--space-md);
 }
 
 .form-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .Contact-right label {
-  font-weight: 500;
-  margin-bottom: var(--space-sm);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
 }
 
 .Contact-right input,
 .Contact-right textarea {
-  padding: var(--space-sm);
-  background-color: var(--Crystal-Clear);
-  color: var(--Deep-Sea);
-  border: 1px solid var(--Light-Steel);
-  border-radius: var(--space-sm);
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
+    padding: var(--space-sm);
+    background-color: var(--color-bg); /* Cleaned up color variable */
+    color: var(--color-text); /* Cleaned up color variable */
+    border: 1px solid var(--color-border);
+    border-radius: var(--space-sm);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
 .Contact-right input:focus,
 .Contact-right textarea:focus {
-  border-color: var(--Service-Blue);
-  outline: none;
-  box-shadow: 0 0 0 3px var(--Pool-Shadow);
+    border-color: var(--color-primary); /* Cleaned up color variable */
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-bg-alt);
 }
 
 .Contact-right textarea {
-  resize: vertical;
-  min-height: 120px;
+    resize: vertical;
+    min-height: 120px;
 }
 
 .Submit-btn {
-  padding: var(--space-md) var(--space-lg);
-  border: none;
-  background-color: var(--Service-Blue);
-  color: var(--Crystal-Clear);
-  border-radius: var(--space-sm);
-  font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  align-self: flex-start;
-  margin-top: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    border: none;
+    background-color: var(--color-primary); /* Cleaned up color variable */
+    color: var(--color-bg); /* Cleaned up color variable */
+    border-radius: var(--space-sm);
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start;
+    margin-top: var(--space-sm);
 }
 
 .Submit-btn:hover {
-  background-color: var(--Deep-Sea);
-  transform: translateY(-2px);
+    background-color: var(--color-accent); /* Cleaned up color variable */
+    transform: translateY(-2px);
 }
 
-/* ----- Tablet (max-width: 1024px) ----- */
 @media (max-width: 1024px) {
-  .Contact-container {
-    margin: var(--space-xl) auto;
-    padding: var(--space-lg);
-    width: calc(100% - var(--space-lg));
-  }
-  .Contact-content {
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-  .Contact-left {
-    text-align: center;
-    padding-right: 0;
-  }
-  .contact-message {
-    padding: 0;
-    text-align: center;
-  }
-  .contact-message h3 {
-    padding-bottom: var(--space-md);
-  }
-  .form-row {
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-  .Submit-btn {
-    align-self: stretch;
-    width: 100%;
-  }
+    .Contact-container {
+        padding: var(--space-lg);
+        width: calc(100% - var(--space-lg));
+    }
+    .Contact-content {
+        flex-direction: column;
+        gap: var(--space-lg);
+    }
+    .Contact-left {
+        text-align: center;
+        padding-right: 0;
+    }
+    .contact-message {
+        padding: 0;
+        text-align: center;
+    }
+    .contact-message h3 {
+        padding-bottom: var(--space-md);
+    }
+    .form-row {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    .Submit-btn {
+        align-self: stretch;
+        width: 100%;
+    }
 }
 
-/* ----- Mobile (max-width: 768px) ----- */
 @media (max-width: 768px) {
-  .Contact-container {
-    padding: var(--space-lg) var(--space-md);
-    margin: var(--space-lg) auto;
-  }
-  .Contact-right input,
-  .Contact-right textarea {
-    padding: var(--space-sm);
-    font-size: 0.95rem;
-  }
-  .Submit-btn {
-    padding: var(--space-md) var(--space-lg);
-  }
+    .Contact-container {
+        padding: var(--space-lg) var(--space-md);
+    }
+    .Contact-right input,
+    .Contact-right textarea {
+        padding: var(--space-sm);
+        font-size: 0.95rem;
+    }
+    .Submit-btn {
+        padding: var(--space-md) var(--space-lg);
+    }
 }
 
-/* ----- Extra Small Devices (max-width: 480px) ----- */
 @media (max-width: 480px) {
-  .Contact-container {
-    padding: var(--space-md);
-    margin: var(--space-md) auto;
-  }
-  .Contact-right input,
-  .Contact-right textarea {
-    font-size: 0.9rem;
-    padding: var(--space-sm);
-  }
-  .Submit-btn {
-    padding: var(--space-sm) var(--space-md);
-  }
+    .Contact-container {
+        padding: var(--space-md);
+    }
+    .Contact-right input,
+    .Contact-right textarea {
+        font-size: 0.9rem;
+        padding: var(--space-sm);
+    }
+    .Submit-btn {
+        padding: var(--space-sm) var(--space-md);
+    }
 }
 
-/* ======================================================= ABOUT ==============================================================*/
+/* ======================================================= ABOUT STYLES ==============================================================*/
 .about-container {
-  background-color: var(--Crystal-Clear);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: var(--space-xl) auto;
-  padding: var(--space-xl);
-  gap: var(--space-xl);
-  width: 100%;
-  max-width: 1200px;
-  border-radius: var(--space-md);
-  box-shadow: 0 2px 8px var(--Pool-Shadow);
+    /*
+     * Services page ends with var(--color-bg) at the top of its gradient.
+     * Contact page starts with var(--color-primary) at the top of its gradient.
+     * So, about section should start with var(--color-bg) and end with var(--color-primary).
+     */
+    background: linear-gradient(to top, var(--color-primary), var(--color-bg));
+    color: var(--color-text); /* Cleaned up color variable */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+    width: 100%;
+    min-height: 100vh; /* Changed from height: 100vh to min-height: 100vh */
+    box-sizing: border-box;
+    overflow-y: auto; /* Re-added to allow scrolling if content overflows */
+    /* Removed: border-radius: var(--space-md); */
+    /* Removed: box-shadow: var(--shadow-md); */
+    /* Removed: scroll-snap-align: start; */
+    /* Removed: scroll-snap-stop: always; */
 }
 
 .about-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    max-width: 100%; /* Ensure responsiveness */
 }
 
 .about-section h1 {
-  padding-bottom: var(--space-lg);
-  text-align: center;
-  color: var(--Dark-Green);
-  
+    padding-bottom: var(--space-lg);
+    text-align: center;
+    color: var(--color-primary); /* Cleaned up color variable */
 }
 
 .about-section p {
-  text-align: center;
-  color: var(--Dark-Green);
-  display: flex;
-  flex-direction: column;
+    text-align: center;
+    color: var(--color-text-muted); /* Cleaned up color variable */
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 768px) {
-  .about-section {
-    width: 90%;
-    flex-wrap: wrap;
-  }
+    .about-section {
+        width: 90%;
+        flex-wrap: wrap;
+    }
 }
 
 .meet-us {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-  width: 100%;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    width: 100%;
+    align-items: center;
 }
 
 .meet-us > h1 {
-  padding-bottom: var(--space-md);
-  border-bottom: 3px solid var(--Sandstone);
-  text-align: center;
-  color: var(--Dark-Green)
+    padding-bottom: var(--space-md);
+    border-bottom: 3px solid var(--color-accent);
+    text-align: center;
+    color: var(--color-primary); /* Cleaned up color variable */
 }
 
 .meet-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xl);
-  width: 100%;
-  justify-content: center;
-  
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    width: 100%;
+    justify-content: center;
 }
 
 .meet-row.row-reverse {
-  flex-direction: row-reverse;
+    flex-direction: row-reverse;
 }
 
 .meet-row img {
-  width: 400px;
-  height: 400px;
-  border-radius: var(--space-md);
-  object-fit: cover;
-  flex-shrink: 0;
-  outline: 1px solid var(--Light-Steel);
-  box-shadow: 0 2px 8px var(--Pool-Shadow);
+    width: 400px;
+    height: 400px;
+    border-radius: var(--space-md);
+    object-fit: cover;
+    flex-shrink: 0;
+    outline: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
 }
 
 .text-block {
-  flex-basis: 55%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--Dark-Green)
+    flex-basis: 55%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--color-text-muted); /* Cleaned up color variable */
 }
 
 .meet-row .text-block {
-  text-align: center;
-  
+    text-align: center;
 }
 .meet-row.row-reverse .text-block {
-  text-align: center;
+    text-align: center;
 }
 
 .text-block h2 {
-  margin-bottom: var(--space-sm);
-  color: var(--Dark-Green)
+    margin-bottom: var(--space-sm);
+    color: var(--color-secondary); /* Cleaned up color variable */
 }
 
-/* ---------- Tablet (max-width: 1024px) ---------- */
 @media (max-width: 1024px) {
     .meet-row,
     .meet-row.row-reverse {
@@ -625,299 +634,285 @@
     }
 }
 
-
-/* ---------- Mobile (max-width: 768px) ---------- */
 @media (max-width: 768px) {
-  .about-container {
-    gap: var(--space-lg);
-    padding: var(--space-lg);
-    margin-top: var(--space-lg);
-  }
-  .about-section h1 {
-    padding-bottom: var(--space-md);
-  }
-  .about-section p {
-    line-height: 1.6;
-  }
-  .meet-us {
-    gap: var(--space-lg);
-  }
-  .meet-us > h1 {
-    padding-bottom: var(--space-sm);
-  }
-  .meet-row img {
-    width: 280px;
-    height: 280px;
-  }
+    .about-container {
+        gap: var(--space-lg);
+        padding: var(--space-lg);
+    }
+    .about-section h1 {
+        padding-bottom: var(--space-md);
+    }
+    .about-section p {
+        line-height: 1.6;
+    }
+    .meet-us {
+        gap: var(--space-lg);
+    }
+    .meet-us > h1 {
+        padding-bottom: var(--space-sm);
+    }
+    .meet-row img {
+        width: 280px;
+        height: 280px;
+    }
 }
 
-/* ---------- Small Mobile (max-width: 480px) ---------- */
 @media (max-width: 480px) {
-  .about-container {
-    padding: var(--space-md);
-    margin-top: var(--space-lg);
-    gap: var(--space-lg);
-  }
-  .about-section p {
-    font-size: 0.95rem;
-  }
-  .meet-row img {
-    width: 100%;
-    height: 250px;
-  }
+    .about-container {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+    }
+    .about-section p {
+        font-size: 0.95rem;
+    }
+    .meet-row img {
+        width: 100%;
+        height: 250px;
+    }
 }
 
+/* ======================================================= PROFILE STYLES ==============================================================*/
 .Profile-wrapper {
-  padding: var(--space-xl) var(--space-lg);
-  max-width: 1400px;
-  margin: 0 auto;
+    background: linear-gradient(to top, var(--color-primary), var(--color-bg) 50%, var(--color-bg));
+    background-size: 100% 200%;
+    background-position: bottom;
+    color: var(--color-text); /* Cleaned up color variable */
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100vh; /* Ensure full viewport height */
+    display: flex; /* Added for centering */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center content vertically */
+    padding: var(--space-xl) var(--space-md); /* Add padding */
+    box-sizing: border-box; /* Include padding in height */
 }
 
 .Profile-loadingWrapper {
-  padding-top: var(--space-xl);
-  text-align: center;
-  font-size: 1.2rem;
+    padding-top: var(--space-xl);
+    text-align: center;
+    font-size: 1.2rem;
 }
 
 .Profile-errorMessage {
-  color: var(--Dark-Green);
+    color: var(--color-secondary); /* Cleaned up color variable */
 }
 
 .Profile-card-base {
-  background-color: var(--Crystal-Clear);
-  border-radius: var(--space-md);
-  box-shadow: 0 4px 12px var(--Pool-Shadow);
-  padding: var(--space-lg);
-  border: 1px solid var(--Light-Steel);
+    background-color: var(--color-bg); /* Cleaned up color variable */
+    border-radius: var(--space-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
 }
 
-/* --- Dashboard Header --- */
-
 .Profile-Dashboard-Dashboard {
-  margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-lg);
 }
 
 .Profile-Dashboard-title {
-  margin-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
 }
 
 .Profile-Dashboard-card {
-  background-color: var(--Crystal-Clear);
-  padding: var(--space-md);
-  border-radius: var(--space-sm);
+    background-color: var(--color-bg); /* Cleaned up color variable */
+    padding: var(--space-md);
+    border-radius: var(--space-sm);
 }
 
 .Profile-Dashboard-subtitle {
-  font-weight: 600;
-  margin-bottom: var(--space-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
 }
 
 .Profile-Dashboard-text {
-  color: var(--Deep-Sea);
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
-/* --- Main Grid Container --- */
-
 .Profile-main-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-areas:
-    "search right"
-    "tabs right"
-    "content right";
-  gap: var(--space-lg);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+        "search right"
+        "tabs right"
+        "content right";
+    gap: var(--space-lg);
 }
 
 .Profile-search-bar-container {
-  grid-area: search;
+    grid-area: search;
 }
 
 .Profile-tabs-container {
-  grid-area: tabs;
+    display: flex;
+    gap: var(--space-sm);
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: var(--space-md);
 }
-
-.Profile-tab-content {
-  grid-area: content;
-}
-
-.Profile-right-column {
-  grid-area: right;
-}
-
-/* --- Left Column Elements (Search, Tabs, Content) --- */
 
 .Profile-search-input {
-  width: 100%;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--space-sm);
-  border: 1px solid var(--Light-Steel);
-  font-size: 1rem;
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--space-sm);
+    border: 1px solid var(--color-border);
+    font-size: 1rem;
 }
 
 .Profile-tabs-container {
-  display: flex;
-  gap: var(--space-sm);
-  border-bottom: 2px solid var(--Light-Steel);
-  margin-bottom: var(--space-md);
+    display: flex;
+    gap: var(--space-sm);
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: var(--space-md);
 }
 
 .Profile-tab-button {
-  padding: var(--space-sm) var(--space-md);
-  border: none;
-  background: none;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s ease-in-out;
-  color: var(--Deep-Sea);
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
 .Profile-tab-button.active {
-  border-bottom-color: var(--Service-Blue);
-  color: var(--Deep-Sea);
-  font-weight: 600;
+    border-bottom-color: var(--color-primary); /* Cleaned up color variable */
+    color: var(--color-text); /* Cleaned up color variable */
+    font-weight: 600;
 }
-
-/* --- Lists --- */
 
 .Profile-Appointments-list,
 .Profile-Quote-list,
 .Profile-Contact-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 .Profile-Appointments-dividedList > *:not(:last-child) {
-  border-bottom: 1px solid var(--Light-Steel);
-  padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-md);
 }
 
 .Profile-Appointments-clickableItem {
-  cursor: pointer;
-  transition: background-color 0.2s;
-  padding: var(--space-sm);
-  border-radius: var(--space-sm);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    padding: var(--space-sm);
+    border-radius: var(--space-sm);
 }
 
 .Profile-Appointments-clickableItem:hover {
-  background-color: var(--Light-Steel);
+    background-color: var(--color-border); /* Cleaned up color variable */
 }
 
 .Profile-appointmentTitle,
 .Profile-quoteTitle,
 .Profile-contactTitle {
-  font-weight: 600;
-  margin-bottom: var(--space-xs);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
 }
 
 .Profile-Appointments-smallText {
-  font-size: 0.9rem;
-  color: var(--Deep-Sea);
+    font-size: 0.9rem;
+    color: var(--color-text-muted); /* Cleaned up color variable */
 }
 
-/* --- Right Column Elements (Details Panel) --- */
-
 .Profile-right-column {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
 }
 
 .Profile-details-panel,
 .Request-New-Service {
-  position: sticky;
-  top: var(--space-xl);
+    position: sticky;
+    top: var(--space-xl);
 }
 
 .Profile-detail-subtitle,
 .Profile-subtitle {
-  font-weight: 600;
-  margin-bottom: var(--space-md);
-  color: var(--Service-Blue);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--color-primary); /* Cleaned up color variable */
 }
 
 .Profile-detailItem {
-  margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-sm);
 }
 
 .Profile-detailItem strong {
-  color: var(--Deep-Sea);
+    color: var(--color-text); /* Cleaned up color variable */
 }
 
-/* --- Buttons & Utility --- */
-
 .Profile-button {
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--space-sm);
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border: none;
-  cursor: pointer;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--space-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .Profile-requestServiceBtn {
-  background-color: var(--Mid-Green);
-  color: var(--Crystal-Clear);
-  width: 100%;
+    background-color: var(--color-secondary); /* Cleaned up color variable */
+    color: var(--color-bg); /* Cleaned up color variable */
+    width: 100%;
 }
 
 .Profile-requestServiceBtn:hover {
-  background-color: var(--Dark-Green);
+    background-color: var(--color-primary); /* Cleaned up color variable */
 }
 
 .mt-4 {
-  margin-top: var(--space-md);
+    margin-top: var(--space-md);
 }
 
-/*======================================================= 
-  RESPONSIVE STYLES
+/*=======================================================
+    RESPONSIVE STYLES (for Profile)
 ========================================================*/
 
-/* ---------- Tablet & Mobile (max-width: 1024px) ---------- */
 @media (max-width: 1024px) {
-  .Profile-wrapper {
-    padding: var(--space-lg) var(--space-md);
-  }
+    .Profile-wrapper {
+        padding: var(--space-lg) var(--space-md);
+    }
 
-  .Profile-main-container {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "search"
-      "right"
-      "tabs"
-      "content";
-    gap: var(--space-lg);
-  }
+    .Profile-main-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "search"
+            "right"
+            "tabs"
+            "content";
+        gap: var(--space-lg);
+    }
 
-  .Profile-right-column {
-    gap: var(--space-lg);
-  }
+    .Profile-right-column {
+        gap: var(--space-lg);
+    }
 
-  .Profile-details-panel,
-  .Request-New-Service {
-    position: static;
-    top: auto;
-  }
+    .Profile-details-panel,
+    .Request-New-Service {
+        position: static;
+        top: auto;
+    }
 }
 
-/* ---------- Mobile (max-width: 768px) ---------- */
 @media (max-width: 768px) {
-  .Profile-wrapper {
-    padding: var(--space-lg) var(--space-md);
-  }
+    .Profile-wrapper {
+        padding: var(--space-lg) var(--space-md);
+    }
 
-  .Profile-tabs-container {
-    gap: 0;
-    justify-content: space-between;
-  }
+    .Profile-tabs-container {
+        gap: 0;
+        justify-content: space-between;
+    }
 
-  .Profile-tab-button {
-    padding: var(--space-sm);
-    flex: 1;
-    text-align: center;
-  }
+    .Profile-tab-button {
+        padding: var(--space-sm);
+        flex: 1;
+        text-align: center;
+    }
 }

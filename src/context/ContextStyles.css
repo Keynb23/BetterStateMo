@@ -1,336 +1,169 @@
-/* ================================================================== SLIDER STYLES ========================================================================= */
-.slider-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
 
-.slider-wrapper {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  padding: var(--space-md) 0;
-  width: 100%;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
 
-.slider-wrapper::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
-}
-
-.slider-slide {
-  scroll-snap-align: center;
-  flex-shrink: 0;
-  width: 100%;
-  height: 400px;
-  margin-right: var(--space-md);
-  border-radius: var(--space-md);
-  border: 10px solid var(--Deep-Sea);
-  box-shadow: 0 10px 30px -5px var(--Pool-Shadow);
-  background-size: cover;
-  background-position: center;
-}
-
-.slider-arrows {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-lg);
-  margin-top: var(--space-md);
-}
-
-.slider-arrow {
-  background-color: transparent;
-  color: var(--Deep-Sea);
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  border-radius: var(--space-sm);
-  transition: color 0.2s;
-}
-
-.slider-arrow:hover,
-.slider-arrow:focus {
-  color: var(--Service-Blue);
-}
-
-.slider-arrow:active {
-  color: var(--Dark-Green);
-}
-
-.slider-content {
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  height: 100%;
-  backdrop-filter: brightness(0.85);
-  border-radius: calc(var(--space-md) - 10px); /* Adjust for border */
-}
-
-.slider-description {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-lg);
-  background: linear-gradient(180deg, rgba(4, 28, 50, 0) 0%, rgba(4, 28, 50, 0.22) 20%, var(--Deep-Sea) 100%);
-  color: var(--Crystal-Clear);
-  min-height: 110px;
-}
-
-.slider-description h1 {
-  text-shadow: 6px 8px 25px var(--Pool-Shadow);
-  font-weight: 700;
-  color: var(--Crystal-Clear);
-  padding: 0;
-  margin: 0;
-}
-
-.slider-description p {
-  text-align: center;
-  padding: 0;
-  margin: 0;
-}
-
-/*================================ MEDIA QUERIES =================================*/
-@media (max-width: 768px) {
-  .slider-slide {
-    height: 260px;
-    border-width: 6px;
-    margin-right: var(--space-sm);
-    border-radius: var(--space-md);
-  }
-  .slider-description {
-    padding: var(--space-md);
-    gap: var(--space-sm);
-    min-height: 80px;
-  }
-  .slider-description h1 {
-    font-size: 1.5rem;
-  }
-  .slider-description p {
-    font-size: 0.95rem;
-  }
-  .slider-arrows {
-    gap: var(--space-md);
-    margin-top: var(--space-sm);
-  }
-  .slider-arrow {
-    font-size: 1.75rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .slider-slide {
-    height: 200px;
-    border-width: 4px;
-    margin-right: var(--space-sm);
-  }
-  .slider-description {
-    padding: var(--space-sm);
-    gap: var(--space-xs);
-  }
-  .slider-description h1 {
-    font-size: 1.25rem;
-  }
-  .slider-description p {
-    font-size: 0.9rem;
-  }
-  .slider-arrow {
-    font-size: 1.5rem;
-  }
-}
-
-@media (max-width: 395px) {
-  .slider-slide {
-    height: 200px;
-    border-width: 4px;
-    margin-right: var(--space-sm);
-  }
-  .slider-description {
-    padding: var(--space-xs);
-    gap: var(--space-xs);
-  }
-  .slider-description h1 {
-    font-size: 1rem;
-  }
-  .slider-description p {
-    font-size: 0.75rem;
-  }
-  .slider-arrow {
-    font-size: 1.5rem;
-  }
-}
-/*===============================================================  SERVICE BTN STYLES  ================================================================================== */
 .service-btns-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-lg);
-  margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
 }
 
 .select-all-btn button,
 .service-btn,
 .set-apt-btn button {
-  background-color: var(--Service-Blue);
-  color: var(--Crystal-Clear);
-  border: none;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--space-sm);
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 4px 10px var(--Pool-Shadow);
-  transition: all 0.25s ease-in-out;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--space-sm);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.25s ease-in-out;
 }
 
 .select-all-btn button:hover,
 .service-btn:hover,
 .set-apt-btn button:hover {
-  background-color: var(--Sandstone);
-  color: var(--Deep-Sea);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px var(--Pool-Shadow);
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 .select-all-btn button:active,
 .service-btn:active,
 .set-apt-btn button:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 12px var(--Pool-Shadow);
+    transform: translateY(0);
+    box-shadow: var(--shadow-lg);
 }
 
 .service-btns-container .select-ind-btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
 }
 
 .service-btn.selected {
-  background-color: var(--Mid-Green);
-  color: var(--Crystal-Clear);
-  /* font-weight: 600; */
-  box-shadow: 0 6px 12px var(--Pool-Shadow);
+    background-color: var(--color-secondary);
+    color: var(--color-bg);
+    box-shadow: var(--shadow-lg);
 }
-/* =================================================== REQUEST A QUOTE STYLES ============================================================================= */
+
 .request-quote-button {
-  background-color: var(--Service-Blue);
-  color: var(--Crystal-Clear);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--space-sm);
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-  border: none;
-  cursor: pointer;
-  position: relative;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--space-sm);
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
 }
 
 .request-quote-button:hover {
-  background-color: var(--Mid-Green);
+    background-color: var(--color-secondary);
 }
 
 .request-quote-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(4, 28, 50, 0.6);
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  padding: var(--space-md);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(4, 28, 50, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: var(--space-md);
 }
 
 .request-quote-modal {
-  background-color: var(--Crystal-Clear);
-  color: var(--Deep-Sea);
-  border-radius: var(--space-md);
-  padding: var(--space-lg);
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 4px 20px var(--Pool-Shadow);
-  border: 1px solid var(--Light-Steel);
-  position: relative;
-  animation: modal-fade-in 0.3s ease-out;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border-radius: var(--space-md);
+    padding: var(--space-lg);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+    position: relative;
+    animation: modal-fade-in 0.3s ease-out;
 }
 
 @keyframes modal-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .request-quote-close {
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  font-size: 1.75rem;
-  line-height: 1;
-  color: var(--Deep-Sea);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--color-text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .request-quote-close:hover {
-  color: var(--Sandstone);
-  transform: rotate(90deg);
+    color: var(--color-accent);
+    transform: rotate(90deg);
 }
 
 .request-quote-input,
 .request-quote-textarea {
-  width: 100%;
-  padding: var(--space-sm);
-  border: 1px solid var(--Light-Steel);
-  border-radius: var(--space-xs);
-  background-color: var(--Crystal-Clear);
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: var(--space-md);
-  transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--space-xs);
+    background-color: var(--color-bg);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: var(--space-md);
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .request-quote-input:focus,
 .request-quote-textarea:focus {
-  outline: none;
-  border-color: var(--Service-Blue);
-  box-shadow: 0 0 0 3px var(--Pool-Shadow);
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--shadow-sm);
 }
 
 .request-quote-textarea {
-  min-height: 100px;
-  resize: vertical;
+    min-height: 100px;
+    resize: vertical;
 }
 
 .request-quote-submit {
-  width: 100%;
-  background-color: var(--Mid-Green);
-  color: var(--Crystal-Clear);
-  padding: var(--space-sm) var(--space-md);
-  border: none;
-  border-radius: var(--space-sm);
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    width: 100%;
+    background-color: var(--color-secondary);
+    color: var(--color-bg);
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    border-radius: var(--space-sm);
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .request-quote-submit:hover {
-  background-color: var(--Dark-Green);
+    background-color: var(--color-tertiary);
 }

@@ -1,67 +1,159 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/*
+  ================================================================================
+  YOUR GLOBAL STYLES - REFINED
+  ================================================================================
+  - Font imports have been moved to index.html for better performance.
+  - Variables are consolidated and organized with a consistent naming convention.
+  - Scrollbar styles are now cross-browser compatible.
+  - Basic styles for links and buttons have been added for consistency.
+*/
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
+/* ============================================================================
+   1. CSS VARIABLES (THEME)
+   ========================================================================= */
 :root {
-  /*============================ NEW COLOR SCHEME =================================*/
-  /* Core Palette */
-  --Deep-Sea: rgb(4, 28, 50);   
-  --Service-Blue: rgb(0, 119, 255); 
-  --Mid-Green: rgb(17, 128, 78);   
-  --Dark-Green: rgb(25, 56, 43); 
-  --Crystal-Clear: rgb(248, 252, 255);  
-  --Sandstone: rgb(205, 178, 140);   
+  /* --- Brand & Accent Palette --- */
+  --color-primary: #108acc;      /* 60% */
+  --color-secondary: #cdb28c;    /* 30% */
+  --color-accent: #2cb15f;       /* 10% */
+  
+  /* --- Neutral & Text Palette --- */
+  --color-text: #041c32;           /* Formerly --Deep-Sea, high-contrast for readability */
+  --color-text-muted: #4a6a8a;    /* Formerly --text-light, for descriptions & subtitles */
+  --color-bg: #f8fcff;             /* Formerly --Crystal-Clear, the main light background */
+  --color-bg-alt: #c2e3e9;         /* The colored background from your body style */
+  --color-border: #dee2e6;         /* Formerly --Light-Steel */
 
-  /* Supporting Tones */
-  --Light-Steel: rgb(222, 226, 230);     
-  --Pool-Shadow: rgba(4, 28, 50, 0.1);   
-/*============================ spacing =================================*/
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 2rem;
-  --space-xl: 4rem;
-/* ========================= LIGHT DARK MODES =================== */
+  /* --- Shadows --- */
+  --shadow-sm: 0 2px 4px rgba(4, 28, 50, 0.08);
+  --shadow-md: 0 4px 15px rgba(4, 28, 50, 0.1);
+  --shadow-lg: 0 8px 30px rgba(4, 28, 50, 0.12);
+
+  /* --- Spacing --- */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 2rem;     /* 32px */
+  --space-xl: 4rem;     /* 64px */
 }
 
-body, html {
-  background-color: #c2e3e9;
-  font-family: 'Poppins', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  color: var(--Deep-Sea);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scrollbar-color: #f0c7b971 var(--Crystal-Clear); ;
+
+/* ============================================================================
+   2. GLOBAL RESET & BASE STYLES
+   ========================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
 }
 
-h1, h2, h3 {
+html {
+    scroll-behavior: smooth;
+    /* Ensure html also takes full width/height to avoid tiny gaps */
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+
+body {
+    /* !!! CRITICAL CHANGE HERE !!! */
+    /* Set body background to match the TOP-LEFT color of your hero's gradient */
+    /* Your hero gradient starts with --color-secondary */
+    background-color: var(--color-bg); 
+    
+    color: var(--color-text);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Ensure the root div in your React app also fills the space */
+    /* Assuming #root is where your app mounts, make sure it fills the space */
+    #root {
+        width: 100%;
+        min-height: 100vh; /* Ensure it's at least full viewport height */
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+/* ============================================================================
+   3. TYPOGRAPHY
+   ========================================================================= */
+h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  color: var(--Deep-Sea);
+  color: var(--color-text);
   margin-bottom: var(--space-sm);
+  line-height: 1.2;
 }
 
 h1 {
-  font-size: 2.5rem;
-  letter-spacing: -1.5px;
+  font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
+  letter-spacing: -0.05em;
 }
 h2 {
-  font-size: 1.75rem;
-  font-weight: 500;
-  letter-spacing: -1.25px;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600; /* Increased weight for better hierarchy */
+  letter-spacing: -0.04em;
 }
 h3 { 
-  font-size: 1.25rem;
-  letter-spacing: -1px;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  letter-spacing: -0.03em;
 }
-p  {
+p {
   font-size: 1rem;
-  line-height: 1.6;
-  letter-spacing: -.25px;
+  margin-bottom: var(--space-md);
 }
 
+
+/* ============================================================================
+   4. LINKS & BUTTONS
+   ========================================================================= */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  border-radius: var(--space-sm);
+  border: none;
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--space-sm) var(--space-md);
+  transition: opacity 0.2s ease;
+}
+button:hover {
+  opacity: 0.8;
+}
+
+
+/* ============================================================================
+   5. UTILITIES & CUSTOM SCROLLBAR
+   ========================================================================= */
+/* Cross-browser custom scrollbar */
+/* Firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) var(--color-bg);
+}
+/* Chrome, Edge, Safari */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  border-radius: 20px;
+  border: 3px solid var(--color-bg);
+}

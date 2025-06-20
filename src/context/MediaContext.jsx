@@ -26,6 +26,8 @@ import pool18 from '../assets/pools/aria.after.jpg'
 import pool19 from '../assets/pools/apt.complex.jpg' 
 import pool20 from '../assets/pools/citypool.jpg'
 
+
+
 // logo import
 import logo from '../assets/owners/logo.jpg'
 
@@ -67,7 +69,7 @@ export const MediaProvider = ({ children }) => {
     pool17,
     pool18,
     pool19,
-    pool20,
+    pool20
   ]
 
   const videos = [

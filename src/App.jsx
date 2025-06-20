@@ -10,25 +10,60 @@ import Profile from "./pages/profile.jsx";
 import ObjectionBlockers from "./components/objectionBlockers.jsx";
 import Footer from "./components/Footer.jsx";
 import Gallery from "./components/Gallery.jsx";
+import { useState, useEffect } from 'react'; 
 
 function App() {
-  useLocation();
+  const location = useLocation(); // Keep useLocation
+
+  // State to control Navbar visibility
+  const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+
+  useEffect(() => {
+    // Only apply this logic on the homepage ("/")
+    if (location.pathname === "/") {
+      const heroSection = document.getElementById("hero-section"); // Make sure your Hero component's div has this ID
+
+      if (heroSection) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            // If the hero section is NOT intersecting (i.e., you've scrolled past it)
+            // or if it's intersecting but only a small part of it (e.g., threshold 0)
+            setIsNavbarVisible(!entry.isIntersecting || entry.intersectionRatio < 0.1);
+          },
+          {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: [0, 0.1], // Observe when 0% or 10% of the target is visible
+          }
+        );
+
+        observer.observe(heroSection);
+
+        // Cleanup function
+        return () => {
+          observer.unobserve(heroSection);
+        };
+      }
+    } else {
+      // If not on the homepage, ensure Navbar is always visible
+      setIsNavbarVisible(true);
+    }
+  }, [location.pathname]); // Re-run effect when the path changes
+
 
   return (
     <>
-
       <div className="app-container">
-        
-        
-        
-        <Navbar />
+        {/* Pass the visibility state as a prop to Navbar */}
+        <Navbar isVisible={isNavbarVisible} />
         <Routes>
           {/* Scrollable homepage route */}
           <Route
             path="/"
             element={
               <>
-                <section id="home">
+                {/* Add an ID to your Home component's main div so we can observe it */}
+                <section id="hero-section">
                   <Home />
                 </section>
                 <section id="services">
@@ -41,7 +76,6 @@ function App() {
                   <Contact />
                 </section>
                 <ObjectionBlockers />
-
                 <Footer />
               </>
             }
