@@ -5,6 +5,7 @@ import RequestQuote from "../context/RequestQuote";
 import EditedDroneVid from "../assets/videos/EditedDroneVid.mp4";
 import facebook from "../assets/socials/facebook.png";
 import instagram from "../assets/socials/instagram.png";
+import LshapedPool from '../assets/pools/LshapedPool.jpg';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -21,26 +22,22 @@ const Hero = () => {
   return (
     <div className="hero-container">
       <div className="hero-content">
-        <div className="hero-bg-vid">
+        <div className="Hero-bg-img">
+          <img src={LshapedPool} alt="Background" />
+        </div>
+        <button onClick={() => navigate("/gallery")} className="hero-bg-vid">
+          <h3>Gallery</h3>
           <video autoPlay loop muted>
             <source src={EditedDroneVid} type="video/mp4" />
           </video>
-        </div>
+        </button>
         <h1 className="hero-title">
           Better State Mo
         </h1>
-        <div id="autoLoop" className="hero-description">
-          <h2> POOLS</h2>
-          <h2> BETTER SERVICE</h2>
-          <h2> BETTER TOGETHER</h2>
-          <h2> BETTER PIZZA</h2>
-          <h2>  Wait no, that's copyright</h2>
-          <h2> BETTER FUTURE</h2>
-          <h2> BETTER NOW</h2>
-          <h2> BETTER TODAY</h2>
-          <h2> BETTER EVERYWHERE</h2>
-          <h2> BETTER EVERYDAY</h2>
-          <h2> BETTER EVERYTIME</h2>
+        <div className="hero-description">
+          <h3> BETTER POOLS</h3>
+          <h3> BETTER SERVICE</h3>
+          <h3> BETTER TOGETHER</h3>
         </div>
 
         <div className="hero-buttons">

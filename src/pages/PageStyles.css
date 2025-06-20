@@ -327,53 +327,68 @@
     }
 }
 
+
+
 /*======================================================= CONTACT STYLES ==================================================================*/
 .Contact-container {
-    /* The contact page starts with var(--color-primary) at the top of its gradient */
     background: linear-gradient(to top, var(--color-secondary), var(--color-primary) 50%, var(--color-primary));
     background-size: 100% 200%;
     background-position: bottom;
-    color: var(--color-bg); /* Corrected variable to just var(--color-bg) */
+    color: var(--color-bg);
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 100vh; /* Changed from height: 100vh to min-height: 100vh */
+    min-height: 100vh;
     margin: 0 auto;
     padding: var(--space-xl);
-    background-color: var(--color-bg);
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
-    /* Removed: border-radius: var(--space-md); */
-    /* Removed: box-shadow: var(--shadow-md); */
 }
 
 .Contact-container h1 {
     text-align: center;
     margin-bottom: var(--space-lg);
-    color: var(--color-bg); /* Corrected variable to just var(--color-bg) */
+    color: var(--color-bg);
 }
 
 .Contact-content {
+    background-color: var(--color-bg);
     display: flex;
     justify-content: space-between;
     gap: var(--space-xl);
-    width: 100%; /* Ensure content spans full width of container */
-    max-width: 1200px; /* Keep max-width for content */
+    width: 100%;
+    max-width: 1200px;
+    border-radius: var(--space-md);
+    padding: var(--space-lg); 
+    box-shadow: var(--shadow-md);
+    color: var(--color-text); 
 }
 
 .Contact-left {
     flex-basis: 45%;
+    display: flex; /* Use flex to center message vertically if needed */
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    padding-right: var(--space-lg); /* Maintain some spacing */
 }
 
 .contact-message {
-    padding-right: var(--space-lg);
-    color: var(--color-bg); /* Corrected variable to just var(--color-bg) */
+    /* Removed padding-right here as it's on Contact-left */
+    color: var(--color-text-muted); /* Use muted text for general info */
+    text-align: center; 
 }
 
 .contact-message h3 {
-    color: var(--color-primary); /* Cleaned up color variable */
+    color: var(--color-primary);
     margin-bottom: var(--space-lg);
+    font-size: 1.8rem; /* Slightly larger heading */
+}
+
+.contact-message p {
+    margin-bottom: var(--space-md);
+    font-size: 1.1rem; /* Slightly larger text */
+    line-height: 1.5;
 }
 
 .Contact-right {
@@ -384,12 +399,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    color: var(--color-text); /* Cleaned up color variable */
-}
-
-.form-row {
-    display: flex;
-    gap: var(--space-md);
+    color: var(--color-text);
 }
 
 .form-group {
@@ -401,24 +411,26 @@
 .Contact-right label {
     font-weight: 500;
     margin-bottom: var(--space-sm);
+    color: var(--color-text); /* Explicitly set label color */
 }
 
 .Contact-right input,
 .Contact-right textarea {
-    padding: var(--space-sm);
-    background-color: var(--color-bg); /* Cleaned up color variable */
-    color: var(--color-text); /* Cleaned up color variable */
+    padding: var(--space-md); /* Slightly more padding for inputs */
+    background-color: var(--color-bg);
+    color: var(--color-text);
     border: 1px solid var(--color-border);
     border-radius: var(--space-sm);
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .Contact-right input:focus,
 .Contact-right textarea:focus {
-    border-color: var(--color-primary); /* Cleaned up color variable */
+    border-color: var(--color-primary);
     outline: none;
     box-shadow: 0 0 0 3px var(--color-bg-alt);
 }
@@ -428,37 +440,116 @@
     min-height: 120px;
 }
 
+/* New styles for the confirmation checkbox */
+.confirm-section {
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: flex-start; /* Align checkbox and text at the top */
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+    font-size: 0.95rem; /* Slightly smaller text for confirmation */
+    color: var(--color-text-muted); /* Muted text color for confirmation */
+}
+
+.checkbox-container input[type="checkbox"] {
+    display: none; /* Hide the default checkbox */
+}
+
+.checkbox-custom {
+    min-width: 1.25rem; /* Fixed width for custom checkbox */
+    height: 1.25rem; /* Fixed height for custom checkbox */
+    border: 2px solid var(--color-border);
+    border-radius: 0.25rem; /* Slightly rounded corners */
+    margin-right: var(--space-sm);
+    display: inline-flex; /* Use inline-flex for centering checkmark */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    background-color: var(--color-bg);
+    position: relative; /* For checkmark positioning */
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: var(--color-accent); /* Accent color when checked */
+    border-color: var(--color-accent);
+}
+
+.checkbox-custom::after {
+    content: '';
+    position: absolute;
+    width: 0.5rem;
+    height: 0.8rem;
+    border: solid var(--color-bg); /* Checkmark color is background color */
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg) scale(0); /* Start hidden and scaled down */
+    opacity: 0;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom::after {
+    transform: rotate(45deg) scale(1); /* Scale up when checked */
+    opacity: 1;
+}
+
+/* Button Styling */
 .Submit-btn {
     padding: var(--space-md) var(--space-lg);
     border: none;
-    background-color: var(--color-primary); /* Cleaned up color variable */
-    color: var(--color-bg); /* Cleaned up color variable */
+    background-color: var(--color-primary);
+    color: var(--color-bg);
     border-radius: var(--space-sm);
     font-weight: 600;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease; /* Add opacity for disabled state */
     align-self: flex-start;
     margin-top: var(--space-sm);
 }
 
-.Submit-btn:hover {
-    background-color: var(--color-accent); /* Cleaned up color variable */
+.Submit-btn:hover:not(:disabled) { /* Apply hover only when not disabled */
+    background-color: var(--color-accent);
     transform: translateY(-2px);
 }
 
+.Submit-btn:disabled {
+    background-color: var(--color-border); /* Muted background when disabled */
+    color: var(--color-text-muted); /* Muted text when disabled */
+    cursor: not-allowed;
+    opacity: 0.7; /* Slightly transparent when disabled */
+    transform: none; /* No transform when disabled */
+}
+
+.submit-feedback {
+    margin-top: var(--space-md); /* Adjusted margin for feedback */
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center; /* Center the feedback message */
+    padding: var(--space-sm);
+    border-radius: var(--space-xs);
+    background-color: rgba(var(--color-bg-alt), 0.2); /* Light background for feedback */
+}
+
+/* Media Queries */
 @media (max-width: 1024px) {
     .Contact-container {
         padding: var(--space-lg);
-        width: calc(100% - var(--space-lg));
+        /* width: calc(100% - var(--space-lg)); - Removed this, let max-width handle it */
     }
     .Contact-content {
         flex-direction: column;
         gap: var(--space-lg);
+        padding: var(--space-lg); /* Adjust padding for smaller screens */
     }
     .Contact-left {
         text-align: center;
         padding-right: 0;
+        padding-bottom: var(--space-md); /* Add some padding below message on smaller screens */
     }
     .contact-message {
         padding: 0;
@@ -467,13 +558,14 @@
     .contact-message h3 {
         padding-bottom: var(--space-md);
     }
-    .form-row {
-        flex-direction: column;
-        gap: var(--space-md);
-    }
+    /* .form-row is not used, removed. */
     .Submit-btn {
         align-self: stretch;
         width: 100%;
+    }
+    .checkbox-container {
+        justify-content: center; /* Center checkbox text on smaller screens */
+        text-align: center;
     }
 }
 
@@ -503,17 +595,19 @@
     .Submit-btn {
         padding: var(--space-sm) var(--space-md);
     }
+    .checkbox-container {
+        font-size: 0.85rem;
+    }
+    .checkbox-custom {
+        min-width: 1.1rem;
+        height: 1.1rem;
+    }
 }
 
 /* ======================================================= ABOUT STYLES ==============================================================*/
 .about-container {
-    /*
-     * Services page ends with var(--color-bg) at the top of its gradient.
-     * Contact page starts with var(--color-primary) at the top of its gradient.
-     * So, about section should start with var(--color-bg) and end with var(--color-primary).
-     */
     background: linear-gradient(to top, var(--color-primary), var(--color-bg));
-    color: var(--color-text); /* Cleaned up color variable */
+    color: var(--color-text);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -521,41 +615,49 @@
     padding: var(--space-xl);
     gap: var(--space-xl);
     width: 100%;
-    min-height: 100vh; /* Changed from height: 100vh to min-height: 100vh */
+    min-height: 100vh;
     box-sizing: border-box;
-    overflow-y: auto; /* Re-added to allow scrolling if content overflows */
-    /* Removed: border-radius: var(--space-md); */
-    /* Removed: box-shadow: var(--shadow-md); */
-    /* Removed: scroll-snap-align: start; */
-    /* Removed: scroll-snap-stop: always; */
+    overflow-y: auto;
+}
+
+.about-content {
+    position: relative;
+    background-color: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    max-width: 1200px;
+    border-radius: var(--space-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text);
 }
 
 .about-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    width: 700px;
-    max-width: 100%; /* Ensure responsiveness */
+    align-items: center; 
+    padding: var(--space-md);
 }
+
+
 
 .about-section h1 {
     padding-bottom: var(--space-lg);
+    color: var(--color-primary);
     text-align: center;
-    color: var(--color-primary); /* Cleaned up color variable */
 }
 
 .about-section p {
+    color: var(--color-text-muted);
     text-align: center;
-    color: var(--color-text-muted); /* Cleaned up color variable */
-    display: flex;
-    flex-direction: column;
 }
 
 @media (max-width: 768px) {
     .about-section {
         width: 90%;
-        flex-wrap: wrap;
     }
 }
 
@@ -571,7 +673,7 @@
     padding-bottom: var(--space-md);
     border-bottom: 3px solid var(--color-accent);
     text-align: center;
-    color: var(--color-primary); /* Cleaned up color variable */
+    color: var(--color-primary);
 }
 
 .meet-row {
@@ -602,19 +704,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: var(--color-text-muted); /* Cleaned up color variable */
-}
-
-.meet-row .text-block {
-    text-align: center;
-}
-.meet-row.row-reverse .text-block {
-    text-align: center;
+    color: var(--color-text-muted);
+    text-align: center; /* Ensure text inside text-block is centered */
 }
 
 .text-block h2 {
     margin-bottom: var(--space-sm);
-    color: var(--color-secondary); /* Cleaned up color variable */
+    color: var(--color-secondary);
 }
 
 @media (max-width: 1024px) {
@@ -670,7 +766,6 @@
         height: 250px;
     }
 }
-
 /* ======================================================= PROFILE STYLES ==============================================================*/
 .Profile-wrapper {
     background: linear-gradient(to top, var(--color-primary), var(--color-bg) 50%, var(--color-bg));

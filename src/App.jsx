@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
-import Contact from "./components/Contact.jsx";
+import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
 import Services from "./pages/Services.jsx";
 import Home from "./pages/Home.jsx";

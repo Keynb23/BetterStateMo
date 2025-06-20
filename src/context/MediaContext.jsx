@@ -25,6 +25,11 @@ import pool17 from '../assets/pools/aria.jpg'
 import pool18 from '../assets/pools/aria.after.jpg' 
 import pool19 from '../assets/pools/apt.complex.jpg' 
 import pool20 from '../assets/pools/citypool.jpg'
+import pool21 from '../assets/pools/smallApts.jpg'
+import pool22 from '../assets/pools/squareaptPool.jpg'
+import pool23 from '../assets/pools/diagPool.jpg'
+import pool24 from '../assets/pools/Droneshot1.jpg'
+import pool25 from '../assets/pools/LshapedPool.jpg'
 
 
 
@@ -36,6 +41,8 @@ import logo from '../assets/owners/logo.jpg'
 import Video1 from '../assets/videos/fire.mp4'
 import Video2 from '../assets/videos/fire2.mp4'
 import underWater from '../assets/videos/underwater.mp4'
+import EditedDroneVid from '../assets/videos/EditedDroneVid.mp4'
+
 
 
 // 1. Create context
@@ -48,7 +55,7 @@ export const MediaProvider = ({ children }) => {
     josh,
     logo,
   }
-
+// 1 is 0, 2 is 1, etc. 
   const pools = [
     pool1, 
     pool2,
@@ -69,13 +76,19 @@ export const MediaProvider = ({ children }) => {
     pool17,
     pool18,
     pool19,
-    pool20
+    pool20,
+    pool21,
+    pool22,
+    pool23,
+    pool24,
+    pool25,
   ]
 
   const videos = [
     Video1,
     Video2,
     underWater,
+    EditedDroneVid,
   ]
 
 

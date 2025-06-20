@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { addContactSubmission } from '../lib/firestoreService'; // New import for contact submissions
-import './ComponentStyles.css'
+import { addContactSubmission } from '../lib/firestoreService';
+import './PageStyles.css'
 
 const Contact = () => {
   // State for form inputs
@@ -9,16 +9,25 @@ const Contact = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
+  // State for the new confirmation checkbox
+  const [isConfirmed, setIsConfirmed] = useState(false); // New state for checkbox
+
   // State for submission status and feedback
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
 
-    setIsSubmitting(true); // Disable button and show loading indicator
-    setSubmitMessage(''); // Clear previous messages
+    // Check if the confirmation box is checked before proceeding
+    if (!isConfirmed) {
+      setSubmitMessage('Please confirm that the information is correct.');
+      return; // Stop the submission if not confirmed
+    }
+
+    setIsSubmitting(true);
+    setSubmitMessage('');
 
     const contactData = {
       name,
@@ -27,20 +36,28 @@ const Contact = () => {
       message,
     };
 
+    console.log('Contact form data captured:', contactData);
+
     try {
-      // Call the Firestore service to add the contact submission
+      console.log('Attempting to send data to Firestore...');
       await addContactSubmission(contactData);
+      
       setSubmitMessage('Your message has been sent successfully! We will get back to you shortly.');
+      console.log('Contact form data successfully sent to Firestore!');
+
       // Clear form fields on successful submission
       setName('');
       setPhone('');
       setEmail('');
       setMessage('');
+      setIsConfirmed(false); // Reset checkbox
     } catch (error) {
       console.error("Error submitting contact form:", error);
       setSubmitMessage('Failed to send your message. Please try again.');
+      console.log('Failed to send contact form data to Firestore.');
     } finally {
-      setIsSubmitting(false); // Re-enable button
+      setIsSubmitting(false);
+      console.log('Submission process finished (finally block executed).');
     }
   };
 
@@ -59,9 +76,8 @@ const Contact = () => {
         </div>
 
         <div className="Contact-right">
-          {/* Wrap inputs in a form element and attach onSubmit handler */}
           <form onSubmit={handleSubmit}>
-            <div className="form-group"> {/* Added for better organization */}
+            <div className="form-group">
               <label htmlFor="contact-name">Name:</label>
               <input
                 id="contact-name"
@@ -104,24 +120,30 @@ const Contact = () => {
               ></textarea>
             </div>
 
-            <div className="confirm-btns">
-              <p>
-                By submitting this form, you're confirming that the information
-                above is correct.
-              </p>
-              <button
-                className="Submit-btn"
-                type="submit" // Set type to submit for form submission
-                disabled={isSubmitting} // Disable button while submitting
-              >
-                {isSubmitting ? 'Sending...' : 'Submit'}
-              </button>
-              {submitMessage && (
-                <p className="submit-feedback" style={{ marginTop: '1rem', color: submitMessage.includes('successfully') ? 'green' : 'red' }}>
-                  {submitMessage}
-                </p>
-              )}
+            <div className="confirm-section"> {/* Changed div class for better styling */}
+              <label className="checkbox-container"> {/* Label wraps checkbox for clickability */}
+                <input
+                  type="checkbox"
+                  checked={isConfirmed}
+                  onChange={(e) => setIsConfirmed(e.target.checked)}
+                />
+                <span className="checkbox-custom"></span> {/* Custom checkbox styling */}
+                By submitting this form, you're confirming that the information above is correct.
+              </label>
             </div>
+
+            <button
+              className="Submit-btn"
+              type="submit"
+              disabled={isSubmitting || !isConfirmed || !name || !email || !phone || !message} // Disable if not confirmed or fields are empty
+            >
+              {isSubmitting ? 'Sending...' : 'Submit'}
+            </button>
+            {submitMessage && (
+              <p className="submit-feedback" style={{ marginTop: '1rem', color: submitMessage.includes('successfully') ? 'var(--color-accent)' : 'red' }}>
+                {submitMessage}
+              </p>
+            )}
           </form>
         </div>
       </div>
