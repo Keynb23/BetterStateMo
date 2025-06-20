@@ -19,12 +19,14 @@
 /* =============================================================================== SERVICES STYLES ===============================================================================*/
 
 .service-container {
-    /* The services page ends with var(--color-bg) at the top of its gradient */
-    background: linear-gradient(to top, var(--color-bg), var(--color-secondary) 50%, var(--color-secondary));
+    position: relative;
+    background: linear-gradient(to top, var(--color-bg), var(--color-bg) 50%, var(--color-secondary));
     background-size: 100% 200%;
     background-position: bottom;
     color: var(--color-text); /* Cleaned up color variable */
-    height: 100vh; /* Already set, but good to confirm */
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
     display: flex; /* Added to allow content centering */
     flex-direction: column; /* Added for vertical layout */
     justify-content: center; /* Vertically center content */
@@ -34,6 +36,7 @@
 }
 
 .services-main-title {
+    padding-top: var(--space-xl);
     text-align: center;
     color: var(--color-primary); /* Cleaned up color variable */
     font-size: clamp(2.5rem, 5vw, 3.5rem);
@@ -331,7 +334,7 @@
 
 /*======================================================= CONTACT STYLES ==================================================================*/
 .Contact-container {
-    background: linear-gradient(to top, var(--color-secondary), var(--color-primary) 50%, var(--color-primary));
+    background: linear-gradient(to top, var(--color-bg), var(--color-primary) 50%, var(--color-bg));
     background-size: 100% 200%;
     background-position: bottom;
     color: var(--color-bg);

@@ -1,14 +1,3 @@
-/*
-  ================================================================================
-  YOUR GLOBAL STYLES - REFINED
-  ================================================================================
-  - Font imports have been moved to index.html for better performance.
-  - Variables are consolidated and organized with a consistent naming convention.
-  - Scrollbar styles are now cross-browser compatible.
-  - Basic styles for links and buttons have been added for consistency.
-*/
-@import "tailwindcss";
-
 /* ============================================================================
    1. CSS VARIABLES (THEME)
    ========================================================================= */

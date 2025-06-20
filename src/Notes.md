@@ -1,11 +1,16 @@
-Image in hero background cannot be used. just there as a place holder
-
 TO DO: 
 
+these pages/components need styled:
 
-TOO WHITE 
+profile page, appoint page, appointment and gallery button in navbar has two lines underlining when hovered.
 
-random line on top of first service card
+profile page's vertical spacing is messed up. 
+
+appointment page's colors are messed up.
+
+gallery grid is squished together. might just switch it to flex or reinstall masonry 
+
+
 
 create Blaze account with card info (business card) 
 

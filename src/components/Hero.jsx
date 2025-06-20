@@ -1,62 +1,107 @@
 import { useNavigate } from "react-router-dom";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 import "./ComponentStyles.css";
 import RequestQuote from "../context/RequestQuote";
 import EditedDroneVid from "../assets/videos/EditedDroneVid.mp4";
 import facebook from "../assets/socials/facebook.png";
 import instagram from "../assets/socials/instagram.png";
-import LshapedPool from '../assets/pools/LshapedPool.jpg';
+import "aos/dist/aos.css";
 
 const Hero = () => {
   const navigate = useNavigate();
 
-  // Function to handle smooth scrolling to a section ID
+  const [activeWordIndex, setActiveWordIndex] = useState(0);
+  // Define only the *second* part of the phrases to cycle through
+  const cyclingWords = [
+    "Pools",
+    "Service",
+    "Together",
+    "State",
+  ];
+
+  // Define your color palette in the order you want them to cycle
+  const cyclingColors = [
+    "var(--color-primary)",
+    "var(--color-secondary)",
+    "var(--color-accent)",
+    "var(--color-bg)",
+  ];
+
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      // Use smooth scroll behavior
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  useEffect(() => {
+    const heroCoverTitle = document.querySelector(".Hero-Cover-title");
+    if (heroCoverTitle) {
+      const shadowCount = 35;
+      const shadowColor = getComputedStyle(document.documentElement)
+        .getPropertyValue("--hero-cover-secondary")
+        .trim();
+
+      let shadowString = "0 0 0px " + shadowColor;
+      for (let i = 1; i <= shadowCount; i++) {
+        shadowString += `, ${i}px ${i}px ${shadowColor}`;
+      }
+      heroCoverTitle.style.textShadow = shadowString;
+    }
+  }, []);
+
+  useEffect(() => {
+    const intervalTime = 1500;
+    const cycleInterval = setInterval(() => {
+      setActiveWordIndex((prevIndex) =>
+        (prevIndex + 1) % cyclingWords.length
+      );
+    }, intervalTime);
+
+    return () => clearInterval(cycleInterval);
+  }, [cyclingWords.length]);
+
   return (
     <div className="hero-container">
       <div className="hero-content">
-        <div className="Hero-bg-img">
-          <img src={LshapedPool} alt="Background" />
-        </div>
-        <button onClick={() => navigate("/gallery")} className="hero-bg-vid">
-          <h3>Gallery</h3>
+        <div className="Hero-bg-img"></div>
+
+        <div className="hero-bg-vid">
           <video autoPlay loop muted>
             <source src={EditedDroneVid} type="video/mp4" />
           </video>
-        </button>
-        <h1 className="hero-title">
-          Better State Mo
-        </h1>
-        <div className="hero-description">
-          <h3> BETTER POOLS</h3>
-          <h3> BETTER SERVICE</h3>
-          <h3> BETTER TOGETHER</h3>
+        </div>
+
+        <div className="hero-title">
+          <h1 className="static-better">BETTER</h1>
+          <div className="cycling-word-container">
+            {cyclingWords.map((word, index) => (
+              <h1
+                key={index}
+                className={activeWordIndex === index ? "active-cycling-word" : ""}
+                style={{ color: cyclingColors[index] }} // Apply dynamic color here
+              >
+                {word}
+              </h1>
+            ))}
+          </div>
         </div>
 
         <div className="hero-buttons">
           <button
             className="hero-button"
-            onClick={() => scrollToSection("services")} // Scroll to the Services section
+            onClick={() => scrollToSection("services")}
           >
             Explore Our Services
           </button>
           <button
             className="hero-button"
-            onClick={() => scrollToSection("contact")} // Scroll to the Contact section
+            onClick={() => scrollToSection("contact")}
           >
             Contact Us
           </button>
-          <button
-            className="hero-button"
-            onClick={() => navigate("/setapt")} // Navigate to the Set Appointment page
-          >
+          <button className="hero-button" onClick={() => navigate("/setapt")}>
             Set Appointment
           </button>
           <RequestQuote />

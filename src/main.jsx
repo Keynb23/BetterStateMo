@@ -7,6 +7,16 @@ import { MediaProvider } from "./context/MediaContext.jsx";
 import { ServiceProvider } from "./context/ServiceContext.jsx";
 import { BackendCartProvider } from "./context/BackendCart.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx"; // Import AuthProvider
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+// Initialize AOS
+
+AOS.init({
+  duration: 1000, // global duration
+  easing: 'ease-out-back', // global easing
+  once: true, // animate only once
+});
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

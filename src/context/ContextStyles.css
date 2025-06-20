@@ -56,7 +56,7 @@
 .request-quote-button {
     background-color: var(--color-primary);
     color: var(--color-bg);
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm) var(--space-xs);
     border-radius: var(--space-sm);
     font-weight: 500;
     transition: background-color 0.3s ease;
