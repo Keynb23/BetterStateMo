@@ -11,7 +11,7 @@ const HamburgerBtn = () => {
   const lineStyle = {
     width: "30px", // Slightly reduced for a cleaner look
     height: "3px", // Slimmer for a modern feel
-    backgroundColor: "var(--Deep-Sea)", // Using a dark color for contrast on a light navbar
+    backgroundColor: "var(--text)", // Using a dark color for contrast on a light navbar
     transition: "all 0.3s ease-in-out",
     borderRadius: "3px",
   };

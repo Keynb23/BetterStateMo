@@ -1,169 +1,174 @@
-
-
+/* Service Buttons */
 .service-btns-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
 }
 
 .select-all-btn button,
 .service-btn,
 .set-apt-btn button {
-    background-color: var(--color-primary);
-    color: var(--color-bg);
-    border: none;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--space-sm);
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    box-shadow: var(--shadow-md);
-    transition: all 0.25s ease-in-out;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all 0.25s ease-in-out;
 }
 
 .select-all-btn button:hover,
 .service-btn:hover,
 .set-apt-btn button:hover {
-    background-color: var(--color-accent);
-    color: var(--color-text);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .select-all-btn button:active,
 .service-btn:active,
 .set-apt-btn button:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-lg);
+  transform: translateY(0);
+  box-shadow: var(--shadow-lg);
 }
 
 .service-btns-container .select-ind-btns {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
 }
 
 .service-btn.selected {
-    background-color: var(--color-secondary);
-    color: var(--color-bg);
-    box-shadow: var(--shadow-lg);
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  box-shadow: var(--shadow-lg);
 }
 
+/* Request Quote Button */
 .request-quote-button {
-    background-color: var(--color-primary);
-    color: var(--color-bg);
-    padding: var(--space-sm) var(--space-xs);
-    border-radius: var(--space-sm);
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-    position: relative;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding: var(--space-sm) var(--space-xs);
+  border-radius: var(--space-sm);
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  position: relative;
 }
 
 .request-quote-button:hover {
-    background-color: var(--color-secondary);
+  background-color: var(--color-secondary);
 }
 
+/* Request Quote Overlay & Modal */
 .request-quote-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(4, 28, 50, 0.6);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    padding: var(--space-md);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(4, 28, 50, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: var(--space-md);
 }
 
 .request-quote-modal {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    border-radius: var(--space-md);
-    padding: var(--space-lg);
-    width: 100%;
-    max-width: 500px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-    position: relative;
-    animation: modal-fade-in 0.3s ease-out;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border-radius: var(--space-md);
+  padding: var(--space-lg);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  position: relative;
+  animation: modal-fade-in 0.3s ease-out;
 }
 
 @keyframes modal-fade-in {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
+/* Request Quote Close Button */
 .request-quote-close {
-    position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
-    font-size: 1.75rem;
-    line-height: 1;
-    color: var(--color-text);
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .request-quote-close:hover {
-    color: var(--color-accent);
-    transform: rotate(90deg);
+  color: var(--color-accent);
+  transform: rotate(90deg);
 }
 
+/* Request Quote Inputs */
 .request-quote-input,
 .request-quote-textarea {
-    width: 100%;
-    padding: var(--space-sm);
-    border: 1px solid var(--color-border);
-    border-radius: var(--space-xs);
-    background-color: var(--color-bg);
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: var(--space-md);
-    transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-xs);
+  background-color: var(--color-bg);
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: var(--space-md);
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .request-quote-input:focus,
 .request-quote-textarea:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--shadow-sm);
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--shadow-sm);
 }
 
 .request-quote-textarea {
-    min-height: 100px;
-    resize: vertical;
+  min-height: 100px;
+  resize: vertical;
 }
 
+/* Request Quote Submit Button */
 .request-quote-submit {
-    width: 100%;
-    background-color: var(--color-secondary);
-    color: var(--color-bg);
-    padding: var(--space-sm) var(--space-md);
-    border: none;
-    border-radius: var(--space-sm);
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--space-sm);
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .request-quote-submit:hover {
-    background-color: var(--color-tertiary);
+  background-color: var(--color-tertiary);
 }

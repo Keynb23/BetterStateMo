@@ -1,135 +1,275 @@
-/* =============================================================================== HOME STYLES (Hero Section) ===============================================================================*/
-
+/* Home Page Hero Section */
 .Hero-Home-Container {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-    color: var(--color-bg); /* Cleaned up color variable */
-    text-align: center;
-    height: 100vh; /* Ensure full viewport height */
-    display: flex; /* Added to help center content vertically if needed */
-    flex-direction: column; /* Added to help center content vertically if needed */
-    justify-content: center; /* Added to center content vertically */
-    align-items: center; /* Added to center content horizontally */
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: var(--color-bg);
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.Hero-Home-Container > div {
-    width: 100%;
+.Hero-Home-Container>div {
+  width: 100%;
 }
 
-
-/* =============================================================================== SERVICES STYLES ===============================================================================*/
-
+/* Services Section Styles */
 .service-container {
-    position: relative;
-    background: linear-gradient(to top, var(--color-bg), var(--color-bg) 50%, var(--color-secondary));
-    background-size: 100% 200%;
-    background-position: bottom;
-    color: var(--color-text); /* Cleaned up color variable */
-    min-height: 100vh;
-    height: 100%;
-    width: 100%;
-    display: flex; /* Added to allow content centering */
-    flex-direction: column; /* Added for vertical layout */
-    justify-content: center; /* Vertically center content */
-    align-items: center; /* Horizontally center content */
-    padding: var(--space-xl) var(--space-md); /* Add padding for content spacing */
-    box-sizing: border-box; /* Include padding in height calculation */
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    var(--bg) 0%,
+    var(--comp-bg-light) 100%
+  );
+  color: var(--text);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-xl) var(--space-md);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .services-main-title {
-    padding-top: var(--space-xl);
-    text-align: center;
-    color: var(--color-primary); /* Cleaned up color variable */
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    margin-bottom: var(--space-xl);
-    font-weight: 700;
+  text-align: center;
+  color: var(--text);
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 700;
+  margin-bottom: var(--space-xl);
+  padding-top: var(--space-xl);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.service-content {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--space-lg);
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
+.service-sub-header {
+  max-width: 800px;
+  margin: 0 auto var(--space-xl) auto;
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  padding: var(--space-lg);
+  background-color: var(--comp-bg-light);
+  border-radius: var(--space-md);
+  box-shadow: var(--shadow-sm);
 }
 
-.ServiceCard {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 320px;
-    max-width: 400px;
-    background-color: var(--color-bg); /* Cleaned up color variable */
-    border-radius: var(--space-md);
-    border: 1px solid var(--color-border);
+.service-sub-header p {
+    margin-bottom: var(--space-md);
+    max-width: 100%;
+}
+
+.service-sub-header p:last-of-type {
+    margin-bottom: 0;
+}
+
+.service-sub-header h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-xs);
+}
+
+.services-list-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: var(--comp-bg-light);
+  border-radius: var(--space-md);
+  box-shadow: var(--bg-dark);
+  padding: var(--space-lg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.service-item:hover {
     box-shadow: var(--shadow-md);
-    overflow: hidden;
-    text-align: center;
-    padding: var(--space-md);
-    transition: box-shadow 0.3s ease;
 }
 
-.ServiceCard:hover {
-    box-shadow: var(--shadow-lg);
+.service-item-image-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+  border: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.ServiceCard-image {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    border-radius: var(--space-sm);
-    margin-bottom: var(--space-lg);
+.service-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.ServiceCard-title {
-    color: var(--color-text); /* Cleaned up color variable */
+.service-item-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-.ServiceCard-description {
-    color: var(--color-text-muted); /* Cleaned up color variable */
+.service-item-title {
+  color: var(--text);
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
 }
 
-.service-card-btns {
-    margin-top: auto;
-    padding-top: var(--space-lg);
-    display: flex;
-    justify-content: space-between;
+.service-item-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: var(--space-lg);
+}
+
+.service-item-btns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: auto;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-muted);
+  width: 100%;
+}
+
+/* Media Queries for Services Section */
+
+/* Tablets and larger phones (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .service-container {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .services-main-title {
+    font-size: clamp(2.5rem, 6vw, 3.8rem);
+  }
+
+  .service-sub-header {
+      font-size: 1.05rem;
+      max-width: 700px;
+      padding: var(--space-md);
+  }
+
+  .service-sub-header h4 {
+      font-size: 1.15rem;
+  }
+
+  .services-list-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: var(--space-md);
+  }
+
+  .service-item {
+    padding: var(--space-md);
+  }
+
+  .service-item-image-container {
+    width: 90px;
+    height: 90px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-item-title {
+    font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-item-description {
+    font-size: 0.95rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .service-item-btns {
+    padding-top: var(--space-sm);
+  }
 }
 
-.rq-btn,
-.SS-btn {
-    flex-grow: 1;
+/* Small Phones (max-width: 560px) */
+@media (max-width: 560px) {
+  .service-container {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .services-main-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: var(--space-md);
+  }
+
+  .service-sub-header {
+      font-size: 0.95rem;
+      margin-bottom: var(--space-lg);
+      padding: var(--space-md);
+  }
+
+  .service-sub-header h4 {
+      font-size: 1rem;
+  }
+
+  .services-list-wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .service-item {
     padding: var(--space-md) var(--space-sm);
-    background-color: var(--color-primary); /* Cleaned up color variable */
-    color: var(--color-bg); /* Cleaned up color variable */
-}
-.rq-btn:hover,
-.SS-btn:hover {
-    background-color: var(--color-secondary); /* Cleaned up color variable */
-}
+  }
 
+  .service-item-image-container {
+    width: 80px;
+    height: 80px;
+  }
 
-/*=============================================================== SET APPOINTMENT STYLES ================================================================================== */
+  .service-item-title {
+    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+  }
+
+  .service-item-description {
+    font-size: 0.85rem;
+  }
+
+  .service-item-btns {
+    gap: var(--space-xs);
+  }
+}
+/* Set Appointment Section */
 .Set-Apt-container {
-    background: linear-gradient(to top, var(--color-primary), var(--color-bg) 50%, var(--color-bg));
-    background-size: 100% 200%;
-    background-position: bottom;
-    color: var(--color-text); /* Cleaned up color variable */
-    max-width: 900px; /* Keep max-width for content */
-    margin: 0 auto;
-    height: 100vh; /* Ensure full viewport height */
-    display: flex; /* Added to help center content */
-    flex-direction: column; /* Stack content vertically */
-    justify-content: center; /* Center content vertically */
-    padding: var(--space-xl) var(--space-md); /* Add padding */
-    box-sizing: border-box; /* Include padding in height */
+  background: linear-gradient(to top, var(--color-primary), var(--color-bg) 50%, var(--color-bg));
+  background-size: 100% 200%;
+  background-position: bottom;
+  color: var(--color-text);
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+  box-sizing: border-box;
 }
 
 .greetings-checker h1 {
-    color: var(--color-primary); /* Cleaned up color variable */
-    margin-bottom: var(--space-lg);
-    padding-top: var(--space-xl)
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
+  padding-top: var(--space-xl)
 }
 
 .calender,
@@ -138,879 +278,896 @@
 .services-selected-apt,
 .add-another-service,
 .Early-contact-prompt {
-    margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-lg);
 }
 
 .calender input[type="date"],
 .TimeofDay select,
 .customer-apt-info input {
-    padding: var(--space-sm);
-    margin-top: var(--space-xs);
-    width: 100%;
-    border-radius: var(--space-sm);
-    border: 1px solid var(--color-border);
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
+  padding: var(--space-sm);
+  margin-top: var(--space-xs);
+  width: 100%;
+  border-radius: var(--space-sm);
+  border: 1px solid var(--color-border);
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .customer-apt-info form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
 .services-selected-apt ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .services-selected-apt li {
-    background: var(--color-bg);
-    padding: var(--space-md);
-    margin-bottom: var(--space-sm);
-    border-radius: var(--space-sm);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--shadow-sm);
+  background: var(--color-bg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  border-radius: var(--space-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
 }
 
 .remove-btn {
-    background: var(--color-secondary);
-    color: var(--color-bg); /* Cleaned up color variable */
-    border: none;
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--space-sm);
-    cursor: pointer;
-    transition: background-color 0.3s;
+  background: var(--color-secondary);
+  color: var(--color-bg);
+  border: none;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--space-sm);
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .remove-btn:hover {
-    background: var(--color-accent);
+  background: var(--color-accent);
 }
 
 .add-another-service {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-md) 0 var(--space-lg);
-    width: 600px;
-    background: var(--color-bg);
-    border-radius: var(--space-md);
-    box-shadow: var(--shadow-md);
-    color: var(--color-text); /* Cleaned up color variable */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) 0 var(--space-lg);
+  width: 600px;
+  background: var(--color-bg);
+  border-radius: var(--space-md);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text);
 }
 
 .add-another-service h3 {
-    text-align: center;
-    margin-bottom: var(--space-md);
-    color: var(--color-text); /* Cleaned up color variable */
-    padding-bottom: var(--space-md)
+  text-align: center;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+  padding-bottom: var(--space-md)
 }
 
 .unselected-service-btns {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
 }
 
 .Early-contact-prompt {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
 }
 
 #Early-contact-btn {
-    background-color: var(--color-primary); /* Cleaned up color variable */
-    color: var(--color-bg); /* Cleaned up color variable */
-    border: none;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background-color 0.3s;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.3s;
 }
 
 #Early-contact-btn:hover {
-    background-color: var(--color-accent); /* Cleaned up color variable */
-    color: var(--color-text); /* Cleaned up color variable */
+  background-color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .Early-contact-btn-clicked {
-    background-color: var(--color-secondary) !important; /* Cleaned up color variable */
-    color: var(--color-bg) !important; /* Cleaned up color variable */
+  background-color: var(--color-secondary) !important;
+  color: var(--color-bg) !important;
 }
 
 .Early-contact-btn-clicked:hover {
-    background-color: var(--color-accent) !important; /* Cleaned up color variable */
+  background-color: var(--color-accent) !important;
 }
 
 .confirmapt-btn button {
-    padding: var(--space-md) var(--space-lg);
-    border: none;
-    background-color: var(--color-primary); /* Cleaned up color variable */
-    color: var(--color-bg); /* Cleaned up color variable */
-    border-radius: var(--space-md);
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin-top: var(--space-lg);
-    transition: background-color 0.3s, color 0.3s;
+  padding: var(--space-md) var(--space-lg);
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border-radius: var(--space-md);
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: var(--space-lg);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .confirmapt-btn button:hover {
-    background-color: var(--color-accent); /* Cleaned up color variable */
-    color: var(--color-text); /* Cleaned up color variable */
+  background-color: var(--color-accent);
+  color: var(--color-text);
 }
 
+/* Set Appointment Media Queries */
 @media (max-width: 1024px) {
-    .Set-Apt-container {
-        max-width: 100%;
-    }
-    .greetings-checker h1 {
-        font-size: 2rem;
-    }
+  .Set-Apt-container {
+    max-width: 100%;
+  }
+
+  .greetings-checker h1 {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .Set-Apt-container {
-        /* No specific changes needed here beyond general layout adjustments */
-    }
-    .greetings-checker h1 {
-        text-align: center;
-    }
-    .services-selected-apt li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-sm);
-    }
-    .add-another-service {
-        padding: var(--space-md);
-        width: 95%;
-    }
-    .add-another-service h3 {
-        text-align: center;
-    }
-    .unselected-service-btns {
-        justify-content: center;
-    }
-    .Early-contact-prompt {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: var(--space-md);
-    }
+  .greetings-checker h1 {
+    text-align: center;
+  }
+
+  .services-selected-apt li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .add-another-service {
+    padding: var(--space-md);
+    width: 95%;
+  }
+
+  .add-another-service h3 {
+    text-align: center;
+  }
+
+  .unselected-service-btns {
+    justify-content: center;
+  }
+
+  .Early-contact-prompt {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md);
+  }
 }
 
 @media (max-width: 480px) {
-    .Set-Apt-container {
-        /* No specific changes needed here beyond general layout adjustments */
-    }
-    .calender input[type="date"],
-    .TimeofDay select,
-    .customer-apt-info input {
-        font-size: 0.95rem;
-    }
-    .remove-btn {
-        padding: var(--space-xs) var(--space-sm);
-    }
-    #Early-contact-btn {
-        width: 2.25rem;
-        height: 2.25rem;
-        font-size: 1.1rem;
-    }
+
+  .calender input[type="date"],
+  .TimeofDay select,
+  .customer-apt-info input {
+    font-size: 0.95rem;
+  }
+
+  .remove-btn {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  #Early-contact-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.1rem;
+  }
 }
 
-
-
-/*======================================================= CONTACT STYLES ==================================================================*/
+/* Contact Section */
 .Contact-container {
-    background: linear-gradient(to top, var(--color-bg), var(--color-primary) 50%, var(--color-bg));
-    background-size: 100% 200%;
-    background-position: bottom;
-    color: var(--color-bg);
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
-    margin: 0 auto;
-    padding: var(--space-xl);
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
+  background: linear-gradient(to top, var(--color-bg), var(--color-primary) 50%, var(--color-bg));
+  background-size: 100% 200%;
+  background-position: bottom;
+  color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
 }
 
 .Contact-container h1 {
-    text-align: center;
-    margin-bottom: var(--space-lg);
-    color: var(--color-bg);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  color: var(--color-bg);
 }
 
 .Contact-content {
-    background-color: var(--color-bg);
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-xl);
-    width: 100%;
-    max-width: 1200px;
-    border-radius: var(--space-md);
-    padding: var(--space-lg); 
-    box-shadow: var(--shadow-md);
-    color: var(--color-text); 
+  background-color: var(--color-bg);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  width: 100%;
+  max-width: 1200px;
+  border-radius: var(--space-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text);
 }
 
 .Contact-left {
-    flex-basis: 45%;
-    display: flex; /* Use flex to center message vertically if needed */
-    flex-direction: column;
-    justify-content: center; /* Center content vertically */
-    padding-right: var(--space-lg); /* Maintain some spacing */
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: var(--space-lg);
 }
 
 .contact-message {
-    /* Removed padding-right here as it's on Contact-left */
-    color: var(--color-text-muted); /* Use muted text for general info */
-    text-align: center; 
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 .contact-message h3 {
-    color: var(--color-primary);
-    margin-bottom: var(--space-lg);
-    font-size: 1.8rem; /* Slightly larger heading */
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
+  font-size: 1.8rem;
 }
 
 .contact-message p {
-    margin-bottom: var(--space-md);
-    font-size: 1.1rem; /* Slightly larger text */
-    line-height: 1.5;
+  margin-bottom: var(--space-md);
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
 .Contact-right {
-    flex-basis: 55%;
+  flex-basis: 55%;
 }
 
 .Contact-right form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  color: var(--color-text);
 }
 
 .form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .Contact-right label {
-    font-weight: 500;
-    margin-bottom: var(--space-sm);
-    color: var(--color-text); /* Explicitly set label color */
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
 }
 
 .Contact-right input,
 .Contact-right textarea {
-    padding: var(--space-md); /* Slightly more padding for inputs */
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: var(--space-sm);
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding: var(--space-md);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-sm);
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .Contact-right input:focus,
 .Contact-right textarea:focus {
-    border-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 0 3px var(--color-bg-alt);
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-bg-alt);
 }
 
 .Contact-right textarea {
-    resize: vertical;
-    min-height: 120px;
+  resize: vertical;
+  min-height: 120px;
 }
 
-/* New styles for the confirmation checkbox */
 .confirm-section {
-    margin-top: var(--space-sm);
-    margin-bottom: var(--space-md);
-    display: flex;
-    align-items: flex-start; /* Align checkbox and text at the top */
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: flex-start;
 }
 
 .checkbox-container {
-    display: flex;
-    align-items: center; /* Align items vertically */
-    cursor: pointer;
-    user-select: none; /* Prevent text selection */
-    font-size: 0.95rem; /* Slightly smaller text for confirmation */
-    color: var(--color-text-muted); /* Muted text color for confirmation */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
 }
 
 .checkbox-container input[type="checkbox"] {
-    display: none; /* Hide the default checkbox */
+  display: none;
 }
 
 .checkbox-custom {
-    min-width: 1.25rem; /* Fixed width for custom checkbox */
-    height: 1.25rem; /* Fixed height for custom checkbox */
-    border: 2px solid var(--color-border);
-    border-radius: 0.25rem; /* Slightly rounded corners */
-    margin-right: var(--space-sm);
-    display: inline-flex; /* Use inline-flex for centering checkmark */
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease-in-out;
-    background-color: var(--color-bg);
-    position: relative; /* For checkmark positioning */
+  min-width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.25rem;
+  margin-right: var(--space-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--color-bg);
+  position: relative;
 }
 
-.checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
-    background-color: var(--color-accent); /* Accent color when checked */
-    border-color: var(--color-accent);
+.checkbox-container input[type="checkbox"]:checked+.checkbox-custom {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .checkbox-custom::after {
-    content: '';
-    position: absolute;
-    width: 0.5rem;
-    height: 0.8rem;
-    border: solid var(--color-bg); /* Checkmark color is background color */
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg) scale(0); /* Start hidden and scaled down */
-    opacity: 0;
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  content: '';
+  position: absolute;
+  width: 0.5rem;
+  height: 0.8rem;
+  border: solid var(--color-bg);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg) scale(0);
+  opacity: 0;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-.checkbox-container input[type="checkbox"]:checked + .checkbox-custom::after {
-    transform: rotate(45deg) scale(1); /* Scale up when checked */
-    opacity: 1;
+.checkbox-container input[type="checkbox"]:checked+.checkbox-custom::after {
+  transform: rotate(45deg) scale(1);
+  opacity: 1;
 }
 
-/* Button Styling */
 .Submit-btn {
-    padding: var(--space-md) var(--space-lg);
-    border: none;
-    background-color: var(--color-primary);
-    color: var(--color-bg);
-    border-radius: var(--space-sm);
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease; /* Add opacity for disabled state */
-    align-self: flex-start;
-    margin-top: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border-radius: var(--space-sm);
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+  align-self: flex-start;
+  margin-top: var(--space-sm);
 }
 
-.Submit-btn:hover:not(:disabled) { /* Apply hover only when not disabled */
-    background-color: var(--color-accent);
-    transform: translateY(-2px);
+.Submit-btn:hover:not(:disabled) {
+  background-color: var(--color-accent);
+  transform: translateY(-2px);
 }
 
 .Submit-btn:disabled {
-    background-color: var(--color-border); /* Muted background when disabled */
-    color: var(--color-text-muted); /* Muted text when disabled */
-    cursor: not-allowed;
-    opacity: 0.7; /* Slightly transparent when disabled */
-    transform: none; /* No transform when disabled */
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
 }
 
 .submit-feedback {
-    margin-top: var(--space-md); /* Adjusted margin for feedback */
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center; /* Center the feedback message */
-    padding: var(--space-sm);
-    border-radius: var(--space-xs);
-    background-color: rgba(var(--color-bg-alt), 0.2); /* Light background for feedback */
+  margin-top: var(--space-md);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  padding: var(--space-sm);
+  border-radius: var(--space-xs);
+  background-color: rgba(var(--color-bg-alt), 0.2);
 }
 
-/* Media Queries */
+/* Contact Media Queries */
 @media (max-width: 1024px) {
-    .Contact-container {
-        padding: var(--space-lg);
-        /* width: calc(100% - var(--space-lg)); - Removed this, let max-width handle it */
-    }
-    .Contact-content {
-        flex-direction: column;
-        gap: var(--space-lg);
-        padding: var(--space-lg); /* Adjust padding for smaller screens */
-    }
-    .Contact-left {
-        text-align: center;
-        padding-right: 0;
-        padding-bottom: var(--space-md); /* Add some padding below message on smaller screens */
-    }
-    .contact-message {
-        padding: 0;
-        text-align: center;
-    }
-    .contact-message h3 {
-        padding-bottom: var(--space-md);
-    }
-    /* .form-row is not used, removed. */
-    .Submit-btn {
-        align-self: stretch;
-        width: 100%;
-    }
-    .checkbox-container {
-        justify-content: center; /* Center checkbox text on smaller screens */
-        text-align: center;
-    }
+  .Contact-container {
+    padding: var(--space-lg);
+  }
+
+  .Contact-content {
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+  }
+
+  .Contact-left {
+    text-align: center;
+    padding-right: 0;
+    padding-bottom: var(--space-md);
+  }
+
+  .contact-message {
+    padding: 0;
+    text-align: center;
+  }
+
+  .contact-message h3 {
+    padding-bottom: var(--space-md);
+  }
+
+  .Submit-btn {
+    align-self: stretch;
+    width: 100%;
+  }
+
+  .checkbox-container {
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 @media (max-width: 768px) {
-    .Contact-container {
-        padding: var(--space-lg) var(--space-md);
-    }
-    .Contact-right input,
-    .Contact-right textarea {
-        padding: var(--space-sm);
-        font-size: 0.95rem;
-    }
-    .Submit-btn {
-        padding: var(--space-md) var(--space-lg);
-    }
+  .Contact-container {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .Contact-right input,
+  .Contact-right textarea {
+    padding: var(--space-sm);
+    font-size: 0.95rem;
+  }
+
+  .Submit-btn {
+    padding: var(--space-md) var(--space-lg);
+  }
 }
 
 @media (max-width: 480px) {
-    .Contact-container {
-        padding: var(--space-md);
-    }
-    .Contact-right input,
-    .Contact-right textarea {
-        font-size: 0.9rem;
-        padding: var(--space-sm);
-    }
-    .Submit-btn {
-        padding: var(--space-sm) var(--space-md);
-    }
-    .checkbox-container {
-        font-size: 0.85rem;
-    }
-    .checkbox-custom {
-        min-width: 1.1rem;
-        height: 1.1rem;
-    }
+  .Contact-container {
+    padding: var(--space-md);
+  }
+
+  .Contact-right input,
+  .Contact-right textarea {
+    font-size: 0.9rem;
+    padding: var(--space-sm);
+  }
+
+  .Submit-btn {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .checkbox-container {
+    font-size: 0.85rem;
+  }
+
+  .checkbox-custom {
+    min-width: 1.1rem;
+    height: 1.1rem;
+  }
 }
 
-/* ======================================================= ABOUT STYLES ==============================================================*/
+/* About Section */
 .about-container {
-    background: linear-gradient(to top, var(--color-primary), var(--color-bg));
-    color: var(--color-text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    padding: var(--space-xl);
-    gap: var(--space-xl);
-    width: 100%;
-    min-height: 100vh;
-    box-sizing: border-box;
-    overflow-y: auto;
+  background: linear-gradient(to top, var(--color-primary), var(--color-bg));
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  gap: var(--space-xl);
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .about-content {
-    position: relative;
-    background-color: var(--color-bg);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: var(--space-xl);
-    max-width: 1200px;
-    border-radius: var(--space-md);
-    padding: var(--space-lg);
-    box-shadow: var(--shadow-md);
-    color: var(--color-text);
+  position: relative;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  max-width: 1200px;
+  border-radius: var(--space-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text);
 }
 
 .about-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; 
-    padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-md);
 }
 
-
-
 .about-section h1 {
-    padding-bottom: var(--space-lg);
-    color: var(--color-primary);
-    text-align: center;
+  padding-bottom: var(--space-lg);
+  color: var(--color-primary);
+  text-align: center;
 }
 
 .about-section p {
-    color: var(--color-text-muted);
-    text-align: center;
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
+/* About Media Queries */
 @media (max-width: 768px) {
-    .about-section {
-        width: 90%;
-    }
+  .about-section {
+    width: 90%;
+  }
 }
 
 .meet-us {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
-    width: 100%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  width: 100%;
+  align-items: center;
 }
 
-.meet-us > h1 {
-    padding-bottom: var(--space-md);
-    border-bottom: 3px solid var(--color-accent);
-    text-align: center;
-    color: var(--color-primary);
+.meet-us>h1 {
+  padding-bottom: var(--space-md);
+  border-bottom: 3px solid var(--color-accent);
+  text-align: center;
+  color: var(--color-primary);
 }
 
 .meet-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xl);
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  width: 100%;
+  justify-content: center;
 }
 
 .meet-row.row-reverse {
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .meet-row img {
-    width: 400px;
-    height: 400px;
-    border-radius: var(--space-md);
-    object-fit: cover;
-    flex-shrink: 0;
-    outline: 1px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
+  width: 400px;
+  height: 400px;
+  border-radius: var(--space-md);
+  object-fit: cover;
+  flex-shrink: 0;
+  outline: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .text-block {
-    flex-basis: 55%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: var(--color-text-muted);
-    text-align: center; /* Ensure text inside text-block is centered */
+  flex-basis: 55%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 .text-block h2 {
-    margin-bottom: var(--space-sm);
-    color: var(--color-secondary);
+  margin-bottom: var(--space-sm);
+  color: var(--color-secondary);
 }
 
+/* Meet Us Media Queries */
 @media (max-width: 1024px) {
-    .meet-row,
-    .meet-row.row-reverse {
-        flex-direction: column;
-        gap: var(--space-lg);
-        text-align: center;
-    }
-    .meet-row .text-block,
-    .meet-row.row-reverse .text-block {
-        text-align: center;
-        align-items: center;
-    }
-    .text-block {
-        flex-basis: 100%;
-    }
+
+  .meet-row,
+  .meet-row.row-reverse {
+    flex-direction: column;
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .meet-row .text-block,
+  .meet-row.row-reverse .text-block {
+    text-align: center;
+    align-items: center;
+  }
+
+  .text-block {
+    flex-basis: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-    .about-container {
-        gap: var(--space-lg);
-        padding: var(--space-lg);
-    }
-    .about-section h1 {
-        padding-bottom: var(--space-md);
-    }
-    .about-section p {
-        line-height: 1.6;
-    }
-    .meet-us {
-        gap: var(--space-lg);
-    }
-    .meet-us > h1 {
-        padding-bottom: var(--space-sm);
-    }
-    .meet-row img {
-        width: 280px;
-        height: 280px;
-    }
+  .about-container {
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+  }
+
+  .about-section h1 {
+    padding-bottom: var(--space-md);
+  }
+
+  .about-section p {
+    line-height: 1.6;
+  }
+
+  .meet-us {
+    gap: var(--space-lg);
+  }
+
+  .meet-us>h1 {
+    padding-bottom: var(--space-sm);
+  }
+
+  .meet-row img {
+    width: 280px;
+    height: 280px;
+  }
 }
 
 @media (max-width: 480px) {
-    .about-container {
-        padding: var(--space-md);
-        gap: var(--space-lg);
-    }
-    .about-section p {
-        font-size: 0.95rem;
-    }
-    .meet-row img {
-        width: 100%;
-        height: 250px;
-    }
+  .about-container {
+    padding: var(--space-md);
+    gap: var(--space-lg);
+  }
+
+  .about-section p {
+    font-size: 0.95rem;
+  }
+
+  .meet-row img {
+    width: 100%;
+    height: 250px;
+  }
 }
-/* ======================================================= PROFILE STYLES ==============================================================*/
+
+/* Profile Section */
 .Profile-wrapper {
-    background: linear-gradient(to top, var(--color-primary), var(--color-bg) 50%, var(--color-bg));
-    background-size: 100% 200%;
-    background-position: bottom;
-    color: var(--color-text); /* Cleaned up color variable */
-    max-width: 1400px;
-    margin: 0 auto;
-    height: 100vh; /* Ensure full viewport height */
-    display: flex; /* Added for centering */
-    flex-direction: column; /* Stack content vertically */
-    justify-content: center; /* Center content vertically */
-    padding: var(--space-xl) var(--space-md); /* Add padding */
-    box-sizing: border-box; /* Include padding in height */
+  background: linear-gradient(to top, var(--color-primary), var(--color-bg) 50%, var(--color-bg));
+  background-size: 100% 200%;
+  background-position: bottom;
+  color: var(--color-text);
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+  box-sizing: border-box;
 }
 
 .Profile-loadingWrapper {
-    padding-top: var(--space-xl);
-    text-align: center;
-    font-size: 1.2rem;
+  padding-top: var(--space-xl);
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 .Profile-errorMessage {
-    color: var(--color-secondary); /* Cleaned up color variable */
+  color: var(--color-secondary);
 }
 
 .Profile-card-base {
-    background-color: var(--color-bg); /* Cleaned up color variable */
-    border-radius: var(--space-md);
-    box-shadow: var(--shadow-md);
-    padding: var(--space-lg);
-    border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  border-radius: var(--space-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
 }
 
 .Profile-Dashboard-Dashboard {
-    margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-lg);
 }
 
 .Profile-Dashboard-title {
-    margin-bottom: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
 .Profile-Dashboard-card {
-    background-color: var(--color-bg); /* Cleaned up color variable */
-    padding: var(--space-md);
-    border-radius: var(--space-sm);
+  background-color: var(--color-bg);
+  padding: var(--space-md);
+  border-radius: var(--space-sm);
 }
 
 .Profile-Dashboard-subtitle {
-    font-weight: 600;
-    margin-bottom: var(--space-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
 }
 
 .Profile-Dashboard-text {
-    color: var(--color-text); /* Cleaned up color variable */
+  color: var(--color-text);
 }
 
 .Profile-main-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-        "search right"
-        "tabs right"
-        "content right";
-    gap: var(--space-lg);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    "search right"
+    "tabs right"
+    "content right";
+  gap: var(--space-lg);
 }
 
 .Profile-search-bar-container {
-    grid-area: search;
+  grid-area: search;
 }
 
 .Profile-tabs-container {
-    display: flex;
-    gap: var(--space-sm);
-    border-bottom: 2px solid var(--color-border);
-    margin-bottom: var(--space-md);
+  display: flex;
+  gap: var(--space-sm);
+  border-bottom: 2px solid var(--color-border);
+  margin-bottom: var(--space-md);
 }
 
 .Profile-search-input {
-    width: 100%;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--space-sm);
-    border: 1px solid var(--color-border);
-    font-size: 1rem;
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  border: 1px solid var(--color-border);
+  font-size: 1rem;
 }
 
 .Profile-tabs-container {
-    display: flex;
-    gap: var(--space-sm);
-    border-bottom: 2px solid var(--color-border);
-    margin-bottom: var(--space-md);
+  display: flex;
+  gap: var(--space-sm);
+  border-bottom: 2px solid var(--color-border);
+  margin-bottom: var(--space-md);
 }
 
 .Profile-tab-button {
-    padding: var(--space-sm) var(--space-md);
-    border: none;
-    background: none;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s ease-in-out;
-    color: var(--color-text); /* Cleaned up color variable */
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+  color: var(--color-text);
 }
 
 .Profile-tab-button.active {
-    border-bottom-color: var(--color-primary); /* Cleaned up color variable */
-    color: var(--color-text); /* Cleaned up color variable */
-    font-weight: 600;
+  border-bottom-color: var(--color-primary);
+  color: var(--color-text);
+  font-weight: 600;
 }
 
 .Profile-Appointments-list,
 .Profile-Quote-list,
 .Profile-Contact-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
-.Profile-Appointments-dividedList > *:not(:last-child) {
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--space-md);
+.Profile-Appointments-dividedList>*:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-md);
 }
 
 .Profile-Appointments-clickableItem {
-    cursor: pointer;
-    transition: background-color 0.2s;
-    padding: var(--space-sm);
-    border-radius: var(--space-sm);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: var(--space-sm);
+  border-radius: var(--space-sm);
 }
 
 .Profile-Appointments-clickableItem:hover {
-    background-color: var(--color-border); /* Cleaned up color variable */
+  background-color: var(--color-border);
 }
 
 .Profile-appointmentTitle,
 .Profile-quoteTitle,
 .Profile-contactTitle {
-    font-weight: 600;
-    margin-bottom: var(--space-xs);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
 }
 
 .Profile-Appointments-smallText {
-    font-size: 0.9rem;
-    color: var(--color-text-muted); /* Cleaned up color variable */
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
 }
 
 .Profile-right-column {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
 .Profile-details-panel,
 .Request-New-Service {
-    position: sticky;
-    top: var(--space-xl);
+  position: sticky;
+  top: var(--space-xl);
 }
 
 .Profile-detail-subtitle,
 .Profile-subtitle {
-    font-weight: 600;
-    margin-bottom: var(--space-md);
-    color: var(--color-primary); /* Cleaned up color variable */
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  color: var(--color-primary);
 }
 
 .Profile-detailItem {
-    margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-sm);
 }
 
 .Profile-detailItem strong {
-    color: var(--color-text); /* Cleaned up color variable */
+  color: var(--color-text);
 }
 
 .Profile-button {
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--space-sm);
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .Profile-requestServiceBtn {
-    background-color: var(--color-secondary); /* Cleaned up color variable */
-    color: var(--color-bg); /* Cleaned up color variable */
-    width: 100%;
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  width: 100%;
 }
 
 .Profile-requestServiceBtn:hover {
-    background-color: var(--color-primary); /* Cleaned up color variable */
+  background-color: var(--color-primary);
 }
 
 .mt-4 {
-    margin-top: var(--space-md);
+  margin-top: var(--space-md);
 }
 
-/*=======================================================
-    RESPONSIVE STYLES (for Profile)
-========================================================*/
-
+/* Profile Responsive Styles */
 @media (max-width: 1024px) {
-    .Profile-wrapper {
-        padding: var(--space-lg) var(--space-md);
-    }
+  .Profile-wrapper {
+    padding: var(--space-lg) var(--space-md);
+  }
 
-    .Profile-main-container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "search"
-            "right"
-            "tabs"
-            "content";
-        gap: var(--space-lg);
-    }
+  .Profile-main-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "search"
+      "right"
+      "tabs"
+      "content";
+    gap: var(--space-lg);
+  }
 
-    .Profile-right-column {
-        gap: var(--space-lg);
-    }
+  .Profile-right-column {
+    gap: var(--space-lg);
+  }
 
-    .Profile-details-panel,
-    .Request-New-Service {
-        position: static;
-        top: auto;
-    }
+  .Profile-details-panel,
+  .Request-New-Service {
+    position: static;
+    top: auto;
+  }
 }
 
 @media (max-width: 768px) {
-    .Profile-wrapper {
-        padding: var(--space-lg) var(--space-md);
-    }
+  .Profile-wrapper {
+    padding: var(--space-lg) var(--space-md);
+  }
 
-    .Profile-tabs-container {
-        gap: 0;
-        justify-content: space-between;
-    }
+  .Profile-tabs-container {
+    gap: 0;
+    justify-content: space-between;
+  }
 
-    .Profile-tab-button {
-        padding: var(--space-sm);
-        flex: 1;
-        text-align: center;
-    }
+  .Profile-tab-button {
+    padding: var(--space-sm);
+    flex: 1;
+    text-align: center;
+  }
 }
