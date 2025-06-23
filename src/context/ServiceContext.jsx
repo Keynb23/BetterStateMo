@@ -1,4 +1,4 @@
-// ServiceContext.jsx
+// context/ServiceContext.jsx
 import { createContext, useContext, useState } from 'react';
 
 const ServiceContext = createContext();

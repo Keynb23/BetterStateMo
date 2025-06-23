@@ -1,37 +1,40 @@
+
 /* CSS VARIABLES (THEME) */
 :root {
-  /* --- Brand & Accent Palette --- */
-  --color-primary: oklch(59.602% 0.19333 262.172);
-  --color-secondary: oklch(0.76 0.1 84);
-  --color-accent: oklch(61.499% 0.18616 140.898);
-  /* ui colors */
-  --danger: oklch(68.765% 0.1817 47.252);
-  --warning: oklch(70.125% 0.12644 101.823);
-  --success: oklch(82.275% 0.22144 140.608);
-  --info: oklch(61.783% 0.16298 260.783);
+  --color-primary: oklch(50% 0.15 250); /* A balanced, medium blue */
+  --color-primary-light: oklch(75% 0.1 250);
+  --color-secondary: oklch(85% 0.05 85); /* Soft, warm beige/sand */
+  --color-secondary-dark: oklch(75% 0.06 85);
+  --color-accent: oklch(60% 0.2 140); /* A bright, energetic green (pool water/nature vibe) */
+  /* --- UI Colors (Adjusted to new palette) --- */
+  --danger: oklch(68.765% 0.1817 47.252);   /* Red (unchanged - standard for alerts) */
+  --warning: oklch(70.125% 0.12644 101.823); /* Orange (unchanged - standard for alerts) */
+  --success: var(--color-accent);          /* Using brand green for success */
+  --info: var(--color-primary-light);      /* Using lighter brand blue for info/buttons */
   /* --- Shadows --- */
   --shadow-sm: 0 2px 4px oklch(11.02% 0.016 260.67 / 0.08);
   --shadow-md: 0 4px 15px oklch(11.02% 0.016 260.67 / 0.1);
   --shadow-lg: 0 8px 30px oklch(11.02% 0.016 260.67 / 0.12);
-  --bg-dark: oklch(0.1 0 264);
-  --bg: oklch(91.887% 0.0001 271.152);
-  --comp-bg-light: oklch(97.614% 0.00011 271.152);
-  --comp-bg-dark: oklch(33.289% 0.00004 271.152);
-  /* text */
-  --text-dm: oklch(0.96 0 264);
-  --text: oklch(0.06 0 264);
-  --text-muted-dm: oklch(0.76 0 264);
-  --text-muted: oklch(0.4 0 264);
-  /* depths */
-  --highlight: oklch(0.5 0 264);
-  --border: oklch(0.4 0 264);
-  --border-muted: oklch(0.3 0 264);
+  /* --- Backgrounds (Incorporating black/white shades) --- */
+  --bg-dark: oklch(10% 0 260); /* Very dark, almost black */
+  --bg: oklch(98% 0 260);     /* Almost white for main background */
+  --comp-bg-light: oklch(95% 0 260); /* Slightly off-white for light components */
+  --comp-bg-dark: oklch(20% 0 260);  /* Dark grey for dark components */
+  /* --- Text Colors (Adjusted for new backgrounds and black/white shades) --- */
+  --text-dm: oklch(96% 0 260); /* Dark mode text: near white */
+  --text: oklch(8% 0 260);    /* Light mode text: near black */
+  --text-muted-dm: oklch(70% 0 260); /* Muted dark mode text: lighter grey */
+  --text-muted: oklch(40% 0 260);  /* Muted light mode text: darker grey */
+  /* --- Depths (Adjusted for new palette) --- */
+  --highlight: var(--color-accent); /* Using accent for highlights */
+  --border: oklch(20% 0 260);       /* Darker grey for borders */
+  --border-muted: oklch(50% 0 260); /* Medium grey for muted borders */
   /* --- Spacing --- */
   --space-xs: 0.25rem; /* 4px */
-  --space-sm: 0.5rem; /* 8px */
-  --space-md: 1rem; /* 16px */
-  --space-lg: 2rem; /* 32px */
-  --space-xl: 4rem; /* 64px */
+  --space-sm: 0.5rem;  /* 8px */
+  --space-md: 1rem;    /* 16px */
+  --space-lg: 2rem;    /* 32px */
+  --space-xl: 4rem;    /* 64px */
 }
 
 /* GLOBAL RESET & BASE STYLES */
@@ -44,15 +47,14 @@
 
 html {
   scroll-behavior: smooth;
-  /* Ensure html also takes full width/height to avoid tiny gaps */
   width: 100%;
   height: 100%;
-  overflow-x: hidden; /* Prevent horizontal scrollbar */
+  overflow-x: hidden;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--bg); /* Main background using a near-white shade */
+  color: var(--text); /* Default text color using a near-black shade */
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -61,7 +63,7 @@ body {
 
 body #root {
   width: 100%;
-  min-height: 100vh; /* Ensure it's at least full viewport height */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -74,19 +76,19 @@ h4,
 h5,
 h6 {
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--text); /* Headings default to near-black */
   margin-bottom: var(--space-sm);
   line-height: 1.2;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   letter-spacing: -0.05em;
 }
 
 h2 {
   font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 600; /* Increased weight for better hierarchy */
+  font-weight: 600;
   letter-spacing: -0.04em;
 }
 
@@ -102,7 +104,7 @@ p {
 
 /* LINKS & BUTTONS */
 a {
-  color: var(--color-primary);
+  color: var(--color-primary); /* Links use the dominant blue */
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
@@ -116,8 +118,8 @@ button {
   cursor: pointer;
   border-radius: var(--space-sm);
   border: none;
-  background-color: var(--color-primary);
-  color: white;
+  background-color: var(--color-accent); /* Buttons use the vibrant green accent */
+  color: var(--text-dm); /* Text on buttons is near-white */
   padding: var(--space-sm) var(--space-md);
   transition: opacity 0.2s ease;
 }
@@ -131,7 +133,7 @@ button:hover {
 /* Firefox */
 body {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) var(--color-bg);
+  scrollbar-color: var(--color-accent) var(--bg); /* Scrollbar thumb accent, track background */
 }
 
 /* Chrome, Edge, Safari */
@@ -140,11 +142,11 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: var(--bg);
 }
 
 body::-webkit-scrollbar-thumb {
   background-color: var(--color-accent);
   border-radius: 20px;
-  border: 3px solid var(--color-bg);
+  border: 3px solid var(--bg);
 }

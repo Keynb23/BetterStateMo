@@ -9,6 +9,7 @@ import { BackendCartProvider } from "./context/BackendCart.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx"; // Import AuthProvider
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 // Initialize AOS
 

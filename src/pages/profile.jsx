@@ -521,9 +521,6 @@ const Profile = () => {
           )}
           <div className="Request-New-Service Profile-card-base">
             <h3 className="Profile-subtitle">Request New Service</h3>
-            <p className="Profile-text Profile-smallText">
-              Your contact info will be pre-filled automatically.
-            </p>
             <button
               onClick={handleStartNewRequest}
               className="Profile-button Profile-requestServiceBtn"

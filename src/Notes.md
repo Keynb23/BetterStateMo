@@ -4,15 +4,13 @@ crop the hero video so it loops better
 
 these pages/components need styled:
 
-profile page, appoint page, appointment and gallery
-
-profile page's vertical spacing is messed up. 
-
-appointment page's colors are messed up.
+gallery
 
 gallery grid is squished together. might just switch it to flex or reinstall masonry 
 
 
+
+phone view for some sections need work (Hero, sevices, about)
 
 
 create Blaze account with card info (business card) 

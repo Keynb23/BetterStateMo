@@ -403,138 +403,104 @@
 }
 
 /* Hero Section */
-/* Hero Section */
 .hero-container {
   position: relative;
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; /* Still flex to position .hero-content-left */
   overflow: hidden;
-  color: var(--color-bg);
+  color: var(--text-dm); /* Default text color for the left overlay */
 }
 
-.hero-bg-vid {
+/* Background Video Container (full screen) */
+.hero-background-video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 1; /* Place it behind other content */
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
 }
 
-.hero-bg-vid video {
+.hero-background-video video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.75);
+  filter: brightness(0.7); /* Adjust brightness to your preference */
 }
 
-.hero-bg-vid::after {
+/* Separate Overlay for the entire video */
+.hero-background-video .video-overlay {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 3;
+  background: rgba(0, 0, 0, 0.4); /* General overlay for the entire video */
+  z-index: 2; /* Above the video but below .hero-content-left */
   pointer-events: none;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 10;
+/* Left Content Area - now overlays the video */
+.hero-content-left {
+  position: relative; /* Essential for z-index and internal positioning */
+  flex: 0 0 45%; /* Keep its fixed width */
+  height: 100%; /* Take full height of parent hero-container */
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  justify-content: center;
-  /* text-align: ; */
-  width: 100%;
-  height: 100vh;
+  align-items: center;
+  justify-content: center; /* Vertically center content */
   padding: var(--space-xl);
+  background-color: rgba(0, 0, 0, 0.7); /* Dark black, slightly transparent */
+  z-index: 10; /* Make sure it's above the video and its overlay */
+  text-align: center;
+  box-shadow: var(--shadow-lg); /* Add a subtle shadow for separation */
 }
 
+/* Title adjustments */
 .hero-title {
-  position: relative;
-  width: 600px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  z-index: 3;
-  gap: 2rem;
-  margin-left: var(--space-sm);
-  padding: var(--space-xs);
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding: 0 var(--space-xs);
 }
 
 h1 {
-  color: var(--bg);
+  color: var(--color-secondary);
   font-size: 6rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 700;
-  text-shadow: var(--highlight) 3px 3px 3px;
-  white-space: nowrap;
+  text-shadow: var(--color-primary) 2px 2px 8px;
+  white-space: normal;
   letter-spacing: -.15rem;
-  animation: animateh1 4s infinite steps(1);
+  line-height: 1.1;
+  text-align: center;
 }
 
-.changing-word::after {
-  display: inline-block;
-  content: 'STATE LLC';
-  animation: animateText 4s infinite steps(1);
-  font-size: 6rem;
-  font-weight: 700;
-  font-family: inherit;
-  letter-spacing: -.15rem;
+.changing-word {
+  font-size: inherit;
 }
 
-@keyframes animateText {
-  0% {
-    content: 'STATE LLC';
-    color: var(--bg);
-  }
-
-  25% {
-    content: 'POOLS';
-    color: var(--color-primary);
-  }
-
-  50% {
-    content: 'SERVICE';
-    color: var(--color-secondary);
-  }
-
-  75% {
-    content: 'TOGETHER';
-    color: var(--color-accent);
-  }
-
-  100% {
-    content: 'STATE LLC';
-    color: var(--bg);
-  }
-}
-
+/* Buttons, Social Media, Contacts - now flow within .hero-content-left */
+/* Remove absolute positioning for these elements to let flexbox manage their layout */
 .hero-buttons {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   flex-direction: column;
   z-index: 10;
-  position: absolute;
-  top: 80%;
-  margin: 0 auto;
+  padding: 0;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+  width: 100%;
 }
 
 .hero-button {
@@ -549,6 +515,8 @@ h1 {
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  width: auto;
+  max-width: 80%;
 }
 
 .hero-button:hover {
@@ -558,12 +526,11 @@ h1 {
 
 .Hero-social-media {
   display: flex;
+  justify-content: center;
   gap: var(--space-md);
+  margin-top: var(--space-md);
   margin-bottom: var(--space-xl);
   z-index: 10;
-  position: absolute;
-  top: 3%;
-  right: 1.5%;
 }
 
 .Hero-social-media img {
@@ -578,13 +545,12 @@ h1 {
 
 .hero-contacts {
   display: flex;
+  align-items: center; /* Center horizontally within the column */
+  justify-content: center;
   flex-direction: column;
   gap: var(--space-sm);
   z-index: 10;
-  color: var(--color-bg);
-  position: absolute;
-  top: 4%;
-  left: 1.5%;
+  color: var(--text-dm);
 }
 
 .hero-contact-item {
@@ -592,7 +558,7 @@ h1 {
   align-items: center;
   gap: var(--space-xs);
   font-size: 1.1rem;
-  color: var(--text-muted-dm);
+  color: var(--text-muted-dm); /* Use muted text for contact items */
 }
 
 .hero-icon {
@@ -600,112 +566,138 @@ h1 {
   color: var(--color-accent);
 }
 
-/* Hero Media Queries */
+/* Media Queries */
 
 /* Tablets (max-width: 1024px) */
 @media (max-width: 1024px) {
-  .hero-title {
-    font-size: 5rem;
-    /* Adjusted for tablets */
+  .hero-container {
+    flex-direction: column; /* Stack content and video vertically */
+    height: auto;
   }
 
-  .changing-word::after {
-    font-size: 5rem;
-    /* Adjusted for tablets */
+  .hero-background-video {
+    position: relative; /* Change to relative for stacking */
+    height: 50vh; /* Take up half screen height when stacked */
+  }
+
+  .hero-content-left {
+    flex: none;
+    width: 100%; /* Take full width */
+    min-height: 50vh; /* Give it a minimum height to contain content */
+    padding: var(--space-lg) var(--space-md);
+    background-color: rgba(0, 0, 0, 0.85); /* Slightly less transparent when stacked */
+  }
+
+  .hero-title {
+    margin-bottom: var(--space-lg);
+  }
+
+  h1 {
+    font-size: 4.5rem;
   }
 
   .hero-buttons {
-    gap: var(--space-sm);
+    gap: var(--space-md);
     margin-bottom: var(--space-lg);
-    top: 75%;
-    /* Slightly adjust button position for tablets */
   }
 
   .hero-button {
     font-size: 1.25rem;
-    /* Adjusted for tablets */
     padding: var(--space-md) var(--space-lg);
+    width: 70%;
+    max-width: 300px;
   }
 
   .Hero-social-media {
-    top: 2%;
-    right: 2%;
-    /* Keep top right for tablets */
-  }
-
-  .Hero-social-media img {
-    width: 38px;
-    height: 38px;
-  }
-
-  .hero-contacts {
-    top: 3%;
-    left: 2%;
-    /* Keep top left for tablets */
-  }
-
-  .hero-contact-item {
-    font-size: 1.05rem;
+    margin-bottom: var(--space-lg);
   }
 }
 
 /* Large Phones (max-width: 768px) */
 @media (max-width: 768px) {
+  .hero-background-video {
+    height: 40vh; /* Adjust video height for smaller screens */
+  }
+
+  .hero-content-left {
+    padding: var(--space-lg) var(--space-sm);
+    min-height: auto; /* Allow height to be more content-driven */
+  }
+
   .hero-title {
-    font-size: 3.5rem;
-    /* Adjusted for large phones */
-    width: 90%;
-    /* Allow title to take more width */
-    margin-left: 0;
-    /* Remove left margin */
-    top: 40%;
-    /* Centered evenly or slightly above center */
-    transform: translateY(-50%);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    white-space: normal;
-    /* Allow title to wrap */
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
   }
 
   h1 {
-    white-space: normal;
-    /* Allow title to wrap */
     font-size: 3.5rem;
-  }
-
-  .changing-word::after {
-    font-size: 3.5rem;
-    /* Adjusted for large phones */
-    white-space: normal;
-    /* Allow text to wrap */
+    letter-spacing: -0.1rem;
   }
 
   .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    top: 70%;
-    /* Centered in the bottom third */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
   }
 
   .hero-button {
     font-size: 1.1rem;
     padding: var(--space-sm) var(--space-lg);
-    width: 80%;
-    /* Ensure button takes up sufficient width */
+    width: 85%;
+    max-width: 280px;
   }
 
   .Hero-social-media {
-    top: 2%;
-    left: 2%;
-    /* Align to top left */
-    right: auto;
-    margin-bottom: 0;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .Hero-social-media img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .hero-contacts {
+    gap: var(--space-xs);
+  }
+
+  .hero-contact-item {
+    font-size: 1rem;
+  }
+
+  .hero-icon {
+    font-size: 1.2rem;
+  }
+}
+
+/* Small Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .hero-background-video {
+    height: 35vh; /* Even smaller video height */
+  }
+
+  .hero-content-left {
+    padding: var(--space-md) var(--space-xs);
+  }
+
+  .hero-title {
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    letter-spacing: -0.08rem;
+  }
+
+  .hero-button {
+    font-size: 1rem;
+    padding: var(--space-sm) var(--space-md);
+    width: 95%;
+    max-width: 250px;
+  }
+
+  .Hero-social-media {
+    margin-bottom: var(--space-sm);
   }
 
   .Hero-social-media img {
@@ -713,77 +705,12 @@ h1 {
     height: 30px;
   }
 
-  .hero-contacts {
-    top: 8%;
-    /* Position below social media */
-    left: 2%;
-    /* Align to top left */
-  }
-
-  .hero-contact-item {
-    font-size: 0.95rem;
-  }
-
-  .hero-icon {
-    font-size: 1.1rem;
-  }
-}
-
-/* Small Phones (max-width: 480px) */
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 2.5rem;
-    /* Further adjusted for small phones */
-    width: 95%;
-    top: 40%;
-    /* Centered evenly or slightly above center */
-    transform: translateX(-50%) translateY(-50%);
-  }
-
-  h1 {
-    font-size: 2.5rem;
-  }
-
-  .changing-word::after {
-    font-size: 2.5rem;
-    /* Further adjusted for small phones */
-  }
-
-  .hero-buttons {
-    top: 70%;
-    /* Centered in the bottom third */
-    transform: translateX(-50%);
-  }
-
-  .hero-button {
-    padding: var(--space-sm) var(--space-md);
-    font-size: 1rem;
-    width: 90%;
-    /* Take more width on very small screens */
-  }
-
-  .Hero-social-media {
-    top: 1.5%;
-    left: 1.5%;
-    /* Slightly adjust for smaller screens */
-  }
-
-  .Hero-social-media img {
-    width: 28px;
-    height: 28px;
-  }
-
-  .hero-contacts {
-    top: 7%;
-    left: 1.5%;
-  }
-
   .hero-contact-item {
     font-size: 0.9rem;
   }
 
   .hero-icon {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 

@@ -1,23 +1,25 @@
+// pages/Service.jsx
 import "./PageStyles.css";
 import { useMedia } from "../context/MediaContext";
 import RequestQuote from "../context/RequestQuote";
 import SingleServiceBtn from "../context/SingleServiceBtn";
+import { ServiceBtns } from '../context/ServiceBtn';
 
 const serviceData = [
   {
-    id: "c1",
+    id: 1, // <--- CHANGED FROM "c1" TO 1
     title: "Open your pool",
     index: 9,
     desc: "Get your pool ready for summer with our comprehensive pool opening service, ensuring a clean and safe start to your swimming season."
   },
   {
-    id: "c2",
+    id: 2, // <--- CHANGED FROM "c2" TO 2
     title: "Closing your pool",
     index: 2,
     desc: "Protect your pool during the off-season with our professional closing service, preparing it for winter and preventing costly damage."
   },
   {
-    id: "c3",
+    id: 3, // <--- CHANGED FROM "c3" TO 3
     title: "Pool Servicing",
     index: 6,
     desc: "Maintain pristine water quality and optimal equipment performance with our regular pool servicing, tailored to your needs."
@@ -58,13 +60,16 @@ const Service = () => {
                   <RequestQuote serviceId={service.title} />
                 </div>
                 <div className="SS-btn">
-                  <SingleServiceBtn serviceId={service.title} />
+                  <SingleServiceBtn serviceId={service.id} serviceTitle={service.title} />
                 </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      <ServiceBtns />
+
     </section>
   );
 };
