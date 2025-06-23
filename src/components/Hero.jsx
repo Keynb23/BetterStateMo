@@ -29,14 +29,7 @@ const Hero = () => {
           </h1>
         </div>
 
-        <div className="hero-buttons">
-          <button
-            className="hero-button"
-            onClick={() => scrollToSection("services")}
-          >
-            Explore Our Services
-          </button>
-        </div>
+
 
         <div className="Hero-social-media">
           <a
@@ -68,6 +61,14 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <div className="hero-buttons">
+          <button
+            className="hero-button"
+            onClick={() => scrollToSection("services")}
+          >
+            Explore Our Services
+          </button>
+        </div>
     </div>
   );
 };

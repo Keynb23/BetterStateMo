@@ -9,8 +9,7 @@ const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
 
   const handleClick = () => {
     toggleService(serviceId);
-    // Decide if addService should happen on every click or only on final confirmation
-    // For now, keeping it here as per your original structure.
+
     addService(serviceId);
   };
 

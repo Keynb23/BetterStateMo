@@ -401,320 +401,381 @@
   margin-top: var(--space-sm);
   font-size: 0.85rem;
 }
-
-/* Hero Section */
+/* ========================Hero Section ===========================*/
 .hero-container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex; /* Still flex to position .hero-content-left */
-  overflow: hidden;
-  color: var(--text-dm); /* Default text color for the left overlay */
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    color: var(--text-dm);
 }
 
 /* Background Video Container (full screen) */
 .hero-background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* Place it behind other content */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-background-video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.7); /* Adjust brightness to your preference */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
 }
 
 /* Separate Overlay for the entire video */
 .hero-background-video .video-overlay {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* General overlay for the entire video */
-  z-index: 2; /* Above the video but below .hero-content-left */
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+    pointer-events: none;
 }
 
 /* Left Content Area - now overlays the video */
 .hero-content-left {
-  position: relative; /* Essential for z-index and internal positioning */
-  flex: 0 0 45%; /* Keep its fixed width */
-  height: 100%; /* Take full height of parent hero-container */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Vertically center content */
-  padding: var(--space-xl);
-  background-color: rgba(0, 0, 0, 0.7); /* Dark black, slightly transparent */
-  z-index: 10; /* Make sure it's above the video and its overlay */
-  text-align: center;
-  box-shadow: var(--shadow-lg); /* Add a subtle shadow for separation */
+    position: relative;
+    flex: 0 0 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--space-xl);
+    padding-bottom: calc(var(--space-xl) + 80px);
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 10;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 }
 
 /* Title adjustments */
 .hero-title {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
-  padding: 0 var(--space-xs);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    padding: 8rem var(--space-xs) 0;
 }
 
 h1 {
-  color: var(--color-secondary);
-  font-size: 6rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-weight: 700;
-  text-shadow: var(--color-primary) 2px 2px 8px;
-  white-space: normal;
-  letter-spacing: -.15rem;
-  line-height: 1.1;
-  text-align: center;
+    color: var(--color-secondary);
+    font-size: 6rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    text-shadow: var(--color-primary) 2px 2px 8px;
+    white-space: normal;
+    letter-spacing: -.15rem;
+    line-height: 1.1;
+    text-align: center;
 }
 
-.changing-word {
-  font-size: inherit;
-}
-
-/* Buttons, Social Media, Contacts - now flow within .hero-content-left */
-/* Remove absolute positioning for these elements to let flexbox manage their layout */
+/* This is the container for the CTA button */
 .hero-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  flex-direction: column;
-  z-index: 10;
-  padding: 0;
-  margin-top: var(--space-lg);
-  margin-bottom: var(--space-md);
-  width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 10;
+    padding: 0;
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xl);
+    width: 100%;
 }
 
 .hero-button {
-  padding: var(--space-md) var(--space-lg);
-  background-color: var(--info);
-  color: var(--text-dm);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  border-radius: var(--space-sm);
-  font-size: 1.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  width: auto;
-  max-width: 80%;
+    padding: var(--space-md) var(--space-lg);
+    background-color: var(--info);
+    color: var(--text-dm);
+    box-shadow: var(--color-primary-light) 0px 3px 12px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: auto;
+    max-width: 80%;
 }
 
 .hero-button:hover {
-  background-color: var(--color-secondary);
-  opacity: 1;
+    background-color: var(--color-secondary);
+    color: var(--text);
+    opacity: 1;
 }
 
+/* New Positioning for Social Media and Contacts */
+.hero-bottom-left,
+.hero-bottom-right {
+    position: absolute;
+    bottom: var(--space-md);
+    z-index: 11;
+}
+
+.hero-bottom-left {
+    left: var(--space-xl);
+}
+
+.hero-bottom-right {
+    right: var(--space-xl);
+}
+
+/* Existing styles for social media and contacts */
 .Hero-social-media {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-md);
-  margin-top: var(--space-md);
-  margin-bottom: var(--space-xl);
-  z-index: 10;
+    display: flex;
+    gap: var(--space-md);
 }
 
 .Hero-social-media img {
-  width: 40px;
-  height: 40px;
-  transition: transform 0.2s ease;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s ease;
 }
 
 .Hero-social-media img:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .hero-contacts {
-  display: flex;
-  align-items: center; /* Center horizontally within the column */
-  justify-content: center;
-  flex-direction: column;
-  gap: var(--space-sm);
-  z-index: 10;
-  color: var(--text-dm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    color: var(--text-dm);
 }
 
 .hero-contact-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: 1.1rem;
-  color: var(--text-muted-dm); /* Use muted text for contact items */
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 1.1rem;
+    color: var(--text-muted-dm);
 }
 
 .hero-icon {
-  font-size: 1.3rem;
-  color: var(--color-accent);
+    font-size: 1.3rem;
+    color: var(--color-accent);
 }
 
 /* Media Queries */
 
-/* Tablets (max-width: 1024px) */
+/* Tablets (max-width: 1024px) - ORIGINAL STATE */
 @media (max-width: 1024px) {
-  .hero-container {
-    flex-direction: column; /* Stack content and video vertically */
-    height: auto;
-  }
+    .hero-container {
+        flex-direction: column;
+        height: auto;
+    }
 
-  .hero-background-video {
-    position: relative; /* Change to relative for stacking */
-    height: 50vh; /* Take up half screen height when stacked */
-  }
+    .hero-background-video {
+        position: relative;
+        height: 50vh;
+    }
 
-  .hero-content-left {
-    flex: none;
-    width: 100%; /* Take full width */
-    min-height: 50vh; /* Give it a minimum height to contain content */
-    padding: var(--space-lg) var(--space-md);
-    background-color: rgba(0, 0, 0, 0.85); /* Slightly less transparent when stacked */
-  }
+    .hero-content-left {
+        flex: none;
+        width: 100%;
+        min-height: 50vh;
+        padding: var(--space-lg) var(--space-md);
+        padding-bottom: var(--space-lg);
+        background-color: rgba(0, 0, 0, 0.85);
+        justify-content: center;
+        gap: var(--space-md);
+    }
 
-  .hero-title {
-    margin-bottom: var(--space-lg);
-  }
+    .hero-title {
+        margin-bottom: 0;
+    }
 
-  h1 {
-    font-size: 4.5rem;
-  }
+    h1 {
+        font-size: 4.5rem;
+    }
 
-  .hero-buttons {
-    gap: var(--space-md);
-    margin-bottom: var(--space-lg);
-  }
+    .hero-buttons {
+        margin-top: 0;
+        margin-bottom: 0;
+        width: auto;
+        order: 1;
+    }
 
-  .hero-button {
-    font-size: 1.25rem;
-    padding: var(--space-md) var(--space-lg);
-    width: 70%;
-    max-width: 300px;
-  }
+    .hero-button {
+        font-size: 1.25rem;
+        padding: var(--space-md) var(--space-lg);
+        width: 70%;
+        max-width: 300px;
+    }
 
-  .Hero-social-media {
-    margin-bottom: var(--space-lg);
-  }
+    .hero-bottom-left,
+    .hero-bottom-right {
+        position: static;
+        width: 100%;
+        text-align: center;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        order: 2;
+        display: flex;
+        justify-content: center;
+    }
+
+    .Hero-social-media {
+        margin-top: var(--space-md);
+        margin-bottom: 0;
+    }
+
+    .hero-contacts {
+        margin-top: var(--space-md);
+        margin-bottom: var(--space-md);
+    }
 }
 
-/* Large Phones (max-width: 768px) */
+/* Large Phones (max-width: 768px) - FIXED */
 @media (max-width: 768px) {
-  .hero-background-video {
-    height: 40vh; /* Adjust video height for smaller screens */
-  }
+    .hero-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        padding: var(--space-lg) var(--space-sm);
+        box-sizing: border-box;
+    }
 
-  .hero-content-left {
-    padding: var(--space-lg) var(--space-sm);
-    min-height: auto; /* Allow height to be more content-driven */
-  }
+    .hero-background-video {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
 
-  .hero-title {
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
-  }
+    .hero-content-left {
+        flex: none;
+        width: 100%;
+        min-height: auto;
+        background-color: rgba(0, 0, 0, 0.85);
+        box-shadow: none;
+        padding: var(--space-lg) var(--space-sm);
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 
-  h1 {
-    font-size: 3.5rem;
-    letter-spacing: -0.1rem;
-  }
+    .hero-title {
+        margin-bottom: var(--space-md);
+        padding: 0;
+    }
 
-  .hero-buttons {
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
+    h1 {
+        font-size: 3.5rem;
+        letter-spacing: -0.1rem;
+    }
 
-  .hero-button {
-    font-size: 1.1rem;
-    padding: var(--space-sm) var(--space-lg);
-    width: 85%;
-    max-width: 280px;
-  }
+    .hero-buttons {
+        position: static;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: var(--space-md);
+        margin-bottom: var(--space-md);
+        z-index: 10;
+    }
 
-  .Hero-social-media {
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-md);
-    gap: var(--space-sm);
-  }
+    .hero-button {
+        font-size: 1.1rem;
+        padding: var(--space-sm) var(--space-lg);
+        width: 85%;
+        max-width: 280px;
+    }
 
-  .Hero-social-media img {
-    width: 35px;
-    height: 35px;
-  }
+    .Hero-social-media {
+        margin-top: var(--space-md);
+        margin-bottom: 0;
+        gap: var(--space-sm);
+    }
 
-  .hero-contacts {
-    gap: var(--space-xs);
-  }
+    .Hero-social-media img {
+        width: 35px;
+        height: 35px;
+    }
 
-  .hero-contact-item {
-    font-size: 1rem;
-  }
+    .hero-contacts {
+        gap: var(--space-xs);
+        margin-top: var(--space-md);
+        margin-bottom: 0;
+    }
 
-  .hero-icon {
-    font-size: 1.2rem;
-  }
+    .hero-contact-item {
+        font-size: 1rem;
+    }
+
+    .hero-icon {
+        font-size: 1.2rem;
+    }
 }
 
-/* Small Phones (max-width: 480px) */
+/* Small Phones (max-width: 480px) - FIXED */
 @media (max-width: 480px) {
-  .hero-background-video {
-    height: 35vh; /* Even smaller video height */
-  }
+    .hero-container {
+        padding: var(--space-md) var(--space-xs);
+    }
 
-  .hero-content-left {
-    padding: var(--space-md) var(--space-xs);
-  }
+    .hero-content-left {
+        padding: var(--space-md) var(--space-xs);
+        gap: var(--space-sm);
+    }
 
-  .hero-title {
-    margin-bottom: var(--space-sm);
-  }
+    .hero-title {
+        margin-bottom: var(--space-sm);
+    }
 
-  h1 {
-    font-size: 2.5rem;
-    letter-spacing: -0.08rem;
-  }
+    h1 {
+        font-size: 2.5rem;
+        letter-spacing: -0.08rem;
+    }
 
-  .hero-button {
-    font-size: 1rem;
-    padding: var(--space-sm) var(--space-md);
-    width: 95%;
-    max-width: 250px;
-  }
+    .hero-button {
+        font-size: 1rem;
+        padding: var(--space-sm) var(--space-md);
+        width: 95%;
+        max-width: 250px;
+    }
 
-  .Hero-social-media {
-    margin-bottom: var(--space-sm);
-  }
+    .Hero-social-media {
+        margin-top: var(--space-sm);
+    }
 
-  .Hero-social-media img {
-    width: 30px;
-    height: 30px;
-  }
+    .Hero-social-media img {
+        width: 30px;
+        height: 30px;
+    }
 
-  .hero-contact-item {
-    font-size: 0.9rem;
-  }
+    .hero-contact-item {
+        font-size: 0.9rem;
+    }
 
-  .hero-icon {
-    font-size: 1.1rem;
-  }
+    .hero-icon {
+        font-size: 1.1rem;
+    }
+
+    .hero-contacts {
+        margin-top: var(--space-sm);
+    }
 }
-
-/* Objection Blockers */
+/*============================== Objection Blockers =======================*/
 .objection-blockers-wrapper {
   display: flex;
   flex-direction: column;

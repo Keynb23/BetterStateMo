@@ -6,7 +6,6 @@
 /* Services Section Styles */
 .service-container {
   position: relative;
-  /* Background gradient from your near-white to your light component background */
   background: linear-gradient(
     180deg,
     var(--bg) 0%,
@@ -30,7 +29,6 @@
   font-weight: 700;
   margin-bottom: var(--space-xl);
   padding-top: var(--space-xl);
-  /* Using a softer, transparent shadow that blends better with light backgrounds */
   text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.2); /* Soft shadow from primary blue */
 }
 
@@ -42,15 +40,16 @@
   line-height: 1.8;
   color: var(--text-muted); /* Muted text for general descriptions */
   padding: var(--space-lg);
-  /* Background of the sub-header card */
   background-color: var(--bg); /* Use near-white for a clean card */
   border-radius: var(--space-md);
-  box-shadow: var(--shadow-sm); /* Subtle shadow for the card */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .service-sub-header p {
   margin-bottom: var(--space-md);
   max-width: 100%;
+  font-weight: 500;
+  line-height: 1.75rem;
 }
 
 .service-sub-header p:last-of-type {
@@ -79,19 +78,16 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  /* Background of individual service cards */
   background-color: var(--bg); /* Near-white for service cards */
   border-radius: var(--space-md);
-  /* Adjusted box-shadow to be more visually appealing with light theme */
-  box-shadow: var(--shadow-sm); /* Default subtle shadow */
+  box-shadow: var(--shadow-lg);
   padding: var(--space-lg);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
 }
 
 .service-item:hover {
-  /* Increased shadow on hover for a lift effect */
-  box-shadow: var(--shadow-md);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transform: translateY(-5px); /* Subtle lift on hover */
 }
 
@@ -101,7 +97,6 @@
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: var(--space-md);
-  /* Border uses dominant blue, but perhaps a slightly lighter shade or primary itself */
   border: 3px solid var(--color-primary);
   box-shadow: var(--shadow-sm);
   flex-shrink: 0;
@@ -248,14 +243,6 @@
     gap: var(--space-xs);
   }
 }
-
-/* Ensure react-datepicker's base styles are loaded FIRST,
-   e.g., in your App.js or index.js:
-   import 'react-datepicker/dist/react-datepicker.css';
-   import './PageStyles.css'; // Your custom styles after
-   import './contextStyles.css'; // Make sure this is loaded if it contains service-related styles
-*/
-
 /* Set Appointment Section */
 .Set-Apt-container {
   background: linear-gradient(to top, var(--comp-bg-light), var(--bg));
@@ -267,7 +254,6 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: var(--space-xl) var(--space-md);
-  box-sizing: border-box;
   overflow-y: auto;
 }
 
@@ -298,7 +284,6 @@
   border: 1px solid var(--border-muted);
   width: 100%;
   max-width: 600px;
-  box-sizing: border-box;
   text-align: center;
 }
 
@@ -454,11 +439,20 @@
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
-
-
 /* --- END REACT-DATEPICKER OVERRIDES --- */
-
-
+.no-preference-message {
+    background-color: var(--color-bg, #f8f9fa); /* A light background */
+    border: 1px solid var(--border-subtle, #dee2e6); /* A subtle border */
+    border-left: 5px solid var(--color-secondary, #007bff); /* A prominent left border */
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+    border-radius: var(--space-sm);
+    color: var(--text-muted, #6c757d);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    text-align: left; /* Align text left within the message box */
+    box-shadow: var(--shadow-xs);
+}
 /* Services selection container for side-by-side layout */
 .services-selection-container {
     display: grid;
@@ -466,7 +460,6 @@
     gap: var(--space-lg);
     text-align: left; /* Align text within these sections */
 }
-
 .services-selected-apt,
 .add-another-service {
     background: none;
@@ -476,7 +469,6 @@
     margin-bottom: 0; /* Remove old margins */
     width: 100%; /* Ensure they fill grid column */
 }
-
 .services-selected-apt h3,
 .add-another-service h3 {
     color: var(--color-primary); /* Sub-headings use primary color */
@@ -486,18 +478,15 @@
     font-size: 1.2rem;
     font-weight: 600;
 }
-
 .no-services-message {
     color: var(--text-muted);
     font-style: italic;
     margin-bottom: var(--space-md);
 }
-
 .services-selected-apt ul {
   list-style: none;
   padding: 0;
 }
-
 .services-selected-apt li {
   background: var(--comp-bg-light);
   padding: var(--space-sm) var(--space-md); /* Reduced padding for list items */
@@ -512,12 +501,10 @@
   font-weight: 500;
   min-height: 40px; /* Ensure a minimum height for visibility */
 }
-
 /* --- UPDATED: REMOVE BUTTON STYLES FOR DARKER LOOK --- */
 .remove-btn {
   background: var(--color-secondary); /* Using secondary for a darker remove button */
   color: var(--text-dm); /* Ensuring text is visible on darker background */
-
   border: none;
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--space-sm);
@@ -526,7 +513,6 @@
   font-weight: 600;
   box-shadow: var(--shadow-xs);
   margin-left: var(--space-sm);
-
   min-width: 30px;
   min-height: 30px;
   display: flex;
@@ -534,14 +520,11 @@
   align-items: center;
   font-size: 0.9rem;
 }
-
 .remove-btn:hover {
   background: var(--color-primary); /* Primary on hover for a change */
   transform: translateY(-1px);
 }
 /* --- END UPDATED REMOVE BUTTON STYLES --- */
-
-
 .unselected-service-btns {
   display: flex;
   flex-wrap: wrap;
@@ -549,7 +532,6 @@
   justify-content: center;
   width: 100%;
 }
-
 /* --- UPDATED: ADD SERVICE BUTTON STYLES FOR DARKER LOOK --- */
 .unselected-service-btns button {
     background-color: var(--color-primary); /* Darker primary for add service buttons */
@@ -562,55 +544,44 @@
     font-weight: 600;
     box-shadow: var(--shadow-xs);
 }
-
 .unselected-service-btns button:hover {
     background-color: var(--color-secondary); /* Secondary on hover for add service buttons */
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
 /* --- END UPDATED ADD SERVICE BUTTON STYLES --- */
-
-
 /* Review Step Specific Styling */
 .review-step-card {
     text-align: left;
 }
-
 .review-section {
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-md);
     border-bottom: 1px solid var(--border-subtle);
 }
-
 .review-section:last-of-type {
     border-bottom: none;
     margin-bottom: var(--space-md);
 }
-
 .review-section h3 {
     color: var(--color-primary);
     margin-bottom: var(--space-sm);
     font-size: 1.15rem;
     font-weight: 600;
 }
-
 .review-section p,
 .review-section li {
     color: var(--text-muted);
     line-height: 1.6;
     font-size: 1rem;
 }
-
 .review-section strong {
     color: var(--text);
 }
-
 .review-section ul {
     list-style: disc;
     margin-left: var(--space-md);
 }
-
-
 .Early-contact-prompt {
   display: flex;
   align-items: center;
@@ -622,12 +593,10 @@
   border: 1px solid var(--border-subtle);
   text-align: left;
 }
-
 .Early-contact-prompt p {
     color: var(--text-muted);
     flex-grow: 1;
 }
-
 /* --- UPDATED: EARLY CONTACT BUTTON STYLES FOR DARKER LOOK --- */
 #Early-contact-btn {
   background-color: var(--color-primary); /* Darker primary for checkmark button */
@@ -645,27 +614,22 @@
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: var(--shadow-sm);
 }
-
 #Early-contact-btn:hover {
   background-color: var(--color-secondary); /* Secondary on hover */
   transform: scale(1.05);
   box-shadow: var(--shadow-md);
 }
-
 .Early-contact-btn-clicked {
   background-color: var(--color-accent) !important; /* Keep accent for "clicked" state */
   color: var(--text-dm) !important;
   box-shadow: var(--shadow-inset);
   transform: none !important;
 }
-
 .Early-contact-btn-clicked:hover {
   background-color: var(--color-accent) !important; /* Keep accent for "clicked" state on hover */
   transform: none !important;
 }
 /* --- END UPDATED EARLY CONTACT BUTTON STYLES --- */
-
-
 .Set-Apt-navigation {
     display: flex;
     justify-content: space-between;
@@ -673,7 +637,6 @@
     max-width: 600px;
     margin-top: var(--space-xl);
 }
-
 /* --- UPDATED: NAVIGATION BUTTON STYLES FOR DARKER LOOK --- */
 .Set-Apt-nav-button {
     padding: var(--space-md) var(--space-lg);
@@ -687,42 +650,38 @@
     flex-grow: 1;
     margin: 0 var(--space-sm);
 }
-
 .Set-Apt-nav-button.back-button {
     background-color: var(--color-primary); /* Darker primary for back button */
     color: var(--text-dm); /* Light text */
 }
-
 .Set-Apt-nav-button.back-button:hover {
     background-color: var(--color-secondary); /* Secondary on hover */
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
-
 .Set-Apt-nav-button.next-button {
     background-color: var(--color-secondary); /* Secondary for next button */
     color: var(--text-dm); /* Light text */
 }
-
 .Set-Apt-nav-button.next-button:hover {
     background-color: var(--color-primary); /* Primary on hover */
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
-
 .Set-Apt-nav-button.confirm-button {
     background-color: var(--color-accent); /* Keep accent for confirm, if it's already a darker, distinct color */
     color: var(--text-dm);
 }
-
 .Set-Apt-nav-button.confirm-button:hover {
     background-color: var(--color-primary); /* Primary on hover for confirm */
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
 }
 /* --- END UPDATED NAVIGATION BUTTON STYLES --- */
-
 .thank-you-message {
+    position: absolute;
+    top: 25%;
+    left: 35%;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -1183,8 +1142,8 @@
   color: var(--text);
   width: 100%;
   max-width: 1200px;
-  background-color: var(--bg);
-  box-shadow: var(--shadow-md);
+  /* background-color: var(--bg); */
+  /* box-shadow: var(--shadow-md); */
 }
 
 .about-section {
@@ -1214,12 +1173,13 @@
   font-size: 2.5rem;
 }
 
-.about-section p,
-.about-section h4 {
+.about-section p {
   color: var(--text-muted);
   text-align: center;
   max-width: 700px;
   width: 100%;
+  font-weight: 500;
+  line-height: 1.75rem;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: var(--space-md);
@@ -1231,16 +1191,24 @@
     padding: var(--space-lg);
   }
 
-  .about-section p,
-  .about-section h4 {
+  .about-section p {
     max-width: 100%;
   }
 }
 
 @media (max-width: 768px) {
   .about-section {
-    width: 90%;
+    width: 100%;
     padding: var(--space-md);
+  }
+}
+
+@media (max-width: 384px) {
+  .about-section {
+    width: 100%;
+    flex-wrap: wrap;
+    
+    padding: var(--space-sm);
   }
 }
 
@@ -1278,7 +1246,8 @@
   background-color: var(--bg);
   border-radius: var(--space-md);
   padding: var(--space-lg);
-  box-shadow: var(--shadow-sm);
+  /* box-shadow: var(--shadow-lg); */
+  box-shadow: rgba(32, 32, 32, 0.24) 0px 3px 8px;
 }
 
 .meet-row.row-reverse {
@@ -1329,6 +1298,7 @@
   text-shadow: none;
   font-size: clamp(1.75rem, 4vw, 2.25rem);
 }
+
 
 /* Meet Us Media Queries */
 @media (max-width: 1024px) {

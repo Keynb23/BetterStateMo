@@ -7,7 +7,7 @@
   --color-secondary-dark: oklch(75% 0.06 85);
   --color-accent: oklch(60% 0.2 140); /* A bright, energetic green (pool water/nature vibe) */
   /* --- UI Colors (Adjusted to new palette) --- */
-  --danger: oklch(68.765% 0.1817 47.252);   /* Red (unchanged - standard for alerts) */
+  --danger: oklch(53.944% 0.20091 27.294);   /* Red (unchanged - standard for alerts) */
   --warning: oklch(70.125% 0.12644 101.823); /* Orange (unchanged - standard for alerts) */
   --success: var(--color-accent);          /* Using brand green for success */
   --info: var(--color-primary-light);      /* Using lighter brand blue for info/buttons */

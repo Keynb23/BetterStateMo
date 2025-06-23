@@ -51,8 +51,9 @@ const SetApt = () => {
     const appointmentData = {
       selectedServices: selectedServices,
       earlyContact: earlyContact,
-      date: appointmentDate ? appointmentDate.toISOString().split("T")[0] : "", // e.g., "YYYY-MM-DD"
-      time: appointmentTime,
+      // If appointmentDate or appointmentTime are null/empty, store them as such
+      date: appointmentDate ? appointmentDate.toISOString().split("T")[0] : null, // Store null if not selected
+      time: appointmentTime || null, // Store null if not selected
       name: customerName,
       phone: customerPhone,
       email: customerEmail,
@@ -103,13 +104,15 @@ const SetApt = () => {
         alert("Please fill in all your contact information.");
         return;
       }
-    } else if (currentStep === 1) {
-      // Date/Time step
-      if (!appointmentDate || !appointmentTime) {
-        alert("Please select a date and time for your appointment.");
-        return;
-      }
-    } else if (currentStep === 2) {
+    }
+    // REMOVED: Validation for appointmentDate and appointmentTime in currentStep === 1
+    // else if (currentStep === 1) {
+    //   if (!appointmentDate || !appointmentTime) {
+    //     alert("Please select a date and time for your appointment.");
+    //     return;
+    //   }
+    // }
+    else if (currentStep === 2) {
       // Services step
       if (selectedServices.length === 0) {
         alert("Please select at least one service.");
@@ -173,38 +176,49 @@ const SetApt = () => {
           </div>
         );
       case 1: // Date and Time Selection
+        { const hasDateAndTime = appointmentDate || appointmentTime;
         return (
           <div className="Set-Apt-step-card">
             <h2>When works best for you?</h2>
             <p className="Set-Apt-step-prompt">
-              Choose your preferred date and time for the service.
+              You can choose your preferred date and time, or leave it blank if
+              you don't have a specific preference.
             </p>
+
+            {/* Conditional message if no date or time is selected */}
+            {!hasDateAndTime && (
+              <p className="no-preference-message">
+                By not selecting a specific date or time, you indicate
+                flexibility. We will contact you to arrange a suitable time.
+              </p>
+            )}
+
             <div className="calender">
-              <label>Preferred Date</label>
+              <label>Preferred Date (Optional)</label>
               <DatePicker
                 selected={appointmentDate}
                 onChange={(date) => setAppointmentDate(date)}
                 dateFormat="MM/dd/yyyy"
-                placeholderText="Select a date"
+                placeholderText="Select a date (Optional)"
                 className="custom-datepicker-input"
                 minDate={new Date()}
                 showPopperArrow={false}
               />
             </div>
             <div className="TimeofDay">
-              <label>Preferred Time of Day</label>
+              <label>Preferred Time of Day (Optional)</label>
               <select
                 value={appointmentTime}
                 onChange={(e) => setAppointmentTime(e.target.value)}
               >
-                <option value="">Select a time</option>
+                <option value="">Select a time (Optional)</option>
                 <option value="morning">Morning (8 AM - 12 PM)</option>
                 <option value="noon">Noon (12 PM - 4 PM)</option>
                 <option value="evening">Evening (4 PM - 8 PM)</option>
               </select>
             </div>
           </div>
-        );
+        ); }
       case 2: // Services Selection
         return (
           <div className="Set-Apt-step-card">
@@ -288,15 +302,25 @@ const SetApt = () => {
 
             <div className="review-section">
               <h3>Appointment Details</h3>
-              <p>
-                <strong>Date:</strong>{" "}
-                {appointmentDate
-                  ? appointmentDate.toLocaleDateString("en-US")
-                  : "N/A"}
-              </p>
-              <p>
-                <strong>Time:</strong> {appointmentTime}
-              </p>
+              {appointmentDate || appointmentTime ? (
+                <>
+                  <p>
+                    <strong>Date:</strong>{" "}
+                    {appointmentDate
+                      ? appointmentDate.toLocaleDateString("en-US")
+                      : "Not specified"}
+                  </p>
+                  <p>
+                    <strong>Time:</strong>{" "}
+                    {appointmentTime || "Not specified"}
+                  </p>
+                </>
+              ) : (
+                <p>
+                  You did not specify a preferred date or time. We will contact
+                  you to schedule.
+                </p>
+              )}
             </div>
 
             <div className="review-section">
