@@ -79,6 +79,7 @@ h6 {
   color: var(--text); /* Headings default to near-black */
   margin-bottom: var(--space-sm);
   line-height: 1.2;
+  text-shadow: none;
 }
 
 h1 {

@@ -4,13 +4,14 @@ crop the hero video so it loops better
 
 these pages/components need styled:
 
-gallery
 
-gallery grid is squished together. might just switch it to flex or reinstall masonry 
+phone view for some sections need work (Hero, meetus, and gallery, profile page)
 
+profile page doesn't redirect to the top when clicking it and it's spacing is off for phone.
 
+contact background should be less intense blue and fade into the white color for the objection blockers
 
-phone view for some sections need work (Hero, sevices, about)
+gallery sometimes redirects you randomly when clicking on it. not exactly sure
 
 
 create Blaze account with card info (business card) 

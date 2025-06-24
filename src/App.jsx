@@ -11,6 +11,7 @@ import ObjectionBlockers from "./components/objectionBlockers.jsx";
 import Footer from "./components/Footer.jsx";
 import Gallery from "./components/Gallery.jsx";
 import { useState, useEffect } from 'react'; 
+import Reviews from "./components/Reviews.jsx";
 
 function App() {
   const location = useLocation(); // Keep useLocation
@@ -76,7 +77,7 @@ function App() {
                   <Contact />
                 </section>
                 <ObjectionBlockers />
-                <Footer />
+                <Reviews/>
               </>
             }
           />
@@ -89,6 +90,7 @@ function App() {
           {/* Fallback route */}
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
+        <Footer />
       </div>
     </>
   );

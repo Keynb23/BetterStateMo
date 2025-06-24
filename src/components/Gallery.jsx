@@ -1,20 +1,39 @@
-import { useState, useEffect, useRef } from "react"; // Import React, useState
+import { useState, useEffect } from "react"; // Import useEffect
 import { useMedia } from "../context/MediaContext";
 import './ComponentStyles.css';
 
 const Gallery = () => {
   const { videos, pools } = useMedia();
 
-  // State to manage modal visibility and the media item to display
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
+  const [shuffledMediaItems, setShuffledMediaItems] = useState([]);
 
-  const mediaItems = [
-    ...(pools || []).map((src, idx) => ({ id: `pool-${idx}`, src, type: "image", alt: `Pool image ${idx + 1}` })),
-    ...(videos || []).map((src, idx) => ({ id: `video-${idx}`, src, type: "video", alt: `Video thumbnail ${idx + 1}` })),
-  ];
+  // Function to shuffle an array
+  const shuffleArray = (array) => {
+    let currentIndex = array.length, randomIndex;
+    // While there remain elements to shuffle.
+    while (currentIndex !== 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  };
 
-  if (mediaItems.length === 0) {
+  useEffect(() => {
+    // Combine and shuffle media items when videos or pools change
+    const combinedItems = [
+      ...(pools || []).map((src, idx) => ({ id: `pool-${idx}`, src, type: "image", alt: `Pool image ${idx + 1}` })),
+      ...(videos || []).map((src, idx) => ({ id: `video-${idx}`, src, type: "video", alt: `Video thumbnail ${idx + 1}` })),
+    ];
+    setShuffledMediaItems(shuffleArray([...combinedItems])); // Create a shallow copy to shuffle
+  }, [videos, pools]); // Re-shuffle when videos or pools data changes
+
+  if (shuffledMediaItems.length === 0) {
     return (
       <div className="gallery-loading">
         <p>Loading gallery items or no items available...</p>
@@ -22,43 +41,11 @@ const Gallery = () => {
     );
   }
 
-  const handleMediaLoad = (e) => {
-    const mediaElement = e.target;
-    const figureElement = mediaElement.closest('figure');
-
-    if (!figureElement) return;
-
-    const gridAutoRowsUnit = 10;
-
-    let naturalWidth;
-    let naturalHeight;
-
-    if (mediaElement.tagName === 'IMG') {
-      naturalWidth = mediaElement.naturalWidth;
-      naturalHeight = mediaElement.naturalHeight;
-    } else if (mediaElement.tagName === 'VIDEO') {
-      naturalWidth = mediaElement.videoWidth;
-      naturalHeight = mediaElement.videoHeight;
-    } else {
-      return;
-    }
-
-    if (naturalWidth && naturalHeight) {
-      const figureWidth = figureElement.clientWidth;
-      const expectedHeight = figureWidth * (naturalHeight / naturalWidth);
-      const rowSpan = Math.ceil(expectedHeight / gridAutoRowsUnit) + 1;
-
-      figureElement.style.gridRowEnd = `span ${rowSpan > 0 ? rowSpan : 1}`;
-    }
-  };
-
-  // Function to open the modal
   const openModal = (item) => {
     setSelectedMedia(item);
     setModalOpen(true);
   };
 
-  // Function to close the modal
   const closeModal = () => {
     setModalOpen(false);
     setSelectedMedia(null);
@@ -66,30 +53,22 @@ const Gallery = () => {
 
   return (
     <div className="gallery-container">
-      <aside className="Gallery-sidebar">
-        <h2>Gallery Info</h2>
-        <p>Explore our beautiful collection of pools and videos.</p>
-      </aside>
-
       <main className="Gallery-main">
-        <h1>Photo Gallery</h1>
+        <h1 className="Gallery-title">Gallery</h1>
         <div className="gallery">
-          {mediaItems.map((item) => (
-            // Add onClick handler to the figure element
-            <figure key={item.id} onClick={() => openModal(item)}>
+          {shuffledMediaItems.map((item) => ( // Use shuffledMediaItems here
+            <div className="gallery-item" key={item.id} onClick={() => openModal(item)}>
               {item.type === "image" ? (
                 <img
                   src={item.src}
                   alt={item.alt}
                   loading="lazy"
-                  onLoad={handleMediaLoad}
                 />
               ) : (
                 <video
                   src={item.src}
                   alt={item.alt}
                   loading="lazy"
-                  onLoadedMetadata={handleMediaLoad}
                   autoPlay
                   loop
                   muted
@@ -97,19 +76,14 @@ const Gallery = () => {
                   controls={false}
                 />
               )}
-              <figcaption>
-                <h3>{item.title || item.alt}</h3>
-                <p>{item.description || 'Click to view details.'}</p>
-              </figcaption>
-            </figure>
+            </div>
           ))}
         </div>
       </main>
 
-      {/* The Modal Component */}
       {modalOpen && selectedMedia && (
         <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}> {/* Prevent clicks inside from closing */}
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
             <button className="modal-close-btn" onClick={closeModal}>&times;</button>
             {selectedMedia.type === "image" ? (
               <img src={selectedMedia.src} alt={selectedMedia.alt} className="modal-media" />
@@ -118,10 +92,10 @@ const Gallery = () => {
                 src={selectedMedia.src}
                 alt={selectedMedia.alt}
                 className="modal-media"
-                controls // Show controls in modal
-                autoPlay // Autoplay when opened
-                loop // Loop in modal
-                muted={false} // Unmute in modal for user control
+                controls
+                autoPlay
+                loop
+                muted={false}
                 playsInline
               />
             )}

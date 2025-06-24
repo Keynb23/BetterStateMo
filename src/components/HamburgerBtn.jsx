@@ -11,7 +11,7 @@ const HamburgerBtn = () => {
   const lineStyle = {
     width: "30px", // Slightly reduced for a cleaner look
     height: "3px", // Slimmer for a modern feel
-    backgroundColor: "var(--text)", // Using a dark color for contrast on a light navbar
+    backgroundColor: "var--color-secondary)", // Using a dark color for contrast on a light navbar
     transition: "all 0.3s ease-in-out",
     borderRadius: "3px",
   };
@@ -36,6 +36,7 @@ const HamburgerBtn = () => {
           position: "absolute",
           top: isActive ? "23px" : "15px", // Adjusted positions for new height
           transform: isActive ? "rotate(45deg)" : "none",
+          backgroundColor: "var(--color-secondary)",
         }}
       />
       <div
@@ -44,6 +45,7 @@ const HamburgerBtn = () => {
           position: "absolute",
           top: "23px",
           opacity: isActive ? 0 : 1,
+          backgroundColor: "var(--color-secondary)",
         }}
       />
       <div
@@ -52,6 +54,7 @@ const HamburgerBtn = () => {
           position: "absolute",
           top: isActive ? "23px" : "31px", // Adjusted positions for new height
           transform: isActive ? "rotate(-45deg)" : "none",
+          backgroundColor: "var(--color-secondary)",
         }}
       />
 
@@ -63,8 +66,8 @@ const HamburgerBtn = () => {
           height: "50px",
           borderRadius: "50%",
           border: isActive
-            ? "2px solid var(--Service-Blue)" // Active state uses the main action color
-            : "2px solid var(--Light-Steel)", // Default state is subtle
+            ? "2px solid var(--color-secondary)" // Active state uses the main action color
+            : "2px solid var(--color-secondary)", // Default state is subtle
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
