@@ -8,19 +8,19 @@ import { ServiceBtns } from '../context/ServiceBtn';
 const serviceData = [
   {
     id: 1,
-    title: "Open your pool",
+    title: "Pool Opening",
     index: 9,
     desc: "Get your pool ready for summer with our comprehensive pool opening service, ensuring a clean and safe start to your swimming season."
   },
   {
     id: 2,
-    title: "Closing your pool",
+    title: "Pool Closing",
     index: 2,
     desc: "Protect your pool during the off-season with our professional closing service, preparing it for winter and preventing costly damage."
   },
   {
     id: 3,
-    title: "Pool Servicing",
+    title: "Pool Services",
     index: 6,
     desc: "Maintain pristine water quality and optimal equipment performance with our regular pool servicing, tailored to your needs."
   },
