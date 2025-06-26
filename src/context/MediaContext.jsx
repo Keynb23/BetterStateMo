@@ -30,6 +30,19 @@ import pool22 from '../assets/pools/squareaptPool.jpg'
 import pool23 from '../assets/pools/diagPool.jpg'
 import pool24 from '../assets/pools/Droneshot1.jpg'
 import pool25 from '../assets/pools/LshapedPool.jpg'
+import pool26 from '../assets/pools/BackYard.jpg'
+import pool27 from '../assets/pools/BW.trees.jpg'
+import pool28 from '../assets/pools/CircleAria.jpg'
+import pool29 from '../assets/pools/glass.dif.pov.jpg'
+import pool30 from '../assets/pools/glassWall.jpg'
+import pool31 from '../assets/pools/longWeird.jpg' 
+import pool32 from '../assets/pools/pool009.jpg' 
+import pool33 from '../assets/pools/pool999.jpg'  
+import pool34 from '../assets/pools/poolv090.jpg' 
+import pool35 from '../assets/pools/smallpop.jpg' 
+import pool36 from '../assets/pools/Truck.jpg'
+import pool37 from '../assets/pools/waterPark.jpg' 
+import pool38 from '../assets/pools/waterParkFilled.jpg' 
 
 
 
@@ -81,6 +94,19 @@ export const MediaProvider = ({ children }) => {
     pool23,
     pool24,
     pool25,
+    pool26,
+    pool27,
+    pool28,
+    pool29,
+    pool30,
+    pool31,
+    pool32,
+    pool33,
+    pool34,
+    pool35,
+    pool36,
+    pool37,
+    pool38,
   ]
 
   const videos = [

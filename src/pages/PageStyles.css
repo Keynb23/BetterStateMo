@@ -820,10 +820,7 @@
 
 /* Contact Section */
 .Contact-container {
-  /* Using a subtle background that complements the blue theme,
-     or a darker tone if it's meant to stand out from a very light body background. */
-  background-color: var(--color-primary-light); /* Or var(--bg-dark) for a very strong contrast */
-  background-size: 100% 200%;
+  background: linear-gradient(to bottom, var(--color-primary-light), var(--bg));
   background-position: bottom;
   color: var(--text-dm); /* Text color for elements directly on the container's background (e.g., h1) */
   display: flex;

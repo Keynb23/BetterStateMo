@@ -2,10 +2,10 @@
 /* CSS VARIABLES (THEME) */
 :root {
   --color-primary: oklch(50% 0.15 250); /* A balanced, medium blue */
-  --color-primary-light: oklch(75% 0.1 250);
+  --color-primary-light: oklch(80% 0.1 250);
   --color-secondary: oklch(85% 0.05 85); /* Soft, warm beige/sand */
   --color-secondary-dark: oklch(75% 0.06 85);
-  --color-accent: oklch(60% 0.2 140); /* A bright, energetic green (pool water/nature vibe) */
+  --color-accent: oklch(40% 0.2 140); /* A bright, energetic green (pool water/nature vibe) */
   /* --- UI Colors (Adjusted to new palette) --- */
   --danger: oklch(53.944% 0.20091 27.294);   /* Red (unchanged - standard for alerts) */
   --warning: oklch(70.125% 0.12644 101.823); /* Orange (unchanged - standard for alerts) */
