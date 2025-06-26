@@ -71,7 +71,7 @@ export default function Navbar({ isVisible }) {
       </button>
 
       <Link className="navbar-brand" to="/" onClick={closeAllMenus}>
-        <img src={owners.logo} alt="Logo" />
+        <img src={owners.Logo} alt="Logo" />
       </Link>
 
       <div

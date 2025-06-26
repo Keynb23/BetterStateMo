@@ -1,33 +1,26 @@
-// pages/SetApt.jsx
 import { useServiceContext } from "../context/ServiceContext";
 import { serviceTypes } from "../context/serviceTypes";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { addAppointment } from "../lib/firestoreService"; // Ensure this path is correct
-import "./PageStyles.css"; // Make sure this is linked
-
-// Import react-datepicker and its CSS
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { addAppointment } from "../lib/firestoreService";
+import "./PageStyles.css";
 
 const SetApt = () => {
   const { selectedServices, toggleService, clearServices } =
-    useServiceContext(); // Added clearServices here for potential reset on unmount/redirect
+    useServiceContext();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // State for the current step in the appointment wizard
-  const [currentStep, setCurrentStep] = useState(0); // 0: Contact, 1: Date/Time, 2: Services, 3: Review
+  const [currentStep, setCurrentStep] = useState(0);
   const [earlyContact, setEarlyContact] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 
-  // Initialize state variables
-  const [appointmentDate, setAppointmentDate] = useState(null);
-  const [appointmentTime, setAppointmentTime] = useState("");
-  const [customerName, setCustomerName] = useState(""); // Initialize with empty string
-  const [customerPhone, setCustomerPhone] = useState(""); // Initialize with empty string
-  const [customerEmail, setCustomerEmail] = useState(""); // Initialize with empty string
-  const [customerAddress, setCustomerAddress] = useState(""); // Initialize with empty string
+  const [schedulingPreference, setSchedulingPreference] = useState("");
+  const [appointmentTime, setAppointmentTime] = useState(""); 
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState(""); 
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
 
   useEffect(() => {
     if (location.state && location.state.customerInfo) {
@@ -51,9 +44,8 @@ const SetApt = () => {
     const appointmentData = {
       selectedServices: selectedServices,
       earlyContact: earlyContact,
-      // If appointmentDate or appointmentTime are null/empty, store them as such
-      date: appointmentDate ? appointmentDate.toISOString().split("T")[0] : null, // Store null if not selected
-      time: appointmentTime || null, // Store null if not selected
+      schedulingPreference: schedulingPreference || null,
+      time: appointmentTime || null,
       name: customerName,
       phone: customerPhone,
       email: customerEmail,
@@ -69,19 +61,19 @@ const SetApt = () => {
       );
 
       setShowThankYou(true);
-      // Stay on thank you page for 10 seconds
+      // Added this line to scroll to the top when the thank you message appears
+      window.scrollTo(0, 0);
       setTimeout(() => {
         navigate("/");
         setShowThankYou(false);
-        // Reset form fields after successful submission and redirection
-        setAppointmentDate(null);
+        setSchedulingPreference(""); // Reset new state
         setAppointmentTime("");
         setCustomerName("");
-        setCustomerPhone("");
+        setCustomerPhone(""); // Reset corrected state
         setCustomerEmail("");
         setCustomerAddress("");
-        clearServices(); // Clear selected services from context after appointment
-      }, 10000); // 10 seconds
+        clearServices();
+      }, 7000); // 7 seconds
     } catch (error) {
       console.error("Failed to save appointment:", error);
       alert(
@@ -90,11 +82,8 @@ const SetApt = () => {
     }
   };
 
-  // --- Navigation Handlers ---
   const handleNext = () => {
-    // Basic validation before moving to the next step
     if (currentStep === 0) {
-      // Contact Info step
       if (
         !customerName ||
         !customerEmail ||
@@ -104,16 +93,7 @@ const SetApt = () => {
         alert("Please fill in all your contact information.");
         return;
       }
-    }
-    // REMOVED: Validation for appointmentDate and appointmentTime in currentStep === 1
-    // else if (currentStep === 1) {
-    //   if (!appointmentDate || !appointmentTime) {
-    //     alert("Please select a date and time for your appointment.");
-    //     return;
-    //   }
-    // }
-    else if (currentStep === 2) {
-      // Services step
+    } else if (currentStep === 2) {
       if (selectedServices.length === 0) {
         alert("Please select at least one service.");
         return;
@@ -126,7 +106,6 @@ const SetApt = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  // Helper to render the current step
   const renderStep = () => {
     switch (currentStep) {
       case 0: // Contact Information Form
@@ -151,7 +130,7 @@ const SetApt = () => {
                 type="tel"
                 placeholder="(123) 456-7890"
                 value={customerPhone}
-                onChange={(e) => setCustomerPhone(e.target.value)}
+                onChange={(e) => setCustomerPhone(e.target.value)} // Corrected typo here
                 required
               />
 
@@ -175,50 +154,84 @@ const SetApt = () => {
             </form>
           </div>
         );
-      case 1: // Date and Time Selection
-        { const hasDateAndTime = appointmentDate || appointmentTime;
+      case 1: { // How soon and Time of Day Selection
+        // New options for scheduling preference
+        const schedulingOptions = [
+          { value: "1-2-weeks", label: "1 - 2 weeks" },
+          { value: "1-month", label: "1 month" },
+          { value: "3-months", label: "3 months" },
+          { value: "unsure", label: "Unsure" },
+        ];
+
+        const timeOptions = [
+          { value: "morning", label: "Morning (8 AM - 12 PM)" },
+          { value: "noon", label: "Noon (12 PM - 4 PM)" },
+          { value: "evening", label: "Evening (4 PM - 8 PM)" },
+        ];
         return (
           <div className="Set-Apt-step-card">
             <h2>When works best for you?</h2>
             <p className="Set-Apt-step-prompt">
-              You can choose your preferred date and time, or leave it blank if
-              you don't have a specific preference.
+              Please indicate how soon you'd like your service, and your
+              preferred time of day.
             </p>
 
-            {/* Conditional message if no date or time is selected */}
-            {!hasDateAndTime && (
-              <p className="no-preference-message">
-                By not selecting a specific date or time, you indicate
-                flexibility. We will contact you to arrange a suitable time.
-              </p>
-            )}
-
-            <div className="calender">
-              <label>Preferred Date (Optional)</label>
-              <DatePicker
-                selected={appointmentDate}
-                onChange={(date) => setAppointmentDate(date)}
-                dateFormat="MM/dd/yyyy"
-                placeholderText="Select a date (Optional)"
-                className="custom-datepicker-input"
-                minDate={new Date()}
-                showPopperArrow={false}
-              />
+            <div className="scheduling-preference-section">
+              <label>How soon would you like your service scheduled?</label>
+              <div className="time-options-buttons">
+                {schedulingOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    className={`time-option-btn ${
+                      schedulingPreference === option.value ? "selected" : ""
+                    }`}
+                    onClick={() => setSchedulingPreference(option.value)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+                {schedulingPreference && (
+                  <button
+                    className="time-option-btn clear-time-btn"
+                    onClick={() => setSchedulingPreference("")}
+                  >
+                    Clear Preference
+                  </button>
+                )}
+              </div>
             </div>
+
             <div className="TimeofDay">
               <label>Preferred Time of Day (Optional)</label>
-              <select
-                value={appointmentTime}
-                onChange={(e) => setAppointmentTime(e.target.value)}
-              >
-                <option value="">Select a time (Optional)</option>
-                <option value="morning">Morning (8 AM - 12 PM)</option>
-                <option value="noon">Noon (12 PM - 4 PM)</option>
-                <option value="evening">Evening (4 PM - 8 PM)</option>
-              </select>
+              <div className="time-options-buttons">
+                {timeOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    className={`time-option-btn ${
+                      appointmentTime === option.value ? "selected" : ""
+                    }`}
+                    onClick={() =>
+                      setAppointmentTime(
+                        option.value === appointmentTime ? "" : option.value
+                      )
+                    }
+                  >
+                    {option.label}
+                  </button>
+                ))}
+                {appointmentTime && (
+                  <button
+                    className="time-option-btn clear-time-btn"
+                    onClick={() => setAppointmentTime("")}
+                  >
+                    Clear Time
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-        ); }
+        );
+      }
       case 2: // Services Selection
         return (
           <div className="Set-Apt-step-card">
@@ -302,23 +315,18 @@ const SetApt = () => {
 
             <div className="review-section">
               <h3>Appointment Details</h3>
-              {appointmentDate || appointmentTime ? (
-                <>
-                  <p>
-                    <strong>Date:</strong>{" "}
-                    {appointmentDate
-                      ? appointmentDate.toLocaleDateString("en-US")
-                      : "Not specified"}
-                  </p>
-                  <p>
-                    <strong>Time:</strong>{" "}
-                    {appointmentTime || "Not specified"}
-                  </p>
-                </>
-              ) : (
-                <p>
-                  You did not specify a preferred date or time. We will contact
-                  you to schedule.
+              <p>
+                <strong>Scheduling Preference:</strong>{" "}
+                {schedulingPreference || "Not specified"}
+              </p>
+              <p>
+                <strong>Preferred Time of Day:</strong>{" "}
+                {appointmentTime || "Not specified"}
+              </p>
+              {!(schedulingPreference || appointmentTime) && (
+                <p className="no-preference-message-review">
+                  No specific scheduling or time preference. We will contact you
+                  to arrange a suitable time.
                 </p>
               )}
             </div>
@@ -357,7 +365,6 @@ const SetApt = () => {
   return (
     <div className="Set-Apt-container">
       {showThankYou ? (
-        // This div handles the centering of the thank-you message
         <div className="thank-you-overlay">
           <div className="thank-you-message Set-Apt-step-card">
             <h2 className="thank-you-title">

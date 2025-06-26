@@ -47,7 +47,7 @@ import pool38 from '../assets/pools/waterParkFilled.jpg'
 
 
 // logo import
-import logo from '../assets/owners/logo.jpg'
+import Logo from '../assets/owners/Logo.png';
 
 // videos 
 
@@ -65,7 +65,7 @@ export const MediaProvider = ({ children }) => {
   const owners = {
     andrew,
     josh,
-    logo,
+    Logo,
   }
 // 1 is 0, 2 is 1, etc. 
   const pools = [

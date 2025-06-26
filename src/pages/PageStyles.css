@@ -245,51 +245,54 @@
 }
 /* Set Appointment Section */
 .Set-Apt-container {
-  background: linear-gradient(to top, var(--comp-bg-light), var(--bg));
-  color: var(--text);
-  max-width: 900px;
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: var(--space-xl) var(--space-md);
-  overflow-y: auto;
+    background: linear-gradient(to top, var(--comp-bg-light), var(--bg));
+    color: var(--text);
+    max-width: 900px; /* Reverted to max-width and more typical value for centered content */
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--space-lg) var(--space-lg); /* Adjusted overall padding */
+    /* overflow-y: auto; - Removed for potentially allowing browser scroll */
 }
 
 .greetings-checker h1 {
-  color: var(--color-primary);
-  margin-bottom: var(--space-xl);
-  padding-top: var(--space-xl);
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  text-align: center;
-  text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15);
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg); /* Adjusted margin */
+    padding-top: var(--space-xl);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15);
 }
 
 .Set-Apt-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-xl);
-  padding-bottom: var(--space-xl);
+    display: flex;
+    flex-direction: column; /* Reverted to column for desktop */
+    align-items: center; /* Center children horizontally */
+    flex-grow: 1;
+    justify-content: center; /* Center content wrapper vertically within container */
+    gap: var(--space-xl); /* Space between the step card and navigation */
+    padding-bottom: var(--space-xl);
+    width: 100%;
 }
 
 .Set-Apt-step-card {
-  background-color: var(--bg);
-  border-radius: var(--space-md);
-  box-shadow: var(--shadow-md);
-  padding: var(--space-xl);
-  border: 1px solid var(--border-muted);
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
+    background-color: var(--bg);
+    border-radius: var(--space-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-xl);
+    border: 1px solid var(--border-muted);
+    width: 100%;
+    max-width: 600px; /* Reverted to original max-width for consistency */
+    text-align: center;
+    flex-shrink: 1;
+    flex-grow: 0; /* Prevent it from growing excessively, navigation will push it */
 }
 
 .Set-Apt-step-card h2 {
-    color: var(--color-secondary);
-    margin-bottom: var(--space-md);
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
     font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 700;
 }
@@ -316,226 +319,167 @@
 }
 
 .calender,
-.TimeofDay {
+.TimeofDay,
+.scheduling-preference-section { /* Added .scheduling-preference-section */
     margin-bottom: var(--space-lg);
     text-align: left;
 }
 
 .calender:last-child,
-.TimeofDay:last-child {
+.TimeofDay:last-child,
+.scheduling-preference-section:last-child { /* Added .scheduling-preference-section */
     margin-bottom: 0;
 }
 
-/* Base styles for all inputs (including the custom datepicker input) */
-.customer-apt-info-form input,
-.TimeofDay select,
-/* Target the custom class for datepicker input */
-.react-datepicker-wrapper .react-datepicker__input-container input.custom-datepicker-input {
-  padding: var(--space-sm);
-  margin-top: var(--space-xs);
-  width: 100%;
-  border-radius: var(--space-sm);
-  border: 1px solid var(--border-muted);
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  color: var(--text);
-  background-color: var(--comp-bg-light);
-  box-shadow: var(--shadow-xs);
-  box-sizing: border-box;
-}
-
-/* --- REACT-DATEPICKER OVERRIDES FOR BETTER AESTHETICS --- */
-
-/* Main calendar container */
-.react-datepicker {
-    border: 1px solid var(--border-muted);
+/* Base styles for all inputs */
+.customer-apt-info-form input {
+    padding: var(--space-sm);
+    margin-top: var(--space-xs);
+    width: 100%;
     border-radius: var(--space-sm);
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-muted);
+    font-size: 1rem;
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg); /* Calendar background */
-    color: var(--text); /* Default text color within calendar */
+    color: var(--text);
+    background-color: var(--comp-bg-light);
+    box-shadow: var(--shadow-xs);
+    box-sizing: border-box;
 }
 
-/* Header (month/year navigation) */
-.react-datepicker__header {
-  background-color: var(--color-primary); /* Calendar header background */
-  color: var(--text-dm); /* Calendar header text color */
-  border-bottom: 1px solid var(--color-primary-dark);
-  padding: var(--space-sm) 0; /* Adjust padding */
-}
+/* Removed all .react-datepicker related styles */
+/* Removed .TimeofDay select style as it's no longer a dropdown */
 
-.react-datepicker__current-month,
-.react-datepicker-time__header,
-.react-datepicker-year-header {
-  color: var(--text-dm); /* Ensure current month/year text is white */
-  font-weight: 600; /* Make it a bit bolder */
-}
-
-/* Day names (Sun, Mon, etc.) */
-.react-datepicker__day-name {
-  color: var(--text-dm); /* Day names in calendar header */
-  font-weight: 500; /* Medium weight */
-}
-
-/* Navigation arrows */
-.react-datepicker__navigation--previous,
-.react-datepicker__navigation--next {
-  top: 10px; /* Adjust navigation button position */
-  border: none;
-}
-.react-datepicker__navigation-icon::before {
-    border-color: var(--text-dm); /* Change navigation arrows color */
-}
-
-/* Specific day cell styling */
-.react-datepicker__day {
-    color: var(--text); /* Default day number color */
-    border-radius: var(--space-xs); /* Slightly rounded corners for day cells */
-    transition: background-color 0.2s ease, color 0.2s ease; /* Smooth transitions */
-}
-
-/* Hover state for unselected days */
-.react-datepicker__day:hover {
-  background-color: var(--comp-bg-light); /* Hover background for unselected days */
-  color: var(--color-primary); /* Hover text for unselected days */
-}
-
-/* Selected day */
-.react-datepicker__day--selected,
-.react-datepicker__day--keyboard-selected {
-  background-color: var(--color-accent) !important; /* Selected date background */
-  color: var(--text-dm) !important; /* Selected date text color */
-  font-weight: 600; /* Make selected day bolder */
-}
-
-/* Hover state for selected day */
-.react-datepicker__day--selected:hover,
-.react-datepicker__day--keyboard-selected:hover {
-    background-color: var(--color-accent-dark) !important; /* Darker accent on hover */
-}
-
-/* Today's date */
-.react-datepicker__day--today {
-  font-weight: bold;
-  color: var(--color-primary); /* Today's date color */
-  /* Optional: Add a subtle border or background to highlight today */
-  /* border: 1px solid var(--color-primary); */
-}
-
-/* Disabled dates (e.g., past dates, if minDate is set) */
-.react-datepicker__day--disabled {
-  color: var(--border-muted); /* Grey out disabled dates */
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Prevent text selection on calendar elements */
-.react-datepicker__current-month,
-.react-datepicker__day-name,
-.react-datepicker__day,
-.react-datepicker__navigation {
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
-    user-select: none; /* Standard */
-}
-/* --- END REACT-DATEPICKER OVERRIDES --- */
 .no-preference-message {
-    background-color: var(--color-bg, #f8f9fa); /* A light background */
-    border: 1px solid var(--border-subtle, #dee2e6); /* A subtle border */
-    border-left: 5px solid var(--color-secondary, #007bff); /* A prominent left border */
+    background-color: var(--color-bg, #f8f9fa);
+    border: 1px solid var(--border-subtle, #dee2e6);
+    border-left: 5px solid var(--color-secondary, #007bff);
     padding: var(--space-md);
     margin-bottom: var(--space-lg);
     border-radius: var(--space-sm);
     color: var(--text-muted, #6c757d);
     font-size: 0.95rem;
     line-height: 1.4;
-    text-align: left; /* Align text left within the message box */
+    text-align: left;
     box-shadow: var(--shadow-xs);
 }
-/* Services selection container for side-by-side layout */
+
+/* New style for the review section message, consistent with no-preference-message */
+.no-preference-message-review {
+    background-color: var(--comp-bg-light);
+    border: 1px solid var(--border-muted);
+    border-left: 5px solid var(--color-secondary);
+    padding: var(--space-sm);
+    margin-top: var(--space-md);
+    border-radius: var(--space-sm);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: left;
+    box-shadow: var(--shadow-xs);
+}
+
+
+/* Services selection container reverted to original */
 .services-selection-container {
     display: grid;
     grid-template-columns: 1fr; /* Default to single column */
     gap: var(--space-lg);
-    text-align: left; /* Align text within these sections */
+    text-align: left;
 }
+
+/* Desktop-specific layout for services reverted to single column */
+@media (min-width: 769px) {
+    .services-selection-container {
+        grid-template-columns: 1fr; /* Revert to single column for desktop */
+        gap: var(--space-lg); /* Revert gap */
+    }
+}
+
+
 .services-selected-apt,
 .add-another-service {
     background: none;
     box-shadow: none;
     border: none;
     padding: 0;
-    margin-bottom: 0; /* Remove old margins */
-    width: 100%; /* Ensure they fill grid column */
+    margin-bottom: 0;
+    width: 100%;
 }
+
 .services-selected-apt h3,
 .add-another-service h3 {
-    color: var(--color-primary); /* Sub-headings use primary color */
+    color: var(--color-primary);
     margin-bottom: var(--space-md);
     padding-bottom: var(--space-xs);
     border-bottom: 1px solid var(--border-subtle);
     font-size: 1.2rem;
     font-weight: 600;
 }
+
 .no-services-message {
     color: var(--text-muted);
     font-style: italic;
     margin-bottom: var(--space-md);
 }
+
 .services-selected-apt ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
+
 .services-selected-apt li {
-  background: var(--comp-bg-light);
-  padding: var(--space-sm) var(--space-md); /* Reduced padding for list items */
-  margin-bottom: var(--space-xs); /* Tighter spacing for list items */
-  border-radius: var(--space-sm);
-  display: flex;
-  justify-content: space-between; /* Pushes service name to left, button to right */
-  align-items: center; /* Vertically centers content */
-  box-shadow: var(--shadow-xs);
-  border: 1px solid var(--border-subtle); /* Assuming you have this variable */
-  color: var(--text); /* Assuming you have this variable for the service text */
-  font-weight: 500;
-  min-height: 40px; /* Ensure a minimum height for visibility */
+    background: var(--comp-bg-light);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-xs);
+    border-radius: var(--space-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-xs);
+    border: 1px solid var(--border-subtle);
+    color: var(--text);
+    font-weight: 500;
+    min-height: 40px;
 }
-/* --- UPDATED: REMOVE BUTTON STYLES FOR DARKER LOOK --- */
+
+/* --- REMOVE BUTTON STYLES (KEEP AS IS) --- */
 .remove-btn {
-  background: var(--color-secondary); /* Using secondary for a darker remove button */
-  color: var(--text-dm); /* Ensuring text is visible on darker background */
-  border: none;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--space-sm);
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-weight: 600;
-  box-shadow: var(--shadow-xs);
-  margin-left: var(--space-sm);
-  min-width: 30px;
-  min-height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9rem;
+    background: var(--danger);
+    color: var(--text-dm);
+    border: none;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--space-sm);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    box-shadow: var(--shadow-xs);
+    margin-left: var(--space-sm);
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
 }
+
 .remove-btn:hover {
-  background: var(--color-primary); /* Primary on hover for a change */
-  transform: translateY(-1px);
+    background: red;
+    transform: translateY(-1px);
 }
-/* --- END UPDATED REMOVE BUTTON STYLES --- */
+/* --- END REMOVE BUTTON STYLES --- */
+
 .unselected-service-btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  justify-content: center;
-  width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center; /* Reverted to center for button groups */
+    width: 100%;
 }
-/* --- UPDATED: ADD SERVICE BUTTON STYLES FOR DARKER LOOK --- */
+
+/* --- ADD SERVICE BUTTON STYLES (KEEP AS IS) --- */
 .unselected-service-btns button {
-    background-color: var(--color-primary); /* Darker primary for add service buttons */
-    color: var(--text-dm); /* Light text on darker background */
+    background-color: var(--color-primary);
+    color: var(--text-dm);
     border: none;
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--space-sm);
@@ -544,100 +488,126 @@
     font-weight: 600;
     box-shadow: var(--shadow-xs);
 }
+
 .unselected-service-btns button:hover {
-    background-color: var(--color-secondary); /* Secondary on hover for add service buttons */
+    background-color: var(--info);
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
-/* --- END UPDATED ADD SERVICE BUTTON STYLES --- */
-/* Review Step Specific Styling */
+/* --- END ADD SERVICE BUTTON STYLES --- */
+/* Review Step Specific Styling (KEEP AS IS) */
 .review-step-card {
     text-align: left;
 }
+
 .review-section {
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-md);
     border-bottom: 1px solid var(--border-subtle);
 }
+
 .review-section:last-of-type {
     border-bottom: none;
     margin-bottom: var(--space-md);
 }
+
 .review-section h3 {
     color: var(--color-primary);
     margin-bottom: var(--space-sm);
     font-size: 1.15rem;
     font-weight: 600;
 }
+
 .review-section p,
 .review-section li {
     color: var(--text-muted);
     line-height: 1.6;
     font-size: 1rem;
 }
+
 .review-section strong {
     color: var(--text);
 }
+
 .review-section ul {
     list-style: disc;
     margin-left: var(--space-md);
 }
+
 .Early-contact-prompt {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md);
-  margin-bottom: var(--space-md);
-  background-color: var(--comp-bg-light);
-  box-shadow: var(--shadow-xs);
-  border: 1px solid var(--border-subtle);
-  text-align: left;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    background-color: var(--comp-bg-light);
+    box-shadow: var(--shadow-xs);
+    border: 1px solid var(--border-subtle);
+    text-align: left;
 }
+
 .Early-contact-prompt p {
     color: var(--text-muted);
     flex-grow: 1;
 }
-/* --- UPDATED: EARLY CONTACT BUTTON STYLES FOR DARKER LOOK --- */
+
+/* --- EARLY CONTACT BUTTON STYLES (KEEP AS IS) --- */
 #Early-contact-btn {
-  background-color: var(--color-primary); /* Darker primary for checkmark button */
-  color: var(--text-dm);
-  border: none;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: var(--shadow-sm);
+    background-color: var(--color-primary);
+    color: var(--text-dm);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-sm);
 }
+
 #Early-contact-btn:hover {
-  background-color: var(--color-secondary); /* Secondary on hover */
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
+    background-color: var(--info);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
 }
+
 .Early-contact-btn-clicked {
-  background-color: var(--color-accent) !important; /* Keep accent for "clicked" state */
-  color: var(--text-dm) !important;
-  box-shadow: var(--shadow-inset);
-  transform: none !important;
+    background-color: var(--color-accent) !important;
+    color: var(--text-dm) !important;
+    box-shadow: var(--shadow-inset);
+    transform: none !important;
 }
+
 .Early-contact-btn-clicked:hover {
-  background-color: var(--color-accent) !important; /* Keep accent for "clicked" state on hover */
-  transform: none !important;
+    background-color: var(--color-secondary) !important;
+    color: var(--text)!important;
+    transform: none !important;
 }
-/* --- END UPDATED EARLY CONTACT BUTTON STYLES --- */
+/* --- END EARLY CONTACT BUTTON STYLES --- */
+
 .Set-Apt-navigation {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 600px;
-    margin-top: var(--space-xl);
+    flex-direction: column; /* Keep vertical stack for buttons */
+    justify-content: center; /* Center buttons within navigation container */
+    align-items: center; /* Center buttons horizontally */
+    width: 100%; /* Ensure navigation takes full width of its parent */
+    max-width: 600px; /* Limit max-width for consistency with card */
+    margin-top: var(--space-xl); /* Add space above navigation */
+    padding-right: 0; /* Remove right padding */
+    gap: var(--space-md); /* Space between buttons */
 }
-/* --- UPDATED: NAVIGATION BUTTON STYLES FOR DARKER LOOK --- */
+
+/* Ensure individual buttons fill their available width within navigation */
+.Set-Apt-navigation button {
+    width: 100%;
+    margin: 0; /* Reset margins to use gap for spacing */
+}
+
+/* --- NAVIGATION BUTTON STYLES  --- */
 .Set-Apt-nav-button {
     padding: var(--space-md) var(--space-lg);
     border: none;
@@ -647,47 +617,78 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
-    flex-grow: 1;
-    margin: 0 var(--space-sm);
+    flex-grow: 1; /* This will make them grow within their flex column */
 }
+
 .Set-Apt-nav-button.back-button {
-    background-color: var(--color-primary); /* Darker primary for back button */
-    color: var(--text-dm); /* Light text */
+    background-color: var(--comp-bg-light);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    color: var(--text);
 }
+
 .Set-Apt-nav-button.back-button:hover {
-    background-color: var(--color-secondary); /* Secondary on hover */
+    background-color: var(--danger);
+    color: var(--text-dm);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
+
 .Set-Apt-nav-button.next-button {
-    background-color: var(--color-secondary); /* Secondary for next button */
-    color: var(--text-dm); /* Light text */
-}
-.Set-Apt-nav-button.next-button:hover {
-    background-color: var(--color-primary); /* Primary on hover */
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-.Set-Apt-nav-button.confirm-button {
-    background-color: var(--color-accent); /* Keep accent for confirm, if it's already a darker, distinct color */
+    background-color: var(--color-accent);
     color: var(--text-dm);
 }
+
+.Set-Apt-nav-button.next-button:hover {
+    background-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.Set-Apt-nav-button.confirm-button {
+    background-color: var(--color-accent);
+    color: var(--text-dm);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+}
+
 .Set-Apt-nav-button.confirm-button:hover {
-    background-color: var(--color-primary); /* Primary on hover for confirm */
+    background-color: var(--color-primary);
     transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
 }
 /* --- END UPDATED NAVIGATION BUTTON STYLES --- */
+
 .thank-you-message {
     position: absolute;
-    top: 25%;
-    left: 35%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 50vh;
+    padding: var(--space-xl);
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--bg);
+    border-radius: var(--space-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+}
+
+.thank-you-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
 .thank-you-title {
@@ -702,125 +703,190 @@
 }
 
 
+/* --- NEW TIME/SCHEDULING BUTTON STYLES --- */
+.time-options-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allows buttons to wrap to the next line */
+    gap: var(--space-sm); /* Space between buttons */
+    justify-content: center; /* Center the buttons within their container */
+    margin-top: var(--space-xs); /* Space below the label */
+}
+
+.time-option-btn {
+    background-color: var(--color-primary); /* Use var(--info) for default */
+    color: var(--text-dm); /* Ensure text is visible on info background */
+    border: 1px solid var(--info-dark); /* Subtle border matching info */
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--space-sm);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    flex-grow: 1; /* Allow buttons to grow and fill space */
+    min-width: 120px; /* Minimum width for buttons */
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    
+}
+
+.time-option-btn:hover {
+    background-color: var(--info); /* Darker info on hover */
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px); 
+    color: var(--text);
+}
+
+.time-option-btn.selected {
+    background-color: var(--color-secondary); /* Use accent for selected, as before */
+    color: var(--text);
+    border-color: var(--color-accent-dark);
+    box-shadow:rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    font-weight: 600;
+    transform: none; /* No lift when selected */
+}
+
+.time-option-btn.selected:hover {
+    background-color: var(--color-accent-dark); /* Slightly darker accent on hover for selected */
+    border-color: var(--color-accent-dark);
+}
+
+.clear-time-btn {
+    background-color: var(--comp-bg-light); /* Neutral color for clear */
+    color: var(--text);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.clear-time-btn:hover {
+    background-color: var(--danger);
+    color: var(--text);
+}
+
 /* Set Appointment Media Queries */
 @media (max-width: 1024px) {
-  .Set-Apt-container {
-    padding: var(--space-lg) var(--space-md);
-  }
+    .Set-Apt-container {
+        padding: var(--space-lg) var(--space-md);
+    }
 
-  .greetings-checker h1 {
-    font-size: clamp(2rem, 4.5vw, 3rem);
-    margin-bottom: var(--space-lg);
-    padding-top: var(--space-lg);
-  }
+    .greetings-checker h1 {
+        font-size: clamp(2rem, 4.5vw, 3rem);
+        margin-bottom: var(--space-lg);
+        padding-top: var(--space-lg);
+    }
 
-  .Set-Apt-step-card {
-    padding: var(--space-lg);
-  }
+    /* Keep column layout for smaller screens */
+    .Set-Apt-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-lg);
+    }
 
-  .Set-Apt-step-card h2 {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-  }
+    .Set-Apt-step-card {
+        padding: var(--space-lg);
+        max-width: 600px; /* Consistent max-width */
+    }
 
-  .Set-Apt-navigation {
-    flex-direction: column;
-    gap: var(--space-md);
-    margin-top: var(--space-lg);
-  }
+    .Set-Apt-step-card h2 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
 
-  .Set-Apt-nav-button {
-    width: 100%;
-    margin: 0;
-  }
+    .Set-Apt-navigation {
+        flex-direction: column;
+        gap: var(--space-md);
+        margin-top: var(--space-lg);
+        max-width: 600px;
+        align-items: center;
+        padding-right: 0;
+    }
 
-  .services-selection-container {
-    grid-template-columns: 1fr;
-  }
+    .Set-Apt-nav-button {
+        width: 100%;
+        margin: 0;
+    }
 
-  .review-section h3 {
-    font-size: 1.1rem;
-  }
+    .services-selection-container {
+        grid-template-columns: 1fr;
+    }
+
+    .review-section h3 {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 768px) {
-  .greetings-checker h1 {
-    text-align: center;
-  }
+    .greetings-checker h1 {
+        text-align: center;
+    }
 
-  .Set-Apt-step-card {
-    padding: var(--space-md);
-    max-width: 100%;
-  }
+    .Set-Apt-step-card {
+        padding: var(--space-md);
+        max-width: 100%;
+    }
 
-  .Set-Apt-step-card h2 {
-    font-size: clamp(1.3rem, 5vw, 1.8rem);
-  }
+    .Set-Apt-step-card h2 {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+    }
 
-  .Set-Apt-step-prompt {
-    font-size: 1rem;
-  }
+    .Set-Apt-step-prompt {
+        font-size: 1rem;
+    }
 
-  /* Adjust datepicker input sizing too */
-  .customer-apt-info-form input,
-  .TimeofDay select,
-  .react-datepicker-wrapper .react-datepicker__input-container input.custom-datepicker-input {
-    font-size: 0.95rem;
-    padding: var(--space-xs);
-  }
+    .customer-apt-info-form input { /* Simplified selector */
+        font-size: 0.95rem;
+        padding: var(--space-xs);
+    }
 
-  .services-selected-apt li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-sm);
-    font-size: 0.95rem;
-  }
+    .services-selected-apt li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+        font-size: 0.95rem;
+    }
 
-  .remove-btn {
-    padding: var(--space-xs);
-    font-size: 0.8rem;
-    margin-left: 0;
-  }
+    .remove-btn {
+        padding: var(--space-xs);
+        font-size: 0.8rem;
+        margin-left: 0;
+    }
 
-  .add-another-service h3 {
-    font-size: 1.1rem;
-  }
+    .add-another-service h3 {
+        font-size: 1.1rem;
+    }
 
-  .unselected-service-btns {
-    justify-content: center;
-  }
+    .unselected-service-btns {
+        justify-content: center;
+    }
 
-  .unselected-service-btns button {
-    font-size: 0.9rem;
-    padding: var(--space-xs) var(--space-sm);
-  }
+    .unselected-service-btns button {
+        font-size: 0.9rem;
+        padding: var(--space-xs) var(--space-sm);
+    }
 
-  .Early-contact-prompt {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm);
-  }
+    .Early-contact-prompt {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-sm);
+        padding: var(--space-sm);
+    }
 
-  .Early-contact-prompt p {
-    font-size: 0.9rem;
-  }
+    .Early-contact-prompt p {
+        font-size: 0.9rem;
+    }
 
-  #Early-contact-btn {
-    width: 2rem;
-    height: 2rem;
-    font-size: 1rem;
-  }
+    #Early-contact-btn {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
 
-  .Set-Apt-nav-button {
-    font-size: 1rem;
-    padding: var(--space-sm);
-  }
+    .Set-Apt-nav-button {
+        font-size: 1rem;
+        padding: var(--space-sm);
+    }
 }
 
 /* Contact Section */
 .Contact-container {
-  background: linear-gradient(to bottom, var(--color-primary-light), var(--bg));
+  background-color: var(--bg);
   background-position: bottom;
   color: var(--text-dm); /* Text color for elements directly on the container's background (e.g., h1) */
   display: flex;
@@ -837,7 +903,7 @@
 .Contact-container h1 {
   text-align: center;
   margin-bottom: var(--space-lg);
-  color: var(--text-dm); /* Ensure h1 is readable against the container background */
+  color: var(--color-primary); /* Ensure h1 is readable against the container background */
 }
 
 .Contact-content {
@@ -1101,7 +1167,7 @@
 }
 /* About Section */
 .about-container {
-  background: linear-gradient(to top, var(--color-primary-light), var(--comp-bg-light));
+  background: linear-gradient(to top, var(--bg), var(--comp-bg-light));
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -1125,7 +1191,6 @@
   color: var(--color-primary);
   text-align: center;
   text-shadow: none;
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .about-content {
