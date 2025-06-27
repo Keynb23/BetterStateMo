@@ -1402,143 +1402,127 @@ h1 {
 
 /* ====================================Footer======================================== */
 .footer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   position: relative;
+}
+
+.footer-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 175px;
+  background: var(--comp-bg-light);
+  text-align: center;
+}
+
+.footer-heading {
+  color: var(--color-primary);
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+}
+
+.footer-description {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ========== 3D CANVAS ========= */
+.pool-scene-canvas {
   width: 100%;
   height: 100vh;
-  display: flex;
-  padding: var(--space-xl);
-  z-index: 19;
-  background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary-light), var(--bg));
-  color: var(--bg);
-  border-top: 2px solid var(--color-primary-light);
-  font-size: large;
-  font-weight: 500;
-  text-shadow: var(--comp-bg-dark) 1px 2px 1px;
+  background: #87CEEB; /* Fallback sky blue */
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ========== Section Layouts ========== */
+.footer-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
 }
 
 .footer-content-top {
-  position: absolute;
-  top: 15%;
-  left: 0;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 15%;
-  margin: 0 auto;
-  background-color: rgba(0, 16, 46, 0.938);
-  border-radius: 12px;
-  justify-content: space-between;
-  gap: var(--space-lg);
-  padding: var(--space-sm);
-  box-shadow: 0 18px 16px rgba(0, 0, 0, 0.4),
-    0 -2px 4px rgba(255, 255, 255, 0.1) inset;
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+  z-index: 2;
+  position: relative;
 }
 
-.footer-coverage,
-.footer-social-media,
-.footer-contact {
-  display: flex;
+/* ========== Scroll-triggered visibility ========== */
+.above-water-content,
+.underwater-content {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  padding: var(--space-lg) var(--space-md);
+  position: relative;
+  z-index: 2;
 }
 
+.is-active-content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.is-inactive-content {
+  opacity: 0;
+  transform: translateY(50px);
+  pointer-events: none;
+}
+
+/* ========== Socials ========== */
 .footer-social-media {
+  display: flex;
   justify-content: center;
   gap: var(--space-md);
+  margin: var(--space-md) 0;
 }
 
 .footer-social-media img {
   width: 36px;
   height: 36px;
-  object-fit: contain;
   border-radius: 50%;
+  object-fit: contain;
   transition: transform 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-sm);
 }
 
 .footer-social-media img:hover {
   transform: scale(1.05);
-  cursor: pointer;
   filter: drop-shadow(0 0 5px var(--info));
 }
 
+/* ========== Contact + Hours ========== */
+.footer-contact,
+.footer-hours {
+  margin: var(--space-sm) 0;
+  font-size: 0.95rem;
+}
 
-.Missouri-map-container-styled {
-  max-width: 150px;
-  border-radius: var(--space-md);
-  padding: var(--space-lg);
+/* ========== Map ========== */
+.footer-coverage {
+  margin-top: var(--space-lg);
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-.Missouri-map-container-styled img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
-
-.map-with-text-section {
-  display: inherit;
-}
-
-.map-description-text {
-  margin-top: var(--space-md);
-  font-size: 1rem;
-  color: var(--color-text);
-}
-
-.step1 {
-  position: absolute;
-  top: 35%;
-  left: 2.5%;
-  display: flex;
-  align-items: center;
-  width: 95%;
-  height: 15%;
-  background-color: rgba(5, 16, 56, 0.938);
-  border-radius: 12px;
-  gap: var(--space-lg);
-  box-shadow: 0 18px 16px rgba(0, 0, 0, 0.4),
-    0 -2px 4px rgba(255, 255, 255, 0.1) inset;
-}
-
-.step2 {
-  position: absolute;
-  top: 55%;
-  left: 5%;
-  display: flex;
-  align-items: center;
-  width: 90%;
-  height: 15%;
-  background-color: rgba(7, 26, 86, 0.938);
-  border-radius: 12px;
-  gap: var(--space-lg);
-  box-shadow: 0 18px 16px rgba(0, 0, 0, 0.4),
-    0 -2px 4px rgba(255, 255, 255, 0.1) inset;
-}
-
-
+/* ========== Developer Credit ========== */
 .Devby {
-  position: absolute;
-  top: 75%;
-  left: 7.5%;
-  color: var(--text-dm);
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 85%;
-  height: 15%;
-  background-color: rgba(9, 30, 106, 0.938);
-  border-radius: 12px;
-  gap: var(--space-lg);
-  box-shadow: 0 18px 16px rgba(0, 0, 0, 0.4),
-    0 -2px 4px rgba(255, 255, 255, 0.1) inset;
-
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: var(--space-md);
 }
 
 .Devby-links {
   display: flex;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 
 .Devby-links img {
@@ -1554,73 +1538,18 @@ h1 {
   cursor: pointer;
 }
 
-
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
+/* ========== Responsive Safety ========== */
+@media screen and (max-width: 768px) {
+  .footer-intro {
+    padding: var(--space-md);
     height: auto;
-    padding: var(--space-lg);
-    text-align: center;
   }
 
-  .footer-content-top {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4),
-      0 -1px 2px rgba(255, 255, 255, 0.1) inset;
-  }
-
-  .footer-coverage,
-  .footer-social-media,
-  .footer-contact {
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-    margin: 0;
+  .footer-heading {
+    font-size: 1.5rem;
   }
 
   .footer-social-media {
-    margin-left: 0;
-  }
-
-  .Devby {
-    position: static;
-    align-items: center;
-    text-align: center;
-    margin-top: var(--space-lg);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4),
-      0 -1px 2px rgba(255, 255, 255, 0.1) inset;
-  }
-
-  .step1,
-  .step2 {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4),
-      0 -1px 2px rgba(255, 255, 255, 0.1) inset;
-  }
-}
-
-@media (max-width: 480px) {
-  .Missouri-map-container-styled {
-    max-width: 180px;
-    max-height: 180px;
-    padding: var(--space-md);
-  }
-
-  .footer-container {
-    padding: var(--space-sm);
-    gap: var(--space-md);
-  }
-
-  .footer-social-media img {
-    width: 28px;
-    height: 28px;
-  }
-
-  .footer-coverage,
-  .footer-social-media,
-  .footer-contact {
-    gap: var(--space-sm);
+    flex-wrap: wrap;
   }
 }
