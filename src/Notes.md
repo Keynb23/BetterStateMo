@@ -23,8 +23,6 @@ OPENING AND CLOSINGS TAKE A COUPLE VISITS
 
 WEEKLY POOL SERVICING OPTIONS OR JUST WEEKLY. DOUBLE CHECK
 
-CAPS LOCKS ON LOL
-
 ---===================
 
 Double check all the colors for text. Review card text should be primary instead of secondary. Failed to login on profile dropdwon is secondary. Should be danger. Will have to use !important for both.
