@@ -1,17 +1,17 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
-import Contact from "./pages/Contact.jsx";
-import About from "./pages/About.jsx";
-import Services from "./pages/Services.jsx";
-import Home from "./pages/Home.jsx";
-import SetApt from "./pages/SetApt.jsx";
-import LoginReg from "./components/loginReg.jsx";
-import Profile from "./pages/profile.jsx";
-import ObjectionBlockers from "./components/objectionBlockers.jsx";
-import Footer from "./components/Footer.jsx";
-import Gallery from "./components/Gallery.jsx";
-import { useState, useEffect } from 'react'; 
-import Reviews from "./components/Reviews.jsx";
+import { Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';
+import Contact from './pages/Contact.jsx';
+import About from './pages/About.jsx';
+import Services from './pages/Services.jsx';
+import Home from './pages/Home.jsx';
+import SetApt from './pages/SetApt.jsx';
+import LoginReg from './components/loginReg.jsx';
+import Profile from './pages/profile.jsx';
+import ObjectionBlockers from './components/objectionBlockers.jsx';
+import Footer from './components/Footer.jsx';
+import Gallery from './components/Gallery.jsx';
+import { useState, useEffect } from 'react';
+import Reviews from './components/Reviews.jsx';
 
 function App() {
   const location = useLocation(); // Keep useLocation
@@ -21,8 +21,8 @@ function App() {
 
   useEffect(() => {
     // Only apply this logic on the homepage ("/")
-    if (location.pathname === "/") {
-      const heroSection = document.getElementById("hero-section"); // Make sure your Hero component's div has this ID
+    if (location.pathname === '/') {
+      const heroSection = document.getElementById('hero-section'); // Make sure your Hero component's div has this ID
 
       if (heroSection) {
         const observer = new IntersectionObserver(
@@ -35,7 +35,7 @@ function App() {
             root: null, // viewport
             rootMargin: '0px',
             threshold: [0, 0.1], // Observe when 0% or 10% of the target is visible
-          }
+          },
         );
 
         observer.observe(heroSection);
@@ -50,7 +50,6 @@ function App() {
       setIsNavbarVisible(true);
     }
   }, [location.pathname]); // Re-run effect when the path changes
-
 
   return (
     <>
@@ -77,7 +76,7 @@ function App() {
                   <Contact />
                 </section>
                 <ObjectionBlockers />
-                <Reviews/>
+                <Reviews />
               </>
             }
           />

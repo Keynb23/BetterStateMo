@@ -1,18 +1,18 @@
 // context/RequestQuote.jsx
-import { useState } from "react";
-import { useBackendCart } from "./BackendCart";
-import { addQuoteRequest } from "../lib/firestoreService";
-import "./ContextStyles.css";
-import servicequote from "../assets/service-quote.png";
+import { useState } from 'react';
+import { useBackendCart } from './BackendCart';
+import { addQuoteRequest } from '../lib/firestoreService';
+import './ContextStyles.css';
+import servicequote from '../assets/service-quote.png';
 
 const RequestQuote = ({ serviceId = null }) => {
   const [isActive, setIsActive] = useState(false);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const { addService } = useBackendCart();
 
@@ -26,11 +26,11 @@ const RequestQuote = ({ serviceId = null }) => {
       return newState;
     });
     if (!isActive) {
-      setName("");
-      setPhone("");
-      setEmail("");
-      setMessage("");
-      setSubmitMessage("");
+      setName('');
+      setPhone('');
+      setEmail('');
+      setMessage('');
+      setSubmitMessage('');
     }
   };
 
@@ -38,7 +38,7 @@ const RequestQuote = ({ serviceId = null }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitMessage("");
+    setSubmitMessage('');
 
     const quoteData = {
       name,
@@ -51,20 +51,18 @@ const RequestQuote = ({ serviceId = null }) => {
 
     try {
       await addQuoteRequest(quoteData);
-      setSubmitMessage(
-        "Your quote request has been sent! We will contact you soon."
-      );
-      setName("");
-      setPhone("");
-      setEmail("");
-      setMessage("");
+      setSubmitMessage('Your quote request has been sent! We will contact you soon.');
+      setName('');
+      setPhone('');
+      setEmail('');
+      setMessage('');
       setTimeout(() => {
         setIsActive(false);
-        setSubmitMessage("");
+        setSubmitMessage('');
       }, 2000);
     } catch (error) {
-      console.error("Error submitting quote request:", error);
-      setSubmitMessage("Failed to send your request. Please try again.");
+      console.error('Error submitting quote request:', error);
+      setSubmitMessage('Failed to send your request. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -79,10 +77,7 @@ const RequestQuote = ({ serviceId = null }) => {
       {isActive && (
         <div className="quote-modal-overlay">
           <div className="quote-request-modal">
-            <button
-              className="quote-modal-close-button"
-              onClick={toggleRequestQuote}
-            >
+            <button className="quote-modal-close-button" onClick={toggleRequestQuote}>
               &times;
             </button>
 
@@ -124,19 +119,10 @@ const RequestQuote = ({ serviceId = null }) => {
                 onChange={(e) => setMessage(e.target.value)}
                 className="quote-form-textarea"
               />
-              <button
-                type="submit"
-                className="quote-form-submit-button"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Submitting..." : "Submit Request"}
+              <button type="submit" className="quote-form-submit-button" disabled={isSubmitting}>
+                {isSubmitting ? 'Submitting...' : 'Submit Request'}
               </button>
-              {submitMessage && (
-                <p
-                  className="quote-form-feedback-message">
-                  {submitMessage}
-                </p>
-              )}
+              {submitMessage && <p className="quote-form-feedback-message">{submitMessage}</p>}
             </form>
           </div>
         </div>

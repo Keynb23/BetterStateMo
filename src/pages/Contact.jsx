@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { addContactSubmission } from '../lib/firestoreService';
-import './PageStyles.css'
+import './PageStyles.css';
 
 const Contact = () => {
   // State for form inputs
@@ -41,7 +41,7 @@ const Contact = () => {
     try {
       console.log('Attempting to send data to Firestore...');
       await addContactSubmission(contactData);
-      
+
       setSubmitMessage('Your message has been sent successfully! We will get back to you shortly.');
       console.log('Contact form data successfully sent to Firestore!');
 
@@ -52,7 +52,7 @@ const Contact = () => {
       setMessage('');
       setIsConfirmed(false); // Reset checkbox
     } catch (error) {
-      console.error("Error submitting contact form:", error);
+      console.error('Error submitting contact form:', error);
       setSubmitMessage('Failed to send your message. Please try again.');
       console.log('Failed to send contact form data to Firestore.');
     } finally {
@@ -120,8 +120,12 @@ const Contact = () => {
               ></textarea>
             </div>
 
-            <div className="confirm-section"> {/* Changed div class for better styling */}
-              <label className="checkbox-container"> {/* Label wraps checkbox for clickability */}
+            <div className="confirm-section">
+              {' '}
+              {/* Changed div class for better styling */}
+              <label className="checkbox-container">
+                {' '}
+                {/* Label wraps checkbox for clickability */}
                 <input
                   type="checkbox"
                   checked={isConfirmed}
@@ -140,7 +144,13 @@ const Contact = () => {
               {isSubmitting ? 'Sending...' : 'Submit'}
             </button>
             {submitMessage && (
-              <p className="submit-feedback" style={{ marginTop: '1rem', color: submitMessage.includes('successfully') ? 'var(--color-accent)' : 'red' }}>
+              <p
+                className="submit-feedback"
+                style={{
+                  marginTop: '1rem',
+                  color: submitMessage.includes('successfully') ? 'var(--color-accent)' : 'red',
+                }}
+              >
                 {submitMessage}
               </p>
             )}

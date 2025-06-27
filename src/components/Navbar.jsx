@@ -1,9 +1,9 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react"; // Import useEffect
-import HamburgerBtn from "./HamburgerBtn.jsx";
-import { useMedia } from "../context/MediaContext.jsx";
-import { useAuth } from "../context/AuthContext.jsx";
-import LoginReg from "./loginReg.jsx";
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react'; // Import useEffect
+import HamburgerBtn from './HamburgerBtn.jsx';
+import { useMedia } from '../context/MediaContext.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+import LoginReg from './loginReg.jsx';
 import './ComponentStyles.css';
 
 // Accept the isVisible prop from App.jsx
@@ -32,12 +32,12 @@ export default function Navbar({ isVisible }) {
   const handleLogout = () => {
     signOut(auth);
     closeAllMenus();
-    navigate("/"); // Navigate to home page on logout
+    navigate('/'); // Navigate to home page on logout
   };
 
   const handleScroll = (sectionId) => {
-    if (location.pathname !== "/") {
-      navigate("/", { replace: false });
+    if (location.pathname !== '/') {
+      navigate('/', { replace: false });
       // Use a timeout to ensure navigation completes before attempting to scroll
       setTimeout(() => scrollToSection(sectionId), 50);
     } else {
@@ -49,7 +49,7 @@ export default function Navbar({ isVisible }) {
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -74,16 +74,25 @@ export default function Navbar({ isVisible }) {
         <img src={owners.Logo} alt="Logo" />
       </Link>
 
-      <div
-        className={`navbar-links ${menuOpen ? "show" : ""}`}
-        id="nav-btn-collapse"
-      >
-        <button className="NavScroll-btn" onClick={() => handleScroll("home")}>Home</button>
-        <button className="NavScroll-btn" onClick={() => handleScroll("services")}>Services</button>
-        <button className="NavScroll-btn" onClick={() => handleScroll("about")}>About</button>
-        <Link className="NavLink" to="/setapt" onClick={closeAllMenus}>Appointment</Link>
-        <button className="NavScroll-btn" onClick={() => handleScroll("contact")}>Contact</button>
-        <Link className="NavLink" to="/gallery" onClick={closeAllMenus}>Gallery</Link>
+      <div className={`navbar-links ${menuOpen ? 'show' : ''}`} id="nav-btn-collapse">
+        <button className="NavScroll-btn" onClick={() => handleScroll('home')}>
+          Home
+        </button>
+        <button className="NavScroll-btn" onClick={() => handleScroll('services')}>
+          Services
+        </button>
+        <button className="NavScroll-btn" onClick={() => handleScroll('about')}>
+          About
+        </button>
+        <Link className="NavLink" to="/setapt" onClick={closeAllMenus}>
+          Appointment
+        </Link>
+        <button className="NavScroll-btn" onClick={() => handleScroll('contact')}>
+          Contact
+        </button>
+        <Link className="NavLink" to="/gallery" onClick={closeAllMenus}>
+          Gallery
+        </Link>
       </div>
 
       <div className="navbar-actions">
@@ -96,17 +105,10 @@ export default function Navbar({ isVisible }) {
             <div className="Navbar-authDropdown">
               {user ? (
                 <div className="profile-dropdown-menu">
-                  <Link
-                    to="/profile"
-                    className="profile-dropdown-button"
-                    onClick={closeAllMenus}
-                  >
+                  <Link to="/profile" className="profile-dropdown-button" onClick={closeAllMenus}>
                     Profile
                   </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="profile-dropdown-button logout"
-                  >
+                  <button onClick={handleLogout} className="profile-dropdown-button logout">
                     Logout
                   </button>
                 </div>

@@ -54,174 +54,180 @@
 
 /* Request Quote Button */
 .quote-button-fixed-container {
-    position: fixed;
-    bottom: 15%;
-    right: .5%;
-    z-index: 999;
+  position: fixed;
+  bottom: 15%;
+  right: 0.5%;
+  z-index: 999;
 }
 
 /* --- Service Quote Image Button (inside the fixed container) --- */
 .quote-button-image {
-    background: none;
-    border: .5px solid var(--color-accent);
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    position: relative;
-    z-index: 1;
+  background: none;
+  border: 0.5px solid var(--color-accent);
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  position: relative;
+  z-index: 1;
 }
 
 .quote-button-image img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }
 
 .quote-button-image:hover {
-    transform: scale(1.1);
-    box-shadow: var(--shadow-lg);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
 }
 
 /* --- Request Quote Overlay & Modal --- */
 .quote-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(4, 28, 50, 0.6);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    padding: var(--space-md);
-    overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(4, 28, 50, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: var(--space-md);
+  overflow: auto;
 }
 
 .quote-request-modal {
-    background-color: var(--comp-bg-light);
-    color: var(--text);
-    border-radius: var(--space-md);
-    padding: var(--space-lg);
-    width: 90%;
-    max-width: 500px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-    position: relative;
-    animation: modal-fade-in 0.3s ease-out;
-    max-height: 90vh;
-    overflow-y: auto;
+  background-color: var(--comp-bg-light);
+  color: var(--text);
+  border-radius: var(--space-md);
+  padding: var(--space-lg);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  position: relative;
+  animation: modal-fade-in 0.3s ease-out;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 @keyframes modal-fade-in {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* --- Request Quote Close Button --- */
 .quote-modal-close-button {
-    position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
-    font-size: 1.75rem;
-    line-height: 1;
-    color: var(--color-text);
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
-    z-index: 10;
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+  z-index: 10;
 }
 
 .quote-modal-close-button:hover {
-    color: var(--danger);
-    transform: rotate(90deg);
+  color: var(--danger);
+  transform: rotate(90deg);
 }
 
 /* --- Request Quote Inputs --- */
 .quote-form-input,
 .quote-form-textarea {
-    width: 100%;
-    padding: var(--space-sm);
-    border: 1px solid var(--border);
-    border-radius: var(--space-xs);
-    background-color: var(--bg);
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: var(--space-md);
-    transition: border-color 0.3s, box-shadow 0.3s;
-    box-sizing: border-box;
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--space-xs);
+  background-color: var(--bg);
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: var(--space-md);
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+  box-sizing: border-box;
 }
 
 .quote-form-input:focus,
 .quote-form-textarea:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--shadow-sm);
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--shadow-sm);
 }
 
 .quote-form-textarea {
-    min-height: 100px;
-    resize: vertical;
+  min-height: 100px;
+  resize: vertical;
 }
 
 /* --- Request Quote Submit Button --- */
 .quote-form-submit-button {
-    width: 100%;
-    background-color: var(--color-primary);
-    color: var(--bg);
-    padding: var(--space-sm) var(--space-md);
-    border: none;
-    border-radius: var(--space-sm);
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  background-color: var(--color-primary);
+  color: var(--bg);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--space-sm);
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .quote-form-submit-button:hover {
-    background-color: var(--color-secondary);
-    opacity: 1;
-    color: var(--text);
+  background-color: var(--color-secondary);
+  opacity: 1;
+  color: var(--text);
 }
 
 .quote-form-submit-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 .quote-form-feedback-message {
-    margin-top: 1rem;
-    text-align: center;
-    font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
 }
 
 .quote-modal-header-image {
-    text-align: center;
-    margin-bottom: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .quote-modal-header-image img {
-    max-width: 80px;
-    height: auto;
+  max-width: 80px;
+  height: auto;
 }
 
 .quote-modal-title {

@@ -1,8 +1,8 @@
-import { serviceTypes } from "./serviceTypes";
-import { useServiceContext } from "./ServiceContext";
-import { useBackendCart } from "./BackendCart"; // Ensure this is correctly implemented or remove if not used
-import { useNavigate } from "react-router-dom";
-import './ContextStyles.css'
+import { serviceTypes } from './serviceTypes';
+import { useServiceContext } from './ServiceContext';
+import { useBackendCart } from './BackendCart'; // Ensure this is correctly implemented or remove if not used
+import { useNavigate } from 'react-router-dom';
+import './ContextStyles.css';
 
 export const ServiceBtns = () => {
   const { selectedServices, selectAllServices, clearServices } = useServiceContext();
@@ -23,14 +23,14 @@ export const ServiceBtns = () => {
   };
 
   const handleScheduleAppointmentClick = () => {
-    navigate("/setapt");
+    navigate('/setapt');
   };
 
   return (
     <div className="service-btns-container">
       <div className="select-all-btn">
         <button onClick={handleSelectAll}>
-          {selectedServices.length === serviceTypes.length ? "Deselect All" : "Select All"}
+          {selectedServices.length === serviceTypes.length ? 'Deselect All' : 'Select All'}
         </button>
       </div>
 

@@ -17,15 +17,15 @@ async function setOwnerCustomClaim() {
   try {
     let userRecord;
     if (ownerUid) {
-        userRecord = await admin.auth().getUser(ownerUid);
+      userRecord = await admin.auth().getUser(ownerUid);
     } else {
-        // This line attempts to find the user by the email you provided.
-        // It will fail if no user exists with this email in Firebase Auth.
-        userRecord = await admin.auth().getUserByEmail(ownerEmail);
+      // This line attempts to find the user by the email you provided.
+      // It will fail if no user exists with this email in Firebase Auth.
+      userRecord = await admin.auth().getUserByEmail(ownerEmail);
     }
 
     if (userRecord.customClaims && userRecord.customClaims.role === 'owner') {
-      console.log(`User ${ownerEmail} (UID: ${userRecord.uid}) already has 'owner' custom claim.`);
+      // console.log(`User ${ownerEmail} (UID: ${userRecord.uid}) already has 'owner' custom claim.`);
       return;
     }
 
@@ -34,11 +34,12 @@ async function setOwnerCustomClaim() {
 
     // Force refresh of the ID token (important for immediate effect on client side)
     await admin.auth().revokeRefreshTokens(userRecord.uid);
-    console.log(`Successfully set custom claim 'role: owner' for ${ownerEmail} (UID: ${userRecord.uid}).`);
-    console.log('User ID token will be refreshed on next login or within an hour.');
+    // console.log(`Successfully set custom claim 'role: owner' for ${ownerEmail} (UID: ${userRecord.uid}).`);
+    // console.log('User ID token will be refreshed on next login or within an hour.');
 
-  } catch (error) {
-    console.error('Error setting custom claim:', error);
+  } catch (_) {
+    // FIX: Uncommented this line to make sure '_' is "used"
+    console.error('Error setting custom claim:', _);
   }
 }
 

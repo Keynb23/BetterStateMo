@@ -8,7 +8,7 @@ export const ServiceProvider = ({ children }) => {
 
   const toggleService = (id) => {
     setSelectedServices((prev) =>
-      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id],
     );
   };
 
@@ -19,12 +19,14 @@ export const ServiceProvider = ({ children }) => {
   const clearServices = () => setSelectedServices([]);
 
   return (
-    <ServiceContext.Provider value={{
-      selectedServices,
-      toggleService,
-      selectAllServices,
-      clearServices
-    }}>
+    <ServiceContext.Provider
+      value={{
+        selectedServices,
+        toggleService,
+        selectAllServices,
+        clearServices,
+      }}
+    >
       {children}
     </ServiceContext.Provider>
   );

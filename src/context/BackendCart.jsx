@@ -1,6 +1,5 @@
-// context/BackendCart.jsx
-import { createContext, useContext, useState } from "react";
-import { serviceTypes } from "./serviceTypes";
+import { createContext, useContext, useState } from 'react';
+import { serviceTypes } from './serviceTypes';
 
 const BackendCartContext = createContext();
 
@@ -18,7 +17,7 @@ export const BackendCartProvider = ({ children }) => {
   const clearCart = () => setCart([]);
 
   const getSelectedTitles = () =>
-    cart.map((id) => serviceTypes.find((s) => s.id === id)?.title || "Unknown");
+    cart.map((id) => serviceTypes.find((s) => s.id === id)?.title || 'Unknown');
 
   return (
     <BackendCartContext.Provider

@@ -1,24 +1,21 @@
-import { useState, useEffect } from "react";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { useAuth } from "../context/AuthContext.jsx";
-import { useNavigate, useLocation } from "react-router-dom";
-import "./PageStyles.css";
+import { useState, useEffect } from 'react';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate, useLocation } from 'react-router-dom';
+import './PageStyles.css';
 
 const Profile = () => {
   const { user, db, loading: authLoading, isOwner } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [activeTab, setActiveTab] = useState("appointments");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState('appointments');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [customerAppointments, setCustomerAppointments] = useState([]);
-  const [loadingCustomerAppointments, setLoadingCustomerAppointments] =
-    useState(true);
-  const [errorCustomerAppointments, setErrorCustomerAppointments] =
-    useState(null);
-  const [selectedCustomerAppointment, setSelectedCustomerAppointment] =
-    useState(null);
+  const [loadingCustomerAppointments, setLoadingCustomerAppointments] = useState(true);
+  const [errorCustomerAppointments, setErrorCustomerAppointments] = useState(null);
+  const [selectedCustomerAppointment, setSelectedCustomerAppointment] = useState(null);
 
   const [adminAppointments, setAdminAppointments] = useState([]);
   const [quoteRequests, setQuoteRequests] = useState([]);
@@ -30,7 +27,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (location.state && location.state.customerInfo) {
-      console.log("Customer info for pre-fill:", location.state.customerInfo);
+      console.log('Customer info for pre-fill:', location.state.customerInfo);
     }
   }, [location.state]);
 
@@ -38,10 +35,7 @@ const Profile = () => {
     if (!authLoading && user && !isOwner && user.email && db) {
       setLoadingCustomerAppointments(true);
       setErrorCustomerAppointments(null);
-      const q = query(
-        collection(db, "appointments"),
-        where("email", "==", user.email)
-      );
+      const q = query(collection(db, 'appointments'), where('email', '==', user.email));
       const unsubscribe = onSnapshot(
         q,
         (querySnapshot) => {
@@ -53,12 +47,10 @@ const Profile = () => {
           setLoadingCustomerAppointments(false);
         },
         (error) => {
-          console.error("Error fetching customer appointments:", error);
-          setErrorCustomerAppointments(
-            "Failed to load your past appointments."
-          );
+          console.error('Error fetching customer appointments:', error);
+          setErrorCustomerAppointments('Failed to load your past appointments.');
           setLoadingCustomerAppointments(false);
-        }
+        },
       );
       return () => unsubscribe();
     }
@@ -71,44 +63,38 @@ const Profile = () => {
       const unsubscribes = [];
 
       const unsubscribeAppointments = onSnapshot(
-        collection(db, "appointments"),
+        collection(db, 'appointments'),
         (querySnapshot) => {
-          setAdminAppointments(
-            querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-          );
+          setAdminAppointments(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
         },
         (error) => {
-          console.error("Error fetching admin appointments:", error);
-          setErrorAdminData("Failed to load admin appointments.");
-        }
+          console.error('Error fetching admin appointments:', error);
+          setErrorAdminData('Failed to load admin appointments.');
+        },
       );
       unsubscribes.push(unsubscribeAppointments);
 
       const unsubscribeQuotes = onSnapshot(
-        collection(db, "quoteRequests"),
+        collection(db, 'quoteRequests'),
         (querySnapshot) => {
-          setQuoteRequests(
-            querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-          );
+          setQuoteRequests(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
         },
         (error) => {
-          console.error("Error fetching quote requests:", error);
-          setErrorAdminData("Failed to load quote requests.");
-        }
+          console.error('Error fetching quote requests:', error);
+          setErrorAdminData('Failed to load quote requests.');
+        },
       );
       unsubscribes.push(unsubscribeQuotes);
 
       const unsubscribeContacts = onSnapshot(
-        collection(db, "contactSubmissions"),
+        collection(db, 'contactSubmissions'),
         (querySnapshot) => {
-          setContactSubmissions(
-            querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-          );
+          setContactSubmissions(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
         },
         (error) => {
-          console.error("Error fetching contact submissions:", error);
-          setErrorAdminData("Failed to load contact submissions.");
-        }
+          console.error('Error fetching contact submissions:', error);
+          setErrorAdminData('Failed to load contact submissions.');
+        },
       );
       unsubscribes.push(unsubscribeContacts);
 
@@ -118,12 +104,12 @@ const Profile = () => {
   }, [user, db, isOwner, authLoading]);
 
   const handleStartNewRequest = () => {
-    navigate("/setapt", {
+    navigate('/setapt', {
       state: {
         customerInfo: {
-          name: user.displayName || "",
-          email: user.email || "",
-          phone: user.phoneNumber || "",
+          name: user.displayName || '',
+          email: user.email || '',
+          phone: user.phoneNumber || '',
         },
       },
     });
@@ -146,12 +132,6 @@ const Profile = () => {
     setSelectedAdminCollection(null);
   };
 
-  const formatTimestamp = (timestamp) => {
-    if (timestamp && typeof timestamp.toDate === "function") {
-      return new Date(timestamp.toDate()).toLocaleString();
-    }
-    return "N/A";
-  };
 
   const filterItems = (items) => {
     if (!searchTerm) {
@@ -161,24 +141,15 @@ const Profile = () => {
 
     return items.filter((item) => {
       const nameMatch = item.name?.toLowerCase().includes(lowerCaseSearchTerm);
-      const emailMatch = item.email
-        ?.toLowerCase()
-        .includes(lowerCaseSearchTerm);
-      const phoneMatch = item.phone
-        ?.toLowerCase()
-        .includes(lowerCaseSearchTerm);
-      const addressMatch = item.address
-        ?.toLowerCase()
-        .includes(lowerCaseSearchTerm);
+      const emailMatch = item.email?.toLowerCase().includes(lowerCaseSearchTerm);
+      const phoneMatch = item.phone?.toLowerCase().includes(lowerCaseSearchTerm);
+      const addressMatch = item.address?.toLowerCase().includes(lowerCaseSearchTerm);
       const dateMatch = item.date?.toLowerCase().includes(lowerCaseSearchTerm);
       const timeMatch = item.time?.toLowerCase().includes(lowerCaseSearchTerm);
-      const messageMatch = item.message
-        ?.toLowerCase()
-        .includes(lowerCaseSearchTerm);
+      const messageMatch = item.message?.toLowerCase().includes(lowerCaseSearchTerm);
       const servicesMatch = item.selectedServices?.some(
         (service) =>
-          typeof service === "string" &&
-          service.toLowerCase().includes(lowerCaseSearchTerm)
+          typeof service === 'string' && service.toLowerCase().includes(lowerCaseSearchTerm),
       );
 
       return (
@@ -208,9 +179,7 @@ const Profile = () => {
   if (!user) {
     return (
       <div className="Profile-loadingWrapper">
-        <p className="Profile-errorMessage">
-          You must be logged in to view this page.
-        </p>
+        <p className="Profile-errorMessage">You must be logged in to view this page.</p>
       </div>
     );
   }
@@ -233,9 +202,7 @@ const Profile = () => {
           <h2 className="Profile-Dashboard-title">Owner Dashboard</h2>
           <div className="Profile-Dashboard-card">
             <h3 className="Profile-Dashboard-subtitle">Welcome, Owner!</h3>
-            <p className="Profile-Dashboard-text">
-              This is your administrative dashboard.
-            </p>
+            <p className="Profile-Dashboard-text">This is your administrative dashboard.</p>
           </div>
         </div>
 
@@ -251,26 +218,20 @@ const Profile = () => {
           </div>
           <div className="Profile-tabs-container">
             <button
-              className={`Profile-tab-button ${
-                activeTab === "appointments" ? "active" : ""
-              }`}
-              onClick={() => setActiveTab("appointments")}
+              className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
+              onClick={() => setActiveTab('appointments')}
             >
               Appointments ({filteredAdminAppointments.length})
             </button>
             <button
-              className={`Profile-tab-button ${
-                activeTab === "quotes" ? "active" : ""
-              }`}
-              onClick={() => setActiveTab("quotes")}
+              className={`Profile-tab-button ${activeTab === 'quotes' ? 'active' : ''}`}
+              onClick={() => setActiveTab('quotes')}
             >
               Quote Requests ({filteredQuoteRequests.length})
             </button>
             <button
-              className={`Profile-tab-button ${
-                activeTab === "contacts" ? "active" : ""
-              }`}
-              onClick={() => setActiveTab("contacts")}
+              className={`Profile-tab-button ${activeTab === 'contacts' ? 'active' : ''}`}
+              onClick={() => setActiveTab('contacts')}
             >
               Contact Submissions ({filteredContactSubmissions.length})
             </button>
@@ -278,11 +239,9 @@ const Profile = () => {
 
           <div className="Profile-tab-content">
             <div className="Profile-tab-panel Profile-card-base">
-              {activeTab === "appointments" && (
+              {activeTab === 'appointments' && (
                 <>
-                  <h3 className="Profile-Appointments-subtitle">
-                    All Appointments
-                  </h3>
+                  <h3 className="Profile-Appointments-subtitle">All Appointments</h3>
                   {filteredAdminAppointments.length === 0 ? (
                     <p className="Profile-Appointments-message">
                       No appointments found matching your search.
@@ -293,13 +252,10 @@ const Profile = () => {
                         <li
                           key={apt.id}
                           className="Profile-Appointments-listItem Profile-Appointments-dividedListItem Profile-Appointments-clickableItem"
-                          onClick={() =>
-                            handleViewAdminItemDetails(apt, "appointments")
-                          }
+                          onClick={() => handleViewAdminItemDetails(apt, 'appointments')}
                         >
                           <p className="Profile-appointmentTitle">
-                            Appointment for {apt.name} on {apt.date} at{" "}
-                            {apt.time}
+                            Appointment for {apt.name} on {apt.date} at {apt.time}
                           </p>
                           <p className="Profile-appointmentDetail">
                             Email: {apt.email}, Phone: {apt.phone}
@@ -308,7 +264,7 @@ const Profile = () => {
                             Address: {apt.address}
                           </p>
                           <p className="Profile-appointmentDetail Profile-Appointments-smallText">
-                            Services: {apt.selectedServices?.join(", ")}
+                            Services: {apt.selectedServices?.join(', ')}
                           </p>
                         </li>
                       ))}
@@ -317,7 +273,7 @@ const Profile = () => {
                 </>
               )}
 
-              {activeTab === "quotes" && (
+              {activeTab === 'quotes' && (
                 <>
                   <h3 className="Profile-Quote-subtitle">All Quote Requests</h3>
                   {filteredQuoteRequests.length === 0 ? (
@@ -330,13 +286,9 @@ const Profile = () => {
                         <li
                           key={quote.id}
                           className="Profile-Quote-listItem Profile-Quote-dividedListItem Profile-Quote-clickableItem"
-                          onClick={() =>
-                            handleViewAdminItemDetails(quote, "quoteRequests")
-                          }
+                          onClick={() => handleViewAdminItemDetails(quote, 'quoteRequests')}
                         >
-                          <p className="Profile-quoteTitle">
-                            Quote from {quote.name}
-                          </p>
+                          <p className="Profile-quoteTitle">Quote from {quote.name}</p>
                           <p className="Profile-quoteDetail">
                             Email: {quote.email}, Phone: {quote.phone}
                           </p>
@@ -350,11 +302,9 @@ const Profile = () => {
                 </>
               )}
 
-              {activeTab === "contacts" && (
+              {activeTab === 'contacts' && (
                 <>
-                  <h3 className="Profile-Contact-subtitle">
-                    All Contact Submissions
-                  </h3>
+                  <h3 className="Profile-Contact-subtitle">All Contact Submissions</h3>
                   {filteredContactSubmissions.length === 0 ? (
                     <p className="Profile-Contact-message">
                       No contact submissions found matching your search.
@@ -365,16 +315,9 @@ const Profile = () => {
                         <li
                           key={contact.id}
                           className="Profile-Contact-listItem Profile-Contact-dividedListItem Profile-Contact-clickableItem"
-                          onClick={() =>
-                            handleViewAdminItemDetails(
-                              contact,
-                              "contactSubmissions"
-                            )
-                          }
+                          onClick={() => handleViewAdminItemDetails(contact, 'contactSubmissions')}
                         >
-                          <p className="Profile-contactTitle">
-                            Contact from {contact.name}
-                          </p>
+                          <p className="Profile-contactTitle">Contact from {contact.name}</p>
                           <p className="Profile-contactDetail">
                             Email: {contact.email}, Phone: {contact.phone}
                           </p>
@@ -395,12 +338,12 @@ const Profile = () => {
             {selectedAdminItem && (
               <div className="Profile-details-panel Profile-card-base">
                 <h3 className="Profile-detail-subtitle">
-                  Details for{" "}
-                  {selectedAdminCollection === "appointments"
-                    ? "Appointment"
-                    : selectedAdminCollection === "quoteRequests"
-                    ? "Quote Request"
-                    : "Contact Submission"}
+                  Details for{' '}
+                  {selectedAdminCollection === 'appointments'
+                    ? 'Appointment'
+                    : selectedAdminCollection === 'quoteRequests'
+                      ? 'Quote Request'
+                      : 'Contact Submission'}
                 </h3>
                 <div>
                   {/* Details rendering logic remains the same */}
@@ -437,12 +380,8 @@ const Profile = () => {
       <div className="Profile-Dashboard-Dashboard Profile-card-base">
         <h2 className="Profile-Dashboard-title">Your Profile</h2>
         <div className="Profile-Dashboard-card">
-          <h3 className="Profile-Dashboard-subtitle">
-            Welcome, {user?.email || "Customer"}!
-          </h3>
-          <p className="Profile-Dashboard-text">
-            This is your personal dashboard.
-          </p>
+          <h3 className="Profile-Dashboard-subtitle">Welcome, {user?.email || 'Customer'}!</h3>
+          <p className="Profile-Dashboard-text">This is your personal dashboard.</p>
         </div>
       </div>
 
@@ -458,10 +397,8 @@ const Profile = () => {
         </div>
         <div className="Profile-tabs-container">
           <button
-            className={`Profile-tab-button ${
-              activeTab === "appointments" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("appointments")}
+            className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
+            onClick={() => setActiveTab('appointments')}
           >
             Appointments ({filteredCustomerAppointments.length})
           </button>
@@ -469,17 +406,13 @@ const Profile = () => {
 
         <div className="Profile-tab-content">
           <div className="Profile-tab-panel Profile-card-base">
-            {activeTab === "appointments" && (
+            {activeTab === 'appointments' && (
               <>
-                <h3 className="Profile-Appointments-subtitle">
-                  Your Past Appointments
-                </h3>
+                <h3 className="Profile-Appointments-subtitle">Your Past Appointments</h3>
                 {loadingCustomerAppointments ? (
                   <p>Loading your appointments...</p>
                 ) : errorCustomerAppointments ? (
-                  <p className="Profile-errorMessage">
-                    {errorCustomerAppointments}
-                  </p>
+                  <p className="Profile-errorMessage">{errorCustomerAppointments}</p>
                 ) : filteredCustomerAppointments.length === 0 ? (
                   <p className="Profile-Appointments-message">
                     You have no past appointments recorded.
@@ -490,18 +423,16 @@ const Profile = () => {
                       <li
                         key={apt.id}
                         className="Profile-Appointments-listItem Profile-Appointments-dividedListItem Profile-Appointments-clickableItem"
-                        onClick={() =>
-                          handleViewCustomerAppointmentDetails(apt)
-                        }
+                        onClick={() => handleViewCustomerAppointmentDetails(apt)}
                       >
                         <p className="Profile-appointmentTitle">
                           Appointment on {apt.date} at {apt.time}
                         </p>
                         <p className="Profile-appointmentDetail">
-                          Services: {apt.selectedServices?.join(", ") || "N/A"}
+                          Services: {apt.selectedServices?.join(', ') || 'N/A'}
                         </p>
                         <p className="Profile-appointmentDetail Profile-Appointments-smallText">
-                          Address: {apt.address || "N/A"}
+                          Address: {apt.address || 'N/A'}
                         </p>
                       </li>
                     ))}

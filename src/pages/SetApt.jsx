@@ -1,13 +1,12 @@
-import { useServiceContext } from "../context/ServiceContext";
-import { serviceTypes } from "../context/serviceTypes";
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { addAppointment } from "../lib/firestoreService";
-import "./PageStyles.css";
+import { useServiceContext } from '../context/ServiceContext';
+import { serviceTypes } from '../context/serviceTypes';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { addAppointment } from '../lib/firestoreService';
+import './PageStyles.css';
 
 const SetApt = () => {
-  const { selectedServices, toggleService, clearServices } =
-    useServiceContext();
+  const { selectedServices, toggleService, clearServices } = useServiceContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -15,20 +14,20 @@ const SetApt = () => {
   const [earlyContact, setEarlyContact] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 
-  const [schedulingPreference, setSchedulingPreference] = useState("");
-  const [appointmentTime, setAppointmentTime] = useState(""); 
-  const [customerName, setCustomerName] = useState("");
-  const [customerPhone, setCustomerPhone] = useState(""); 
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [customerAddress, setCustomerAddress] = useState("");
+  const [schedulingPreference, setSchedulingPreference] = useState('');
+  const [appointmentTime, setAppointmentTime] = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
 
   useEffect(() => {
     if (location.state && location.state.customerInfo) {
       const { customerInfo } = location.state;
-      setCustomerName(customerInfo.name || "");
-      setCustomerEmail(customerInfo.email || "");
-      setCustomerPhone(customerInfo.phone || "");
-      setCustomerAddress(customerInfo.address || "");
+      setCustomerName(customerInfo.name || '');
+      setCustomerEmail(customerInfo.email || '');
+      setCustomerPhone(customerInfo.phone || '');
+      setCustomerAddress(customerInfo.address || '');
     }
   }, [location.state]);
 
@@ -55,47 +54,37 @@ const SetApt = () => {
 
     try {
       const appointmentId = await addAppointment(appointmentData);
-      console.log(
-        "Appointment successfully saved to Firebase with ID:",
-        appointmentId
-      );
+      console.log('Appointment successfully saved to Firebase with ID:', appointmentId);
 
       setShowThankYou(true);
       // Added this line to scroll to the top when the thank you message appears
       window.scrollTo(0, 0);
       setTimeout(() => {
-        navigate("/");
+        navigate('/');
         setShowThankYou(false);
-        setSchedulingPreference(""); // Reset new state
-        setAppointmentTime("");
-        setCustomerName("");
-        setCustomerPhone(""); // Reset corrected state
-        setCustomerEmail("");
-        setCustomerAddress("");
+        setSchedulingPreference(''); // Reset new state
+        setAppointmentTime('');
+        setCustomerName('');
+        setCustomerPhone(''); // Reset corrected state
+        setCustomerEmail('');
+        setCustomerAddress('');
         clearServices();
       }, 7000); // 7 seconds
     } catch (error) {
-      console.error("Failed to save appointment:", error);
-      alert(
-        "There was an error scheduling your appointment. Please try again."
-      );
+      console.error('Failed to save appointment:', error);
+      alert('There was an error scheduling your appointment. Please try again.');
     }
   };
 
   const handleNext = () => {
     if (currentStep === 0) {
-      if (
-        !customerName ||
-        !customerEmail ||
-        !customerPhone ||
-        !customerAddress
-      ) {
-        alert("Please fill in all your contact information.");
+      if (!customerName || !customerEmail || !customerPhone || !customerAddress) {
+        alert('Please fill in all your contact information.');
         return;
       }
     } else if (currentStep === 2) {
       if (selectedServices.length === 0) {
-        alert("Please select at least one service.");
+        alert('Please select at least one service.');
         return;
       }
     }
@@ -154,26 +143,26 @@ const SetApt = () => {
             </form>
           </div>
         );
-      case 1: { // How soon and Time of Day Selection
+      case 1: {
+        // How soon and Time of Day Selection
         // New options for scheduling preference
         const schedulingOptions = [
-          { value: "1-2-weeks", label: "1 - 2 weeks" },
-          { value: "1-month", label: "1 month" },
-          { value: "3-months", label: "3 months" },
-          { value: "unsure", label: "Unsure" },
+          { value: '1-2-weeks', label: '1 - 2 weeks' },
+          { value: '1-month', label: '1 month' },
+          { value: '3-months', label: '3 months' },
+          { value: 'unsure', label: 'Unsure' },
         ];
 
         const timeOptions = [
-          { value: "morning", label: "Morning (8 AM - 12 PM)" },
-          { value: "noon", label: "Noon (12 PM - 4 PM)" },
-          { value: "evening", label: "Evening (4 PM - 8 PM)" },
+          { value: 'morning', label: 'Morning (8 AM - 12 PM)' },
+          { value: 'noon', label: 'Noon (12 PM - 4 PM)' },
+          { value: 'evening', label: 'Evening (4 PM - 8 PM)' },
         ];
         return (
           <div className="Set-Apt-step-card">
             <h2>When works best for you?</h2>
             <p className="Set-Apt-step-prompt">
-              Please indicate how soon you'd like your service, and your
-              preferred time of day.
+              Please indicate how soon you'd like your service, and your preferred time of day.
             </p>
 
             <div className="scheduling-preference-section">
@@ -183,7 +172,7 @@ const SetApt = () => {
                   <button
                     key={option.value}
                     className={`time-option-btn ${
-                      schedulingPreference === option.value ? "selected" : ""
+                      schedulingPreference === option.value ? 'selected' : ''
                     }`}
                     onClick={() => setSchedulingPreference(option.value)}
                   >
@@ -193,7 +182,7 @@ const SetApt = () => {
                 {schedulingPreference && (
                   <button
                     className="time-option-btn clear-time-btn"
-                    onClick={() => setSchedulingPreference("")}
+                    onClick={() => setSchedulingPreference('')}
                   >
                     Clear Preference
                   </button>
@@ -208,12 +197,10 @@ const SetApt = () => {
                   <button
                     key={option.value}
                     className={`time-option-btn ${
-                      appointmentTime === option.value ? "selected" : ""
+                      appointmentTime === option.value ? 'selected' : ''
                     }`}
                     onClick={() =>
-                      setAppointmentTime(
-                        option.value === appointmentTime ? "" : option.value
-                      )
+                      setAppointmentTime(option.value === appointmentTime ? '' : option.value)
                     }
                   >
                     {option.label}
@@ -222,7 +209,7 @@ const SetApt = () => {
                 {appointmentTime && (
                   <button
                     className="time-option-btn clear-time-btn"
-                    onClick={() => setAppointmentTime("")}
+                    onClick={() => setAppointmentTime('')}
                   >
                     Clear Time
                   </button>
@@ -243,9 +230,7 @@ const SetApt = () => {
               <div className="services-selected-apt">
                 <h3>Selected Services ({selectedServices.length})</h3>
                 {selectedServices.length === 0 ? (
-                  <p className="no-services-message">
-                    No services selected yet. Add some below!
-                  </p>
+                  <p className="no-services-message">No services selected yet. Add some below!</p>
                 ) : (
                   <ul>
                     {selectedServices.map((id) => {
@@ -253,10 +238,7 @@ const SetApt = () => {
                       return (
                         <li key={id}>
                           <span>{service?.title}</span>
-                          <button
-                            onClick={() => handleRemoveService(id)}
-                            className="remove-btn"
-                          >
+                          <button onClick={() => handleRemoveService(id)} className="remove-btn">
                             X
                           </button>
                         </li>
@@ -271,9 +253,7 @@ const SetApt = () => {
                   <h3>Available Services</h3>
                   <div className="unselected-service-btns">
                     {serviceTypes
-                      .filter(
-                        (service) => !selectedServices.includes(service.id)
-                      )
+                      .filter((service) => !selectedServices.includes(service.id))
                       .map((service) => (
                         <button
                           key={service.id}
@@ -293,9 +273,7 @@ const SetApt = () => {
         return (
           <div className="Set-Apt-step-card review-step-card">
             <h2>Review Your Appointment</h2>
-            <p className="Set-Apt-step-prompt">
-              Please review all the details before confirming.
-            </p>
+            <p className="Set-Apt-step-prompt">Please review all the details before confirming.</p>
 
             <div className="review-section">
               <h3>Contact Information</h3>
@@ -316,17 +294,15 @@ const SetApt = () => {
             <div className="review-section">
               <h3>Appointment Details</h3>
               <p>
-                <strong>Scheduling Preference:</strong>{" "}
-                {schedulingPreference || "Not specified"}
+                <strong>Scheduling Preference:</strong> {schedulingPreference || 'Not specified'}
               </p>
               <p>
-                <strong>Preferred Time of Day:</strong>{" "}
-                {appointmentTime || "Not specified"}
+                <strong>Preferred Time of Day:</strong> {appointmentTime || 'Not specified'}
               </p>
               {!(schedulingPreference || appointmentTime) && (
                 <p className="no-preference-message-review">
-                  No specific scheduling or time preference. We will contact you
-                  to arrange a suitable time.
+                  No specific scheduling or time preference. We will contact you to arrange a
+                  suitable time.
                 </p>
               )}
             </div>
@@ -348,7 +324,7 @@ const SetApt = () => {
             <div className="Early-contact-prompt">
               <button
                 id="Early-contact-btn"
-                className={earlyContact ? "Early-contact-btn-clicked" : ""}
+                className={earlyContact ? 'Early-contact-btn-clicked' : ''}
                 onClick={() => setEarlyContact(!earlyContact)}
               >
                 ✔
@@ -367,12 +343,8 @@ const SetApt = () => {
       {showThankYou ? (
         <div className="thank-you-overlay">
           <div className="thank-you-message Set-Apt-step-card">
-            <h2 className="thank-you-title">
-              Thank you for scheduling your appointment!
-            </h2>
-            <p className="thank-you-text">
-              You will be redirected to the home page shortly.
-            </p>
+            <h2 className="thank-you-title">Thank you for scheduling your appointment!</h2>
+            <p className="thank-you-text">You will be redirected to the home page shortly.</p>
           </div>
         </div>
       ) : (
@@ -386,18 +358,12 @@ const SetApt = () => {
 
             <div className="Set-Apt-navigation">
               {currentStep > 0 && (
-                <button
-                  onClick={handleBack}
-                  className="Set-Apt-nav-button back-button"
-                >
+                <button onClick={handleBack} className="Set-Apt-nav-button back-button">
                   Back
                 </button>
               )}
               {currentStep < 3 && (
-                <button
-                  onClick={handleNext}
-                  className="Set-Apt-nav-button next-button"
-                >
+                <button onClick={handleNext} className="Set-Apt-nav-button next-button">
                   Next
                 </button>
               )}

@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "../context/AuthContext.jsx";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useState } from 'react';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const LoginReg = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { auth, loading } = useAuth(); // Removed user and signOut as they aren't needed here
-  const [activeForm, setActiveForm] = useState("login");
+  const [activeForm, setActiveForm] = useState('login');
   const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
-      if (activeForm === "login") {
+      if (activeForm === 'login') {
         await signInWithEmailAndPassword(auth, email, password);
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
       }
-      navigate("/profile"); // <-- REDIRECT on success
+      navigate('/profile'); // <-- REDIRECT on success
     } catch (err) {
       setError(`Failed to ${activeForm}. Please check your credentials.`);
       console.error(err);
@@ -42,14 +42,14 @@ const LoginReg = () => {
     <div className="login-register-container">
       <div className="login-register-header">
         <button
-          className={activeForm === "login" ? "active" : ""}
-          onClick={() => setActiveForm("login")}
+          className={activeForm === 'login' ? 'active' : ''}
+          onClick={() => setActiveForm('login')}
         >
           Login
         </button>
         <button
-          className={activeForm === "register" ? "active" : ""}
-          onClick={() => setActiveForm("register")}
+          className={activeForm === 'register' ? 'active' : ''}
+          onClick={() => setActiveForm('register')}
         >
           Register
         </button>
@@ -73,7 +73,7 @@ const LoginReg = () => {
           required
         />
         <button type="submit" className="login-register-button">
-          {activeForm === "login" ? "Login" : "Register"}
+          {activeForm === 'login' ? 'Login' : 'Register'}
         </button>
       </form>
 

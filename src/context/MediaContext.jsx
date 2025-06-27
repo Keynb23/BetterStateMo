@@ -1,64 +1,60 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from 'react';
 
 // import images
-import andrew from '../assets/owners/andrew.jpg'
-import josh from '../assets/owners/josh.jpg'
+import andrew from '../assets/owners/andrew.jpg';
+import josh from '../assets/owners/josh.jpg';
 
 // import pools images (example)
-import pool1 from '../assets/pools/apt.complex.jpg'
-import pool2 from '../assets/pools/blue-wood.jpg'
-import pool3 from '../assets/pools/bluepool.jpg'
-import pool4 from '../assets/pools/cleanbox.jpg'
-import pool5 from '../assets/pools/dirtybox.jpg'
-import pool6 from '../assets/pools/fire-pool-finish.jpg'
-import pool7 from '../assets/pools/fire-wood-blue.jpg'
-import pool8 from '../assets/pools/hottub.square.jpg'
-import pool9 from '../assets/pools/paintchips.jpg'
-import pool10 from '../assets/pools/paintchipsno.jpg'
-import pool11 from '../assets/pools/pool-fire.jpg'
-import pool12 from '../assets/pools/pool-wood.jpg'
-import pool13 from '../assets/pools/pool.jpg'
-import pool14 from '../assets/pools/pool1.jpg'
-import pool15 from '../assets/pools/whitepool.jpg'
-import pool16 from '../assets/pools/wood-blue-finish.jpg'
-import pool17 from '../assets/pools/aria.jpg'
-import pool18 from '../assets/pools/aria.after.jpg' 
-import pool19 from '../assets/pools/apt.complex.jpg' 
-import pool20 from '../assets/pools/citypool.jpg'
-import pool21 from '../assets/pools/smallApts.jpg'
-import pool22 from '../assets/pools/squareaptPool.jpg'
-import pool23 from '../assets/pools/diagPool.jpg'
-import pool24 from '../assets/pools/Droneshot1.jpg'
-import pool25 from '../assets/pools/LshapedPool.jpg'
-import pool26 from '../assets/pools/BackYard.jpg'
-import pool27 from '../assets/pools/BW.trees.jpg'
-import pool28 from '../assets/pools/CircleAria.jpg'
-import pool29 from '../assets/pools/glass.dif.pov.jpg'
-import pool30 from '../assets/pools/glassWall.jpg'
-import pool31 from '../assets/pools/longWeird.jpg' 
-import pool32 from '../assets/pools/pool009.jpg' 
-import pool33 from '../assets/pools/pool999.jpg'  
-import pool34 from '../assets/pools/poolv090.jpg' 
-import pool35 from '../assets/pools/smallpop.jpg' 
-import pool36 from '../assets/pools/Truck.jpg'
-import pool37 from '../assets/pools/waterPark.jpg' 
-import pool38 from '../assets/pools/waterParkFilled.jpg' 
-
-
+import pool1 from '../assets/pools/apt.complex.jpg';
+import pool2 from '../assets/pools/blue-wood.jpg';
+import pool3 from '../assets/pools/bluepool.jpg';
+import pool4 from '../assets/pools/cleanbox.jpg';
+import pool5 from '../assets/pools/dirtybox.jpg';
+import pool6 from '../assets/pools/fire-pool-finish.jpg';
+import pool7 from '../assets/pools/fire-wood-blue.jpg';
+import pool8 from '../assets/pools/hottub.square.jpg';
+import pool9 from '../assets/pools/paintchips.jpg';
+import pool10 from '../assets/pools/paintchipsno.jpg';
+import pool11 from '../assets/pools/pool-fire.jpg';
+import pool12 from '../assets/pools/pool-wood.jpg';
+import pool13 from '../assets/pools/pool.jpg';
+import pool14 from '../assets/pools/pool1.jpg';
+import pool15 from '../assets/pools/whitepool.jpg';
+import pool16 from '../assets/pools/wood-blue-finish.jpg';
+import pool17 from '../assets/pools/aria.jpg';
+import pool18 from '../assets/pools/aria.after.jpg';
+import pool19 from '../assets/pools/apt.complex.jpg';
+import pool20 from '../assets/pools/citypool.jpg';
+import pool21 from '../assets/pools/smallApts.jpg';
+import pool22 from '../assets/pools/squareaptPool.jpg';
+import pool23 from '../assets/pools/diagPool.jpg';
+import pool24 from '../assets/pools/Droneshot1.jpg';
+import pool25 from '../assets/pools/LshapedPool.jpg';
+import pool26 from '../assets/pools/BackYard.jpg';
+import pool27 from '../assets/pools/BW.trees.jpg';
+import pool28 from '../assets/pools/CircleAria.jpg';
+import pool29 from '../assets/pools/glass.dif.pov.jpg';
+import pool30 from '../assets/pools/glassWall.jpg';
+import pool31 from '../assets/pools/longWeird.jpg';
+import pool32 from '../assets/pools/pool009.jpg';
+import pool33 from '../assets/pools/pool999.jpg';
+import pool34 from '../assets/pools/poolv090.jpg';
+import pool35 from '../assets/pools/smallpop.jpg';
+import pool36 from '../assets/pools/Truck.jpg';
+import pool37 from '../assets/pools/waterPark.jpg';
+import pool38 from '../assets/pools/waterParkFilled.jpg';
 
 // logo import
 import Logo from '../assets/owners/Logo.png';
 
-// videos 
+// videos
 
-import Video1 from '../assets/videos/fire.mp4'
-import Video2 from '../assets/videos/fire2.mp4'
-import EditedDroneVid from '../assets/videos/EditedDroneVid.mp4'
-
-
+import Video1 from '../assets/videos/fire.mp4';
+import Video2 from '../assets/videos/fire2.mp4';
+import EditedDroneVid from '../assets/videos/EditedDroneVid.mp4';
 
 // 1. Create context
-const MediaContext = createContext()
+const MediaContext = createContext();
 
 // 2. Create provider
 export const MediaProvider = ({ children }) => {
@@ -66,10 +62,10 @@ export const MediaProvider = ({ children }) => {
     andrew,
     josh,
     Logo,
-  }
-// 1 is 0, 2 is 1, etc. 
+  };
+  // 1 is 0, 2 is 1, etc.
   const pools = [
-    pool1, 
+    pool1,
     pool2,
     pool3,
     pool4,
@@ -107,21 +103,14 @@ export const MediaProvider = ({ children }) => {
     pool36,
     pool37,
     pool38,
-  ]
+  ];
 
-  const videos = [
-    Video1,
-    Video2,
-    EditedDroneVid,
-  ]
-
+  const videos = [Video1, Video2, EditedDroneVid];
 
   return (
-    <MediaContext.Provider value={{ owners, pools, videos}}>
-      {children}
-    </MediaContext.Provider>
-  )
-}
+    <MediaContext.Provider value={{ owners, pools, videos }}>{children}</MediaContext.Provider>
+  );
+};
 
 // 3. Custom hook (optional but clean)
-export const useMedia = () => useContext(MediaContext)
+export const useMedia = () => useContext(MediaContext);

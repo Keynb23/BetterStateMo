@@ -1,10 +1,7 @@
-// babel.config.js
-export default {
+// babel.config.cjs
+module.exports = {
   presets: [
     ['@babel/preset-env', { targets: { node: 'current' } }],
-    ['@babel/preset-react', { runtime: 'automatic' }],
-  ],
-  plugins: [
-    // Any other plugins you might have
+    ['@babel/preset-react', { runtime: 'automatic' }], // 'automatic' for React 17+ JSX transform
   ],
 };

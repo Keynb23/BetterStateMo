@@ -1,17 +1,14 @@
-// Chat with us pop up. 
+// Chat with us pop up.
 
-// this should be more visible, but can't be too annoying that it drives customers away. 
+// this should be more visible, but can't be too annoying that it drives customers away.
 
-// give it a notification after page loads. 
+// give it a notification after page loads.
 
 // set up an easy apt scheduler with the chat bot
-import './ComponentStyles.css'
-
+import './ComponentStyles.css';
 
 const ChatWithUs = () => {
-  return (
-    <div>ChatWithUs</div>
-  )
-}
+  return <div>ChatWithUs</div>;
+};
 
-export default ChatWithUs
+export default ChatWithUs;

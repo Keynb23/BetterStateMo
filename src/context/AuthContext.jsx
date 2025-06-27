@@ -6,13 +6,13 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration - HARDCODED FOR LOCAL DEVELOPMENT
 // REMEMBER TO REVERT THIS IF DEPLOYING TO CANVAS/OTHER ENVIRONMENTS
 const firebaseConfig = {
-  apiKey: "AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D8",
-  authDomain: "better-state-llc.firebaseapp.com",
-  projectId: "better-state-llc",
-  storageBucket: "better-state-llc.firebasestorage.app",
-  messagingSenderId: "1000941778539",
-  appId: "1:1000941778539:web:3211eee5c4977ee5e0a32e",
-  measurementId: "G-RDF4SD6CR1"
+  apiKey: 'AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D8',
+  authDomain: 'better-state-llc.firebaseapp.com',
+  projectId: 'better-state-llc',
+  storageBucket: 'better-state-llc.firebasestorage.app',
+  messagingSenderId: '1000941778539',
+  appId: '1:1000941778539:web:3211eee5c4977ee5e0a32e',
+  measurementId: 'G-RDF4SD6CR1',
 };
 
 // Initialize Firebase only if no app has been initialized yet.
@@ -21,7 +21,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Owner's email for demonstration purposes
-const OWNER_EMAILS = ["keynb50@gmail.com"]; // Ensure this matches your owner's authenticated email
+const OWNER_EMAILS = ['keynb50@gmail.com']; // Ensure this matches your owner's authenticated email
 
 // Create the Auth Context
 const AuthContext = createContext(null);
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         // No else block here for signInAnonymously, if __initial_auth_token is not present,
         // the user will simply remain null and redirect to login will occur.
       } catch (error) {
-        console.error("Firebase auth initialization error:", error);
+        console.error('Firebase auth initialization error:', error);
       }
     };
 
@@ -72,11 +72,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = { user, loading, isOwner, auth, db, signOut };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 };
 
 export { auth, db };

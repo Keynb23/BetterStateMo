@@ -1,7 +1,7 @@
 // context/SingleServiceBtn.jsx
-import { useServiceContext } from "./ServiceContext";
-import { useBackendCart } from "./BackendCart"; // Ensure this is correctly implemented or remove if not used
-import "./ContextStyles.css";
+import { useServiceContext } from './ServiceContext';
+import { useBackendCart } from './BackendCart'; // Ensure this is correctly implemented or remove if not used
+import './ContextStyles.css';
 
 const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
   const { selectedServices, toggleService } = useServiceContext();
@@ -16,11 +16,8 @@ const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
   const isSelected = selectedServices.includes(serviceId);
 
   return (
-    <button
-      className={`service-btn ${isSelected ? "selected" : ""}`}
-      onClick={handleClick}
-    >
-      {isSelected ? "✓ " : ""}
+    <button className={`service-btn ${isSelected ? 'selected' : ''}`} onClick={handleClick}>
+      {isSelected ? '✓ ' : ''}
       {isSelected ? `Selected ${serviceTitle}` : `Select ${serviceTitle}`}
     </button>
   );

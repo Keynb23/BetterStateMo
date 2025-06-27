@@ -1,0 +1,15 @@
+# Ignore artifacts:
+build/
+dist/
+node_modules/
+.env
+.DS_Store
+
+# Ignore specific files that are not meant to be formatted
+# For example, if you have a minified JS file or a generated file
+# my-generated-file.js
+
+# Ignore dotfiles/folders that are not code
+.git/
+.vscode/
+.idea/
