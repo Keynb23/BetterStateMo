@@ -57,15 +57,14 @@ const SetApt = () => {
       console.log('Appointment successfully saved to Firebase with ID:', appointmentId);
 
       setShowThankYou(true);
-      // Added this line to scroll to the top when the thank you message appears
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 0); // Scroll to top when thank you message appears
       setTimeout(() => {
         navigate('/');
         setShowThankYou(false);
-        setSchedulingPreference(''); // Reset new state
+        setSchedulingPreference('');
         setAppointmentTime('');
         setCustomerName('');
-        setCustomerPhone(''); // Reset corrected state
+        setCustomerPhone('');
         setCustomerEmail('');
         setCustomerAddress('');
         clearServices();
@@ -95,6 +94,35 @@ const SetApt = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
+  // NEW useEffect for handling "Enter" key press
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      // Check if the pressed key is 'Enter'
+      if (event.key === 'Enter') {
+        // Prevent the default browser behavior (e.g., submitting a form if an input is focused)
+        event.preventDefault();
+
+        // Determine which action to take based on the current step
+        if (currentStep < 3) {
+          // If not on the last step, trigger the "Next" action
+          handleNext();
+        } else if (currentStep === 3) {
+          // If on the last step (Review and Confirm), trigger the "Confirm Appointment" action
+          handleConfirmAppointment();
+        }
+        // No action for 'Back' on Enter key
+      }
+    };
+
+    // Attach the event listener to the document when the component mounts
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Clean up the event listener when the component unmounts or dependencies change
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [currentStep, handleNext, handleConfirmAppointment]); // Dependencies: ensure the effect re-runs if these values change
+
   const renderStep = () => {
     switch (currentStep) {
       case 0: // Contact Information Form
@@ -119,7 +147,7 @@ const SetApt = () => {
                 type="tel"
                 placeholder="(123) 456-7890"
                 value={customerPhone}
-                onChange={(e) => setCustomerPhone(e.target.value)} // Corrected typo here
+                onChange={(e) => setCustomerPhone(e.target.value)}
                 required
               />
 
@@ -145,7 +173,6 @@ const SetApt = () => {
         );
       case 1: {
         // How soon and Time of Day Selection
-        // New options for scheduling preference
         const schedulingOptions = [
           { value: '1-2-weeks', label: '1 - 2 weeks' },
           { value: '1-month', label: '1 month' },

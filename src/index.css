@@ -44,22 +44,18 @@
   font: inherit;
 }
 
-html {
-  scroll-behavior: smooth;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-}
-
-body {
+body, html {
   background-color: var(--bg); /* Main background using a near-white shade */
   color: var(--text); /* Default text color using a near-black shade */
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
 }
-
+    
 body #root {
   width: 100%;
   min-height: 100vh;

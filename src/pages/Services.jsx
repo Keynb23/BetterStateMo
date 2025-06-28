@@ -1,4 +1,3 @@
-// pages/Service.jsx
 import './PageStyles.css';
 import { useMedia } from '../context/MediaContext';
 import RequestQuote from '../context/RequestQuote'; // Keep the import
@@ -33,14 +32,14 @@ const Service = () => {
     <section id="services" className="service-container">
       <h1 className="services-main-title">Our Pool Services</h1>
       <div className="service-sub-header">
-        <p>
+        <p className="service-subP">
           We provide professional pool maintenance, cleaning, and repairs to keep your water clear
-          and equipment running right.
+          and equipment running right. From weekly service to green pool recovery. Our licensed team
+          handles it all with care and precision.
         </p>
-        <p>From weekly service to green pool recovery.</p>
-        <p>Our licensed team handles it all with care and precision.</p>
-        <h4>Enjoy your pool - we'll handle the rest.</h4>
       </div>
+
+      <h4 className="service-subH4">Enjoy your pool - we'll handle the rest.</h4>
 
       <div className="services-list-wrapper">
         {serviceData.map((service) => (

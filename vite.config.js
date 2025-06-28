@@ -7,6 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
+  server: {
+    host: true, // This allows access from other devices on your network
+  },
   plugins: [react()],
   assetsInclude: ['**/*.glb', '**/*.gltf', '**/*.bin'],
   resolve: {

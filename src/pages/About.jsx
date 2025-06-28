@@ -13,18 +13,18 @@ export default function About() {
           </div>
 
           <div className="about-section">
-            <div>
-              <p>
+              <p className="about-sec-p">
                 Better State is a Veteran-owned business proudly serving Mid-Missouri with expert,
                 eco-friendly pool cleaning services Co-Owned by Andrew Royer and Joshua Efferson.
               </p>
 
-              <p>
+              <p className="about-sec-p">
                 Better State is built on trust, reliability, and a shared passion for helping people
                 enjoy clean and safe pools...
               </p>
-            </div>
           </div>
+        </div>
+
 
           <div className="meet-us">
             <div className="section-title">
@@ -56,7 +56,6 @@ export default function About() {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </>
   );

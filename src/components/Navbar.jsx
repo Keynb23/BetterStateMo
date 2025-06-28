@@ -1,12 +1,11 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react'; // Import useEffect
+import { useState, useEffect } from 'react';
 import HamburgerBtn from './HamburgerBtn.jsx';
 import { useMedia } from '../context/MediaContext.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import LoginReg from './loginReg.jsx';
 import './ComponentStyles.css';
 
-// Accept the isVisible prop from App.jsx
 export default function Navbar({ isVisible }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +20,7 @@ export default function Navbar({ isVisible }) {
 
   const toggleAuthDropdown = () => {
     setShowAuthDropdown((prev) => !prev);
-    setMenuOpen(false); // Close main menu if auth dropdown opens
+    setMenuOpen(false);
   };
 
   const closeAllMenus = () => {
@@ -32,10 +31,25 @@ export default function Navbar({ isVisible }) {
   const handleLogout = () => {
     signOut(auth);
     closeAllMenus();
-    navigate('/'); // Navigate to home page on logout
+    navigate('/');
   };
 
+  // New helper function for consistent, aggressive scroll to top
+  const forceScrollToTop = () => {
+    setTimeout(() => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto', // 'auto' for an instant jump, proven more reliable
+      });
+    }, 0);
+  };
+
+  // Original handleScroll for other sections remains similar but uses scrollToSection
   const handleScroll = (sectionId) => {
+    closeAllMenus(); // Close menus regardless
     if (location.pathname !== '/') {
       navigate('/', { replace: false });
       // Use a timeout to ensure navigation completes before attempting to scroll
@@ -43,7 +57,6 @@ export default function Navbar({ isVisible }) {
     } else {
       scrollToSection(sectionId);
     }
-    closeAllMenus();
   };
 
   const scrollToSection = (id) => {
@@ -53,13 +66,40 @@ export default function Navbar({ isVisible }) {
     }
   };
 
-  // Add an effect to close menus if navigation occurs (e.g., from an internal link)
+  // Modified handleLogoClick to use the new forceScrollToTop
+  const handleLogoClick = (e) => {
+    closeAllMenus();
+    if (location.pathname === '/') {
+      e.preventDefault(); // Prevent default link behavior if on same page
+      forceScrollToTop();
+    } else {
+      // Allow default Link behavior for navigation.
+      // The ScrollToTop component (if you have one in App/main)
+      // will handle the scroll for the new route, or you could call forceScrollToTop() here too.
+      // For consistency, let's also force it here to guarantee top scroll on navigation.
+      // Note: React Router Link will navigate, then this will force scroll.
+      navigate('/'); // Ensure navigation to home route
+      forceScrollToTop(); // Force scroll after navigation
+      e.preventDefault(); // Prevent default Link behavior, as we handle navigation manually here too.
+    }
+  };
+
+  // New handler for the Home button in the navbar
+  const handleHomeButtonClick = () => {
+    closeAllMenus(); // Close menus
+    if (location.pathname === '/') {
+      forceScrollToTop(); // Already on homepage, force scroll to top
+    } else {
+      navigate('/'); // Navigate to homepage if not already there
+      forceScrollToTop(); // Force scroll to top after navigation
+    }
+  };
+
   useEffect(() => {
     closeAllMenus();
-  }, [location.pathname]); // Re-run when pathname changes
+  }, [location.pathname]);
 
   return (
-    // Apply conditional class based on isVisible prop
     <nav className={`Navbar-container ${isVisible ? 'navbar-visible' : 'navbar-hidden'}`}>
       <button
         className="Collapse-btn"
@@ -70,12 +110,14 @@ export default function Navbar({ isVisible }) {
         <HamburgerBtn isActive={menuOpen} />
       </button>
 
-      <Link className="navbar-brand" to="/" onClick={closeAllMenus}>
+      {/* Logo Link uses the new handleLogoClick */}
+      <Link className="navbar-brand" to="/" onClick={handleLogoClick}>
         <img src={owners.Logo} alt="Logo" />
       </Link>
 
       <div className={`navbar-links ${menuOpen ? 'show' : ''}`} id="nav-btn-collapse">
-        <button className="NavScroll-btn" onClick={() => handleScroll('home')}>
+        {/* Home button now uses the new handleHomeButtonClick */}
+        <button className="NavScroll-btn" onClick={handleHomeButtonClick}>
           Home
         </button>
         <button className="NavScroll-btn" onClick={() => handleScroll('services')}>
@@ -98,7 +140,6 @@ export default function Navbar({ isVisible }) {
       <div className="navbar-actions">
         <div className="Navbar-dropdown">
           <button className="Navbar-profileIcon" onClick={toggleAuthDropdown}>
-            {/* Using Font Awesome icon directly from class */}
             <i className="fa-solid fa-user-circle"></i>
           </button>
           {showAuthDropdown && (
