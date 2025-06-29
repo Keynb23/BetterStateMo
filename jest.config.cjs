@@ -20,8 +20,10 @@ const config = {
   // 'identity-obj-proxy' handles CSS imports (Vite generates unique class names).
   // The fileMock.js handles image/asset imports.
   moduleNameMapper: {
+    // THIS IS THE CRUCIAL CHANGE
+    '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png|gif|svg|webp|avif)$': '<rootDir>/__mocks__/fileMock.js', // Added more image types
+    '\\.(jpg|jpeg|png|gif|svg|webp|avif)$': '<rootDir>/__mocks__/fileMock.js',
   },
 };
 
