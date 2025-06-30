@@ -1335,9 +1335,6 @@
   width: 100%;
   align-items: center;
   padding: var(--space-xl);
-  /* background-color: var(--comp-bg-light); */
-  /* border-radius: var(--space-md); */
-  /* box-shadow: var(--shadow-md); */
 }
 
 .meet-us > .section-title {
@@ -1502,72 +1499,75 @@
 
 /* Profile Section */
 .Profile-wrapper {
-  /* Updated background to align with other pages: gradient from comp-bg-light to bg */
   background: linear-gradient(to top, var(--comp-bg-light), var(--bg));
-  color: var(--text); /* General text color */
+  color: var(--text);
   max-width: 1400px;
   margin: 0 auto;
-  min-height: 100vh; /* Use min-height to allow content to push it, but ensure it fills screen */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content to the top */
+  justify-content: flex-start;
   padding: var(--space-xl) var(--space-md);
   box-sizing: border-box;
-  overflow: auto; /* Allow scrolling if content overflows */
+  overflow: auto;
 }
 
 .Profile-loadingWrapper {
   padding-top: var(--space-xl);
   text-align: center;
   font-size: 1.2rem;
-  color: var(--text); /* Ensure loading text is visible */
+  color: var(--text);
 }
 
 .Profile-errorMessage {
-  color: var(--color-danger); /* Use a more appropriate danger/error color */
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.Profile-successMessage {
+  color: var(--color-success);
   font-weight: 600;
 }
 
 .Profile-card-base {
-  background-color: var(--bg); /* Near-white background for all cards */
+  background-color: var(--bg);
   border-radius: var(--space-md);
-  box-shadow: var(--shadow-md); /* Consistent medium shadow */
+  box-shadow: var(--shadow-md);
   padding: var(--space-lg);
-  border: 1px solid var(--border-muted); /* Softer border */
+  border: 1px solid var(--border-muted);
 }
 
 .Profile-Dashboard-Dashboard {
-  margin-bottom: var(--space-xl); /* Increased space below the main dashboard card */
-  /* Added a slightly different background/shadow for the main dashboard header */
-  background-color: var(--comp-bg-light); /* Lighter component background */
-  box-shadow: var(--shadow-lg); /* More prominent shadow for main dashboard header */
-  padding: var(--space-xl); /* More padding for a grander feel */
+  margin-bottom: var(--space-xl);
+  background-color: var(--comp-bg-light);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-xl);
 }
 
 .Profile-Dashboard-title {
   margin-bottom: var(--space-md);
-  color: var(--color-primary); /* Main dashboard title uses primary blue */
-  font-size: clamp(2.5rem, 5vw, 3.5rem); /* Consistent main title sizing */
+  color: var(--color-primary);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   text-align: center;
-  text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15); /* Soft shadow from primary color */
+  text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15);
 }
 
 .Profile-Dashboard-card {
-  background-color: var(--bg); /* Inner card is near-white */
+  background-color: var(--bg);
   padding: var(--space-md);
   border-radius: var(--space-sm);
-  box-shadow: var(--shadow-sm); /* Inner card has subtle shadow */
-  border: 1px solid var(--border-subtle); /* Even softer border for inner card */
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-subtle);
 }
 
 .Profile-Dashboard-subtitle {
   font-weight: 600;
   margin-bottom: var(--space-sm);
-  color: var(--color-secondary); /* Subtitle uses accent color */
+  color: var(--color-primary);
 }
 
 .Profile-Dashboard-text {
-  color: var(--text-muted); /* Muted text for descriptions */
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
@@ -1578,34 +1578,34 @@
     'search right'
     'tabs right'
     'content right';
-  gap: var(--space-xl); /* Increased gap for overall spacing */
+  gap: var(--space-xl);
   width: 100%;
-  flex-grow: 1; /* Allow it to take available space */
+  flex-grow: 1;
 }
 
 .Profile-search-bar-container {
   grid-area: search;
-  margin-bottom: var(--space-md); /* Space below search bar */
+  margin-bottom: var(--space-md);
 }
 
 .Profile-search-input {
   width: 100%;
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--space-sm);
-  border: 1px solid var(--border-muted); /* Softer border */
+  border: 1px solid var(--border-muted);
   font-size: 1rem;
   color: var(--text);
   background-color: var(--bg);
-  box-shadow: var(--shadow-xs); /* Very light shadow */
+  box-shadow: var(--shadow-xs);
 }
 
 .Profile-tabs-container {
   grid-area: tabs;
   display: flex;
-  gap: var(--space-xs); /* Tighter gap between tabs */
-  border-bottom: 2px solid var(--border-muted); /* Softer bottom border */
+  gap: var(--space-xs);
+  border-bottom: 2px solid var(--border-muted);
   margin-bottom: var(--space-md);
-  background-color: var(--comp-bg-light); /* Background for the tab navigation area */
+  background-color: var(--comp-bg-light);
   border-radius: var(--space-sm) var(--space-sm) 0 0;
   padding-top: var(--space-xs);
 }
@@ -1619,33 +1619,32 @@
   cursor: pointer;
   border-bottom: 3px solid transparent;
   transition: all 0.2s ease-in-out;
-  color: var(--text-muted); /* Default tab text is muted */
-  flex-grow: 1; /* Allow buttons to expand evenly */
+  color: var(--text-muted);
+  flex-grow: 1;
   text-align: center;
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap;
 }
 
 .Profile-tab-button:hover {
-  color: var(--color-primary); /* Hover color is primary blue */
+  color: var(--color-primary);
 }
 
 .Profile-tab-button.active {
-  border-bottom-color: var(--color-accent); /* Active tab border is accent color */
-  color: var(--color-primary); /* Active tab text is primary blue */
+  border-bottom-color: var(--color-accent);
+  color: var(--color-primary);
   font-weight: 600;
-  background-color: var(--bg); /* Active tab has near-white background */
+  background-color: var(--bg);
   border-radius: var(--space-sm) var(--space-sm) 0 0;
 }
 
 .Profile-tab-content {
   grid-area: content;
-  display: flex; /* Make it a flex container to push cards to the left */
+  display: flex;
   flex-direction: column;
 }
 
 .Profile-tab-panel {
-  flex-grow: 1; /* Allow tab panel to fill available height */
-  /* Removed duplicate styling, now relies on Profile-card-base */
+  flex-grow: 1;
 }
 
 .Profile-Appointments-list,
@@ -1659,7 +1658,7 @@
 }
 
 .Profile-Appointments-dividedList > *:not(:last-child) {
-  border-bottom: 1px solid var(--border-subtle); /* Softer divider */
+  border-bottom: 1px solid var(--border-subtle);
   padding-bottom: var(--space-md);
 }
 
@@ -1671,7 +1670,7 @@
 }
 
 .Profile-Appointments-clickableItem:hover {
-  background-color: var(--comp-bg-light); /* Hover background uses light component color */
+  background-color: var(--comp-bg-light);
 }
 
 .Profile-appointmentTitle,
@@ -1679,79 +1678,174 @@
 .Profile-contactTitle {
   font-weight: 600;
   margin-bottom: var(--space-xs);
-  color: var(--text); /* Titles within lists are near-black */
+  color: var(--text);
 }
 
 .Profile-appointmentDetail,
 .Profile-quoteDetail,
 .Profile-contactDetail {
-  color: var(--text-muted); /* Details are muted text */
+  color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.5;
 }
 
 .Profile-Appointments-smallText {
-  font-size: 0.85rem; /* Slightly smaller for secondary info */
-  color: var(--text-subtle); /* Even more subtle text for fine print */
+  font-size: 0.85rem;
+  color: var(--text-subtle);
 }
 
 .Profile-right-column {
   grid-area: right;
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl); /* More space between right-column cards */
+  gap: var(--space-xl);
 }
 
 .Profile-details-panel,
 .Request-New-Service {
   position: sticky;
   top: var(--space-xl);
-  /* Added z-index to ensure it sits above other content if scrolling */
   z-index: 10;
-  background-color: var(--bg); /* Ensure these sticky panels have their background */
+  background-color: var(--bg);
 }
 
 .Profile-detail-subtitle,
 .Profile-subtitle {
-  font-weight: 700; /* Bolder subtitles */
+  font-weight: 700;
   margin-bottom: var(--space-md);
-  color: var(--color-primary); /* Subtitles use primary blue */
-  text-align: center; /* Center align these subtitles */
+  color: var(--color-primary);
+  text-align: center;
 }
 
 .Profile-detailItem {
   margin-bottom: var(--space-sm);
-  color: var(--text-muted); /* Details text */
+  color: var(--text-muted);
 }
 
 .Profile-detailItem strong {
-  color: var(--text); /* Strong text within details is near-black */
+  color: var(--text);
 }
 
 .Profile-button {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--space-sm);
-  font-weight: 600; /* Bolder button text */
+  font-weight: 600;
   transition: all 0.2s ease;
   border: none;
   cursor: pointer;
 }
 
 .Profile-requestServiceBtn {
-  background-color: var(--color-secondary); /* Use accent color for main action button */
-  color: var(--text-dm); /* Dark mode text for contrast */
+  background-color: var(--color-secondary);
+  color: var(--text-dm);
   width: 100%;
-  box-shadow: var(--shadow-sm); /* Subtle shadow for buttons */
+  box-shadow: var(--shadow-sm);
 }
 
 .Profile-requestServiceBtn:hover {
-  background-color: var(--color-primary); /* Primary blue on hover */
-  transform: translateY(-2px); /* Subtle lift on hover */
-  box-shadow: var(--shadow-md); /* More prominent shadow on hover */
+  background-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.Profile-Settings-container {
+  padding: var(--space-md);
+  border-radius: var(--space-md);
+}
+
+.Profile-Settings-subtitle {
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.Profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.Profile-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.Profile-form-group label {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.Profile-input {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  border: 1px solid var(--border-muted);
+  font-size: 1rem;
+  color: var(--text);
+  background-color: var(--bg);
+  box-shadow: var(--shadow-xs);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Profile-input:disabled {
+  background-color: var(--comp-bg-light);
+  color: var(--text-subtle);
+  cursor: not-allowed;
+}
+
+.Profile-buttons-container {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  justify-content: flex-end;
+}
+
+.Profile-editBtn,
+.Profile-saveBtn,
+.Profile-cancelBtn {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.Profile-editBtn {
+  background-color: var(--color-primary);
+  color: var(--text-dm);
+}
+
+.Profile-editBtn:hover {
+  background-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+ }
+
+.Profile-saveBtn {
+  background-color: var(--color-primary);
+  color: var(--text-dm);
+}
+
+.Profile-saveBtn:hover {
+  background-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.Profile-cancelBtn {
+  background-color: var(--danger);
+  color: var(--text-dm);
+}
+
+.Profile-cancelBtn:hover {
+  background-color: var(--color-secondary);
+  box-shadow: var(--shadow-md);
 }
 
 .mt-4 {
-  margin-top: var(--space-md); /* Consistent margin utility */
+  margin-top: var(--space-md);
 }
 
 /* Profile Responsive Styles */
@@ -1764,7 +1858,7 @@
     grid-template-columns: 1fr;
     grid-template-areas:
       'search'
-      'right' /* Move right column to appear after search, but before tabs */
+      'right'
       'tabs'
       'content';
     gap: var(--space-lg);
@@ -1776,13 +1870,13 @@
 
   .Profile-details-panel,
   .Request-New-Service {
-    position: static; /* Remove sticky behavior on smaller screens */
+    position: static;
     top: auto;
     z-index: auto;
   }
 
   .Profile-tab-button {
-    font-size: 0.9rem; /* Slightly smaller tab buttons */
+    font-size: 0.9rem;
     padding: var(--space-xs) var(--space-sm);
   }
 
@@ -1793,7 +1887,7 @@
 
 @media (max-width: 768px) {
   .Profile-wrapper {
-    padding: var(--space-lg) var(--space-sm); /* Reduce overall padding */
+    padding: var(--space-lg) var(--space-sm);
   }
 
   .Profile-tabs-container {
@@ -1809,8 +1903,56 @@
   }
 
   .Profile-Dashboard-Dashboard {
-    padding: var(--space-lg); /* Adjust padding for dashboard header */
+    padding: var(--space-lg);
     margin-bottom: var(--space-lg);
+  }
+
+  .Profile-search-input {
+    font-size: 0.9rem;
+  }
+
+  .Profile-appointmentTitle,
+  .Profile-quoteTitle,
+  .Profile-contactTitle {
+    font-size: 1rem;
+  }
+
+  .Profile-appointmentDetail,
+  .Profile-quoteDetail,
+  .Profile-contactDetail {
+    font-size: 0.85rem;
+  }
+
+  .Profile-Appointments-smallText {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .Profile-wrapper {
+    position: relative;
+    height: 100%;
+    min-height: 100vh;
+    padding: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .Profile-tabs-container {
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .Profile-tab-button {
+    padding: var(--space-sm);
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .Profile-Dashboard-Dashboard {
+    padding: var(--space-xl);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-xl);
   }
 
   .Profile-search-input {
