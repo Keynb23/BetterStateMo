@@ -38,7 +38,7 @@ jobs:
         run: npm test
 
       - name: Debugging: List relevant directories before build
-        run: |
+        run: | # <--- This 'run:' must be directly under the 'name:' for this step
           echo "--- Listing contents of src/pages/ ---"
           ls -F /home/runner/work/BetterStateMo/BetterStateMo/src/pages/
           echo "--- Listing contents of src/context/ ---"
@@ -53,8 +53,8 @@ jobs:
       - name: Build application (Clean Vite cache and dist, then build)
         run: |
           echo "Cleaning Vite build cache and output directory..."
-          rm -rf node_modules/.vite # Common location for Vite's cache within node_modules
-          rm -rf .vite # Another possible location for Vite's cache at project root
+          rm -rf node_modules/.vite
+          rm -rf .vite
           rm -rf dist
           echo "Running Vite build..."
           npm run build
@@ -73,7 +73,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm' # Can keep cache here as this is post-build
+          cache: 'npm'
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -97,7 +97,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm' # Can keep cache here as this is post-build
+          cache: 'npm'
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
