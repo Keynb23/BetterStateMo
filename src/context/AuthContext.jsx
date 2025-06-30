@@ -49,7 +49,6 @@ export const AuthProvider = ({ children }) => {
       }
       setLoading(false);
     });
-
     const initAuth = async () => {
       try {
         // If Vercel is trying to inject __initial_auth_token and it's invalid,

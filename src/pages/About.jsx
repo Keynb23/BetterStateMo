@@ -36,7 +36,7 @@ export default function About() {
               <h2>Andrew Royer</h2>
               <p>
                 Loves basketball, working out, and hard work
-                <p className="andrew-number">573-823-6325</p>
+                <span className="andrew-number">573-823-6325</span>
               </p>
             </div>
           </div>
