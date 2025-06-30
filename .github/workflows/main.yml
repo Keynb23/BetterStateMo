@@ -20,14 +20,29 @@ jobs:
       - name: Checkout code (aggressive clean and fetch)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          clean: true
-          submodules: recursive
+          fetch-depth: 0 # Ensures all history is fetched
+          clean: true    # Ensures a clean working directory
+          submodules: recursive # If you ever use submodules, this helps
+          # No 'lfs: true' unless you use Git LFS
+
+      # Moved diagnostic step to be immediately after checkout
+      - name: Diagnose File Existence Immediately After Checkout
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "Listing contents of src/context/:"
+          ls -laR src/context/
+          echo "Attempting to read the problematic file directly:"
+          cat src/context/SingleServiceBtn.jsx || echo "!!! DIAGNOSTIC: File not found or unreadable by 'cat' !!!"
+          echo "Verifying file permissions:"
+          stat src/context/SingleServiceBtn.jsx || true # 'stat' provides file metadata and permissions
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          # CRITICAL: Remove cache from here to ensure clean install
+          # cache: 'npm' # <-- REMOVE THIS LINE
 
       - name: Install dependencies (Aggressive cleanup and standard install)
         run: |
@@ -37,13 +52,6 @@ jobs:
           npm cache clean --force
           npm install --no-fund --no-audit
           echo "npm install completed."
-
-      - name: Diagnose File Existence in src/context
-        run: |
-          echo "Listing contents of src/context/:"
-          ls -laR src/context/
-          echo "Attempting to read the problematic file directly:"
-          cat src/context/SingleServiceBtn.jsx || echo "File not found or unreadable." # More robust message
 
       - name: Run tests
         run: npm test
@@ -66,7 +74,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+        # Add cache back for deploy job, as it's separate
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -93,7 +101,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+        # Add cache back for deploy job, as it's separate
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
