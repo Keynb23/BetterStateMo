@@ -24,15 +24,15 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies (with clean reinstall for optional deps)
+      - name: Install dependencies (clean npm ci for reliability)
         run: |
-          # Remove existing node_modules and package-lock.json for a fresh start
+          # Ensure a completely clean state before installation
           rm -rf node_modules
           rm -f package-lock.json
           npm cache clean --force
-          # Use npm install, which can be more resilient for optional dependencies
-          # We'll keep --legacy-peer-deps for compatibility, if it helps with other issues.
-          npm install --legacy-peer-deps 
+          # Use npm ci, which respects package-lock.json for consistent installs
+          # This should be more reliable for testing-library dependencies.
+          npm ci
 
       - name: Run tests
         run: npm test
