@@ -13,62 +13,37 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    env:
-      # Set Vite's debug environment variable for more verbose logging
-      DEBUG: vite:*
 
     steps:
-      - name: Hard Checkout (Force clean git state)
-        # Instead of actions/checkout@v4 directly, perform a manual clean clone
-        run: |
-          echo "Performing hard clone to ensure clean git state..."
-          rm -rf BetterStateMo # Remove existing clone directory if it exists
-          git clone https://github.com/${{ github.repository }}.git BetterStateMo
-          cd BetterStateMo
-          git checkout ${{ github.ref_name }}
-          echo "Repository cloned and checked out."
-
-      - name: Change directory to cloned repo
-        run: cd BetterStateMo
+      - name: Checkout code
+        uses: actions/checkout@v4 # <<< Use standard checkout
 
       - name: Set up Node.js
-        # Adjusting the working-directory for setup-node
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          # Still no cache for this job
-          # cache: 'npm'
+          # cache: 'npm' # Keep caching disabled for this job for max troubleshooting cleanliness
 
-      - name: Install dependencies (Ultra aggressive cleanup and targeted reinstall)
-        # Run from the cloned directory
+      - name: Install dependencies (Aggressive cleanup and standard install)
         run: |
-          cd BetterStateMo
-          echo "Performing ultra aggressive cleanup before npm install..."
+          echo "Performing aggressive cleanup before npm install..."
           rm -rf node_modules
           rm -f package-lock.json
           npm cache clean --force
           npm install --no-fund --no-audit
           echo "npm install completed."
-          # Explicitly try reinstalling rollup if it seems related to native modules
-          npm install rollup@latest --force # Force reinstall rollup to ensure its integrity
-          echo "Rollup reinstall attempted."
 
       - name: Run tests
-        run: |
-          cd BetterStateMo
-          npm test
+        run: npm test
 
-      - name: Build application (Ultra Clean Vite cache and dist, then build with verbose logging)
-        # Run from the cloned directory
+      - name: Build application (Clean Vite cache and dist, then build)
         run: |
-          cd BetterStateMo
           echo "Cleaning Vite build cache and output directory..."
           rm -rf node_modules/.vite
           rm -rf .vite
           rm -rf dist
-          echo "Running Vite build with DEBUG mode..."
-          # Set DEBUG env var again for good measure just before the build
-          DEBUG=vite:* npm run build
+          echo "Running Vite build..."
+          npm run build
           echo "Vite build completed."
 
   deploy-production:
