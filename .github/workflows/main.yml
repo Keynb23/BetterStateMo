@@ -14,18 +14,20 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
-      # Set Vite and Rollup debug environment variables for maximum verbosity
-      DEBUG: 'vite:*,rollup:*' # <<< Added rollup debug
+      DEBUG: 'vite:*,rollup:*'
 
     steps:
-      - name: Checkout code
+      - name: Checkout code (aggressive clean and fetch)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures all history is fetched
+          clean: true    # Ensures a clean working directory
+          submodules: recursive # If you ever use submodules, this helps
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          # cache: 'npm' # Keep caching disabled for this job for max troubleshooting cleanliness
 
       - name: Install dependencies (Aggressive cleanup and standard install)
         run: |
@@ -35,6 +37,13 @@ jobs:
           npm cache clean --force
           npm install --no-fund --no-audit
           echo "npm install completed."
+
+      - name: **Diagnose File Existence in src/context (CRITICAL NEW STEP)**
+        run: |
+          echo "Listing contents of src/context/:"
+          ls -laR src/context/
+          echo "Attempting to read the problematic file directly:"
+          cat src/context/SingleServiceBtn.jsx || true # Use 'cat' to display content, '|| true' to prevent script from failing if file truly doesn't exist yet
 
       - name: Run tests
         run: npm test
@@ -46,8 +55,7 @@ jobs:
           rm -rf .vite
           rm -rf dist
           echo "Running Vite build..."
-          # Set DEBUG env var again for good measure just before the build
-          DEBUG='vite:*,rollup:*' npm run build # <<< Added rollup debug
+          DEBUG='vite:*,rollup:*' npm run build
           echo "Vite build completed."
 
   deploy-production:
@@ -63,7 +71,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm' # Can keep cache here as this is post-build
+          cache: 'npm'
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
