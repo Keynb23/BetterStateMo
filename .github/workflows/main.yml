@@ -37,15 +37,26 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Debugging: List relevant directories before build
+        run: |
+          echo "--- Listing contents of src/pages/ ---"
+          ls -F /home/runner/work/BetterStateMo/BetterStateMo/src/pages/
+          echo "--- Listing contents of src/context/ ---"
+          ls -F /home/runner/work/BetterStateMo/BetterStateMo/src/context/
+          echo "--- Finding SingleServiceBtn.jsx recursively in src/ ---"
+          find /home/runner/work/BetterStateMo/BetterStateMo/src/ -name "*SingleServiceBtn*"
+          echo "--- Current working directory (should be repo root) ---"
+          pwd
+          echo "--- Listing contents of current directory ---"
+          ls -F
+
       - name: Build application (Clean Vite cache and dist, then build)
         run: |
           echo "Cleaning Vite build cache and output directory..."
-          # Remove Vite's cache directory (usually .vite or .vite-cache)
           rm -rf node_modules/.vite # Common location for Vite's cache within node_modules
           rm -rf .vite # Another possible location for Vite's cache at project root
           rm -rf dist
           echo "Running Vite build..."
-          # Consider adding --force or --emptyOutDir if your vite config has output.clean = false
           npm run build
           echo "Vite build completed."
 
