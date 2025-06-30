@@ -1,12 +1,13 @@
+// src/context/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, signInWithCustomToken, onAuthStateChanged, signOut } from 'firebase/auth'; // Removed signInAnonymously
+import { getAuth, signInWithCustomToken, onAuthStateChanged, signOut } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration - HARDCODED FOR LOCAL DEVELOPMENT
 // REMEMBER TO REVERT THIS IF DEPLOYING TO CANVAS/OTHER ENVIRONMENTS
 const firebaseConfig = {
-  apiKey: 'AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D8',
+  apiKey: 'AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D', // Placeholder, ensure yours is correct and secure
   authDomain: 'better-state-llc.firebaseapp.com',
   projectId: 'better-state-llc',
   storageBucket: 'better-state-llc.firebasestorage.app',
@@ -38,7 +39,6 @@ export const AuthProvider = ({ children }) => {
   const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
-    // Set up an observer on the Auth object to track the user's sign-in state.
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
@@ -50,16 +50,18 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     });
 
-    // Function to handle initial authentication when the component mounts.
     const initAuth = async () => {
       try {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-          await signInWithCustomToken(auth, __initial_auth_token);
-        }
-        // No else block here for signInAnonymously, if __initial_auth_token is not present,
-        // the user will simply remain null and redirect to login will occur.
+        // COMMENT OUT OR REMOVE THIS BLOCK IF YOU ARE NOT USING CUSTOM TOKENS
+        // If Vercel is trying to inject __initial_auth_token and it's invalid,
+        // or Firebase is erroring on it, this is the cause.
+        // if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+        //   await signInWithCustomToken(auth, __initial_auth_token);
+        // }
       } catch (error) {
         console.error('Firebase auth initialization error:', error);
+        // It's good to ensure setLoading(false) even on error so app doesn't stay in loading state
+        setLoading(false);
       }
     };
 
