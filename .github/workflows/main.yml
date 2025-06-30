@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # <<< Use standard checkout
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -59,13 +59,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm'
+          cache: 'npm' # Can keep cache here as this is post-build
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Variables (Production)
         run: vercel pull --yes --environment=production --token=${{ secrets.BetterState25 }}
+
+      - name: Build with Vercel (for --prebuilt deployment)
+        run: vercel build --prod --token=${{ secrets.BetterState25 }} # Added this step
 
       - name: Deploy to Vercel Production
         run: vercel deploy --prebuilt --prod --token=${{ secrets.BetterState25 }} --yes
@@ -90,6 +93,9 @@ jobs:
 
       - name: Pull Vercel Environment Variables (Preview)
         run: vercel pull --yes --environment=preview --token=${{ secrets.BetterState25 }}
+
+      - name: Build with Vercel (for --prebuilt deployment)
+        run: vercel build --token=${{ secrets.BetterState25 }} # Added this step (no --prod for preview)
 
       - name: Deploy to Vercel Preview
         id: deploy_step
