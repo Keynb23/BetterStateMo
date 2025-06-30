@@ -24,15 +24,15 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies (clean npm ci for reliability)
+      - name: Install dependencies (clean install with npm install)
         run: |
           # Ensure a completely clean state before installation
           rm -rf node_modules
           rm -f package-lock.json
           npm cache clean --force
-          # Use npm ci, which respects package-lock.json for consistent installs
-          # This should be more reliable for testing-library dependencies.
-          npm ci
+          # Use npm install, which will recreate package-lock.json if deleted
+          # This should fix both the "cannot find module" and the "npm ci needs package-lock" errors.
+          npm install --legacy-peer-deps 
 
       - name: Run tests
         run: npm test
