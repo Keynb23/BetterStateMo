@@ -23,4 +23,4 @@ const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
   );
 };
 
-export default SingleServiceBtn;
+export default SingleServiceBtn; // <<< This is a DEFAULT export

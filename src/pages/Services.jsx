@@ -1,7 +1,7 @@
 import './PageStyles.css';
 import { useMedia } from '../context/MediaContext';
 import RequestQuote from '../context/RequestQuote'; // Keep the import
-import SingleServiceBtn from '@/context/SingleServiceBtn';
+import SingleServiceBtn from "../context/SingleServiceBtn.jsx";
 import { ServiceBtns } from '../context/ServiceBtn';
 
 const serviceData = [
