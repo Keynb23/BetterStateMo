@@ -20,28 +20,28 @@ jobs:
         with:
           fetch-depth: 0 # Ensures all history is fetched
           clean: true    # Ensures a clean working directory
-          submodules: recursive # If you ever use submodules, this helps
+          submodules: false # CRITICAL FIX: Changed from 'recursive' to 'false'
           # If you use Git Large File Storage (LFS), uncomment the next line:
           # lfs: true
 
       # DIAGNOSTIC STEP: Check file existence and permissions immediately after checkout
+      # Note: 'src/context/SingleServiceBtn.jsx' is expected to fail 'cat' as it's now merged into ServiceContext.jsx
       - name: Diagnose File Existence Immediately After Checkout
         run: |
           echo "Current working directory:"
           pwd
           echo "Listing contents of src/context/:"
           ls -laR src/context/
-          echo "Attempting to read the problematic file directly:"
-          cat src/context/SingleServiceBtn.jsx || echo "!!! DIAGNOSTIC: File not found or unreadable by 'cat' !!!"
-          echo "Verifying file permissions:"
-          stat src/context/SingleServiceBtn.jsx || true # 'stat' provides file metadata and permissions
+          echo "Attempting to read the combined ServiceContext.jsx directly:"
+          cat src/context/ServiceContext.jsx || echo "!!! DIAGNOSTIC: ServiceContext.jsx not found or unreadable by 'cat' !!!"
+          echo "Verifying file permissions for ServiceContext.jsx:"
+          stat src/context/ServiceContext.jsx || true # 'stat' provides file metadata and permissions
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           # CRITICAL: Removed 'cache: npm' from here to prevent caching interference during build
-          # This ensures a fresh npm install every time for the build-and-test job.
 
       - name: Install dependencies (Aggressive cleanup and standard install)
         run: |

@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react'; // Import useCallback
 import { useNavigate, useLocation } from 'react-router-dom';
 import { addAppointment } from '../lib/firestoreService';
 import './PageStyles.css';
-import ScrollToTop from './ScrollToTop'; // Assuming this component exists
 
 const SetApt = () => {
   const { selectedServices, toggleService, clearServices } = useServiceContext();
@@ -511,7 +510,7 @@ const SetApt = () => {
           </div>
         </>
       )}
-      <ScrollToTop />
+      
     </div>
   );
 };

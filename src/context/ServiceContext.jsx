@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Added for ServiceBtns component
 import { useBackendCart } from './BackendCart'; // Added for ServiceBtns and SingleServiceBtn
 import { serviceTypes } from './serviceTypes'; // Assuming serviceTypes is also in the context folder or needs a relative path from here
-import '../pages/ContextStyles.css'; // <-- Adjusted path for CSS relative to src/context
+import './ContextStyles.css';
 
 const ServiceContext = createContext();
 

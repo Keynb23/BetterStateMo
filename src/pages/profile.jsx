@@ -4,7 +4,6 @@ import { updateProfile, updateEmail, updatePassword, EmailAuthProvider, reauthen
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './PageStyles.css';
-import ScrollToTop from '../components/ScrollToTop';
 
 const ITEMS_PER_PAGE = 5; // Define ITEMS_PER_PAGE
 
@@ -265,7 +264,7 @@ const Profile = () => {
     if (errorAdminData) return (<div className="Profile-loadingWrapper"><p className="Profile-errorMessage">{errorAdminData}</p></div>);
     return (
       <>
-        <ScrollToTop />
+        
         <div className="Profile-wrapper">
           <div className="Profile-Dashboard-Dashboard Profile-card-base">
             <h2 className="Profile-Dashboard-title">Owner Dashboard</h2>
@@ -431,7 +430,7 @@ const Profile = () => {
 
   return (
     <>
-      <ScrollToTop />
+      
       <div className="Profile-wrapper">
         <div className="Profile-Dashboard-Dashboard Profile-card-base">
           <h2 className="Profile-Dashboard-title">My Dashboard</h2>
