@@ -1,3 +1,4 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -16,5 +17,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+    // ADD THIS LINE: Explicitly list all common file extensions for resolution
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
   },
 });

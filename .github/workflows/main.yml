@@ -37,25 +37,6 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Debugging: List relevant directories before build
-        # This 'run:' is correctly indented under 'name:'
-        run: |
-          echo "--- Current working directory (should be repo root) ---"
-          pwd
-          echo "--- Listing contents of current directory ---"
-          ls -F
-          echo "--- Listing contents of src/ ---"
-          ls -F src/
-          echo "--- Listing contents of src/pages/ ---"
-          ls -F src/pages/
-          echo "--- Listing contents of src/context/ ---"
-          ls -F src/context/
-          echo "--- Finding SingleServiceBtn.jsx recursively in src/ ---"
-          find src/ -name "*SingleServiceBtn*"
-          echo "--- Verifying Services.jsx content ---"
-          cat src/pages/Services.jsx | grep "SingleServicebtn"
-
-
       - name: Build application (Clean Vite cache and dist, then build)
         run: |
           echo "Cleaning Vite build cache and output directory..."
@@ -125,4 +106,4 @@ jobs:
           message: |
             🎉 **Preview Deployment Ready!**
             You can view the changes at: ${{ steps.deploy_step.outputs.url }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.BetterState25 }}
