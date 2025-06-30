@@ -1,9 +1,7 @@
 import './PageStyles.css';
 import { useMedia } from '../context/MediaContext';
 import RequestQuote from '../context/RequestQuote'; // Keep the import
-import SingleServiceBtn from '../context/SingleServiceBtn';
-import { ServiceBtns } from '../context/ServiceBtn';
-import { ServiceBtns, SingleServiceBtn } from '../context/ServiceBtns';
+import { ServiceBtns, SingleServiceBtn } from '../context/ServiceContext';
 
 const serviceData = [
   {
@@ -25,15 +23,12 @@ const serviceData = [
     desc: 'Maintain pristine water quality and optimal equipment performance with our regular pool servicing, tailored to your needs.',
   },
 ];
-
 const Service = () => {
   const { pools } = useMedia();
-
   return (
     <section id="services" className="service-container">
       <h1 className="services-main-title">Our Pool Services</h1>
       <h4 className="service-subH4">Enjoy your pool - we'll handle the rest.</h4>
-
       <div className="service-LR">
         <div className="service-left">
         <div className="service-sub-header">
@@ -44,7 +39,6 @@ const Service = () => {
           </p>
         </div>
       </div>
-      
       <div className="service-right">
         <div className="services-list-wrapper">
           {serviceData.map((service) => (
@@ -70,9 +64,6 @@ const Service = () => {
         </div>
       </div>
       </div>
-      
-
-
       <ServiceBtns />
       <RequestQuote />
     </section>
