@@ -3,6 +3,7 @@ import { useMedia } from '../context/MediaContext';
 import RequestQuote from '../context/RequestQuote'; // Keep the import
 import SingleServiceBtn from '../context/SingleServiceBtn';
 import { ServiceBtns } from '../context/ServiceBtn';
+import { ServiceBtns, SingleServiceBtn } from '../context/ServiceBtns';
 
 const serviceData = [
   {

@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, ScrollRestoration } from 'react-router-dom'; // 1. Import ScrollRestoration
 import Navbar from './components/Navbar.jsx';
 import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';
@@ -14,83 +14,60 @@ import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
 
 function App() {
-  const location = useLocation(); // Keep useLocation
-
-  // State to control Navbar visibility
+  const location = useLocation();
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
 
   useEffect(() => {
-    // Only apply this logic on the homepage ("/")
     if (location.pathname === '/') {
-      const heroSection = document.getElementById('hero-section'); // Make sure your Hero component's div has this ID
-
+      const heroSection = document.getElementById('hero-section');
       if (heroSection) {
         const observer = new IntersectionObserver(
           ([entry]) => {
-            // If the hero section is NOT intersecting (i.e., you've scrolled past it)
-            // or if it's intersecting but only a small part of it (e.g., threshold 0)
             setIsNavbarVisible(!entry.isIntersecting || entry.intersectionRatio < 0.1);
           },
           {
-            root: null, // viewport
+            root: null,
             rootMargin: '0px',
-            threshold: [0, 0.1], // Observe when 0% or 10% of the target is visible
+            threshold: [0, 0.1],
           },
         );
-
         observer.observe(heroSection);
-
-        // Cleanup function
         return () => {
           observer.unobserve(heroSection);
         };
       }
     } else {
-      // If not on the homepage, ensure Navbar is always visible
       setIsNavbarVisible(true);
     }
-  }, [location.pathname]); // Re-run effect when the path changes
+  }, [location.pathname]);
 
   return (
     <>
       <div className="app-container">
-        {/* Pass the visibility state as a prop to Navbar */}
         <Navbar isVisible={isNavbarVisible} />
         <Routes>
-          {/* Scrollable homepage route */}
           <Route
             path="/"
             element={
               <>
-                {/* Add an ID to your Home component's main div so we can observe it */}
-                <section id="hero-section">
-                  <Home />
-                </section>
-                <section id="services">
-                  <Services />
-                </section>
-                <section id="about">
-                  <About />
-                </section>
-                <section id="contact">
-                  <Contact />
-                </section>
+                <section id="hero-section"><Home /></section>
+                <section id="services"><Services /></section>
+                <section id="about"><About /></section>
+                <section id="contact"><Contact /></section>
                 <ObjectionBlockers />
                 <Reviews />
               </>
             }
           />
-
-          {/* Standalone pages */}
           <Route path="/setapt" element={<SetApt />} />
           <Route path="/login" element={<LoginReg />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/gallery" element={<Gallery />} />
-          {/* Fallback route */}
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
         <Footer />
       </div>
+      <ScrollRestoration /> 
     </>
   );
 }

@@ -8,24 +8,126 @@ on:
     branches:
       - main
 
-jobs: # Correct: This should be at the same level as 'on:'
-  build-and-test: # Correct: Indented 2 spaces under 'jobs:'
+jobs:
+  build-and-test:
     runs-on: ubuntu-latest
-    steps: # Correct: Indented 2 spaces under 'build-and-test:'
+    env:
+      DEBUG: 'vite:*,rollup:*'
+
+    steps:
+      - name: Checkout code (aggressive clean and fetch)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures all history is fetched
+          clean: true    # Ensures a clean working directory
+          submodules: recursive # If you ever use submodules, this helps
+          # If you use Git Large File Storage (LFS), uncomment the next line:
+          # lfs: true
+
+      # DIAGNOSTIC STEP: Check file existence and permissions immediately after checkout
+      - name: Diagnose File Existence Immediately After Checkout
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "Listing contents of src/context/:"
+          ls -laR src/context/
+          echo "Attempting to read the problematic file directly:"
+          cat src/context/SingleServiceBtn.jsx || echo "!!! DIAGNOSTIC: File not found or unreadable by 'cat' !!!"
+          echo "Verifying file permissions:"
+          stat src/context/SingleServiceBtn.jsx || true # 'stat' provides file metadata and permissions
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          # CRITICAL: Removed 'cache: npm' from here to prevent caching interference during build
+          # This ensures a fresh npm install every time for the build-and-test job.
+
+      - name: Install dependencies (Aggressive cleanup and standard install)
+        run: |
+          echo "Performing aggressive cleanup before npm install..."
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm cache clean --force
+          npm install --no-fund --no-audit
+          echo "npm install completed."
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build application (Clean Vite cache and dist, then build)
+        run: |
+          echo "Cleaning Vite build cache and output directory..."
+          rm -rf node_modules/.vite
+          rm -rf .vite
+          rm -rf dist
+          echo "Running Vite build..."
+          DEBUG='vite:*,rollup:*' npm run build
+          echo "Vite build completed."
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '20.x'
+          cache: 'npm' # Re-enabled cache for deployment jobs, as they run after build
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
 
-      - name: Run tests # Correct: Indented 2 spaces under the previous step
-        run: npm test
+      - name: Pull Vercel Environment Variables (Production)
+        run: vercel pull --yes --environment=production --token=${{ secrets.BetterState25 }}
 
-      - name: Build application # Correct: Indented 2 spaces under the previous step
-        run: npm run build
+      - name: Build with Vercel (for --prebuilt deployment)
+        run: vercel build --prod --token=${{ secrets.BetterState25 }}
+
+      - name: Deploy to Vercel Production
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.BetterState25 }} --yes
+
+  deploy-preview:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm' # Re-enabled cache for deployment jobs
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Variables (Preview)
+        run: vercel pull --yes --environment=preview --token=${{ secrets.BetterState25 }}
+
+      - name: Build with Vercel (for --prebuilt deployment)
+        run: vercel build --token=${{ secrets.BetterState25 }}
+
+      - name: Deploy to Vercel Preview
+        id: deploy_step
+        run: |
+          DEPLOY_OUTPUT=$(vercel deploy --prebuilt --token=${{ secrets.BetterState25 }} --yes)
+          echo "$DEPLOY_OUTPUT"
+          DEPLOY_URL=$(echo "$DEPLOY_OUTPUT" | grep -o 'https://[^ ]*\.vercel\.app')
+          echo "::set-output name=url::$DEPLOY_URL"
+
+      - name: Comment on PR with preview URL
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            🎉 **Preview Deployment Ready!**
+            You can view the changes at: ${{ steps.deploy_step.outputs.url }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

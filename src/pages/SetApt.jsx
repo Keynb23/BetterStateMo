@@ -1,9 +1,10 @@
 import { useServiceContext } from '../context/ServiceContext';
 import { serviceTypes } from '../context/serviceTypes';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react'; // Import useCallback
 import { useNavigate, useLocation } from 'react-router-dom';
 import { addAppointment } from '../lib/firestoreService';
 import './PageStyles.css';
+import ScrollToTop from './ScrollToTop'; // Assuming this component exists
 
 const SetApt = () => {
   const { selectedServices, toggleService, clearServices } = useServiceContext();
@@ -13,6 +14,9 @@ const SetApt = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [earlyContact, setEarlyContact] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state for submission loading
+  const [errorMessage, setErrorMessage] = useState(''); // New state for general errors
+  const [formErrors, setFormErrors] = useState({}); // New state for form-specific errors
 
   const [schedulingPreference, setSchedulingPreference] = useState('');
   const [appointmentTime, setAppointmentTime] = useState('');
@@ -20,6 +24,9 @@ const SetApt = () => {
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
+
+  // Constants
+  const REDIRECT_TIMEOUT = 7000; // 7 seconds
 
   useEffect(() => {
     if (location.state && location.state.customerInfo) {
@@ -31,15 +38,58 @@ const SetApt = () => {
     }
   }, [location.state]);
 
-  const handleAddService = (id) => {
-    toggleService(id);
-  };
+  // Use useCallback to memoize these functions, preventing unnecessary re-renders of useEffect
+  const handleNext = useCallback(() => {
+    setErrorMessage(''); // Clear general error message
+    setFormErrors({}); // Clear form-specific errors
 
-  const handleRemoveService = (id) => {
-    toggleService(id);
-  };
+    if (currentStep === 0) {
+      const errors = {};
+      if (!customerName) errors.name = 'Name is required.';
+      if (!customerEmail) errors.email = 'Email is required.';
+      if (!customerPhone) errors.phone = 'Phone number is required.';
+      if (!customerAddress) errors.address = 'Address is required.';
 
-  const handleConfirmAppointment = async () => {
+      if (Object.keys(errors).length > 0) {
+        setFormErrors(errors);
+        // Focus on the first invalid field for better UX
+        const firstErrorField = Object.keys(errors)[0];
+        document.querySelector(`input[name="${firstErrorField}"]`)?.focus();
+        return;
+      }
+    } else if (currentStep === 2) {
+      if (selectedServices.length === 0) {
+        setErrorMessage('Please select at least one service.');
+        return;
+      }
+    }
+    setCurrentStep((prev) => prev + 1);
+  }, [currentStep, customerName, customerEmail, customerPhone, customerAddress, selectedServices.length]);
+
+  const handleBack = useCallback(() => {
+    setErrorMessage('');
+    setFormErrors({});
+    setCurrentStep((prev) => prev - 1);
+  }, []);
+
+  const handleAddService = useCallback((id) => {
+    toggleService(id);
+    setErrorMessage(''); // Clear service selection error if adding
+  }, [toggleService]);
+
+  const handleRemoveService = useCallback((id) => {
+    toggleService(id);
+  }, [toggleService]);
+
+  const handleConfirmAppointment = useCallback(async () => {
+    if (selectedServices.length === 0) {
+      setErrorMessage('Please select at least one service before confirming.');
+      return;
+    }
+
+    setIsSubmitting(true); // Set loading state
+    setErrorMessage(''); // Clear any previous errors
+
     const appointmentData = {
       selectedServices: selectedServices,
       earlyContact: earlyContact,
@@ -58,9 +108,11 @@ const SetApt = () => {
 
       setShowThankYou(true);
       window.scrollTo(0, 0); // Scroll to top when thank you message appears
+
       setTimeout(() => {
         navigate('/');
         setShowThankYou(false);
+        // Reset all form states after successful submission and navigation
         setSchedulingPreference('');
         setAppointmentTime('');
         setCustomerName('');
@@ -68,106 +120,132 @@ const SetApt = () => {
         setCustomerEmail('');
         setCustomerAddress('');
         clearServices();
-      }, 7000); // 7 seconds
+      }, REDIRECT_TIMEOUT);
     } catch (error) {
       console.error('Failed to save appointment:', error);
-      alert('There was an error scheduling your appointment. Please try again.');
+      setErrorMessage('There was an error scheduling your appointment. Please try again.');
+    } finally {
+      setIsSubmitting(false); // Reset loading state
     }
-  };
+  }, [selectedServices, earlyContact, schedulingPreference, appointmentTime, customerName, customerPhone, customerEmail, customerAddress, navigate, clearServices]);
 
-  const handleNext = () => {
-    if (currentStep === 0) {
-      if (!customerName || !customerEmail || !customerPhone || !customerAddress) {
-        alert('Please fill in all your contact information.');
-        return;
-      }
-    } else if (currentStep === 2) {
-      if (selectedServices.length === 0) {
-        alert('Please select at least one service.');
-        return;
-      }
-    }
-    setCurrentStep((prev) => prev + 1);
-  };
-
-  const handleBack = () => {
-    setCurrentStep((prev) => prev - 1);
-  };
-
-  // NEW useEffect for handling "Enter" key press
+  // Effect for handling "Enter" key press
   useEffect(() => {
     const handleKeyPress = (event) => {
-      // Check if the pressed key is 'Enter'
       if (event.key === 'Enter') {
-        // Prevent the default browser behavior (e.g., submitting a form if an input is focused)
-        event.preventDefault();
+        event.preventDefault(); // Prevent default form submission or other browser behavior
 
-        // Determine which action to take based on the current step
+        // If an input is focused, allow the input's default Enter behavior (e.g., new line in textarea)
+        // unless it's a single-line text input for form submission.
+        if (event.target.tagName === 'INPUT' && event.target.type !== 'submit') {
+          // If it's the last input field in a step, allow pressing Enter to go to next step
+          if (currentStep === 0) {
+            const inputs = Array.from(document.querySelectorAll('.customer-apt-info-form input'));
+            const lastInput = inputs[inputs.length - 1];
+            if (event.target === lastInput) {
+              handleNext();
+              return;
+            }
+          }
+          return; // Don't trigger next/confirm if just typing in an input
+        }
+
+
         if (currentStep < 3) {
-          // If not on the last step, trigger the "Next" action
           handleNext();
-        } else if (currentStep === 3) {
-          // If on the last step (Review and Confirm), trigger the "Confirm Appointment" action
+        } else if (currentStep === 3 && !isSubmitting) { // Prevent multiple submissions
           handleConfirmAppointment();
         }
-        // No action for 'Back' on Enter key
       }
     };
 
-    // Attach the event listener to the document when the component mounts
     document.addEventListener('keydown', handleKeyPress);
-
-    // Clean up the event listener when the component unmounts or dependencies change
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [currentStep, handleNext, handleConfirmAppointment]); // Dependencies: ensure the effect re-runs if these values change
+  }, [currentStep, handleNext, handleConfirmAppointment, isSubmitting]); // Dependencies for useCallback
 
   const renderStep = () => {
     switch (currentStep) {
       case 0: // Contact Information Form
         return (
-          <div className="Set-Apt-step-card">
+          <div className="Set-Apt-step-card" aria-live="polite">
             <h2>Your Contact Information</h2>
             <p className="Set-Apt-step-prompt">
               Let's start with your details so we can get in touch!
             </p>
             <form className="customer-apt-info-form">
-              <label>Name</label>
+              <label htmlFor="customerName">Name</label>
               <input
+                id="customerName"
+                name="name" // Add name attribute for form errors
                 type="text"
                 placeholder="John Doe"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
+                aria-invalid={!!formErrors.name} // Indicate invalid state
+                aria-describedby={formErrors.name ? 'error-name' : undefined}
                 required
               />
+              {formErrors.name && (
+                <p id="error-name" className="error-message" role="alert">
+                  {formErrors.name}
+                </p>
+              )}
 
-              <label>Phone Number</label>
+              <label htmlFor="customerPhone">Phone Number</label>
               <input
+                id="customerPhone"
+                name="phone"
                 type="tel"
                 placeholder="(123) 456-7890"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
+                aria-invalid={!!formErrors.phone}
+                aria-describedby={formErrors.phone ? 'error-phone' : undefined}
                 required
               />
+              {formErrors.phone && (
+                <p id="error-phone" className="error-message" role="alert">
+                  {formErrors.phone}
+                </p>
+              )}
 
-              <label>Email</label>
+              <label htmlFor="customerEmail">Email</label>
               <input
+                id="customerEmail"
+                name="email"
                 type="email"
                 placeholder="you@email.com"
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
+                aria-invalid={!!formErrors.email}
+                aria-describedby={formErrors.email ? 'error-email' : undefined}
                 required
               />
+              {formErrors.email && (
+                <p id="error-email" className="error-message" role="alert">
+                  {formErrors.email}
+                </p>
+              )}
 
-              <label>Address</label>
+              <label htmlFor="customerAddress">Address</label>
               <input
+                id="customerAddress"
+                name="address"
                 type="text"
                 placeholder="123 Street Name, City, State"
                 value={customerAddress}
                 onChange={(e) => setCustomerAddress(e.target.value)}
+                aria-invalid={!!formErrors.address}
+                aria-describedby={formErrors.address ? 'error-address' : undefined}
                 required
               />
+              {formErrors.address && (
+                <p id="error-address" className="error-message" role="alert">
+                  {formErrors.address}
+                </p>
+              )}
             </form>
           </div>
         );
@@ -186,7 +264,7 @@ const SetApt = () => {
           { value: 'evening', label: 'Evening (4 PM - 8 PM)' },
         ];
         return (
-          <div className="Set-Apt-step-card">
+          <div className="Set-Apt-step-card" aria-live="polite">
             <h2>When works best for you?</h2>
             <p className="Set-Apt-step-prompt">
               Please indicate how soon you'd like your service, and your preferred time of day.
@@ -194,7 +272,7 @@ const SetApt = () => {
 
             <div className="scheduling-preference-section">
               <label>How soon would you like your service scheduled?</label>
-              <div className="time-options-buttons">
+              <div className="time-options-buttons" role="group" aria-label="Scheduling Preference">
                 {schedulingOptions.map((option) => (
                   <button
                     key={option.value}
@@ -202,6 +280,7 @@ const SetApt = () => {
                       schedulingPreference === option.value ? 'selected' : ''
                     }`}
                     onClick={() => setSchedulingPreference(option.value)}
+                    aria-pressed={schedulingPreference === option.value} // ARIA for toggle buttons
                   >
                     {option.label}
                   </button>
@@ -210,6 +289,7 @@ const SetApt = () => {
                   <button
                     className="time-option-btn clear-time-btn"
                     onClick={() => setSchedulingPreference('')}
+                    aria-label="Clear Scheduling Preference"
                   >
                     Clear Preference
                   </button>
@@ -219,7 +299,7 @@ const SetApt = () => {
 
             <div className="TimeofDay">
               <label>Preferred Time of Day (Optional)</label>
-              <div className="time-options-buttons">
+              <div className="time-options-buttons" role="group" aria-label="Preferred Time of Day">
                 {timeOptions.map((option) => (
                   <button
                     key={option.value}
@@ -229,6 +309,7 @@ const SetApt = () => {
                     onClick={() =>
                       setAppointmentTime(option.value === appointmentTime ? '' : option.value)
                     }
+                    aria-pressed={appointmentTime === option.value}
                   >
                     {option.label}
                   </button>
@@ -237,6 +318,7 @@ const SetApt = () => {
                   <button
                     className="time-option-btn clear-time-btn"
                     onClick={() => setAppointmentTime('')}
+                    aria-label="Clear Preferred Time of Day"
                   >
                     Clear Time
                   </button>
@@ -248,24 +330,31 @@ const SetApt = () => {
       }
       case 2: // Services Selection
         return (
-          <div className="Set-Apt-step-card">
+          <div className="Set-Apt-step-card" aria-live="polite">
             <h2>What services do you need?</h2>
             <p className="Set-Apt-step-prompt">
               Select the services you'd like to include in your appointment.
             </p>
+            {errorMessage && (
+                <p className="error-message" role="alert">{errorMessage}</p>
+            )}
             <div className="services-selection-container">
               <div className="services-selected-apt">
                 <h3>Selected Services ({selectedServices.length})</h3>
                 {selectedServices.length === 0 ? (
                   <p className="no-services-message">No services selected yet. Add some below!</p>
                 ) : (
-                  <ul>
+                  <ul aria-label="Selected Services">
                     {selectedServices.map((id) => {
                       const service = serviceTypes.find((s) => s.id === id);
                       return (
                         <li key={id}>
                           <span>{service?.title}</span>
-                          <button onClick={() => handleRemoveService(id)} className="remove-btn">
+                          <button
+                            onClick={() => handleRemoveService(id)}
+                            className="remove-btn"
+                            aria-label={`Remove ${service?.title}`}
+                          >
                             X
                           </button>
                         </li>
@@ -278,7 +367,7 @@ const SetApt = () => {
               {selectedServices.length < serviceTypes.length && (
                 <div className="add-another-service">
                   <h3>Available Services</h3>
-                  <div className="unselected-service-btns">
+                  <div className="unselected-service-btns" role="group" aria-label="Available Services to Add">
                     {serviceTypes
                       .filter((service) => !selectedServices.includes(service.id))
                       .map((service) => (
@@ -286,6 +375,7 @@ const SetApt = () => {
                           key={service.id}
                           className="service-btn"
                           onClick={() => handleAddService(service.id)}
+                          aria-label={`Add ${service.title}`}
                         >
                           {service.title}
                         </button>
@@ -298,9 +388,12 @@ const SetApt = () => {
         );
       case 3: // Review and Confirm
         return (
-          <div className="Set-Apt-step-card review-step-card">
+          <div className="Set-Apt-step-card review-step-card" aria-live="polite">
             <h2>Review Your Appointment</h2>
             <p className="Set-Apt-step-prompt">Please review all the details before confirming.</p>
+            {errorMessage && (
+                <p className="error-message" role="alert">{errorMessage}</p>
+            )}
 
             <div className="review-section">
               <h3>Contact Information</h3>
@@ -339,7 +432,7 @@ const SetApt = () => {
               {selectedServices.length === 0 ? (
                 <p>No services selected.</p>
               ) : (
-                <ul>
+                <ul aria-label="Confirmed Selected Services">
                   {selectedServices.map((id) => {
                     const service = serviceTypes.find((s) => s.id === id);
                     return <li key={id}>{service?.title}</li>;
@@ -353,6 +446,7 @@ const SetApt = () => {
                 id="Early-contact-btn"
                 className={earlyContact ? 'Early-contact-btn-clicked' : ''}
                 onClick={() => setEarlyContact(!earlyContact)}
+                aria-pressed={earlyContact} // ARIA for toggle button
               >
                 ✔
               </button>
@@ -368,7 +462,7 @@ const SetApt = () => {
   return (
     <div className="Set-Apt-container">
       {showThankYou ? (
-        <div className="thank-you-overlay">
+        <div className="thank-you-overlay" role="status" aria-live="assertive">
           <div className="thank-you-message Set-Apt-step-card">
             <h2 className="thank-you-title">Thank you for scheduling your appointment!</h2>
             <p className="thank-you-text">You will be redirected to the home page shortly.</p>
@@ -378,6 +472,8 @@ const SetApt = () => {
         <>
           <div className="greetings-checker">
             <h1>Let's get you scheduled!</h1>
+            {/* Simple progress indicator */}
+            <p className="step-indicator">Step {currentStep + 1} of 4</p>
           </div>
 
           <div className="Set-Apt-content-wrapper">
@@ -385,12 +481,20 @@ const SetApt = () => {
 
             <div className="Set-Apt-navigation">
               {currentStep > 0 && (
-                <button onClick={handleBack} className="Set-Apt-nav-button back-button">
+                <button
+                  onClick={handleBack}
+                  className="Set-Apt-nav-button back-button"
+                  disabled={isSubmitting} // Disable during submission
+                >
                   Back
                 </button>
               )}
               {currentStep < 3 && (
-                <button onClick={handleNext} className="Set-Apt-nav-button next-button">
+                <button
+                  onClick={handleNext}
+                  className="Set-Apt-nav-button next-button"
+                  disabled={isSubmitting} // Disable during submission
+                >
                   Next
                 </button>
               )}
@@ -398,14 +502,16 @@ const SetApt = () => {
                 <button
                   onClick={handleConfirmAppointment}
                   className="Set-Apt-nav-button confirm-button"
+                  disabled={isSubmitting} // Disable during submission
                 >
-                  Confirm Appointment
+                  {isSubmitting ? 'Scheduling...' : 'Confirm Appointment'}
                 </button>
               )}
             </div>
           </div>
         </>
       )}
+      <ScrollToTop />
     </div>
   );
 };

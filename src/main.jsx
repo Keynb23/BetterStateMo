@@ -6,8 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { MediaProvider } from './context/MediaContext.jsx';
 import { ServiceProvider } from './context/ServiceContext.jsx';
 import { BackendCartProvider } from './context/BackendCart.jsx';
-import { AuthProvider } from './context/AuthContext.jsx'; // Import AuthProvider
-import ScrollToTop from './components/ScrollToTop';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,7 +16,6 @@ createRoot(document.getElementById('root')).render(
         v7_relativeSplatPath: true,
       }}
     >
-      <ScrollToTop />
       <AuthProvider>
         <BackendCartProvider>
           <ServiceProvider>

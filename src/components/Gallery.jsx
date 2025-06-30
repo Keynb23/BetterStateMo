@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useMedia } from '../context/MediaContext';
 import './ComponentStyles.css';
+import ScrollToTop from './ScrollToTop';
 
 const Gallery = () => {
   const { videos, pools } = useMedia();
@@ -153,6 +154,8 @@ const Gallery = () => {
   }
 
   return (
+    <>
+      <ScrollToTop />
     <div className="gallery-container">
       <main className="Gallery-main">
         <h1 className="Gallery-title">Gallery</h1>
@@ -203,6 +206,7 @@ const Gallery = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './PageStyles.css';
+import ScrollToTop from '../components/ScrollToTop'; // Corrected import path for Profile page
 
 const Profile = () => {
   const { user, db, loading: authLoading, isOwner } = useAuth();
@@ -25,6 +26,28 @@ const Profile = () => {
   const [selectedAdminItem, setSelectedAdminItem] = useState(null);
   const [selectedAdminCollection, setSelectedAdminCollection] = useState(null);
 
+<<<<<<< HEAD
+=======
+  // State for "Show More" functionality
+  const [showAllCustomerAppointments, setShowAllCustomerAppointments] = useState(false);
+  const [showAllAdminAppointments, setShowAllAdminAppointments] = useState(false);
+  const [showAllQuoteRequests, setShowAllQuoteRequests] = useState(false);
+  const [showAllContactSubmissions, setShowAllContactSubmissions] = useState(false);
+
+  // State for profile updates
+  const [editMode, setEditMode] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [profileUpdateMessage, setProfileUpdateMessage] = useState('');
+  const [profileUpdateError, setProfileUpdateError] = useState('');
+  const [reauthNeeded, setReauthNeeded] = useState(false);
+
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
   useEffect(() => {
     if (location.state && location.state.customerInfo) {
       console.log('Customer info for pre-fill:', location.state.customerInfo);
@@ -32,6 +55,39 @@ const Profile = () => {
   }, [location.state]);
 
   useEffect(() => {
+<<<<<<< HEAD
+=======
+    if (!authLoading && user) {
+      setName(user.displayName || '');
+      setEmail(user.email || '');
+      const fetchUserProfile = async () => {
+        if (db && user.uid) {
+          const userProfileRef = doc(db, 'userProfiles', user.uid);
+          onSnapshot(
+            userProfileRef,
+            (docSnap) => {
+              if (docSnap.exists()) {
+                const data = docSnap.data();
+                setPhone(data.phone || '');
+                setAddress(data.address || '');
+              } else {
+                console.log('No user profile found in Firestore for this user.');
+                setPhone('');
+                setAddress('');
+              }
+            },
+            (error) => {
+              console.error('Error fetching user profile:', error);
+            },
+          );
+        }
+      };
+      fetchUserProfile();
+    }
+  }, [user, authLoading, db]);
+
+  useEffect(() => {
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
     if (!authLoading && user && !isOwner && user.email && db) {
       setLoadingCustomerAppointments(true);
       setErrorCustomerAppointments(null);
@@ -89,7 +145,16 @@ const Profile = () => {
       const unsubscribeContacts = onSnapshot(
         collection(db, 'contactSubmissions'),
         (querySnapshot) => {
+<<<<<<< HEAD
           setContactSubmissions(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+=======
+          const contactSubmissions = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          contactSubmissions.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate()); // Sort
+          setContactSubmissions(contactSubmissions);
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
         },
         (error) => {
           console.error('Error fetching contact submissions:', error);
@@ -144,9 +209,20 @@ const Profile = () => {
       const emailMatch = item.email?.toLowerCase().includes(lowerCaseSearchTerm);
       const phoneMatch = item.phone?.toLowerCase().includes(lowerCaseSearchTerm);
       const addressMatch = item.address?.toLowerCase().includes(lowerCaseSearchTerm);
+<<<<<<< HEAD
       const dateMatch = item.date?.toLowerCase().includes(lowerCaseSearchTerm);
       const timeMatch = item.time?.toLowerCase().includes(lowerCaseSearchTerm);
       const messageMatch = item.message?.toLowerCase().includes(lowerCaseSearchTerm);
+=======
+      // Ensure 'date' and 'time' are strings before calling toLowerCase
+      const dateMatch =
+        typeof item.date === 'string' && item.date.toLowerCase().includes(lowerCaseSearchTerm);
+      const timeMatch =
+        typeof item.time === 'string' && item.time.toLowerCase().includes(lowerCaseSearchTerm);
+      const messageMatch =
+        typeof item.message === 'string' &&
+        item.message.toLowerCase().includes(lowerCaseSearchTerm);
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
       const servicesMatch = item.selectedServices?.some(
         (service) =>
           typeof service === 'string' && service.toLowerCase().includes(lowerCaseSearchTerm),
@@ -169,6 +245,98 @@ const Profile = () => {
   const filteredQuoteRequests = filterItems(quoteRequests);
   const filteredContactSubmissions = filterItems(contactSubmissions);
 
+<<<<<<< HEAD
+=======
+  // Profile Update Handlers
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    setProfileUpdateMessage('');
+    setProfileUpdateError('');
+
+    if (!user) {
+      setProfileUpdateError('No user logged in.');
+      return;
+    }
+
+    try {
+      // Reauthenticate if email or password is being changed
+      if (email !== user.email || newPassword) {
+        if (!currentPassword) {
+          setReauthNeeded(true);
+          setProfileUpdateError('Please enter your current password to update email or password.');
+          return;
+        }
+        const credential = EmailAuthProvider.credential(user.email, currentPassword);
+        await reauthenticateWithCredential(user, credential);
+        setReauthNeeded(false); // Reauthentication successful
+      }
+
+      // Update name (displayName)
+      if (name !== user.displayName) {
+        await updateProfile(user, { displayName: name });
+        setProfileUpdateMessage((prev) => prev + 'Name updated successfully. ');
+      }
+
+      // Update email
+      if (email !== user.email) {
+        await updateEmail(user, email);
+        setProfileUpdateMessage((prev) => prev + 'Email updated successfully. ');
+      }
+
+      // Update password
+      if (newPassword) {
+        if (newPassword !== confirmNewPassword) {
+          setProfileUpdateError('New password and confirmation do not match.');
+          return;
+        }
+        await updatePassword(user, newPassword);
+        setProfileUpdateMessage((prev) => prev + 'Password updated successfully. ');
+        setNewPassword('');
+        setConfirmNewPassword('');
+      }
+
+      // Update phone and address in Firestore (assuming a 'userProfiles' collection)
+      const userProfileRef = doc(db, 'userProfiles', user.uid);
+      const profileUpdates = {};
+      if (phone !== (user.phoneNumber || '')) {
+        // Compare with user's phone if available
+        profileUpdates.phone = phone;
+      }
+      if (address !== (user.address || '')) {
+        // Compare with user's address if available
+        profileUpdates.address = address;
+      }
+
+      if (Object.keys(profileUpdates).length > 0) {
+        await updateDoc(userProfileRef, profileUpdates, { merge: true });
+        setProfileUpdateMessage((prev) => prev + 'Phone and/or Address updated successfully. ');
+      }
+
+      setCurrentPassword(''); // Clear current password after successful update
+      setProfileUpdateMessage(profileUpdateMessage || 'Profile updated successfully!');
+      setEditMode(false); // Exit edit mode on success
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      if (error.code === 'auth/requires-recent-login') {
+        setReauthNeeded(true);
+        setProfileUpdateError(
+          'This action requires recent authentication. Please enter your current password and try again.',
+        );
+      } else if (error.code === 'auth/invalid-email') {
+        setProfileUpdateError('The email address is not valid.');
+      } else if (error.code === 'auth/weak-password') {
+        setProfileUpdateError('Password should be at least 6 characters.');
+      } else if (error.code === 'auth/email-already-in-use') {
+        setProfileUpdateError('This email is already in use by another account.');
+      } else if (error.code === 'auth/wrong-password') {
+        setProfileUpdateError('Incorrect current password.');
+      } else {
+        setProfileUpdateError(`Failed to update profile: ${error.message}`);
+      }
+    }
+  };
+
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
   if (authLoading) {
     return (
       <div className="Profile-loadingWrapper">
@@ -197,12 +365,499 @@ const Profile = () => {
         </div>
       );
     return (
+      <>
+        <ScrollToTop /> {/* <<< ADDED THIS LINE */}
+        <div className="Profile-wrapper">
+          <div className="Profile-Dashboard-Dashboard Profile-card-base">
+            <h2 className="Profile-Dashboard-title">Owner Dashboard</h2>
+            <div className="Profile-Dashboard-card">
+              <h3 className="Profile-Dashboard-subtitle">Welcome, Owner!</h3>
+              <p className="Profile-Dashboard-text">This is your administrative dashboard.</p>
+            </div>
+          </div>
+
+          <div className="Profile-main-container">
+            <div className="Profile-search-bar-container">
+              <input
+                type="text"
+                placeholder="Search by name, email, phone, address, etc."
+                className="Profile-search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div className="Profile-tabs-container">
+              <button
+                className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('appointments');
+                  setEditMode(false); // Exit edit mode when switching tabs
+                  setShowAllAdminAppointments(false); // Reset show all
+                }}
+              >
+                Appointments ({filteredAdminAppointments.length})
+              </button>
+              <button
+                className={`Profile-tab-button ${activeTab === 'quotes' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('quotes');
+                  setEditMode(false); // Exit edit mode when switching tabs
+                  setShowAllQuoteRequests(false); // Reset show all
+                }}
+              >
+                Quote Requests ({filteredQuoteRequests.length})
+              </button>
+              <button
+                className={`Profile-tab-button ${activeTab === 'contacts' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('contacts');
+                  setEditMode(false); // Exit edit mode when switching tabs
+                  setShowAllContactSubmissions(false); // Reset show all
+                }}
+              >
+                Contact Submissions ({filteredContactSubmissions.length})
+              </button>
+              <button
+                className={`Profile-tab-button ${activeTab === 'settings' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('settings');
+                  setEditMode(true); // Enter edit mode for settings
+                  // Reset all showAll states when going to settings
+                  setShowAllAdminAppointments(false);
+                  setShowAllQuoteRequests(false);
+                  setShowAllContactSubmissions(false);
+                }}
+              >
+                Profile Settings
+              </button>
+            </div>
+
+            <div className="Profile-tab-content">
+              <div className="Profile-tab-panel Profile-card-base">
+                {activeTab === 'appointments' && (
+                  <>
+                    <h3 className="Profile-Appointments-subtitle">All Appointments</h3>
+                    {filteredAdminAppointments.length === 0 ? (
+                      <p className="Profile-Appointments-message">
+                        No appointments found matching your search.
+                      </p>
+                    ) : (
+                      <>
+                        <ul className="Profile-Appointments-list Profile-Appointments-dividedList">
+                          {(showAllAdminAppointments
+                            ? filteredAdminAppointments
+                            : filteredAdminAppointments.slice(0, ITEMS_PER_PAGE)
+                          ).map((apt) => (
+                            <li
+                              key={apt.id}
+                              className="Profile-Appointments-listItem Profile-Appointments-dividedListItem Profile-Appointments-clickableItem"
+                              onClick={() => handleViewAdminItemDetails(apt, 'appointments')}
+                            >
+                              <p className="Profile-appointmentTitle">
+                                Appointment for {apt.name} on {apt.date} at {apt.time}
+                              </p>
+                              <p className="Profile-appointmentDetail">
+                                Email: {apt.email}, Phone: {apt.phone}
+                              </p>
+                              <p className="Profile-appointmentDetail Profile-Appointments-smallText">
+                                Address: {apt.address}
+                              </p>
+                              <p className="Profile-appointmentDetail Profile-Appointments-smallText">
+                                Services: {apt.selectedServices?.join(', ')}
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                        {filteredAdminAppointments.length > ITEMS_PER_PAGE && (
+                          <div className="Profile-showMore-container">
+                            <button
+                              onClick={() => setShowAllAdminAppointments(!showAllAdminAppointments)}
+                              className="Profile-button Profile-showMoreBtn"
+                            >
+                              {showAllAdminAppointments ? 'Show Less' : 'Show All'}
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+
+                {activeTab === 'quotes' && (
+                  <>
+                    <h3 className="Profile-Quote-subtitle">All Quote Requests</h3>
+                    {filteredQuoteRequests.length === 0 ? (
+                      <p className="Profile-Quote-message">
+                        No quote requests found matching your search.
+                      </p>
+                    ) : (
+                      <>
+                        <ul className="Profile-Quote-list Profile-Quote-dividedList">
+                          {(showAllQuoteRequests
+                            ? filteredQuoteRequests
+                            : filteredQuoteRequests.slice(0, ITEMS_PER_PAGE)
+                          ).map((quote) => (
+                            <li
+                              key={quote.id}
+                              className="Profile-Quote-listItem Profile-Quote-dividedListItem Profile-Quote-clickableItem"
+                              onClick={() => handleViewAdminItemDetails(quote, 'quoteRequests')}
+                            >
+                              <p className="Profile-quoteTitle">Quote from {quote.name}</p>
+                              <p className="Profile-quoteDetail">
+                                Email: {quote.email}, Phone: {quote.phone}
+                              </p>
+                              <p className="Profile-quoteDetail Profile-Quote-smallText">
+                                Message: {quote.message}
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                        {filteredQuoteRequests.length > ITEMS_PER_PAGE && (
+                          <div className="Profile-showMore-container">
+                            <button
+                              onClick={() => setShowAllQuoteRequests(!showAllQuoteRequests)}
+                              className="Profile-button Profile-showMoreBtn"
+                            >
+                              {showAllQuoteRequests ? 'Show Less' : 'Show All'}
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+
+                {activeTab === 'contacts' && (
+                  <>
+                    <h3 className="Profile-Contact-subtitle">All Contact Submissions</h3>
+                    {filteredContactSubmissions.length === 0 ? (
+                      <p className="Profile-Contact-message">
+                        No contact submissions found matching your search.
+                      </p>
+                    ) : (
+                      <>
+                        <ul className="Profile-Contact-list Profile-Contact-dividedList">
+                          {(showAllContactSubmissions
+                            ? filteredContactSubmissions
+                            : filteredContactSubmissions.slice(0, ITEMS_PER_PAGE)
+                          ).map((contact) => (
+                            <li
+                              key={contact.id}
+                              className="Profile-Contact-listItem Profile-Contact-dividedListItem Profile-Contact-clickableItem"
+                              onClick={() =>
+                                handleViewAdminItemDetails(contact, 'contactSubmissions')
+                              }
+                            >
+                              <p className="Profile-contactTitle">Contact from {contact.name}</p>
+                              <p className="Profile-contactDetail">
+                                Email: {contact.email}, Phone: {contact.phone}
+                              </p>
+                              <p className="Profile-contactDetail Profile-Contact-smallText">
+                                Message: {contact.message}
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                        {filteredContactSubmissions.length > ITEMS_PER_PAGE && (
+                          <div className="Profile-showMore-container">
+                            <button
+                              onClick={() =>
+                                setShowAllContactSubmissions(!showAllContactSubmissions)
+                              }
+                              className="Profile-button Profile-showMoreBtn"
+                            >
+                              {showAllContactSubmissions ? 'Show Less' : 'Show All'}
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+
+                {activeTab === 'settings' && (
+                  <div className="Profile-Settings-container">
+                    <h3 className="Profile-Settings-subtitle">Update Your Profile</h3>
+                    {profileUpdateMessage && (
+                      <p className="Profile-successMessage">{profileUpdateMessage}</p>
+                    )}
+                    {profileUpdateError && (
+                      <p className="Profile-errorMessage">{profileUpdateError}</p>
+                    )}
+                    <form onSubmit={handleProfileUpdate} className="Profile-form">
+                      <div className="Profile-form-group">
+                        <label htmlFor="name">Name:</label>
+                        <input
+                          type="text"
+                          id="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="Profile-input"
+                          disabled={!editMode}
+                        />
+                      </div>
+                      <div className="Profile-form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                          type="email"
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="Profile-input"
+                          disabled={!editMode}
+                        />
+                      </div>
+                      <div className="Profile-form-group">
+                        <label htmlFor="phone">Phone Number:</label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="Profile-input"
+                          disabled={!editMode}
+                        />
+                      </div>
+                      <div className="Profile-form-group">
+                        <label htmlFor="address">Address:</label>
+                        <input
+                          type="text"
+                          id="address"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          className="Profile-input"
+                          disabled={!editMode}
+                        />
+                      </div>
+                      <div className="Profile-form-group">
+                        <label htmlFor="newPassword">
+                          New Password (leave blank to keep current):
+                        </label>
+                        <input
+                          type="password"
+                          id="newPassword"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          className="Profile-input"
+                          disabled={!editMode}
+                        />
+                      </div>
+                      <div className="Profile-form-group">
+                        <label htmlFor="confirmNewPassword">Confirm New Password:</label>
+                        <input
+                          type="password"
+                          id="confirmNewPassword"
+                          value={confirmNewPassword}
+                          onChange={(e) => setConfirmNewPassword(e.target.value)}
+                          className="Profile-input"
+                          disabled={!editMode}
+                        />
+                      </div>
+
+                      {(reauthNeeded || email !== user.email || newPassword) && (
+                        <div className="Profile-form-group">
+                          <label htmlFor="currentPassword">
+                            Current Password (required for email/password changes):
+                          </label>
+                          <input
+                            type="password"
+                            id="currentPassword"
+                            value={currentPassword}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
+                            className="Profile-input"
+                            required={reauthNeeded || email !== user.email || newPassword}
+                          />
+                        </div>
+                      )}
+
+                      <div className="Profile-buttons-container">
+                        {!editMode ? (
+                          <button
+                            type="button"
+                            onClick={() => setEditMode(true)}
+                            className="Profile-button Profile-editBtn"
+                          >
+                            Edit Profile
+                          </button>
+                        ) : (
+                          <>
+                            <button type="submit" className="Profile-button Profile-saveBtn">
+                              Save Changes
+                            </button>
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                setEditMode(false);
+                                setName(user.displayName || '');
+                                setEmail(user.email || '');
+                                const fetchUserProfileOnCancel = async () => {
+                                  if (db && user.uid) {
+                                    const userProfileRef = doc(db, 'userProfiles', user.uid);
+                                    const docSnap = await getDoc(userProfileRef);
+                                    if (docSnap.exists()) {
+                                      const data = docSnap.data();
+                                      setPhone(data.phone || '');
+                                      setAddress(data.address || '');
+                                    } else {
+                                      setPhone('');
+                                      setAddress('');
+                                    }
+                                  }
+                                };
+                                await fetchUserProfileOnCancel();
+                                setNewPassword('');
+                                setConfirmNewPassword('');
+                                setCurrentPassword('');
+                                setProfileUpdateMessage('');
+                                setProfileUpdateError('');
+                                setReauthNeeded(false);
+                              }}
+                              className="Profile-button Profile-cancelBtn"
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </form>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="Profile-right-column">
+              {selectedAdminItem && (
+                <div className="Profile-details-panel Profile-card-base">
+                  <h3 className="Profile-detail-subtitle">
+                    Details for{' '}
+                    {selectedAdminCollection === 'appointments'
+                      ? 'Appointment'
+                      : selectedAdminCollection === 'quoteRequests'
+                        ? 'Quote Request'
+                        : 'Contact Submission'}
+                  </h3>
+                  {selectedAdminItem.name && (
+                    <p>
+                      <strong>Name:</strong> {selectedAdminItem.name}
+                    </p>
+                  )}
+                  {selectedAdminItem.email && (
+                    <p>
+                      <strong>Email:</strong> {selectedAdminItem.email}
+                    </p>
+                  )}
+                  {selectedAdminItem.phone && (
+                    <p>
+                      <strong>Phone:</strong> {selectedAdminItem.phone}
+                    </p>
+                  )}
+                  {selectedAdminItem.address && (
+                    <p>
+                      <strong>Address:</strong> {selectedAdminItem.address}
+                    </p>
+                  )}
+                  {selectedAdminItem.date && selectedAdminItem.time && (
+                    <p>
+                      <strong>Date & Time:</strong> {selectedAdminItem.date} at{' '}
+                      {selectedAdminItem.time}
+                    </p>
+                  )}
+                  {selectedAdminItem.selectedServices &&
+                    selectedAdminCollection === 'appointments' && (
+                      <p>
+                        <strong>Services:</strong> {selectedAdminItem.selectedServices.join(', ')}
+                      </p>
+                    )}
+                  {selectedAdminItem.message && (
+                    <p>
+                      <strong>Message:</strong> {selectedAdminItem.message}
+                    </p>
+                  )}
+                  {selectedAdminItem.carMake && (
+                    <p>
+                      <strong>Car Make:</strong> {selectedAdminItem.carMake}
+                    </p>
+                  )}
+                  {selectedAdminItem.carModel && (
+                    <p>
+                      <strong>Car Model:</strong> {selectedAdminItem.carModel}
+                    </p>
+                  )}
+                  {selectedAdminItem.carYear && (
+                    <p>
+                      <strong>Car Year:</strong> {selectedAdminItem.carYear}
+                    </p>
+                  )}
+
+                  <div>
+                    <button
+                      onClick={handleCloseDetails}
+                      className="Profile-button Profile-closeBtn"
+                    >
+                      Close Details
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // --- User Profile (Non-Owner) ---
+  if (loadingCustomerAppointments) {
+    return (
+      <div className="Profile-loadingWrapper">
+        <p className="Profile-loadingText">Loading your appointments...</p>
+      </div>
+    );
+  }
+  if (errorCustomerAppointments) {
+    return (
+      <div className="Profile-loadingWrapper">
+        <p className="Profile-errorMessage">{errorCustomerAppointments}</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <ScrollToTop /> {/* <<< ADDED THIS LINE */}
       <div className="Profile-wrapper">
-        <div className="Profile-Dashboard-Dashboard Profile-card-base">
-          <h2 className="Profile-Dashboard-title">Owner Dashboard</h2>
-          <div className="Profile-Dashboard-card">
-            <h3 className="Profile-Dashboard-subtitle">Welcome, Owner!</h3>
-            <p className="Profile-Dashboard-text">This is your administrative dashboard.</p>
+        <div className="Profile-profile-info Profile-card-base">
+          <h2 className="Profile-profile-title">Your Profile</h2>
+          <div className="Profile-card-content">
+            <p className="Profile-detail">
+              <strong>Name:</strong> {user.displayName || 'N/A'}
+            </p>
+            <p className="Profile-detail">
+              <strong>Email:</strong> {user.email || 'N/A'}
+            </p>
+            <p className="Profile-detail">
+              <strong>Phone:</strong> {phone || 'N/A'}
+            </p>
+            <p className="Profile-detail">
+              <strong>Address:</strong> {address || 'N/A'}
+            </p>
+            <div className="Profile-buttons-container">
+              <button
+                onClick={() => {
+                  setActiveTab('settings');
+                  setEditMode(true);
+                }}
+                className="Profile-button Profile-editBtn"
+              >
+                Edit Profile
+              </button>
+              <button
+                onClick={handleStartNewRequest}
+                className="Profile-button Profile-startNewRequestBtn"
+              >
+                Start New Appointment Request
+              </button>
+            </div>
           </div>
         </div>
 
@@ -210,7 +865,7 @@ const Profile = () => {
           <div className="Profile-search-bar-container">
             <input
               type="text"
-              placeholder="Search by name, email, phone, address, etc."
+              placeholder="Search by date, service, etc."
               className="Profile-search-input"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -219,6 +874,7 @@ const Profile = () => {
           <div className="Profile-tabs-container">
             <button
               className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
+<<<<<<< HEAD
               onClick={() => setActiveTab('appointments')}
             >
               Appointments ({filteredAdminAppointments.length})
@@ -235,18 +891,38 @@ const Profile = () => {
             >
               Contact Submissions ({filteredContactSubmissions.length})
             </button>
+=======
+              onClick={() => {
+                setActiveTab('appointments');
+                setEditMode(false);
+                setShowAllCustomerAppointments(false);
+              }}
+            >
+              Your Appointments ({filteredCustomerAppointments.length})
+            </button>
+            <button
+              className={`Profile-tab-button ${activeTab === 'settings' ? 'active' : ''}`}
+              onClick={() => {
+                setActiveTab('settings');
+                setEditMode(true);
+                setShowAllCustomerAppointments(false);
+              }}
+            >
+              Profile Settings
+            </button>
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
           </div>
-
           <div className="Profile-tab-content">
             <div className="Profile-tab-panel Profile-card-base">
               {activeTab === 'appointments' && (
                 <>
-                  <h3 className="Profile-Appointments-subtitle">All Appointments</h3>
-                  {filteredAdminAppointments.length === 0 ? (
+                  <h3 className="Profile-Appointments-subtitle">Your Past Appointments</h3>
+                  {filteredCustomerAppointments.length === 0 ? (
                     <p className="Profile-Appointments-message">
-                      No appointments found matching your search.
+                      You have no appointments yet, or none matching your search.
                     </p>
                   ) : (
+<<<<<<< HEAD
                     <ul className="Profile-Appointments-list Profile-Appointments-dividedList">
                       {filteredAdminAppointments.map((apt) => (
                         <li
@@ -329,10 +1005,195 @@ const Profile = () => {
                     </ul>
                   )}
                 </>
+=======
+                    <>
+                      <ul className="Profile-Appointments-list Profile-Appointments-dividedList">
+                        {(showAllCustomerAppointments
+                          ? filteredCustomerAppointments
+                          : filteredCustomerAppointments.slice(0, ITEMS_PER_PAGE)
+                        ).map((apt) => (
+                          <li
+                            key={apt.id}
+                            className="Profile-Appointments-listItem Profile-Appointments-dividedListItem Profile-Appointments-clickableItem"
+                            onClick={() => handleViewCustomerAppointmentDetails(apt)}
+                          >
+                            <p className="Profile-appointmentTitle">
+                              Appointment on {apt.date} at {apt.time}
+                            </p>
+                            <p className="Profile-appointmentDetail">
+                              Services: {apt.selectedServices?.join(', ')}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                      {filteredCustomerAppointments.length > ITEMS_PER_PAGE && (
+                        <div className="Profile-showMore-container">
+                          <button
+                            onClick={() =>
+                              setShowAllCustomerAppointments(!showAllCustomerAppointments)
+                            }
+                            className="Profile-button Profile-showMoreBtn"
+                          >
+                            {showAllCustomerAppointments ? 'Show Less' : 'Show All'}
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
+              {activeTab === 'settings' && (
+                <div className="Profile-Settings-container">
+                  <h3 className="Profile-Settings-subtitle">Update Your Profile</h3>
+                  {profileUpdateMessage && (
+                    <p className="Profile-successMessage">{profileUpdateMessage}</p>
+                  )}
+                  {profileUpdateError && (
+                    <p className="Profile-errorMessage">{profileUpdateError}</p>
+                  )}
+                  <form onSubmit={handleProfileUpdate} className="Profile-form">
+                    <div className="Profile-form-group">
+                      <label htmlFor="name">Name:</label>
+                      <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="Profile-input"
+                        disabled={!editMode}
+                      />
+                    </div>
+                    <div className="Profile-form-group">
+                      <label htmlFor="email">Email:</label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="Profile-input"
+                        disabled={!editMode}
+                      />
+                    </div>
+                    <div className="Profile-form-group">
+                      <label htmlFor="phone">Phone Number:</label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="Profile-input"
+                        disabled={!editMode}
+                      />
+                    </div>
+                    <div className="Profile-form-group">
+                      <label htmlFor="address">Address:</label>
+                      <input
+                        type="text"
+                        id="address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        className="Profile-input"
+                        disabled={!editMode}
+                      />
+                    </div>
+                    <div className="Profile-form-group">
+                      <label htmlFor="newPassword">
+                        New Password (leave blank to keep current):
+                      </label>
+                      <input
+                        type="password"
+                        id="newPassword"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className="Profile-input"
+                        disabled={!editMode}
+                      />
+                    </div>
+                    <div className="Profile-form-group">
+                      <label htmlFor="confirmNewPassword">Confirm New Password:</label>
+                      <input
+                        type="password"
+                        id="confirmNewPassword"
+                        value={confirmNewPassword}
+                        onChange={(e) => setConfirmNewPassword(e.target.value)}
+                        className="Profile-input"
+                        disabled={!editMode}
+                      />
+                    </div>
+
+                    {(reauthNeeded || email !== user.email || newPassword) && (
+                      <div className="Profile-form-group">
+                        <label htmlFor="currentPassword">
+                          Current Password (required for email/password changes):
+                        </label>
+                        <input
+                          type="password"
+                          id="currentPassword"
+                          value={currentPassword}
+                          onChange={(e) => setCurrentPassword(e.target.value)}
+                          className="Profile-input"
+                          required={reauthNeeded || email !== user.email || newPassword}
+                        />
+                      </div>
+                    )}
+
+                    <div className="Profile-buttons-container">
+                      {!editMode ? (
+                        <button
+                          type="button"
+                          onClick={() => setEditMode(true)}
+                          className="Profile-button Profile-editBtn"
+                        >
+                          Edit Profile
+                        </button>
+                      ) : (
+                        <>
+                          <button type="submit" className="Profile-button Profile-saveBtn">
+                            Save Changes
+                          </button>
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              setEditMode(false);
+                              setName(user.displayName || '');
+                              setEmail(user.email || '');
+                              const fetchUserProfileOnCancel = async () => {
+                                if (db && user.uid) {
+                                  const userProfileRef = doc(db, 'userProfiles', user.uid);
+                                  const docSnap = await getDoc(userProfileRef);
+                                  if (docSnap.exists()) {
+                                    const data = docSnap.data();
+                                    setPhone(data.phone || '');
+                                    setAddress(data.address || '');
+                                  } else {
+                                    setPhone('');
+                                    setAddress('');
+                                  }
+                                }
+                              };
+                              await fetchUserProfileOnCancel();
+                              setNewPassword('');
+                              setConfirmNewPassword('');
+                              setCurrentPassword('');
+                              setProfileUpdateMessage('');
+                              setProfileUpdateError('');
+                              setReauthNeeded(false);
+                            }}
+                            className="Profile-button Profile-cancelBtn"
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </form>
+                </div>
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
               )}
             </div>
           </div>
 
+<<<<<<< HEAD
           {/* CORRECTED PLACEMENT: This is now a direct child of Profile-main-container */}
           <div className="Profile-right-column">
             {selectedAdminItem && (
@@ -448,20 +1309,30 @@ const Profile = () => {
           {selectedCustomerAppointment && (
             <div className="Profile-details-panel Profile-card-base">
               {/* Details rendering logic remains the same */}
+=======
+          {selectedCustomerAppointment && (
+            <div className="Profile-details-panel Profile-card-base">
+              <h3 className="Profile-detail-subtitle">Appointment Details</h3>
+              <p>
+                <strong>Date & Time:</strong> {selectedCustomerAppointment.date} at{' '}
+                {selectedCustomerAppointment.time}
+              </p>
+              <p>
+                <strong>Services:</strong>{' '}
+                {selectedCustomerAppointment.selectedServices?.join(', ')}
+              </p>
+              <p>
+                <strong>Notes:</strong> {selectedCustomerAppointment.message || 'N/A'}
+              </p>
+              <button onClick={handleCloseDetails} className="Profile-button Profile-closeBtn">
+                Close Details
+              </button>
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
             </div>
           )}
-          <div className="Request-New-Service Profile-card-base">
-            <h3 className="Profile-subtitle">Request New Service</h3>
-            <button
-              onClick={handleStartNewRequest}
-              className="Profile-button Profile-requestServiceBtn"
-            >
-              Start New Request
-            </button>
-          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

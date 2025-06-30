@@ -1,18 +1,19 @@
 TO DO:
 
-crop the hero video so it loops better
-
 these pages/components need styled:
 
-spacing and text in hero was messed up somehow.
+======================================
 
-phone view for some sections need work (Hero, meetus, and gallery, profile page)
+SCROLL TO TOP feature is not working yet. it's bugged. Tried importing directly and adding it to the main and the app .jsx files, but still not working
 
-profile page spacing is off for phone.
 
-gallery sometimes redirects you randomly when clicking on it. not exactly sure
 
-for footer product, check with andrew for the correct products. they doin't use Sanitify
+
+
+
+
+
+
 
 ==========================================
 
@@ -23,6 +24,9 @@ OPENING AND CLOSINGS TAKE A COUPLE VISITS
 
 WEEKLY POOL SERVICING OPTIONS OR JUST WEEKLY. DOUBLE CHECK
 
+for footer product, check with andrew for the correct products. they doin't use Sanitify
+
+
 ---===================
 
 Double check all the colors for text. Review card text should be primary instead of secondary. Failed to login on profile dropdwon is secondary. Should be danger. Will have to use !important for both.
@@ -31,6 +35,16 @@ Double check all the colors for text. Review card text should be primary instead
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+>>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
 
 
 
