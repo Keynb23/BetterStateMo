@@ -13,6 +13,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      # Set Vite and Rollup debug environment variables for maximum verbosity
+      DEBUG: 'vite:*,rollup:*' # <<< Added rollup debug
 
     steps:
       - name: Checkout code
@@ -43,7 +46,8 @@ jobs:
           rm -rf .vite
           rm -rf dist
           echo "Running Vite build..."
-          npm run build
+          # Set DEBUG env var again for good measure just before the build
+          DEBUG='vite:*,rollup:*' npm run build # <<< Added rollup debug
           echo "Vite build completed."
 
   deploy-production:
@@ -68,7 +72,7 @@ jobs:
         run: vercel pull --yes --environment=production --token=${{ secrets.BetterState25 }}
 
       - name: Build with Vercel (for --prebuilt deployment)
-        run: vercel build --prod --token=${{ secrets.BetterState25 }} # Added this step
+        run: vercel build --prod --token=${{ secrets.BetterState25 }}
 
       - name: Deploy to Vercel Production
         run: vercel deploy --prebuilt --prod --token=${{ secrets.BetterState25 }} --yes
@@ -95,7 +99,7 @@ jobs:
         run: vercel pull --yes --environment=preview --token=${{ secrets.BetterState25 }}
 
       - name: Build with Vercel (for --prebuilt deployment)
-        run: vercel build --token=${{ secrets.BetterState25 }} # Added this step (no --prod for preview)
+        run: vercel build --token=${{ secrets.BetterState25 }}
 
       - name: Deploy to Vercel Preview
         id: deploy_step
