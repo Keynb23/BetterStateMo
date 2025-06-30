@@ -22,7 +22,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm' # Use npm cache for faster runs if it works reliably
+          # We'll try without caching npm modules explicitly here,
+          # as previous issues might be related to cache corruption.
+          # cache: 'npm'
 
       - name: Install dependencies (Aggressive cleanup and standard install)
         run: |
@@ -30,19 +32,20 @@ jobs:
           rm -rf node_modules
           rm -f package-lock.json
           npm cache clean --force
-          npm install
+          npm install --no-fund --no-audit # Add no-fund/no-audit for cleaner output, not functional fix
           echo "npm install completed."
 
       - name: Run tests
         run: npm test
 
-      - name: Build application (with build output cleanup)
-        # Clean Vite's default output directory ('dist') before building
-        # and then run the build.
+      - name: Build application (Clean dist and force Vite re-parse)
         run: |
           echo "Cleaning Vite build output directory..."
           rm -rf dist
           echo "Running Vite build..."
+          # Pass a flag to Vite's build command if available, or rely on clean install
+          # Vite usually picks up changes naturally after node_modules refresh
+          # If this still fails, we might need to look into Vite config or specific plugin interaction.
           npm run build
           echo "Vite build completed."
 
