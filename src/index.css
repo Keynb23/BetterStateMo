@@ -2,6 +2,7 @@
 :root {
   --color-primary: oklch(50% 0.15 250); /* A balanced, medium blue */
   --color-primary-light: oklch(80% 0.1 250);
+  --color-primary-dark: oklch(38.544% 0.10189 248.615); 
   --color-secondary: oklch(85% 0.05 85); /* Soft, warm beige/sand */
   --color-secondary-dark: oklch(75% 0.06 85);
   --color-accent: oklch(40% 0.2 140); /* A bright, energetic green (pool water/nature vibe) */
