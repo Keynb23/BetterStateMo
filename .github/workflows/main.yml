@@ -1,17 +1,47 @@
-# .github/workflows/main.yml (or ci.yml)
+# This workflow will be triggered on pushes to the 'main' branch
+# and on pull requests targeting the 'main' branch.
+
+name: Vercel Deployment CI/CD
 
 on:
   push:
     branches:
-      - main
+      - main # Trigger on pushes to the main branch
   pull_request:
     branches:
-      - main
+      - main # Trigger on pull requests targeting the main branch
 
-jobs: # Correct: This should be at the same level as 'on:'
-  build-and-test: # Correct: Indented 2 spaces under 'jobs:'
-    runs-on: ubuntu-latest
-    steps: # Correct: Indented 2 spaces under 'build-and-test:'
+jobs:
+  # Job to build the application and run tests
+  build-and-test:
+    runs-on: ubuntu-latest # Use a fresh Ubuntu runner for each job
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Action to check out your repository code
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # Action to set up Node.js environment
+        with:
+          node-version: '20' # Specify Node.js version
+          cache: 'npm' # Cache npm dependencies for faster builds
+
+      - name: Install dependencies
+        run: npm ci # Install project dependencies (clean install)
+
+      - name: Run tests
+        run: npm test # Execute your project's tests
+
+      - name: Build application
+        run: npm run build # Build your React/Vite application for production
+
+  # Job to deploy to Vercel production environment (only on 'main' branch pushes)
+  deploy-production:
+    runs-on: ubuntu-latest # Separate runner for deployment
+    needs: build-and-test # This job depends on the 'build-and-test' job succeeding
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Only run on push to main branch
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -21,11 +51,58 @@ jobs: # Correct: This should be at the same level as 'on:'
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest # Install the Vercel CLI globally
 
-      - name: Run tests # Correct: Indented 2 spaces under the previous step
-        run: npm test
+      - name: Pull Vercel Environment Variables (Production)
+        # Links the local project to Vercel and pulls down production environment variables.
+        # This step expects the .vercel/project.json (from `vercel link`) to be committed.
+        run: vercel pull --yes --environment=production --token=${{ secrets.BetterState25 }}
 
-      - name: Build application # Correct: Indented 2 spaces under the previous step
-        run: npm run build
+      - name: Deploy to Vercel Production
+        # Deploys the pre-built application to Vercel and promotes it to production domains.
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.BetterState25 }} --yes
+        # No explicit env variables needed here if .vercel/project.json is committed
+        # and runtime envs are set in Vercel UI.
+
+  # Job to deploy to Vercel preview environment (only on pull requests)
+  deploy-preview:
+    runs-on: ubuntu-latest
+    needs: build-and-test # This job depends on the 'build-and-test' job succeeding
+    if: github.event_name == 'pull_request' # Only run on pull requests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Variables (Preview)
+        # Pulls preview environment variables.
+        run: vercel pull --yes --environment=preview --token=${{ secrets.BetterState25 }}
+
+      - name: Deploy to Vercel Preview
+        id: deploy_step # Add an ID to this step to access its outputs
+        # Deploys the pre-built application to Vercel, generating a preview URL.
+        run: |
+          DEPLOY_OUTPUT=$(vercel deploy --prebuilt --token=${{ secrets.BetterState25 }} --yes)
+          echo "$DEPLOY_OUTPUT"
+          # Extract the URL from the Vercel deploy output
+          DEPLOY_URL=$(echo "$DEPLOY_OUTPUT" | grep -o 'https://[^ ]*\.vercel\.app')
+          echo "::set-output name=url::$DEPLOY_URL" # Set as a step output for other actions
+
+      - name: Comment on PR with preview URL
+        # Uses a dedicated action to comment the preview URL back on the Pull Request.
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            🎉 **Preview Deployment Ready!**
+            You can view the changes at: ${{ steps.deploy_step.outputs.url }}
+          github-token: ${{ secrets.GITHUB_TOKEN }} # GitHub's default token for actions
