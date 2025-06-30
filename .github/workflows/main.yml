@@ -22,23 +22,29 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'npm' # Use npm cache for faster runs if it works reliably
 
-      - name: Install dependencies (clean npm install)
+      - name: Install dependencies (Aggressive cleanup and standard install)
         run: |
-          # Ensure a completely clean state before installation, as advised by rollup error
+          echo "Performing aggressive cleanup before npm install..."
           rm -rf node_modules
           rm -f package-lock.json
           npm cache clean --force
-          # Perform a standard npm install. This will regenerate package-lock.json
-          # and should properly resolve all dependencies including testing-library ones.
           npm install
+          echo "npm install completed."
 
       - name: Run tests
         run: npm test
 
-      - name: Build application
-        run: npm run build
+      - name: Build application (with build output cleanup)
+        # Clean Vite's default output directory ('dist') before building
+        # and then run the build.
+        run: |
+          echo "Cleaning Vite build output directory..."
+          rm -rf dist
+          echo "Running Vite build..."
+          npm run build
+          echo "Vite build completed."
 
   deploy-production:
     runs-on: ubuntu-latest
