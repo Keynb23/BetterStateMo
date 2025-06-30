@@ -60,15 +60,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm' # Can keep cache here as this is post-build
+          cache: 'npm'
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Variables (Production)
+        # Use your custom Vercel secret for the token
         run: vercel pull --yes --environment=production --token=${{ secrets.BetterState25 }}
 
       - name: Deploy to Vercel Production
+        # Use your custom Vercel secret for the token
         run: vercel deploy --prebuilt --prod --token=${{ secrets.BetterState25 }} --yes
 
   deploy-preview:
@@ -90,11 +92,13 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Variables (Preview)
+        # Use your custom Vercel secret for the token
         run: vercel pull --yes --environment=preview --token=${{ secrets.BetterState25 }}
 
       - name: Deploy to Vercel Preview
         id: deploy_step
         run: |
+          # Use your custom Vercel secret for the token
           DEPLOY_OUTPUT=$(vercel deploy --prebuilt --token=${{ secrets.BetterState25 }} --yes)
           echo "$DEPLOY_OUTPUT"
           DEPLOY_URL=$(echo "$DEPLOY_OUTPUT" | grep -o 'https://[^ ]*\.vercel\.app')
@@ -106,4 +110,5 @@ jobs:
           message: |
             🎉 **Preview Deployment Ready!**
             You can view the changes at: ${{ steps.deploy_step.outputs.url }}
-          github_token: ${{ secrets.BetterState25 }}
+          # This specifically uses GitHub's built-in GITHUB_TOKEN secret for PR comments
+          github-token: ${{ secrets.GITHUB_TOKEN }}
