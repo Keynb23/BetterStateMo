@@ -12,6 +12,7 @@ import Footer from './components/Footer.jsx';
 import Gallery from './components/Gallery.jsx';
 import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 function App() {
   const location = useLocation();
@@ -44,6 +45,7 @@ function App() {
   return (
     <>
       <div className="app-container">
+        <ScrollToTop />
         <Navbar isVisible={isNavbarVisible} />
         <Routes>
           <Route
@@ -67,7 +69,6 @@ function App() {
         </Routes>
         <Footer />
       </div>
-      {/* <ScrollRestoration />  */}
     </>
   );
 }

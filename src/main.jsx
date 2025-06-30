@@ -7,7 +7,7 @@ import { MediaProvider } from './context/MediaContext.jsx';
 import { ServiceProvider } from './context/ServiceContext.jsx';
 import { BackendCartProvider } from './context/BackendCart.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
-import ScrollUp from './components/Scrollup.jsx';
+import ScrollUp from './components/ScrollToTop.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
