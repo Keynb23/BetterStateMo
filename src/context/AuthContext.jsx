@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
 
     const initAuth = async () => {
       try {
-        // COMMENT OUT OR REMOVE THIS BLOCK IF YOU ARE NOT USING CUSTOM TOKENS
         // If Vercel is trying to inject __initial_auth_token and it's invalid,
         // or Firebase is erroring on it, this is the cause.
         // if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
