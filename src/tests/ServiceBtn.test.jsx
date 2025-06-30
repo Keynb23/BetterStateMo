@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 // Import both ServiceBtns AND SingleServiceBtn from the same file
-import { ServiceBtns, SingleServiceBtn } from '../context/ServiceBtns'; // Changed to import both
+import { ServiceBtns, SingleServiceBtn } from '../context/ServiceContext'; // CRITICAL FIX: Changed import path
 import { useServiceContext } from '../context/ServiceContext';
 import { useBackendCart } from '../context/BackendCart';
 import { serviceTypes } from '../context/serviceTypes';
