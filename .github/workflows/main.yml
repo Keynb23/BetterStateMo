@@ -24,12 +24,15 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        # This is where the change goes:
+      - name: Install dependencies (with clean reinstall for optional deps)
         run: |
-          npm ci --legacy-peer-deps 
-          # Or, if you prefer npm install with it:
-          # npm install --legacy-peer-deps 
+          # Remove existing node_modules and package-lock.json for a fresh start
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm cache clean --force
+          # Use npm install, which can be more resilient for optional dependencies
+          # We'll keep --legacy-peer-deps for compatibility, if it helps with other issues.
+          npm install --legacy-peer-deps 
 
       - name: Run tests
         run: npm test
