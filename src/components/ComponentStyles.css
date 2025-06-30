@@ -367,7 +367,7 @@
 
 .login-register-header button:not(.active) {
   background-color: var(--color-bg);
-  color: var(--color-text);
+  color: var(--text-muted);
 }
 
 .login-form,
@@ -412,11 +412,11 @@
 }
 
 /* General Body/HTML - to prevent horizontal scrolling */
-body,
+/* body,
 html {
   overflow-x: hidden;
   width: 100%;
-}
+} */
 
 /* Hero Section */
 .hero-container {
