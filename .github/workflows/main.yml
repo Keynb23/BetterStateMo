@@ -38,17 +38,23 @@ jobs:
         run: npm test
 
       - name: Debugging: List relevant directories before build
-        run: | # <--- This 'run:' must be directly under the 'name:' for this step
-          echo "--- Listing contents of src/pages/ ---"
-          ls -F /home/runner/work/BetterStateMo/BetterStateMo/src/pages/
-          echo "--- Listing contents of src/context/ ---"
-          ls -F /home/runner/work/BetterStateMo/BetterStateMo/src/context/
-          echo "--- Finding SingleServiceBtn.jsx recursively in src/ ---"
-          find /home/runner/work/BetterStateMo/BetterStateMo/src/ -name "*SingleServiceBtn*"
+        # This 'run:' is correctly indented under 'name:'
+        run: |
           echo "--- Current working directory (should be repo root) ---"
           pwd
           echo "--- Listing contents of current directory ---"
           ls -F
+          echo "--- Listing contents of src/ ---"
+          ls -F src/
+          echo "--- Listing contents of src/pages/ ---"
+          ls -F src/pages/
+          echo "--- Listing contents of src/context/ ---"
+          ls -F src/context/
+          echo "--- Finding SingleServiceBtn.jsx recursively in src/ ---"
+          find src/ -name "*SingleServiceBtn*"
+          echo "--- Verifying Services.jsx content ---"
+          cat src/pages/Services.jsx | grep "SingleServicebtn"
+
 
       - name: Build application (Clean Vite cache and dist, then build)
         run: |
@@ -73,7 +79,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm'
+          cache: 'npm' # Can keep cache here as this is post-build
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
