@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   server: {
-    host: true, // This allows access from other devices on your network
+    host: true,
   },
   plugins: [react()],
   assetsInclude: ['**/*.glb', '**/*.gltf', '**/*.bin'],
@@ -17,7 +17,5 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
-    // ADD THIS LINE: Explicitly list all common file extensions for resolution
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
   },
 });
