@@ -282,7 +282,7 @@
   color: var(--text);
   max-width: 900px; /* Reverted to max-width and more typical value for centered content */
   margin: var(--space-lg) auto;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation} from 'react-router-dom'; // 1. Import ScrollRestoration
+import { Routes, Route, useLocation} from 'react-router-dom'; 
 import Navbar from './components/Navbar.jsx';
 import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';

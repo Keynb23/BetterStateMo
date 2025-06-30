@@ -7,6 +7,7 @@ import { MediaProvider } from './context/MediaContext.jsx';
 import { ServiceProvider } from './context/ServiceContext.jsx';
 import { BackendCartProvider } from './context/BackendCart.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import ScrollUp from './components/Scrollup.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         <BackendCartProvider>
           <ServiceProvider>
             <MediaProvider>
+              <ScrollUp />
               <App />
             </MediaProvider>
           </ServiceProvider>

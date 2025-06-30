@@ -168,7 +168,7 @@ const SetApt = () => {
     switch (currentStep) {
       case 0: // Contact Information Form
         return (
-          <div className="Set-Apt-step-card" aria-live="polite">
+          <><div className="Set-Apt-step-card" aria-live="polite">
             <h2>Your Contact Information</h2>
             <p className="Set-Apt-step-prompt">
               Let's start with your details so we can get in touch!
@@ -184,8 +184,7 @@ const SetApt = () => {
                 onChange={(e) => setCustomerName(e.target.value)}
                 aria-invalid={!!formErrors.name} // Indicate invalid state
                 aria-describedby={formErrors.name ? 'error-name' : undefined}
-                required
-              />
+                required />
               {formErrors.name && (
                 <p id="error-name" className="error-message" role="alert">
                   {formErrors.name}
@@ -202,8 +201,7 @@ const SetApt = () => {
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 aria-invalid={!!formErrors.phone}
                 aria-describedby={formErrors.phone ? 'error-phone' : undefined}
-                required
-              />
+                required />
               {formErrors.phone && (
                 <p id="error-phone" className="error-message" role="alert">
                   {formErrors.phone}
@@ -220,8 +218,7 @@ const SetApt = () => {
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 aria-invalid={!!formErrors.email}
                 aria-describedby={formErrors.email ? 'error-email' : undefined}
-                required
-              />
+                required />
               {formErrors.email && (
                 <p id="error-email" className="error-message" role="alert">
                   {formErrors.email}
@@ -238,15 +235,14 @@ const SetApt = () => {
                 onChange={(e) => setCustomerAddress(e.target.value)}
                 aria-invalid={!!formErrors.address}
                 aria-describedby={formErrors.address ? 'error-address' : undefined}
-                required
-              />
+                required />
               {formErrors.address && (
                 <p id="error-address" className="error-message" role="alert">
                   {formErrors.address}
                 </p>
               )}
             </form>
-          </div>
+          </div></>
         );
       case 1: {
         // How soon and Time of Day Selection
