@@ -6,7 +6,9 @@ these pages/components need styled:
 
 SCROLL TO TOP feature is not working yet. it's bugged. Tried importing directly and adding it to the main and the app .jsx files, but still not working
 
+===========
 
+NEED TO CREATE NEW TEST FOR SERVICE CONTEXT
 
 
 
