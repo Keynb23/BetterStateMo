@@ -1,5 +1,3 @@
-# .github/workflows/main.yml
-
 name: Vercel Deployment CI/CD
 
 on:
@@ -23,9 +21,10 @@ jobs:
           fetch-depth: 0 # Ensures all history is fetched
           clean: true    # Ensures a clean working directory
           submodules: recursive # If you ever use submodules, this helps
-          # No 'lfs: true' unless you use Git LFS
+          # If you use Git Large File Storage (LFS), uncomment the next line:
+          # lfs: true
 
-      # Moved diagnostic step to be immediately after checkout
+      # DIAGNOSTIC STEP: Check file existence and permissions immediately after checkout
       - name: Diagnose File Existence Immediately After Checkout
         run: |
           echo "Current working directory:"
@@ -41,8 +40,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          # CRITICAL: Remove cache from here to ensure clean install
-          # cache: 'npm' # <-- REMOVE THIS LINE
+          # CRITICAL: Removed 'cache: npm' from here to prevent caching interference during build
+          # This ensures a fresh npm install every time for the build-and-test job.
 
       - name: Install dependencies (Aggressive cleanup and standard install)
         run: |
@@ -74,12 +73,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        # Add cache back for deploy job, as it's separate
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm'
+          cache: 'npm' # Re-enabled cache for deployment jobs, as they run after build
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -101,12 +100,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        # Add cache back for deploy job, as it's separate
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm'
+          cache: 'npm' # Re-enabled cache for deployment jobs
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest

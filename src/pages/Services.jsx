@@ -1,7 +1,7 @@
 import './PageStyles.css';
 import { useMedia } from '../context/MediaContext';
 import RequestQuote from '../context/RequestQuote'; // Keep the import
-import SingleServiceBtn from "@/context/SingleServiceBtn.jsx";
+import SingleServiceBtn from "@/context/SingleServiceBtn.jsx"; // <-- CRITICAL FIX HERE (Capital 'B' and .jsx)
 import { ServiceBtns } from '../context/ServiceBtn';
 
 const serviceData = [
@@ -52,6 +52,7 @@ const Service = () => {
               <p className="service-item-description">{service.desc}</p>
               <div className="service-item-btns">
                 <div className="SS-btn">
+                  {/* CRITICAL FIX HERE: Ensure the component name matches the import casing */}
                   <SingleServiceBtn serviceId={service.id} serviceTitle={service.title} />
                 </div>
               </div>
