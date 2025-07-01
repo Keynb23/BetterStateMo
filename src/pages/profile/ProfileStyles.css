@@ -1,0 +1,598 @@
+/* Profile Section */
+.Profile-wrapper {
+  background-color: var(--comp-bg-light);
+  color: var(--text);
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.Profile-loadingWrapper {
+  padding-top: var(--space-xl);
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.Profile-errorMessage {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.Profile-card-base {
+  background-color: var(--comp-bg-light);
+  border-radius: var(--space-md);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: var(--space-lg);
+  border: 1px solid var(--border-muted);
+}
+
+.Profile-Settings-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  margin: var(--space-md);
+  padding: var(--space-sm);
+  gap: var(--space-md);
+  border-radius: 8px;
+  color: var(--text);
+}
+
+.Profile-Settings-subtitle {
+  color: var(--color-primary);
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  text-align: center;
+}
+
+.Profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.Profile-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.Profile-form-group label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.Profile-input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Profile-input:focus {
+  border-color: var(--focus-border-color);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  outline: none;
+}
+
+.Profile-input:disabled {
+  background-color: var(--comp-bg-light);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.Profile-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.Profile-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.Profile-editBtn,
+.Profile-saveBtn {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.Profile-editBtn:hover,
+.Profile-saveBtn:hover {
+  background-color: var(--color-primary-light);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.Profile-deleteBtn {
+    background-color: var(--danger);
+}
+
+.Profile-cancelBtn {
+  background-color: var(--danger);
+  color: var(--text-dm);
+}
+
+.Profile-cancelBtn:hover {
+  background-color: var(--color-secondary);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.Profile-successMessage {
+  color: var(--color-accent);
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.Profile-errorMessage {
+  color: var(--danger);
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.Profile-Dashboard-Dashboard {
+  margin-top: var(--space-lg);
+  position: relative;
+  width: 100%;
+  height: 350px;
+  background-color: var(--bg);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-xl);
+}
+
+.Profile-Dashboard-title {
+  margin-bottom: var(--space-md);
+  color: var(--color-primary);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15);
+}
+
+.Profile-Dashboard-card {
+  background-color: var(--comp-bg-dark);
+  padding: var(--space-md);
+  border-radius: var(--space-sm);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid var(--border-subtle);
+}
+
+.Profile-Dashboard-subtitle {
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--color-secondary);
+}
+
+.Profile-Dashboard-text {
+  color: var(--text-dm);
+  line-height: 1.6;
+}
+
+
+.Dashboard-newRequestBtn {
+  position: absolute;
+  top: 80%;
+  right: 5%;
+  background-color: var(--color-primary);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.Dashboard-newRequestBtn:hover {
+  background-color: var(--color-primary-light);
+  color: var(--text);
+}
+
+.Profile-main-container {
+  position: relative;
+  left: 10%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    'search right'
+    'tabs right'
+    'content right';
+  gap: var(--space-xl);
+  width: 100%;
+  flex-grow: 1;
+}
+
+.Profile-search-bar-container {
+  grid-area: search;
+  margin-bottom: var(--space-md);
+}
+
+.Profile-search-input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  border: 1px solid var(--border-muted);
+  font-size: 1rem;
+  color: var(--text);
+  background-color: var(--bg);
+  box-shadow: var(--shadow-xs);
+}
+
+.Profile-tabs-container {
+  grid-area: tabs;
+  display: flex;
+  gap: var(--space-xs);
+  border-bottom: 2px solid var(--border-muted);
+  margin-bottom: var(--space-md);
+  background-color: var(--bg);
+  border-radius: var(--space-sm) var(--space-sm) 0 0;
+  padding-top: var(--space-xs);
+}
+
+.Profile-tab-button {
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+  color: var(--text-muted);
+  flex-grow: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.Profile-tab-button:hover {
+  color: var(--color-primary);
+  background-color: var(--comp-bg-light);
+}
+
+.Profile-tab-button.active {
+  border-bottom-color: var(--color-accent);
+  color: var(--text-dm);
+  font-weight: 600;
+  background-color: var(--color-primary);
+  border-radius: var(--space-sm) var(--space-sm) 0 0;
+}
+
+.Profile-tab-content {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+}
+
+.Profile-tab-panel {
+  flex-grow: 1;
+}
+
+.Profile-Appointments-list,
+.Profile-Quote-list,
+.Profile-Contact-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.Profile-Appointments-dividedList > *:not(:last-child) {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-md);
+}
+
+.Profile-Appointments-clickableItem {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: var(--space-sm);
+  border-radius: var(--space-sm);
+}
+
+.Profile-Appointments-clickableItem:hover {
+  background-color: var(--comp-bg-light);
+}
+
+.Profile-appointmentTitle,
+.Profile-quoteTitle,
+.Profile-contactTitle {
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+  color: var(--text);
+}
+
+.Profile-appointmentDetail,
+.Profile-quoteDetail,
+.Profile-contactDetail {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.Profile-Appointments-smallText {
+  font-size: 0.85rem;
+  color: var(--text-subtle);
+}
+
+.Profile-right-column {
+  grid-area: right;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.Profile-details-panel,
+.Request-New-Service {
+  position: sticky;
+  top: 5%;
+  right: 5%;
+  z-index: 10;
+  background-color: var(--bg);
+}
+
+.Profile-detail-subtitle,
+.Profile-subtitle {
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.Profile-detailItem {
+  margin-bottom: var(--space-sm);
+  color: var(--text-muted);
+}
+
+.Profile-detailItem strong {
+  color: var(--text);
+}
+
+/* Note: There are two .Profile-button selectors, this one is for general buttons.
+   Ensure this doesn't conflict with the absolute-positioned one if not intended. */
+.Profile-button {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.Profile-requestServiceBtn {
+  background-color: var(--color-secondary);
+  color: var(--text-dm);
+  width: 100%;
+  box-shadow: var(--shadow-sm);
+}
+
+.Profile-requestServiceBtn:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.mt-4 {
+  margin-top: var(--space-md);
+}
+
+/* Profile Responsive Styles */
+
+/* Tablet and larger phones (landscape) */
+@media (max-width: 1024px) {
+  .Profile-wrapper {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .Profile-main-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'search'
+      'right'
+      'tabs'
+      'content';
+    gap: var(--space-lg);
+    left: 0; /* Reset left positioning */
+  }
+
+  .Profile-right-column {
+    gap: var(--space-lg);
+  }
+
+  .Profile-details-panel,
+  .Request-New-Service {
+    position: static;
+    top: auto;
+    right: auto;
+    z-index: auto;
+  }
+
+  .Profile-tab-button {
+    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .Profile-Dashboard-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .Profile-Settings-container {
+    padding: 18px;
+  }
+
+  .Profile-Settings-subtitle {
+    font-size: 1.6em;
+  }
+
+  .Profile-input {
+    padding: 9px 11px;
+    font-size: 0.95em;
+  }
+
+  .Profile-button {
+    padding: 9px 18px;
+    font-size: 0.95em;
+  }
+}
+
+/* Smaller tablets and large phones */
+@media (max-width: 650px) {
+  .Profile-wrapper {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .Profile-tabs-container {
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .Profile-tab-button {
+    padding: var(--space-sm);
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .Profile-Dashboard-Dashboard {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .Profile-search-input {
+    font-size: 0.9rem;
+  }
+
+  .Profile-appointmentTitle,
+  .Profile-quoteTitle,
+  .Profile-contactTitle {
+    font-size: 1rem;
+  }
+
+  .Profile-appointmentDetail,
+  .Profile-quoteDetail,
+  .Profile-contactDetail {
+    font-size: 0.85rem;
+  }
+
+  .Profile-Appointments-smallText {
+    font-size: 0.75rem;
+  }
+
+  .Profile-Settings-container {
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .Profile-Settings-subtitle {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+
+  .Profile-form {
+    gap: 12px;
+  }
+
+  .Profile-form-group label {
+    font-size: 0.9em;
+  }
+
+  .Profile-input {
+    padding: 8px 10px;
+    font-size: 0.9em;
+  }
+
+  .Profile-buttons-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .Profile-button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+}
+
+/* Phones (portrait) */
+@media (max-width: 450px) {
+  .Profile-Settings-container {
+    padding: 12px;
+    margin-top: 10px;
+  }
+
+  .Profile-Settings-subtitle {
+    font-size: 1.3em;
+    margin-bottom: 12px;
+  }
+
+  .Profile-form {
+    gap: 10px;
+  }
+
+  .Profile-form-group label {
+    font-size: 0.85em;
+  }
+
+  .Profile-input {
+    padding: 7px 9px;
+    font-size: 0.85em;
+  }
+
+  .Profile-button {
+    padding: 9px 12px;
+    font-size: 0.85em;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 368px) {
+  .Profile-Settings-container {
+    padding: 10px;
+  }
+
+  .Profile-Settings-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .Profile-input {
+    padding: 6px 8px;
+    font-size: 0.8em;
+  }
+
+  .Profile-button {
+    padding: 8px 10px;
+    font-size: 0.8em;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 340px) {
+  .Profile-Settings-container {
+    padding: 8px;
+  }
+
+  .Profile-Settings-subtitle {
+    font-size: 1.1em;
+  }
+
+  .Profile-input {
+    padding: 5px 7px;
+    font-size: 0.75em;
+  }
+
+  .Profile-button {
+    padding: 7px 9px;
+    font-size: 0.75em;
+  }
+}

@@ -6,7 +6,7 @@ import Services from './pages/Services.jsx';
 import Home from './pages/Home.jsx';
 import SetApt from './pages/SetApt.jsx';
 import LoginReg from './components/loginReg.jsx';
-import Profile from './pages/profile.jsx';
+import Profile from './pages/profile/profile.jsx';
 import ObjectionBlockers from './components/objectionBlockers.jsx';
 import Footer from './components/Footer.jsx';
 import Gallery from './components/Gallery.jsx';

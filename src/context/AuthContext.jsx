@@ -7,7 +7,7 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration - HARDCODED FOR LOCAL DEVELOPMENT
 // REMEMBER TO REVERT THIS IF DEPLOYING TO CANVAS/OTHER ENVIRONMENTS
 const firebaseConfig = {
-  apiKey: 'AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D', // Placeholder, ensure yours is correct and secure
+  apiKey: 'AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D8', // <--- THIS IS THE CORRECTED API KEY
   authDomain: 'better-state-llc.firebaseapp.com',
   projectId: 'better-state-llc',
   storageBucket: 'better-state-llc.firebasestorage.app',

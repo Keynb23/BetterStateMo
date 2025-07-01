@@ -405,7 +405,7 @@
 }
 
 .login-register-error {
-  color: var(--color-secondary);
+  color: var(--danger);
   text-align: center;
   margin-top: var(--space-sm);
   font-size: 0.85rem;
