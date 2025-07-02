@@ -3,19 +3,7 @@ TO DO:
 these pages/components need styled:
 
 ======================================
-
-SCROLL TO TOP feature is not working yet. it's bugged. Tried importing directly and adding it to the main and the app .jsx files, but still not working
-
-===========
-
 NEED TO CREATE NEW TEST FOR SERVICE CONTEXT
-
-
-ahsalhdal
-
-
-
-
 
 ==========================================
 
@@ -34,23 +22,6 @@ for footer product, check with andrew for the correct products. they doin't use 
 Double check all the colors for text. Review card text should be primary instead of secondary. Failed to login on profile dropdwon is secondary. Should be danger. Will have to use !important for both.
 
 ===================================
-
-
-
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
-
->>>>>>> 3270e0e (Commit local changes including removal of SingleServicebtn.jsx and other updates)
-
-
-
-===========================
 create Blaze account with card info (business card)
 
 add tests with jest

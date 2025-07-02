@@ -1,18 +1,13 @@
-// setClaim.js
 const admin = require('firebase-admin');
-
 // Path to your service account key file
 // IMPORTANT: Make sure this path is EXACTLY correct relative to setClaim.js
 const serviceAccount = require('./better-state-llc-firebase-adminsdk-fbsvc-3abbd6d603.json'); // Use YOUR downloaded filename
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
-
 // IMPORTANT: REPLACE THIS WITH THE EXACT EMAIL OF THE OWNER USER YOU CREATED IN FIREBASE AUTHENTICATION
 const ownerEmail = 'keynb50@gmail.com'; // <--- **REPLACE THIS WITH THE EMAIL YOU CREATED IN FIREBASE AUTHENTICATION**
 const ownerUid = ''; // Optional: if you know the UID from Firebase Auth, you can set it here.
-
 async function setOwnerCustomClaim() {
   try {
     let userRecord;

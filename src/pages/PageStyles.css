@@ -3,279 +3,449 @@
   height: 100vh;
 }
 
-/* Services Section Styles */
-.service-container {
-  position: relative;
-  background: linear-gradient(180deg, var(--bg) 0%, var(--comp-bg-light) 100%);
-  color: var(--text);
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--space-lg) var(--space-sm);
-  box-sizing: border-box;
-  overflow: hidden;
+/*
+ * Service Page Styles - Refined Appearance
+ */
+
+/* ========================================= */
+/* 1. Service Section Container & Global */
+/* ========================================= */
+#services.service-container {
+  padding: var(--space-xl) var(--space-md); /* Vertical and horizontal padding */
+  background-color: var(--bg); /* Main background color */
+  color: var(--text); /* Default text color */
+  max-width: 1440px; /* Max width for the whole section */
+  margin: 0 auto; /* Center the container */
+  overflow: hidden; /* Prevent horizontal scroll from peeking items pushing layout */
 }
 
+/* ========================================= */
+/* 2. Header Section */
+/* ========================================= */
 .services-main-title {
-  border-bottom: 3px solid var(--color-accent);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-primary); /* Primary brand color for the main title */
   text-align: center;
-  color: var(--color-primary);
-  font-size: clamp(2rem, 8vw, 4.5rem);
-  font-weight: 700;
-  margin-bottom: var(--space-md);
-  padding-top: var(--space-lg);
-  text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.2);
-}
-
-.service-subH4 {
-  font-size: clamp(1rem, 4vw, 1.25rem);
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-top: var(--space-sm);
   margin-bottom: var(--space-lg);
-  text-align: center;
-}
-
-.service-LR {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: var(--space-sm);
-  gap: var(--space-lg);
-}
-
-
-.service-left {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  justify-content: flex-end;
-  padding-right: 0;
-  z-index: 2;
-}
-
-.service-right {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-self: flex-end;
-  justify-content: flex-end;
-  z-index: 5;
+  line-height: 1.2;
 }
 
 .service-sub-header {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto var(--space-md) auto;
-  font-size: 1rem;
-  line-height: 1.6;
-  padding: var(--space-md);
-  background: var(--comp-bg-light);
-  box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  max-width: 800px; /* Constrain width for better readability on large screens */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--space-sm); /* Small horizontal padding for text */
 }
 
 .service-subP {
-  text-align: left;
-  margin-bottom: var(--space-sm);
-  font-weight: 500;
-  color: var(--text-muted);
-  line-height: 1.5rem;
-  max-width: 100%;
-  padding: var(--space-sm);
-  position: relative;
-  padding-left: var(--space-md);
-  border-left: 3px solid var(--color-secondary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+  color: var(--text-muted); /* Muted text color for sub-paragraph */
 }
 
-.services-list-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
+.service-subH4 {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  color: var(--color-accent); /* Accent color for the sub-heading */
+  margin-bottom: 0;
+}
+
+/* ========================================= */
+/* 3. Main Content Layout (Menu + Carousel) */
+/* ========================================= */
+.Service-main-content {
+  display: flex;
+  flex-direction: column; /* Stack vertically on small screens */
+  gap: var(--space-xl); /* Gap between menu and carousel */
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  align-items: center; /* Center content horizontally when stacked */
 }
 
-.service-item {
+/* ========================================= */
+/* 4. Service Menu Items (Left Side) */
+/* ========================================= */
+.service-menu-items {
+  width: 100%;
+  max-width: 300px; /* Max width for the menu block */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background-color: var(--bg);
-  border-radius: var(--space-md);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: var(--space-md) var(--space-sm);
-  transition: box-shadow 0.3s ease;
-  overflow: hidden;
+  gap: var(--space-lg); /* Gap between menu list and buttons */
 }
 
-.service-item:hover {
-  box-shadow: rgba(0, 0, 0, 0.24) 2px 6px 12px;
+.service-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--comp-bg-dark); /* Dark background for the menu list */
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md); /* Subtle shadow for depth */
 }
 
-.service-item-image-container {
-  width: 80px;
-  height: 80px;
-  border-radius: 2.5%;
-  overflow: hidden;
-  margin-bottom: var(--space-sm);
+.service-menu-item {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  padding: var(--space-md) var(--space-lg); /* More horizontal padding */
+  border-bottom: 1px solid var(--border-muted); /* Subtle separator */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: var(--text);
+  text-align: left; /* Align text to the left */
+}
+
+.service-menu-item:last-child {
+  border-bottom: none; /* No border on the last item */
+}
+
+.service-menu-item:hover {
+  background-color: var(--comp-bg-light); /* Lighter background on hover */
+  color: var(--color-primary); /* Primary color text on hover */
+}
+
+.service-menu-item.active-menu-item {
+  background-color: var(--color-primary); /* Primary background for active item */
+  color: var(--text-inverted); /* White/light text on primary background */
+  font-weight: bold;
+}
+
+/* ========================================= */
+/* 5. Service Menu Buttons (Select All / Schedule Apt) */
+/* ========================================= */
+.Service-menu-btns {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.Service-menu-btns .service-btns-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.Service-menu-btns .select-all-btn button,
+.Service-menu-btns .set-apt-btn button {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
   box-shadow: var(--shadow-sm);
+  text-transform: uppercase; /* Make buttons stand out */
+  font-weight: bold;
+}
+
+.Service-menu-btns .select-all-btn button {
+  background-color: var(--color-accent); /* Accent color for Select All */
+  color: var(--text-inverted);
+}
+
+.Service-menu-btns .select-all-btn button:hover {
+  background-color: var(--color-accent-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.Service-menu-btns .set-apt-btn button {
+  background-color: var(--color-primary); /* Primary color for Schedule Apt */
+  color: var(--text-inverted);
+}
+
+.Service-menu-btns .set-apt-btn button:hover {
+  background-color: var(--color-primary-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.Service-menu-btns .set-apt-btn button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+/* ========================================= */
+/* 6. Swiper Carousel Container */
+/* ========================================= */
+.services-list-wrapper {
+  width: 100%;
+  position: relative; /* For positioning Swiper arrows/pagination */
+  padding-bottom: var(--space-xl); /* Ensure enough space for pagination dots */
+}
+
+.services-list-wrapper .swiper {
+  width: 100%;
+  height: auto;
+  /* Swiper's internal padding if needed, but spaceBetween is usually enough */
+}
+
+/* ========================================= */
+/* 7. Swiper Slide/Card Items */
+/* ========================================= */
+.services-list-wrapper .swiper-slide {
+  /* Swiper slides will automatically adjust width based on slidesPerView */
+  background: transparent; /* Card background is handled by .service-item */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-primary-light);
+  box-sizing: border-box;
+  padding: 0 var(--space-sm); /* Small padding for the "peek" effect if slidesPerView is X.Y */
 }
 
-.service-item-image {
+.services-list-wrapper .service-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  min-height: 380px; /* Consistent height for cards */
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Card takes full width of its slide */
+  background-color: var(--comp-bg-light); /* Background for the card */
+}
+
+.services-list-wrapper .service-item-content {
+  position: relative;
+  z-index: 2; /* Ensures text content is above the image */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes description to bottom if content is short */
+  height: 100%;
+  padding: var(--space-md);
+  color: var(--text-inverted); /* Light text color over dark image/background */
+}
+
+.services-list-wrapper .service-item-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-sm);
+  text-align: center;
+  color: var(--color-accent); /* Accent color for card titles */
+}
+
+.services-list-wrapper .service-item-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Places image behind content */
+}
+
+.services-list-wrapper .service-item-image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  filter: brightness(0.4); /* Darken image more for better text readability */
+  transition: filter 0.3s ease;
 }
 
-.service-item-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+.services-list-wrapper .service-item:hover .service-item-image {
+  filter: brightness(0.6); /* Slightly brighter on hover */
 }
 
-.service-item-title {
-  color: var(--text);
-  font-size: clamp(1.2rem, 4.5vw, 1.8rem);
-  margin-bottom: var(--space-sm);
-  font-weight: 600;
-}
-
-.service-item-description {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-  flex-grow: 1;
-  margin-bottom: var(--space-md);
-}
-
-.service-item-btns {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  margin-top: auto;
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--border-muted);
-  width: 100%;
-  z-index: 5;
-}
-
-.SS-btn {
-  display: flex;
-  align-self: center;
+.services-list-wrapper .service-item-description {
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background for description */
   padding: var(--space-sm);
-  z-index: 5;
+  border-radius: var(--border-radius-sm);
+  margin-top: auto; /* Pushes the description block to the bottom */
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  backdrop-filter: blur(2px); /* Subtle blur behind description for modern look */
 }
 
-/* Tablet and larger phones (min-width: 561px) */
-@media (min-width: 561px) {
-  .service-container {
-    padding: var(--space-xl) var(--space-md);
-  }
-
-  .services-main-title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    margin-bottom: var(--space-xl);
-    padding-top: var(--space-xl);
-  }
-
-  .service-subH4 {
-    font-size: clamp(1.15rem, 2.5vw, 1.25rem);
-    margin-bottom: var(--space-xl);
-  }
-
-  .service-LR {
-    padding: var(--space-md);
-  }
-
-  .services-list-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-md);
-  }
-
-  .service-item {
-    padding: var(--space-md);
-  }
-
-  .service-item-image-container {
-    width: 100px;
-    height: 100px;
-    margin-bottom: var(--space-md);
-  }
-
-  .service-item-title {
-    font-size: clamp(1.3rem, 2.8vw, 1.8rem);
-  }
-
-  .service-item-description {
-    font-size: 0.95rem;
-    margin-bottom: var(--space-lg);
-  }
-
-  .service-item-btns {
-    padding-top: var(--space-md);
-  }
+.services-list-wrapper .service-item-btns {
+  margin-top: var(--space-md);
+  text-align: center;
 }
 
-/* Specific breakpoint for column layout of service cards */
-@media (max-width: 850px) {
-  .services-list-wrapper {
-    grid-template-columns: 1fr;
-  }
+.services-list-wrapper .SS-btn button {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--text-inverted);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  font-weight: bold;
 }
 
-/* Desktop (min-width: 992px) */
-@media (min-width: 992px) {
-  .service-LR {
-    flex-direction: row;
-    padding: var(--space-md);
-  }
+.services-list-wrapper .SS-btn button:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
 
-  .service-left {
-    flex: 0 0 30%;
-    padding-right: var(--space-lg);
-  }
+/* ========================================= */
+/* 8. Swiper Navigation (Arrows) */
+/* ========================================= */
+.services-list-wrapper .swiper-button-next,
+.services-list-wrapper .swiper-button-prev {
+  color: var(--text-inverted); /* White/light color for arrows */
+  width: 48px; /* Larger hit area */
+  height: 48px;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 0; /* Override default Swiper margin */
+}
 
-  .service-right {
-    flex-grow: 1;
-  }
+/* Ensure arrows icons are visible and sized correctly */
+.services-list-wrapper .swiper-button-next::after,
+.services-list-wrapper .swiper-button-prev::after {
+  font-size: var(--font-size-lg); /* Adjust icon size */
+  font-weight: bold;
+}
 
-  .bg-guideS1 {
-    display: block;
-    left: calc(10% + var(--space-md) + 8px);
-    top: calc(var(--space-xl) + 4.5rem + var(--space-xl) + var(--space-lg) + 3px);
+.services-list-wrapper .swiper-button-prev {
+  left: 10px; /* Position from left edge */
+}
+
+.services-list-wrapper .swiper-button-next {
+  right: 10px; /* Position from right edge */
+}
+
+.services-list-wrapper .swiper-button-next:hover,
+.services-list-wrapper .swiper-button-prev:hover {
+  background-color: var(--color-primary); /* Primary color on hover */
+  transform: translateY(-50%) scale(1.05); /* Subtle scale effect */
+}
+
+/* ========================================= */
+/* 9. Swiper Pagination (Dots) */
+/* ========================================= */
+.services-list-wrapper .swiper-pagination {
+  position: absolute;
+  bottom: 0px; /* Position at the bottom of the container */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+.services-list-wrapper .swiper-pagination-bullet {
+  background: var(--border-muted); /* Inactive dot color */
+  opacity: 0.7;
+  width: 10px; /* Size of the dot */
+  height: 10px;
+  margin: 0 5px; /* Spacing between dots */
+  transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.services-list-wrapper .swiper-pagination-bullet-active {
+  background: var(--color-accent); /* Active dot color */
+  opacity: 1;
+  transform: scale(1.2); /* Slightly larger active dot */
+}
+
+
+/* ========================================= */
+/* 10. Responsive Adjustments */
+/* ========================================= */
+/* Tablet and larger (768px) */
+@media (min-width: 768px) {
+  #services.service-container {
+    padding: var(--space-xxl) var(--space-xl); /* More padding on larger screens */
   }
 
   .service-sub-header {
-    margin: 0 auto var(--space-xl) auto;
-    font-size: 1.15rem;
+    margin-bottom: var(--space-xxl); /* More space below header */
   }
 
-  .service-subP {
-    margin-bottom: var(--space-md);
-    padding: var(--space-md);
-    line-height: 1.75rem;
+  .Service-main-content {
+    flex-direction: row; /* Menu and carousel side-by-side */
+    justify-content: center; /* Center the entire block */
+    align-items: flex-start; /* Align contents to the top */
+    gap: var(--space-xl); /* Consistent gap */
+  }
+
+  .service-menu-items {
+    flex: 0 0 280px; /* Fixed width for the menu */
+    max-width: 280px;
   }
 
   .services-list-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-lg);
+    flex: 1; /* Carousel takes up remaining space */
+    /* Calculate remaining width: 100% of parent - menu width - gap */
+    max-width: calc(100% - 280px - var(--space-xl));
   }
 
-  .service-item-image-container {
-    width: 100%;
-    height: 250px;
+  .service-menu-item {
+    font-size: var(--font-size-lg);
+    padding: var(--space-lg);
+  }
+
+  .Service-menu-btns .select-all-btn button,
+  .Service-menu-btns .set-apt-btn button {
+    font-size: var(--font-size-lg);
+  }
+
+  .services-list-wrapper .service-item {
+    min-height: 400px; /* Slightly taller cards on tablet */
   }
 }
+
+/* Desktop and larger (1280px) */
+@media (min-width: 1280px) {
+  #services.service-container {
+    padding: var(--space-xxl) var(--space-xxl);
+  }
+
+  .services-main-title {
+    font-size: var(--font-size-xxl);
+  }
+
+  .service-subP {
+    font-size: var(--font-size-lg);
+  }
+
+  .service-subH4 {
+    font-size: var(--font-size-xl);
+  }
+
+  .service-menu-items {
+    flex: 0 0 320px; /* Slightly wider menu on large desktops */
+    max-width: 320px;
+  }
+
+  .services-list-wrapper {
+    max-width: calc(100% - 320px - var(--space-xl));
+  }
+
+  .services-list-wrapper .service-item {
+    min-height: 450px; /* Taller cards on desktop */
+  }
+}
+
+
 /* Set Appointment Section */
 .Set-Apt-container {
   background: linear-gradient(to top, var(--comp-bg-light), var(--bg));

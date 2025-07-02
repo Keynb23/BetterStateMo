@@ -23,6 +23,7 @@ export default function Footer() {
           <h3 className="column-title">Contact Information</h3>
           <div className="footer-contact">
             573-823-6325
+            <p>Betterstatemo@gmail.com</p>
             <div className="footer-hours">
               <p>8am - 7pm</p>
               <p>Monday - Friday</p>

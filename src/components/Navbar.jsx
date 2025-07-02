@@ -73,11 +73,6 @@ export default function Navbar({ isVisible }) {
       e.preventDefault(); // Prevent default link behavior if on same page
       forceScrollToTop();
     } else {
-      // Allow default Link behavior for navigation.
-      // The ScrollToTop component (if you have one in App/main)
-      // will handle the scroll for the new route, or you could call forceScrollToTop() here too.
-      // For consistency, let's also force it here to guarantee top scroll on navigation.
-      // Note: React Router Link will navigate, then this will force scroll.
       navigate('/'); // Ensure navigation to home route
       forceScrollToTop(); // Force scroll after navigation
       e.preventDefault(); // Prevent default Link behavior, as we handle navigation manually here too.
@@ -161,7 +156,7 @@ export default function Navbar({ isVisible }) {
         </div>
 
         <button className="phoneNumber">
-          <a href="tel:913-270-0518">
+          <a href="tel:573-823-6325">
             <span className="full-text"></span>
             <i className="fas fa-phone phone-icon" aria-hidden="true"></i>
           </a>

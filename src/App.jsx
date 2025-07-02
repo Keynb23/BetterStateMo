@@ -13,6 +13,8 @@ import Gallery from './components/Gallery.jsx';
 import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
+import RequestQuote from './context/RequestQuote';
+
 
 function App() {
   const location = useLocation();
@@ -67,6 +69,7 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
+        <RequestQuote />
         <Footer />
       </div>
     </>
