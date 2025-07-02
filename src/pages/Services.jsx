@@ -1,21 +1,11 @@
 import './PageStyles.css';
 import { useMedia } from '../context/MediaContext';
-// RequestQuote import is kept for reference, but it's removed from render
-import RequestQuote from '../context/RequestQuote';
-// Import useServiceContext to manage menu item selection
 import { ServiceBtns, SingleServiceBtn, useServiceContext } from '../context/ServiceContext';
-
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper modules
-import { Navigation, Pagination, A11y } from 'swiper/modules'; // Navigation module is back!
-
-// Import Swiper styles
+import { Navigation, Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation'; // Navigation styles are back!
-import 'swiper/css/pagination'; // For pagination dots
-
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const serviceData = [
   {
@@ -46,12 +36,7 @@ const Service = () => {
   return (
     <section id="services" className="service-container">
       <h1 className="services-main-title">Our Pool Services</h1>
-
-      {/* Moved sub-header content for better structural grouping */}
       <div className="service-sub-header">
-        <div className="note">
-          THIS IS KEYN. I stepped away to get food. I see what this looks like lmao
-        </div>
         <p className="service-subP">
           We provide professional pool maintenance, cleaning, and repairs to keep your water clear
           and equipment running right. From weekly service to green pool recovery. Our licensed
@@ -60,69 +45,73 @@ const Service = () => {
         <h4 className="service-subH4">Enjoy your pool - we'll handle the rest.</h4>
       </div>
 
-      {/* New main container for the menu and service cards */}
-      <div className="Service-main-content">
-        <div className="service-menu-items">
-          <ul className="service-menu-list">
-            {/* These list items will be linked to the service IDs,
-                can be clicked to select the service, and will be highlighted when active/selected */}
-            {serviceData.map((service) => (
-              <li
-                key={service.id}
-                className={`service-menu-item ${selectedServices.includes(service.id) ? 'active-menu-item' : ''}`}
-                onClick={() => toggleService(service.id)} // Click to select/deselect service
-              >
-                {service.title}
-              </li>
-            ))}
-          </ul>
-          <ul className="Service-menu-btns">
-            {/* The Select all services and schedule service appointment buttons will go here.
-                The ServiceBtns component renders these based on context. */}
-            <ServiceBtns />
-          </ul>
+      {/* NEW CONTAINER for the main body content (menu + carousel) */}
+      <div className="services-body-content">
+        {/* LEFT SIDE: Service Menu */}
+        <div className="Service-main-content"> {/* This now only holds the menu items */}
+          <div className="service-menu-items">
+            <ul className="service-menu-list">
+
+              {serviceData.map((service) => (
+                <li
+                  key={service.id}
+                  className={`service-menu-item ${selectedServices.includes(service.id) ? 'active-menu-item' : ''}`}
+                  onClick={() => toggleService(service.id)}
+                >
+                  {service.title}
+                </li>
+              ))}
+            </ul>
+            <ul className="Service-menu-btns">
+              <ServiceBtns />
+            </ul>
+          </div>
         </div>
 
-        {/* This is the carousel container */}
+        {/* RIGHT SIDE: Services List (Carousel) */}
         <div className="services-list-wrapper">
           <Swiper
-            // Install modules (Navigation is back for explicit control)
             modules={[Navigation, Pagination, A11y]}
-            // Default settings for smallest screens
-            slidesPerView={1.1} // Shows 1 full card and 10% of the next
-            spaceBetween={16} // space-md (adjust in CSS if needed)
-            navigation={true} // Enable next/prev buttons
-            pagination={{ clickable: true }} // Enable pagination dots, clickable
-            loop={true} // Enable looping through slides
-            grabCursor={true} // Show grab cursor for draggable slides
-            // Responsive breakpoints
+            // Default settings for smallest screens (0px up to 767px)
+            slidesPerView={1.1} // Shows 1 full card and a small peek of the next
+            spaceBetween={16}
+            navigation={true}
+            pagination={{ clickable: true }}
+            loop={true}
+            grabCursor={true}
+            // Responsive breakpoints - Swiper uses min-width logic
             breakpoints={{
               // When window width is >= 768px (Tablet)
               768: {
-                slidesPerView: 2.1, // Shows 2 full cards and 10% of the next
-                spaceBetween: 24, // Adjust for larger screens
+                slidesPerView: 1.2, // Shows 1 full card and a bit more of the next
+                spaceBetween: 12,
               },
-              // When window width is >= 1280px (Desktop)
+              // When window width is >= 1024px (Smaller Desktop)
+              1024: {
+                slidesPerView: 1.3, // Shows 1 full card and an even larger peek
+                spaceBetween: 14,
+              },
+              // When window width is >= 1280px (Large Desktop)
               1280: {
-                slidesPerView: 3, // Shows all 3 full cards (no peek if exactly 3)
-                spaceBetween: 32, // Adjust for desktop
+                slidesPerView: 1.4, // Consistent peek effect on larger screens
+                spaceBetween: 16,
               },
             }}
           >
             {serviceData.map((service) => (
               <SwiperSlide key={service.id}>
                 <div className="service-item">
+                  {/* Image container placed directly inside service-item */}
+                  <div className="service-item-image-container">
+                    <img
+                      src={pools[service.index]}
+                      alt={service.title}
+                      className="service-item-image"
+                    />
+                  </div>
+                  {/* Content container now overlays the image */}
                   <div className="service-item-content">
                     <h2 className="service-item-title">{service.title}</h2>
-                    {/* This could be the background for the whole card */}
-                    <div className="service-item-image-container">
-                      <img
-                        src={pools[service.index]}
-                        alt={service.title}
-                        className="service-item-image"
-                      />
-                    </div>
-                    {/* A solid black background here. Doesn't have to be black, but black for now */}
                     <p className="service-item-description">{service.desc}</p>
                     <div className="service-item-btns">
                       <div className="SS-btn">

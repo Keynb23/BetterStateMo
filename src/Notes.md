@@ -7,6 +7,9 @@ NEED TO CREATE NEW TEST FOR SERVICE CONTEXT
 
 ==========================================
 
+service and profile pages need style updated and media queries for profile page.
+
+=====================================
 
 ANDREW'S NOTES: UPDATE THE PICTURES IN SERVICE CARDS, UPDATES SERVICE CARDS "SERVICES" DESCRIPTION SO THAT IT'S CLEARN THAT SERVICES COVER MAINTENECE, SERCICE, CLEANING, ECT..
 
