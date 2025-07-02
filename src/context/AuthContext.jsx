@@ -7,13 +7,13 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration - HARDCODED FOR LOCAL DEVELOPMENT
 // REMEMBER TO REVERT THIS IF DEPLOYING TO CANVAS/OTHER ENVIRONMENTS
 const firebaseConfig = {
-  apiKey: 'AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D8', // <--- THIS IS THE CORRECTED API KEY
-  authDomain: 'better-state-llc.firebaseapp.com',
-  projectId: 'better-state-llc',
-  storageBucket: 'better-state-llc.firebasestorage.app',
-  messagingSenderId: '1000941778539',
-  appId: '1:1000941778539:web:3211eee5c4977ee5e0a32e',
-  measurementId: 'G-RDF4SD6CR1',
+  apiKey: "AIzaSyBf1-lLaCmCqSZuUn6v-vvrRwJ_TesX1D8",
+  authDomain: "better-state-llc.firebaseapp.com",
+  projectId: "better-state-llc",
+  storageBucket: "better-state-llc.firebasestorage.app",
+  messagingSenderId: "1000941778539",
+  appId: "1:1000941778539:web:3211eee5c4977ee5e0a32e",
+  measurementId: "G-RDF4SD6CR1"
 };
 
 // Initialize Firebase only if no app has been initialized yet.

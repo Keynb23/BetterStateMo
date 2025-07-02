@@ -1,129 +1,131 @@
+// src/components/Service.jsx
 import './PageStyles.css';
-import { useMedia } from '../context/MediaContext';
-import { ServiceBtns, SingleServiceBtn, useServiceContext } from '../context/ServiceContext';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, A11y } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { useState } from 'react';
+import { SingleServiceBtn, ServiceBtns, useServiceContext } from '../context/ServiceContext';
+
+// import snowflakedark from '../assets/icons/snowflake-dark.png';
+import snowflakelight from '../assets/icons/snowflake-light.png';
+import sunny from '../assets/icons/sunny.png';
+// import wrenchgearlight from '../assets/icons/wrench-gear-light.png';
+import wrenchgeardark from '../assets/icons/wrench-gear.png';
 
 const serviceData = [
   {
     id: 1,
     title: 'Pool Opening',
-    index: 20,
+    icon: sunny,
     desc: 'Get your pool ready for summer with our comprehensive pool opening service, ensuring a clean and safe start to your swimming season.',
+    features: [
+      'Remove winter cover',
+      'Start up pump and filter',
+      'Test and balance water chemistry',
+      'Brush pool walls and floor',
+      'Initial vacuuming and skimming',
+    ],
   },
   {
     id: 2,
     title: 'Pool Closing',
-    index: 5,
+    icon: snowflakelight,
     desc: 'Protect your pool during the off-season with our professional closing service, preparing it for winter and preventing costly damage.',
+    features: [
+      'Drain water to winterizing level',
+      'Blow out and plug lines',
+      'Remove and store accessories',
+      'Apply winterizing chemicals',
+      'Install winter cover',
+    ],
   },
   {
     id: 3,
     title: 'Pool Services',
-    index: 28,
+    icon: wrenchgeardark,
     desc: 'Maintain pristine water quality and optimal equipment performance with our regular pool servicing, tailored to your needs.',
+    features: [
+      'Full-service weekly/bi-weekly cleaning',
+      'Water testing and chemical balancing',
+      'Equipment inspection and maintenance',
+      'Skimming and vacuuming',
+      'Filter cleaning and backwashing',
+    ],
   },
 ];
 
 const Service = () => {
-  const { pools } = useMedia();
-  // Access selectedServices and toggleService from the ServiceContext
   const { toggleService, selectedServices } = useServiceContext();
+  const [hoveredServiceId, setHoveredServiceId] = useState(null);
 
   return (
     <section id="services" className="service-container">
       <h1 className="services-main-title">Our Pool Services</h1>
-      <div className="service-sub-header">
-        <p className="service-subP">
-          We provide professional pool maintenance, cleaning, and repairs to keep your water clear
-          and equipment running right. From weekly service to green pool recovery. Our licensed
-          team handles it all with care and precision.
-        </p>
-        <h4 className="service-subH4">Enjoy your pool - we'll handle the rest.</h4>
-      </div>
-
-      {/* NEW CONTAINER for the main body content (menu + carousel) */}
+      <div className="Service-sub"><h3>
+        Enjoy your pool - we'll handle the rest</h3></div>
+      {/* This is the service-mobile-text you were asking about */}
+      <p className="service-mobile-text">
+        Scroll down to schedule your appointment
+      </p>
       <div className="services-body-content">
-        {/* LEFT SIDE: Service Menu */}
-        <div className="Service-main-content"> {/* This now only holds the menu items */}
+        <div className="Service-main-content">
+          <p className="Service-menuP">
+            We provide professional pool maintenance, cleaning, and repairs to keep your water clear
+            and equipment running right. From weekly service to green pool recovery. Our licensed
+            team handles it all with care and precision.
+          </p>
+
+          {/* This was the second H4 you added in the previous turn, before I tried to "fix" it */}
+          <div className="service-sub-mobile"><h3>
+            Enjoy your pool - we'll handle the rest</h3></div>
           <div className="service-menu-items">
             <ul className="service-menu-list">
-
               {serviceData.map((service) => (
                 <li
                   key={service.id}
-                  className={`service-menu-item ${selectedServices.includes(service.id) ? 'active-menu-item' : ''}`}
+                  className={`service-menu-item ${
+                    selectedServices.includes(service.id) ? 'active-menu-item' : ''
+                  }
+                  ${hoveredServiceId === service.id ? 'highlighted-menu-item' : ''}`}
                   onClick={() => toggleService(service.id)}
                 >
                   {service.title}
                 </li>
               ))}
             </ul>
-            <ul className="Service-menu-btns">
-              <ServiceBtns />
-            </ul>
           </div>
         </div>
 
-        {/* RIGHT SIDE: Services List (Carousel) */}
-        <div className="services-list-wrapper">
-          <Swiper
-            modules={[Navigation, Pagination, A11y]}
-            // Default settings for smallest screens (0px up to 767px)
-            slidesPerView={1.1} // Shows 1 full card and a small peek of the next
-            spaceBetween={16}
-            navigation={true}
-            pagination={{ clickable: true }}
-            loop={true}
-            grabCursor={true}
-            // Responsive breakpoints - Swiper uses min-width logic
-            breakpoints={{
-              // When window width is >= 768px (Tablet)
-              768: {
-                slidesPerView: 1.2, // Shows 1 full card and a bit more of the next
-                spaceBetween: 12,
-              },
-              // When window width is >= 1024px (Smaller Desktop)
-              1024: {
-                slidesPerView: 1.3, // Shows 1 full card and an even larger peek
-                spaceBetween: 14,
-              },
-              // When window width is >= 1280px (Large Desktop)
-              1280: {
-                slidesPerView: 1.4, // Consistent peek effect on larger screens
-                spaceBetween: 16,
-              },
-            }}
-          >
-            {serviceData.map((service) => (
-              <SwiperSlide key={service.id}>
-                <div className="service-item">
-                  {/* Image container placed directly inside service-item */}
-                  <div className="service-item-image-container">
-                    <img
-                      src={pools[service.index]}
-                      alt={service.title}
-                      className="service-item-image"
-                    />
-                  </div>
-                  {/* Content container now overlays the image */}
-                  <div className="service-item-content">
-                    <h2 className="service-item-title">{service.title}</h2>
-                    <p className="service-item-description">{service.desc}</p>
-                    <div className="service-item-btns">
-                      <div className="SS-btn">
-                        <SingleServiceBtn serviceId={service.id} serviceTitle={service.title} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <div className="service-details-wrapper">
+          {serviceData.map((service) => (
+            <div
+              key={service.id}
+              className={`service-item-card ${
+                selectedServices.includes(service.id) ? 'selected-card' : ''
+              }`}
+              onMouseEnter={() => setHoveredServiceId(service.id)}
+              onMouseLeave={() => setHoveredServiceId(null)}
+            >
+              <div className="service-item-header">
+                {service.icon && (
+                  <img src={service.icon} alt={service.title} className="service-icon" />
+                )}
+                <h2 className="service-item-title">{service.title}</h2>
+              </div>
+              <p className="service-item-description">{service.desc}</p>
+              {service.features && service.features.length > 0 && (
+                <ul className="service-features-list">
+                  {service.features.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
+                </ul>
+              )}
+              <div className="service-item-btns">
+                <SingleServiceBtn serviceId={service.id} serviceTitle={service.title} />
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
+      <div className="Service-global-btns-container">
+        <ServiceBtns />
       </div>
     </section>
   );

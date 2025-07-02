@@ -1,23 +1,26 @@
 // src/context/ServiceContext.jsx
 import { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Added for ServiceBtns component
-import { useBackendCart } from './BackendCart'; // Added for ServiceBtns and SingleServiceBtn
-import { serviceTypes } from './serviceTypes'; // Assuming serviceTypes is also in the context folder or needs a relative path from here
+import { useNavigate } from 'react-router-dom';
+import { useBackendCart } from './BackendCart';
+import { serviceTypes as allServiceTypes } from './serviceTypes';
 import './ContextStyles.css';
 
 const ServiceContext = createContext();
 
 export const ServiceProvider = ({ children }) => {
+  // selectedServices will now store the service TITLE (string)
   const [selectedServices, setSelectedServices] = useState([]);
 
-  const toggleService = (id) => {
+  // toggleService now accepts the serviceTitle (string) directly
+  const toggleService = (title) => { // Changed 'id' to 'title'
     setSelectedServices((prev) =>
-      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id],
+      prev.includes(title) ? prev.filter((st) => st !== title) : [...prev, title], // Filter by title
     );
   };
 
-  const selectAllServices = (allIds) => {
-    setSelectedServices(allIds);
+  // selectAllServices now accepts an array of serviceTitles (strings)
+  const selectAllServices = (allTitles) => { // Changed 'allIds' to 'allTitles'
+    setSelectedServices(allTitles);
   };
 
   const clearServices = () => setSelectedServices([]);
@@ -29,6 +32,7 @@ export const ServiceProvider = ({ children }) => {
         toggleService,
         selectAllServices,
         clearServices,
+        serviceTypes: allServiceTypes, // This is still your source of truth for all service data
       }}
     >
       {children}
@@ -38,20 +42,16 @@ export const ServiceProvider = ({ children }) => {
 
 export const useServiceContext = () => useContext(ServiceContext);
 
-// --- START: Merged components from ServiceBtns.jsx ---
-
-// Export SingleServiceBtn so it can be imported by other files
 export const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
-  // useServiceContext is now local to this file, no need to import it again for these components
   const { selectedServices, toggleService } = useServiceContext();
-  const { addService } = useBackendCart();
+  const { addService } = useBackendCart(); // Keep this as serviceId for the cart if it expects ID
 
   const handleClick = () => {
-    toggleService(serviceId);
-    addService(serviceId);
+    toggleService(serviceTitle); // <--- IMPORTANT CHANGE: Pass the TITLE (string)
+    addService(serviceId); // Keep this as ID if useBackendCart needs the ID
   };
 
-  const isSelected = selectedServices.includes(serviceId);
+  const isSelected = selectedServices.includes(serviceTitle); // <--- IMPORTANT CHANGE: Check by TITLE (string)
 
   return (
     <button className={`service-btn ${isSelected ? 'selected' : ''}`} onClick={handleClick}>
@@ -62,20 +62,21 @@ export const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
 };
 
 export const ServiceBtns = () => {
-  // useServiceContext is now local to this file
-  const { selectedServices, selectAllServices, clearServices } = useServiceContext();
-  const { addService } = useBackendCart();
-  const navigate = useNavigate();
+  const { selectedServices, selectAllServices, clearServices, serviceTypes } = useServiceContext();
+  const { addService } = useBackendCart(); // This part might still need IDs for the cart
 
   const handleSelectAll = () => {
-    const allIds = serviceTypes.map((service) => service.id);
-    const areAllSelected = selectedServices.length === allIds.length;
+    // Get all service NAMES instead of IDs
+    const allTitles = serviceTypes.map((service) => service.title); // This is correct, as 'serviceTypes' has 'title'
+    const allIds = serviceTypes.map((service) => service.id); // Still need IDs if addService to BackendCart requires them
+
+    const areAllSelected = selectedServices.length === allTitles.length && allTitles.length > 0;
 
     if (areAllSelected) {
       clearServices();
     } else {
-      selectAllServices(allIds);
-      allIds.forEach((id) => addService(id));
+      selectAllServices(allTitles); // <--- IMPORTANT CHANGE: Pass service NAMES (strings)
+      allIds.forEach((id) => addService(id)); // Keep this as ID for useBackendCart if necessary
     }
   };
 
@@ -83,21 +84,26 @@ export const ServiceBtns = () => {
     navigate('/setapt');
   };
 
+  const isScheduleButtonDisabled = selectedServices.length === 0;
+
   return (
     <div className="service-btns-container">
       <div className="select-all-btn">
         <button onClick={handleSelectAll}>
-          {selectedServices.length === serviceTypes.length ? 'Deselect All' : 'Select All'}
+          {selectedServices.length === serviceTypes.length && serviceTypes.length > 0
+            ? 'Deselect All'
+            : 'Select All'}
         </button>
       </div>
 
-      {selectedServices.length > 0 && (
-        <div className="set-apt-btn">
-          <button onClick={handleScheduleAppointmentClick}>Schedule Appointment</button>
-        </div>
-      )}
+      <div className="set-apt-btn">
+        <button
+          onClick={handleScheduleAppointmentClick}
+          disabled={isScheduleButtonDisabled}
+        >
+          Schedule Appointment
+        </button>
+      </div>
     </div>
   );
 };
-
-// --- END: Merged components from ServiceBtns.jsx ---

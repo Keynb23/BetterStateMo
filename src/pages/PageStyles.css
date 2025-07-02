@@ -1,132 +1,199 @@
-.Hero-Home-Container > div {
+.Hero-Home-Container>div {
   width: 100%;
   height: 100vh;
 }
 
-/* Service Page Styles */
-/* Service Section Container */
+/* Service STyles ------------------------------------------------------------------- */
+
 .service-container {
-  margin: var(--space-xl) auto; /* Center the container horizontally */
-  overflow: hidden;
-  /* max-width: 1500px; */
-  width: 100%;
-  height: 100%;
   position: relative;
-  margin-left: calc(auto + 12.5%);
-  
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  padding: var(--space-lg) var(--space-md);
+  margin: var(--space-xl) 0 var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: var(--color-primary-dark);
 }
 
-/* Header Section */
 .services-main-title {
-  font-size: 3rem !important;
-  color: var(--color-primary);
-  text-align: center;
-  margin: var(--space-xl) 0 var(--space-sm);
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  padding: var(--space-lg) 0 0;
+  margin: var(--space-xl);
+  color: var(--text-dm);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+/* Original H3 (Desktop version) - Target the wrapper div for layout */
+.Service-sub {
+  display: flex; /* Make the div a flex container */
+  justify-content: center; /* Center its content horizontally */
+  align-items: center; /* Vertically align content if needed */
+  width: 100%; /* Ensure it takes full width to allow centering */
+  margin: var(--space-xl) 0 var(--space-md); /* Keep desired margins on the div */
+}
+
+/* Styles for the h3 *inside* the desktop Service-sub div */
+.Service-sub h3 {
+  /* Remove display and align-self here as the parent div (.Service-sub) handles positioning */
+  font-size: 1.35rem !important;
+  font-weight: 500 !important;
+  color: var(--color-secondary) !important; /* Keep your specified color */
+  text-align: center; /* Ensure text is centered within its own space */
+  margin: 0; /* Remove default h3 margins, parent div handles spacing */
   padding: 0;
 }
 
-.service-sub-header {
+/* Mobile-only H3 wrapper (hidden on desktop by default) */
+.service-sub-mobile {
+  display: none; /* Hidden by default (desktop) */
+}
+
+
+/* Your mobile-only text section */
+.service-mobile-text {
+  display: none; /* By default, hide the text section */
+  padding: var(--space-md);
+  margin: var(--space-sm) auto; /* Center with auto margins */
   text-align: center;
-  max-width: 750px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 0 var(--space-sm);
-}
-
-.service-subP {
-  font-weight: 500 !important;
-  margin-bottom: var(--space-sm);
-  color: var(--text-muted);
-  padding: 0 0 var(--space-md);
-}
-
-.service-subH4 {
-  font-size: 1.35rem !important;
-  color: var(--color-primary);
-  margin: var(--space-md) 0 var(--space-xs);
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-dark);
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  background-color: var(--comp-bg-light);
+  border-radius: var(--space-xl);
+  width: 90%;
+  max-width: 600px;
 }
 
 .services-body-content {
-  background-color: var(--comp-bg-dark);
   border-radius: var(--space-sm);
   display: flex;
-  flex-direction: column;  
-  align-items: center;  
-  width: 100%;  
-  padding: var(--space-md) 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 200vh;
+  height: 100%;
+  padding: var(--space-lg);
+  margin: var(--space-lg);
+  background-color: var(--color-primary-dark);
 }
 
 .Service-main-content {
-  width: 100%;  
-  max-width: 320px;  
-  display: flex; 
+  position: relative;
+  height: auto;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  margin: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+.Service-menuP {
+  display: flex;
+  text-align: center;
+  color: var(--text-dm);
+  flex-direction: column;
+  max-width: 600px;
+  margin: var(--space-md) auto var(--space-xl) auto;
+  line-height: var(--space-lg);
+  font-weight: 400 !important;
 }
 
 .service-menu-items {
-  width: 100%; 
-  display: flex;
+  display: flex; /* Default (desktop) */
   flex-direction: column;
-  gap: var(--space-sm);
-  margin: var(--space-lg);
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-sm);
+  width: 100%;
+  margin-top: var(--space-xl);
+  background-color: var(--color-primary-dark);
+  border-radius: var(--space-sm);
 }
 
 .service-menu-list {
-  padding: var(--space-sm);
   display: flex;
   flex-direction: column;
-  background-color: var(--comp-bg-light);
-  border-radius: var(--space-sm);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  align-items: center;
+  list-style: none;
 }
 
 .service-menu-item {
-  font-size: 1.1rem !important;
-  padding: var(--space-md) var(--space-lg);
-  border-bottom: 1px solid var(--border-muted);
+  background-color: var(--color-primary);
+  color: var(--text-dm);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  color: var(--text);
-  text-align: left;
-}
-
-.service-menu-item:last-child {
-  border-bottom: none;
+  box-shadow: var(--shadow-md);
+  transition: all 0.25s ease-in-out;
+  width: 180px;
+  text-align: center;
+  margin-bottom: var(--space-xs);
 }
 
 .service-menu-item:hover {
-  background-color: var(--comp-bg-light);
-  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
 }
 
-.service-menu-item.active-menu-item {
-  background-color: var(--color-primary);
-  color: var(--text-dm);
-  font-weight: bold;
+.active-menu-item {
+  background-color: var(--color-secondary);
+  color: var(--text);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.25s ease-in-out;
+  width: 180px;
+  text-align: center;
+  margin-bottom: var(--space-xs);
 }
 
-/* Service Menu Buttons */
-.Service-menu-btns {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.active-menu-item:hover {
+  background-color: var(--color-primary-light);
+  color: var(--text);
+  box-shadow: var(--shadow-xl);
+}
+
+.service-menu-item.highlighted-menu-item {
+  background-color: var(--color-primary-light);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+}
+
+.Service-global-btns-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-md);
   width: 100%;
+  max-width: 300px;
+  margin: var(--space-xxl) auto var(--space-xl) auto;
 }
 
-.Service-menu-btns .service-btns-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  width: 100%;
-}
-
-.Service-menu-btns .select-all-btn button,
-.Service-menu-btns .set-apt-btn button {
+.Service-global-btns-container .select-all-btn button,
+.Service-global-btns-container .set-apt-btn button {
   width: 100%;
   padding: var(--space-md) var(--space-lg);
   border-radius: var(--space-sm);
@@ -137,388 +204,297 @@
   text-transform: uppercase;
   font-weight: bold;
   color: var(--text-dm);
-}
-
-.Service-menu-btns .select-all-btn button {
+  font-size: 1.1rem !important;
   background-color: var(--color-primary);
 }
 
-.Service-menu-btns .select-all-btn button:hover {
+.Service-global-btns-container .select-all-btn button:hover,
+.Service-global-btns-container .set-apt-btn button:not(:disabled):hover {
   background-color: var(--color-primary-light);
   box-shadow: var(--shadow-md);
 }
 
-.Service-menu-btns .set-apt-btn button {
-  background-color: var(--color-primary);
-}
-
-.Service-menu-btns .set-apt-btn button:hover {
-  background-color: var(--color-primary-light);
-  box-shadow: var(--shadow-md);
-}
-
-.Service-menu-btns .set-apt-btn button:disabled {
+.Service-global-btns-container .set-apt-btn button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  background-color: var(--color-primary-dark);
+  color: var(--text-muted);
   box-shadow: none;
 }
 
-/* Swiper Carousel Container - This is now the right side on desktop */
-.services-list-wrapper {
-  width: 100%;  
-  position: relative;
-  
-}
-
-.services-list-wrapper .swiper {
+.service-details-wrapper {
   width: 100%;
-  height: auto;
-}
-
-/* Swiper Slide/Card Items */
-.services-list-wrapper .swiper-slide {
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.services-list-wrapper .service-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--space-md);
-  box-shadow: var(--shadow-md);
-  min-height: 480px;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  background-color: var(--comp-bg-dark);
-}
-
-.services-list-wrapper .service-item-image-container {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%);
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.services-list-wrapper .service-item-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.4);
-  transition: filter 0.3s ease;
-}
-
-.services-list-wrapper .service-item:hover .service-item-image {
-  filter: brightness(0.6);
-}
-
-.services-list-wrapper .service-item-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: var(--space-md);
-  color: var(--text-dm);
-}
-
-.services-list-wrapper .service-item-title {
-  /* font-size: 1.8rem !important; */
-  margin-bottom: var(--space-sm);
-  text-align: center;
-  color: var(--color-primary-light);
-}
-
-.services-list-wrapper .service-item-description {
-  font-size: 0.9rem !important;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
   padding: var(--space-sm);
-  border-radius: var(--border-radius-sm);
-  margin-top: auto;
-  line-height: 1.5;
-  backdrop-filter: blur(2px);
 }
 
-.services-list-wrapper .service-item-btns {
-  margin-top: var(--space-md);
-  text-align: center;
-}
-
-.services-list-wrapper .SS-btn button {
-  padding: var(--space-sm) var(--space-md);
+.service-item-card {
+  background-color: var(--comp-bg-light);
+  color: var(--text);
   border-radius: var(--space-md);
-  cursor: pointer;
-  border: 1px solid var(--color-primary);
-  background-color: var(--color-primary);
-  color: var(--text-dm);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  box-shadow: var(--shadow-sm);
-  font-weight: bold;
-  /* font-size: 0.95rem !important; */
-}
-
-.services-list-wrapper .SS-btn button:hover {
-  background-color: transparent;
-  color: var(--color-primary);
-  box-shadow: var(--shadow-md);
-}
-
-/* Swiper Navigation */
-.services-list-wrapper .swiper-button-next,
-.services-list-wrapper .swiper-button-prev {
-  opacity: 50%;
-  color: var(--text-dm);
-  width: 48px;
-  height: 48px;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 50%;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-lg);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  z-index: 10;
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-top: 0;
+  text-align: center;
+  transition: border 0.3s ease;
+  border: 2px solid transparent;
 }
 
-.services-list-wrapper .swiper-button-next::after,
-.services-list-wrapper .swiper-button-prev::after {
-  font-size: 1.2rem !important;
-  font-weight: bold;
+.selected-card {
+  border: 2px solid var(--color-primary);
 }
 
-.services-list-wrapper .swiper-button-prev {
-  left: 10px;
-}
-
-.services-list-wrapper .swiper-button-next {
-  right: 10px;
-}
-
-.services-list-wrapper .swiper-button-next:hover,
-.services-list-wrapper .swiper-button-prev:hover {
-  background-color: var(--color-primary);
-  transform: translateY(-50%) scale(1.05);
-}
-
-/* Swiper Pagination */
-.services-list-wrapper .swiper-pagination {
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  width: 100%;
+.service-item-header {
   display: flex;
-  justify-content: center;
-  padding: 10px 0;
-  z-index: 10;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
-.services-list-wrapper .swiper-pagination-bullet {
-  background: var(--border-muted);
-  opacity: 0.7;
-  width: 10px;
-  height: 10px;
-  margin: 0 5px;
-  transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+.service-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
 }
 
-.services-list-wrapper .swiper-pagination-bullet-active {
-  background: var(--color-secondary);
-  opacity: 1;
-  transform: scale(1.2);
+.service-item-title {
+  color: var(--color-primary-dark);
+  font-size: 1.8rem;
+  margin-bottom: var(--space-sm);
 }
 
+.service-item-description {
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.service-features-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-lg);
+  text-align: left;
+  width: 100%;
+  max-width: 300px;
+}
+
+.service-features-list li {
+  color: var(--text);
+  margin-bottom: var(--space-xs);
+  position: relative;
+  padding-left: var(--space-lg);
+}
+
+.service-features-list li::before {
+  content: '✔';
+  color: var(--color-secondary);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.service-item-btns {
+  margin-top: auto;
+  width: 100%;
+}
+
+.SS-btn button {
+  width: 100%;
+  padding: var(--space-md);
+  border-radius: var(--space-sm);
+  background-color: var(--color-primary);
+  color: var(--text-dm);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.SS-btn button:hover {
+  background-color: var(--color-secondary);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+}
+
+.SS-btn button.selected {
+  background-color: var(--color-secondary);
+  color: var(--text);
+}
+
+
+/* Media Queries */
 @media (min-width: 768px) {
+
+  /* Hide mobile-only elements on desktop */
+  .service-mobile-text,
+  .service-sub-mobile { /* Hide the mobile closing line div */
+    display: none;
+  }
+
+  /* Show the desktop H3 wrapper div */
+  .Service-sub {
+    display: flex; /* Ensure it's visible on desktop */
+  }
+
   .services-body-content {
-    flex-direction: row;  
-    align-items: flex-start;  
-    gap: var(--space-xl); 
-  }
-
-  .service-container {
-    padding: var(--space-xxl) var(--space-xl); 
-  }
-
-  .services-main-title {
-    font-size: 2.5rem !important;
-    margin-bottom: var(--space-xl); 
-  }
-
-  .service-sub-header {
-    margin-bottom: var(--space-xl); 
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-xl);
   }
 
   .Service-main-content {
-    width: auto;
     flex-shrink: 0;
-    max-width: 320px; 
-    align-items: flex-start; 
-  }
-
-  /* Carousel, sitting on the right */
-  .services-list-wrapper {
-    flex-grow: 1; 
-    max-width: calc(100% - 320px - var(--space-xl));
-  }
-
-  .services-list-wrapper .service-item {
-    min-height: 440px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-@media (max-width: 1280px) {
-  #services.service-container {
-    padding: var(--space-xxl) var(--space-xl);
-  }
-
-  .services-main-title {
-    font-size: 2.5rem !important;
-  }
-
-  .service-sub-header {
-    margin-bottom: var(--space-xl);
-  }
-
-  .service-subP {
-    font-size: 1rem !important;
-  }
-
-  .service-subH4 {
-    font-size: 1.35rem !important;
-  }
-
-  .Service-main-content { 
-    flex: 0 0 280px;
-    max-width: 280px;
-  }
-
-  .services-list-wrapper {
-    max-width: calc(100% - 280px - var(--space-xl));
-  }
-
-  .services-list-wrapper .service-item {
-    min-height: 440px;
-  }
-}
-
-@media (max-width: 1024px) {
-  #services.service-container {
-    padding: var(--space-xl) var(--space-lg);
-  }
-
-  .Service-main-content {
-    flex: 0 0 250px;
     max-width: 250px;
+    align-items: flex-start;
+    padding-right: var(--space-lg);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .services-list-wrapper {
-    max-width: calc(100% - 250px - var(--space-xl));
+  .Service-menuP {
+    text-align: left;
+    margin: var(--space-md) 0 var(--space-xl) 0;
   }
 
-  .services-list-wrapper .service-item {
-    min-height: 410px;
+  .service-menu-items {
+    display: flex; /* Ensure menu items are visible on desktop */
+    padding: 0;
+    margin-top: var(--space-lg);
+    align-items: flex-start;
+  }
+
+  .service-menu-list {
+    align-items: flex-start;
+  }
+
+  .service-menu-item,
+  .active-menu-item,
+  .service-menu-item.highlighted-menu-item {
+    width: 100%;
+    text-align: left;
+    padding-left: var(--space-lg);
+  }
+
+  .Service-global-btns-container {
+    max-width: 300px;
+  }
+
+  .service-details-wrapper {
+    flex-grow: 1;
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    padding: var(--space-sm);
+  }
+
+  .service-item-card {
+    text-align: left;
+  }
+
+  .service-item-header {
+    flex-direction: row;
+    justify-content: flex-start;
   }
 }
 
-@media (max-width: 767px) { 
-  #services.service-container {
-    padding: var(--space-xl) var(--space-md);
+@media (max-width: 767px) {
+
+  /* Show the mobile-only text and the mobile H3 wrapper on mobile */
+  .service-mobile-text {
+    display: block;
   }
 
-  .services-body-content { 
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xl); 
+  /* Mobile H3 wrapper */
+  .service-sub-mobile {
+    display: flex; /* Make the div a flex container to center its h3 */
+    justify-content: center; /* Center h3 horizontally */
+    align-items: center; /* Center h3 vertically if needed */
+    width: 100%; /* Ensure it spans full width for centering */
+    margin: var(--space-xl) 0 var(--space-md); /* Keep your desired margins */
+    /* Remove font-size, font-weight, color from the div directly */
+  }
+
+  /* Apply text styling directly to the h3 inside the mobile wrapper */
+  .service-sub-mobile h3 {
+    font-size: 1.35rem !important; /* Keep your desired font size */
+    font-weight: 500 !important;
+    color: var(--color-secondary) !important; /* Keep your desired color */
+    text-align: center; /* Ensure text is centered */
+    margin: 0; /* Remove default h3 margins, parent div handles spacing */
+    padding: 0;
+  }
+
+  /* Hide the desktop H3 wrapper on mobile */
+  .Service-sub {
+    display: none;
+  }
+
+  .services-body-content {
+    padding: var(--space-md);
   }
 
   .Service-main-content {
+    max-width: 100%;
+    padding: var(--space-sm);
+  }
+
+  .Service-menuP {
+    font-size: 0.95rem;
+  }
+
+  .service-menu-items {
+    display: none; /* Hide service menu items on mobile */
+  }
+
+  .Service-global-btns-container {
+    max-width: 90%;
+  }
+
+  .Service-global-btns-container .select-all-btn button,
+  .Service-global-btns-container .set-apt-btn button {
     width: 100%;
-    max-width: 300px; 
-    align-items: center;
   }
 
-  .services-list-wrapper {
-    width: 100%;
-    max-width: 100%; 
-    margin-top: 0; 
+  .service-item-card {
+    padding: var(--space-md);
   }
 
-  .services-list-wrapper .service-item {
-    min-height: 380px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .service-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .service-item-title {
+    font-size: 1.6rem;
   }
 }
-
-@media (max-width: 450px) {
-  #services.service-container {
-    padding: var(--space-lg) var(--space-sm);
-  }
-
-  .services-main-title {
-    font-size: 2rem !important;
-  }
-
-  .service-subP {
-    font-size: 0.9rem !important;
-  }
-
-  .service-subH4 {
-    font-size: 1.2rem !important;
-  }
-
-  .services-list-wrapper .service-item {
-    min-height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-@media (max-width: 320px) {
-  #services.service-container {
-    padding: var(--space-md) var(--space-xs);
-  }
-
-  .services-list-wrapper .service-item {
-    min-height: 330px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-/* Set Appointment Section */
+/* ==============================Set Appointment Section --------------------------------------------*/
 .Set-Apt-container {
   background: linear-gradient(to top, var(--comp-bg-light), var(--bg));
   color: var(--text);
-  max-width: 900px; /* Reverted to max-width and more typical value for centered content */
+  max-width: 900px;
+  /* Reverted to max-width and more typical value for centered content */
   margin: var(--space-lg) auto;
   /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: var(--space-lg) var(--space-lg); /* Adjusted overall padding */
+  padding: var(--space-lg) var(--space-lg);
+  /* Adjusted overall padding */
 }
 
 .greetings-checker h1 {
   color: var(--color-primary);
-  margin-bottom: var(--space-lg); /* Adjusted margin */
+  margin-bottom: var(--space-lg);
+  /* Adjusted margin */
   padding-top: var(--space-xl);
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   text-align: center;
@@ -527,11 +503,15 @@
 
 .Set-Apt-content-wrapper {
   display: flex;
-  flex-direction: column; /* Reverted to column for desktop */
-  align-items: center; /* Center children horizontally */
+  flex-direction: column;
+  /* Reverted to column for desktop */
+  align-items: center;
+  /* Center children horizontally */
   flex-grow: 1;
-  justify-content: center; /* Center content wrapper vertically within container */
-  gap: var(--space-xl); /* Space between the step card and navigation */
+  justify-content: center;
+  /* Center content wrapper vertically within container */
+  gap: var(--space-xl);
+  /* Space between the step card and navigation */
   padding-bottom: var(--space-xl);
   width: 100%;
 }
@@ -543,10 +523,12 @@
   padding: var(--space-xl);
   border: 1px solid var(--border-muted);
   width: 100%;
-  max-width: 600px; /* Reverted to original max-width for consistency */
+  max-width: 600px;
+  /* Reverted to original max-width for consistency */
   text-align: center;
   flex-shrink: 1;
-  flex-grow: 0; /* Prevent it from growing excessively, navigation will push it */
+  flex-grow: 0;
+  /* Prevent it from growing excessively, navigation will push it */
 }
 
 .Set-Apt-step-card h2 {
@@ -642,7 +624,8 @@
 /* Services selection container reverted to original */
 .services-selection-container {
   display: grid;
-  grid-template-columns: 1fr; /* Default to single column */
+  grid-template-columns: 1fr;
+  /* Default to single column */
   gap: var(--space-lg);
   text-align: left;
 }
@@ -650,8 +633,10 @@
 /* Desktop-specific layout for services reverted to single column */
 @media (min-width: 769px) {
   .services-selection-container {
-    grid-template-columns: 1fr; /* Revert to single column for desktop */
-    gap: var(--space-lg); /* Revert gap */
+    grid-template-columns: 1fr;
+    /* Revert to single column for desktop */
+    gap: var(--space-lg);
+    /* Revert gap */
   }
 }
 
@@ -727,13 +712,15 @@
   background: red;
   transform: translateY(-1px);
 }
+
 /* --- END REMOVE BUTTON STYLES --- */
 
 .unselected-service-btns {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  justify-content: center; /* Reverted to center for button groups */
+  justify-content: center;
+  /* Reverted to center for button groups */
   width: 100%;
 }
 
@@ -758,6 +745,7 @@
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
+
 /* --- END ADD SERVICE BUTTON STYLES --- */
 /* Review Step Specific Styling (KEEP AS IS) */
 .review-step-card {
@@ -854,24 +842,34 @@
   color: var(--text) !important;
   transform: none !important;
 }
+
 /* --- END EARLY CONTACT BUTTON STYLES --- */
 
 .Set-Apt-navigation {
   display: flex;
-  flex-direction: column; /* Keep vertical stack for buttons */
-  justify-content: center; /* Center buttons within navigation container */
-  align-items: center; /* Center buttons horizontally */
-  width: 100%; /* Ensure navigation takes full width of its parent */
-  max-width: 600px; /* Limit max-width for consistency with card */
-  margin-top: var(--space-xl); /* Add space above navigation */
-  padding-right: 0; /* Remove right padding */
-  gap: var(--space-md); /* Space between buttons */
+  flex-direction: column;
+  /* Keep vertical stack for buttons */
+  justify-content: center;
+  /* Center buttons within navigation container */
+  align-items: center;
+  /* Center buttons horizontally */
+  width: 100%;
+  /* Ensure navigation takes full width of its parent */
+  max-width: 600px;
+  /* Limit max-width for consistency with card */
+  margin-top: var(--space-xl);
+  /* Add space above navigation */
+  padding-right: 0;
+  /* Remove right padding */
+  gap: var(--space-md);
+  /* Space between buttons */
 }
 
 /* Ensure individual buttons fill their available width within navigation */
 .Set-Apt-navigation button {
   width: 100%;
-  margin: 0; /* Reset margins to use gap for spacing */
+  margin: 0;
+  /* Reset margins to use gap for spacing */
 }
 
 /* --- NAVIGATION BUTTON STYLES  --- */
@@ -884,7 +882,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow-sm);
-  flex-grow: 1; /* This will make them grow within their flex column */
+  flex-grow: 1;
+  /* This will make them grow within their flex column */
 }
 
 .Set-Apt-nav-button.back-button {
@@ -928,6 +927,7 @@
     rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
+
 /* --- END UPDATED NAVIGATION BUTTON STYLES --- */
 
 .thank-you-message {
@@ -976,23 +976,32 @@
 /* --- NEW TIME/SCHEDULING BUTTON STYLES --- */
 .time-options-buttons {
   display: flex;
-  flex-wrap: wrap; /* Allows buttons to wrap to the next line */
-  gap: var(--space-sm); /* Space between buttons */
-  justify-content: center; /* Center the buttons within their container */
-  margin-top: var(--space-xs); /* Space below the label */
+  flex-wrap: wrap;
+  /* Allows buttons to wrap to the next line */
+  gap: var(--space-sm);
+  /* Space between buttons */
+  justify-content: center;
+  /* Center the buttons within their container */
+  margin-top: var(--space-xs);
+  /* Space below the label */
 }
 
 .time-option-btn {
-  background-color: var(--color-primary); /* Use var(--info) for default */
-  color: var(--text-dm); /* Ensure text is visible on info background */
-  border: 1px solid var(--info-dark); /* Subtle border matching info */
+  background-color: var(--color-primary);
+  /* Use var(--info) for default */
+  color: var(--text-dm);
+  /* Ensure text is visible on info background */
+  border: 1px solid var(--info-dark);
+  /* Subtle border matching info */
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--space-sm);
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
-  flex-grow: 1; /* Allow buttons to grow and fill space */
-  min-width: 120px; /* Minimum width for buttons */
+  flex-grow: 1;
+  /* Allow buttons to grow and fill space */
+  min-width: 120px;
+  /* Minimum width for buttons */
   text-align: center;
   box-shadow:
     rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
@@ -1000,30 +1009,35 @@
 }
 
 .time-option-btn:hover {
-  background-color: var(--info); /* Darker info on hover */
+  background-color: var(--info);
+  /* Darker info on hover */
   box-shadow: var(--shadow-sm);
   transform: translateY(-1px);
   color: var(--text);
 }
 
 .time-option-btn.selected {
-  background-color: var(--color-secondary); /* Use accent for selected, as before */
+  background-color: var(--color-secondary);
+  /* Use accent for selected, as before */
   color: var(--text);
   border-color: var(--color-accent-dark);
   box-shadow:
     rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   font-weight: 600;
-  transform: none; /* No lift when selected */
+  transform: none;
+  /* No lift when selected */
 }
 
 .time-option-btn.selected:hover {
-  background-color: var(--color-accent-dark); /* Slightly darker accent on hover for selected */
+  background-color: var(--color-accent-dark);
+  /* Slightly darker accent on hover for selected */
   border-color: var(--color-accent-dark);
 }
 
 .clear-time-btn {
-  background-color: var(--comp-bg-light); /* Neutral color for clear */
+  background-color: var(--comp-bg-light);
+  /* Neutral color for clear */
   color: var(--text);
   box-shadow:
     rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
@@ -1056,7 +1070,8 @@
 
   .Set-Apt-step-card {
     padding: var(--space-lg);
-    max-width: 600px; /* Consistent max-width */
+    max-width: 600px;
+    /* Consistent max-width */
   }
 
   .Set-Apt-step-card h2 {
@@ -1179,7 +1194,8 @@
   border-bottom: 3px solid var(--color-accent);
   text-align: center;
   margin-bottom: var(--space-lg);
-  color: var(--color-primary); /* Ensure h1 is readable against the container background */
+  color: var(--color-primary);
+  /* Ensure h1 is readable against the container background */
 }
 
 .Contact-content {
@@ -1192,7 +1208,8 @@
   border-radius: var(--space-md);
   padding: var(--space-lg);
   box-shadow: var(--shadow-md);
-  color: var(--text); /* Default text color within the content card (near-black) */
+  color: var(--text);
+  /* Default text color within the content card (near-black) */
 }
 
 .Contact-left {
@@ -1204,12 +1221,14 @@
 }
 
 .contact-message {
-  color: var(--text-muted); /* Muted text for the message paragraph */
+  color: var(--text-muted);
+  /* Muted text for the message paragraph */
   text-align: center;
 }
 
 .contact-message h3 {
-  color: var(--color-primary); /* Heading in contact message uses the brand blue */
+  color: var(--color-primary);
+  /* Heading in contact message uses the brand blue */
   margin-bottom: var(--space-lg);
   font-size: 1.8rem;
 }
@@ -1228,29 +1247,31 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  color: var(--text); /* Form text color (near-black) */
+  color: var(--text);
+  /* Form text color (near-black) */
 }
 
 .form-group {
   flex: 1;
   display: flex;
   flex-direction: column;
-  
+
 }
 
 .Contact-right label {
-  
+
   font-weight: 500;
   margin-bottom: var(--space-sm);
-  color: var(--text); /* Label text color (near-black) */
+  color: var(--text);
+  /* Label text color (near-black) */
 }
 
 .Contact-right input,
 .Contact-right textarea {
   padding: var(--space-md);
   background-color: var(--bg);
-  color: var(--text); 
-  border: 1px solid var(--border); 
+  color: var(--text);
+  border: 1px solid var(--border);
   border-radius: var(--space-sm);
   font-size: 1rem;
   font-family: 'Poppins', sans-serif;
@@ -1263,9 +1284,11 @@
 
 .Contact-right input:focus,
 .Contact-right textarea:focus {
-  border-color: var(--color-primary); /* Focus border uses the brand blue */
+  border-color: var(--color-primary);
+  /* Focus border uses the brand blue */
   outline: none;
-  box-shadow: 0 0 0 3px oklch(50% 0.15 250 / 0.2); /* A transparent version of primary blue */
+  box-shadow: 0 0 0 3px oklch(50% 0.15 250 / 0.2);
+  /* A transparent version of primary blue */
 }
 
 .Contact-right textarea {
@@ -1286,7 +1309,8 @@
   cursor: pointer;
   user-select: none;
   font-size: 0.95rem;
-  color: var(--text-muted); /* Checkbox label text muted */
+  color: var(--text-muted);
+  /* Checkbox label text muted */
 }
 
 .checkbox-container input[type='checkbox'] {
@@ -1296,19 +1320,22 @@
 .checkbox-custom {
   min-width: 1.25rem;
   height: 1.25rem;
-  border: 2px solid var(--border); /* Checkbox border uses default border color */
+  border: 2px solid var(--border);
+  /* Checkbox border uses default border color */
   border-radius: 0.25rem;
   margin-right: var(--space-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
-  background-color: var(--comp-bg-light); /* Checkbox background matches inputs */
+  background-color: var(--comp-bg-light);
+  /* Checkbox background matches inputs */
   position: relative;
 }
 
-.checkbox-container input[type='checkbox']:checked + .checkbox-custom {
-  background-color: var(--color-accent); /* Checked state uses accent green */
+.checkbox-container input[type='checkbox']:checked+.checkbox-custom {
+  background-color: var(--color-accent);
+  /* Checked state uses accent green */
   border-color: var(--color-accent);
 }
 
@@ -1317,7 +1344,8 @@
   position: absolute;
   width: 0.5rem;
   height: 0.8rem;
-  border: solid var(--text-dm); /* Checkmark color is near-white */
+  border: solid var(--text-dm);
+  /* Checkmark color is near-white */
   border-width: 0 3px 3px 0;
   transform: rotate(45deg) scale(0);
   opacity: 0;
@@ -1326,7 +1354,7 @@
     opacity 0.2s ease-in-out;
 }
 
-.checkbox-container input[type='checkbox']:checked + .checkbox-custom::after {
+.checkbox-container input[type='checkbox']:checked+.checkbox-custom::after {
   transform: rotate(45deg) scale(1);
   opacity: 1;
 }
@@ -1334,8 +1362,10 @@
 .Submit-btn {
   padding: var(--space-md) var(--space-lg);
   border: none;
-  background-color: var(--color-accent); /* Submit button uses the accent green */
-  color: var(--text-dm); /* Button text color is near-white */
+  background-color: var(--color-accent);
+  /* Submit button uses the accent green */
+  color: var(--text-dm);
+  /* Button text color is near-white */
   border-radius: var(--space-sm);
   font-weight: 600;
   font-size: 1.1rem;
@@ -1349,13 +1379,16 @@
 }
 
 .Submit-btn:hover:not(:disabled) {
-  background-color: var(--color-primary); /* Hover state uses the primary blue */
+  background-color: var(--color-primary);
+  /* Hover state uses the primary blue */
   transform: translateY(-2px);
 }
 
 .Submit-btn:disabled {
-  background-color: var(--border-muted); /* Disabled button background muted border color */
-  color: var(--text-muted); /* Disabled button text muted color */
+  background-color: var(--border-muted);
+  /* Disabled button background muted border color */
+  color: var(--text-muted);
+  /* Disabled button text muted color */
   cursor: not-allowed;
   opacity: 0.7;
   transform: none;
@@ -1368,8 +1401,10 @@
   text-align: center;
   padding: var(--space-sm);
   border-radius: var(--space-xs);
-  background-color: oklch(50% 0.15 250 / 0.1); /* Light transparent blue for feedback */
-  color: var(--color-primary); /* Feedback text uses brand blue */
+  background-color: oklch(50% 0.15 250 / 0.1);
+  /* Light transparent blue for feedback */
+  color: var(--color-primary);
+  /* Feedback text uses brand blue */
 }
 
 /* Contact Media Queries (unchanged as they are layout/sizing related) */
@@ -1450,6 +1485,7 @@
     height: 1.1rem;
   }
 }
+
 /* About Section */
 .about-container {
   position: relative;
@@ -1463,7 +1499,7 @@
   gap: var(--space-xl);
   width: 100%;
   min-height: 100vh;
-  
+
 }
 
 .section-title {
@@ -1499,7 +1535,7 @@
   color: var(--text);
   z-index: 5;
   width: 100%;
-    /* background-color: var(--comp-bg-light); */
+  /* background-color: var(--comp-bg-light); */
   /* box-shadow: var(--shadow-md); */
 }
 
@@ -1592,11 +1628,11 @@
   /* box-shadow: var(--shadow-md); */
 }
 
-.meet-us > .section-title {
+.meet-us>.section-title {
   margin-bottom: var(--space-lg);
 }
 
-.meet-us > .section-title h1 {
+.meet-us>.section-title h1 {
   padding-bottom: var(--space-md);
   border-bottom: 3px solid var(--color-accent);
   text-align: center;
@@ -1640,7 +1676,8 @@
 
 /* Specific rotation for the reversed row image */
 .meet-row.row-reverse img {
-  transform: rotate(3deg); /* Rotated opposite direction */
+  transform: rotate(3deg);
+  /* Rotated opposite direction */
 }
 
 .meet-row img:hover {
@@ -1671,6 +1708,7 @@
 
 /* Meet Us Media Queries */
 @media (max-width: 1024px) {
+
   .meet-row,
   .meet-row.row-reverse {
     flex-direction: column;
@@ -1682,11 +1720,13 @@
   .meet-row img {
     width: 300px;
     height: 300px;
-    transform: none; /* Remove tilt on smaller screens for better stacking */
+    transform: none;
+    /* Remove tilt on smaller screens for better stacking */
   }
 
   .meet-row img:hover {
-    transform: none; /* No hover effect on smaller screens */
+    transform: none;
+    /* No hover effect on smaller screens */
   }
 
   .meet-row.row-reverse img {
@@ -1725,7 +1765,7 @@
     padding: var(--space-lg);
   }
 
-  .meet-us > .section-title h1 {
+  .meet-us>.section-title h1 {
     padding-bottom: var(--space-sm);
   }
 
@@ -1751,4 +1791,3 @@
     height: 250px;
   }
 }
-

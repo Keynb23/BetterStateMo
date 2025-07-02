@@ -7,8 +7,18 @@ NEED TO CREATE NEW TEST FOR SERVICE CONTEXT
 
 ==========================================
 
-service and profile pages need style updated and media queries for profile page.
+ profile pages need style updated and media queries for profile page.
 
+ ===============
+
+ scroll feature is being weird still on mobile
+
+ ================== 
+
+ add a gallery popup button to the hero or just add a gallery button to the hero
+==============================
+
+update the cjs files to ESM
 =====================================
 
 ANDREW'S NOTES: UPDATE THE PICTURES IN SERVICE CARDS, UPDATES SERVICE CARDS "SERVICES" DESCRIPTION SO THAT IT'S CLEARN THAT SERVICES COVER MAINTENECE, SERCICE, CLEANING, ECT..

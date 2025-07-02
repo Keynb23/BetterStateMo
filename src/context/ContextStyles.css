@@ -28,14 +28,12 @@
 .set-apt-btn button:hover {
   background-color: var(--info);
   color: var(--text);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
 .select-all-btn button:active,
 .service-btn:active,
 .set-apt-btn button:active {
-  transform: translateY(0);
   box-shadow: var(--shadow-lg);
 }
 
@@ -63,7 +61,7 @@
 /* --- Service Quote Image Button (inside the fixed container) --- */
 .quote-button-image {
   background: none;
-  border: 0.5px solid var(--color-accent);
+  border: 0.5px solid var(--color-secondary);
   padding: 0;
   cursor: pointer;
   display: flex;

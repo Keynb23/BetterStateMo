@@ -1,16 +1,17 @@
 import { useServiceContext } from '../context/ServiceContext';
-import { serviceTypes } from '../context/serviceTypes';
+import { serviceTypes } from '../context/serviceTypes'; 
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { addAppointment } from '../lib/firestoreService';
 import './PageStyles.css';
-import { useAuth } from '../context/AuthContext'; // Added: Import useAuth hook
+import { useAuth } from '../context/AuthContext';
+
 
 const SetApt = () => {
   const { selectedServices, toggleService, clearServices } = useServiceContext();
   const navigate = useNavigate();
   const location = useLocation();
-  const { currentUser } = useAuth(); // Added: Get the currently authenticated user
+  const { currentUser } = useAuth();
 
   const [currentStep, setCurrentStep] = useState(0);
   const [earlyContact, setEarlyContact] = useState(false);
@@ -71,13 +72,13 @@ const SetApt = () => {
     setCurrentStep((prev) => prev - 1);
   }, []);
 
-  const handleAddService = useCallback((id) => {
-    toggleService(id);
+  const handleAddService = useCallback((serviceTitle) => { 
+    toggleService(serviceTitle);
     setErrorMessage('');
   }, [toggleService]);
 
-  const handleRemoveService = useCallback((id) => {
-    toggleService(id);
+  const handleRemoveService = useCallback((serviceTitle) => { 
+    toggleService(serviceTitle);
   }, [toggleService]);
 
   const handleConfirmAppointment = useCallback(async () => {
@@ -90,7 +91,7 @@ const SetApt = () => {
     setErrorMessage('');
 
     const appointmentData = {
-      selectedServices: selectedServices,
+      selectedServices: selectedServices, 
       earlyContact: earlyContact,
       schedulingPreference: schedulingPreference || null,
       time: appointmentTime || null,
@@ -104,8 +105,8 @@ const SetApt = () => {
     // Added: Conditionally add userId if a user is logged in
     if (currentUser) {
         appointmentData.userId = currentUser.uid;
-        // Optionally, you could also save their email for convenience
-        // appointmentData.userEmail = currentUser.email;
+        // save their email for convenience
+        appointmentData.userEmail = currentUser.email;
     }
 
     try {
@@ -133,7 +134,7 @@ const SetApt = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [selectedServices, earlyContact, schedulingPreference, appointmentTime, customerName, customerPhone, customerEmail, customerAddress, navigate, clearServices, currentUser]); // Added currentUser to dependencies
+  }, [selectedServices, earlyContact, schedulingPreference, appointmentTime, customerName, customerPhone, customerEmail, customerAddress, navigate, clearServices, currentUser]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -347,15 +348,15 @@ const SetApt = () => {
                   <p className="no-services-message">No services selected yet. Add some below!</p>
                 ) : (
                   <ul aria-label="Selected Services">
-                    {selectedServices.map((id) => {
-                      const service = serviceTypes.find((s) => s.id === id);
+                    {selectedServices.map((serviceTitle) => { 
+                      const service = serviceTypes.find((s) => s.title === serviceTitle); 
                       return (
-                        <li key={id}>
-                          <span>{service?.title}</span>
+                        <li key={serviceTitle}> {/* Key by title, as selectedServices now holds titles */}
+                          <span>{service?.title || serviceTitle}</span> {/* Fallback to title if service not found */}
                           <button
-                            onClick={() => handleRemoveService(id)}
+                            onClick={() => handleRemoveService(serviceTitle)} // Pass serviceTitle
                             className="remove-btn"
-                            aria-label={`Remove ${service?.title}`}
+                            aria-label={`Remove ${service?.title || serviceTitle}`}
                           >
                             X
                           </button>
@@ -371,12 +372,12 @@ const SetApt = () => {
                   <h3>Available Services</h3>
                   <div className="unselected-service-btns" role="group" aria-label="Available Services to Add">
                     {serviceTypes
-                      .filter((service) => !selectedServices.includes(service.id))
+                      .filter((service) => !selectedServices.includes(service.title)) 
                       .map((service) => (
                         <button
-                          key={service.id}
+                          key={service.id} // Keep key as ID, but pass title to handler
                           className="service-btn"
-                          onClick={() => handleAddService(service.id)}
+                          onClick={() => handleAddService(service.title)} // Pass service.title
                           aria-label={`Add ${service.title}`}
                         >
                           {service.title}
@@ -435,9 +436,10 @@ const SetApt = () => {
                 <p>No services selected.</p>
               ) : (
                 <ul aria-label="Confirmed Selected Services">
-                  {selectedServices.map((id) => {
-                    const service = serviceTypes.find((s) => s.id === id);
-                    return <li key={id}>{service?.title}</li>;
+                  {selectedServices.map((serviceTitle) => { 
+                    // Optional: Ifother service properties need:
+                    // const service = serviceTypes.find((s) => s.title === serviceTitle);
+                    return <li key={serviceTitle}>{serviceTitle}</li>; 
                   })}
                 </ul>
               )}
