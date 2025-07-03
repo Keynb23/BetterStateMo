@@ -1,9 +1,7 @@
-  // context/RequestQuote.jsx
   import { useState } from 'react';
-  // import { useBackendCart } from './BackendCart'; // No longer needed if addService isn't used
   import { addQuoteRequest } from '../lib/firestoreService';
   import './ContextStyles.css';
-  import servicequote from '../assets/service-quote.png'; // Assuming you'll replace this image as planned
+  import servicequote from '../assets/service-quote.png';  
 
   const RequestQuote = () => {
     // Removed serviceId prop
@@ -14,17 +12,13 @@
     const [message, setMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState('');
-    const [showTooltip, setShowTooltip] = useState(false); // New state for tooltip
+    const [showTooltip, setShowTooltip] = useState(false); 
 
-    // const { addService } = useBackendCart(); // No longer needed
 
     // Handles opening/closing the quote request modal
     const toggleRequestQuote = () => {
       setIsActive((prev) => {
         const newState = !prev;
-        // if (newState && serviceId) { // No longer relevant
-        //   addService(serviceId);
-        // }
         return newState;
       });
       if (!isActive) {
@@ -47,7 +41,6 @@
         phone,
         email,
         message,
-        // serviceId: serviceId, // Removed this line
         createdAt: new Date(),
       };
 
@@ -129,7 +122,7 @@
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="quote-form-textarea"
-                  required // Changed to required as it's the primary request field
+                  required  
                 />
                 <button type="submit" className="quote-form-submit-button" disabled={isSubmitting}>
                   {isSubmitting ? 'Submitting...' : 'Submit Request'}

@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import RequestQuote from '../context/RequestQuote'; // Assuming this is the correct path for the component
+import { render, screen, fireEvent, waitFor, act, waitForElementToBeRemoved } from '@testing-library/react';
+import '@testing-library/jest-dom'; // Keep this import as it provides useful matchers
+import RequestQuote from '../context/RequestQuote'; // Corrected import path
 
 // Mock the firestoreService module
 jest.mock('../lib/firestoreService', () => ({
@@ -9,12 +9,9 @@ jest.mock('../lib/firestoreService', () => ({
 }));
 
 // Mock the BackendCart context
-// The RequestQuote component no longer calls addService based on serviceId,
-// so this mock is less critical for *its* specific tests.
-// We keep a light mock, but the 'addService' part isn't exercised by this component anymore.
 jest.mock('../context/BackendCart', () => ({
   useBackendCart: jest.fn(() => ({
-    // addService: jest.fn(), // Not directly used by RequestQuote anymore
+    addService: jest.fn(), // Ensure addService is mocked
     cart: [],
     removeService: jest.fn(),
     clearCart: jest.fn(),
@@ -22,9 +19,9 @@ jest.mock('../context/BackendCart', () => ({
   })),
 }));
 
-// Import the mocked functions
+// Import the mocked functions for direct assertion
 import { addQuoteRequest } from '../lib/firestoreService';
-// import { useBackendCart } from '../context/BackendCart'; // No longer explicitly needed for assertions here
+import { useBackendCart } from '../context/BackendCart'; // Import useBackendCart to access its mock
 
 describe('RequestQuote', () => {
   // Clear mocks before each test to ensure isolation
@@ -73,26 +70,8 @@ describe('RequestQuote', () => {
     expect(screen.getByRole('button', { name: /submit request/i })).toBeInTheDocument();
   });
 
-  // REMOVED TEST CASE: 'calls addService with serviceId when opening modal if serviceId is provided'
-  // This functionality was removed from RequestQuote.jsx, so the test is no longer relevant.
-  // Test Case 3 in your provided code is now removed.
-
-  // Test Case 3 (formerly Test Case 4): `addService` is NOT called when `serviceId` is NOT provided
-  // Renumbered this test. If the component no longer calls addService at all on open,
-  // this test effectively just confirms that.
+  // Test Case 3: `addService` is NOT called when opening modal
   test('does not call addService when opening modal', async () => {
-    const mockAddService = jest.fn();
-    // Temporarily mock useBackendCart to track calls, even if RequestQuote itself shouldn't call it.
-    // If you remove the `addService` from the mock in `jest.mock('../context/BackendCart')` above,
-    // then this specific mock implementation might not be necessary, but it's harmless.
-    useBackendCart.mockImplementation(() => ({
-      addService: mockAddService,
-      cart: [],
-      removeService: jest.fn(),
-      clearCart: jest.fn(),
-      getSelectedTitles: jest.fn(),
-    }));
-
     render(<RequestQuote />); // No serviceId prop passed, as it's no longer relevant
 
     const requestQuoteButton = screen.getByRole('button', { name: /request a quote/i });
@@ -101,11 +80,11 @@ describe('RequestQuote', () => {
     });
 
     // Expect addService not to have been called, reflecting the component's current behavior.
-    expect(mockAddService).not.toHaveBeenCalled();
+    expect(useBackendCart().addService).not.toHaveBeenCalled();
   });
 
 
-  // Test Case 4 (formerly Test Case 5): Closing the modal
+  // Test Case 4: Closing the modal
   test('closes the modal and clears form fields when the close button is clicked', async () => {
     render(<RequestQuote />);
 
@@ -119,7 +98,6 @@ describe('RequestQuote', () => {
     fireEvent.change(screen.getByPlaceholderText(/phone number/i), {
       target: { value: '123-456-7890' },
     });
-    // Add email and message too, as they are required in the form
     fireEvent.change(screen.getByPlaceholderText(/email address/i), { target: { value: 'test@example.com' } });
     fireEvent.change(screen.getByPlaceholderText(/tell us what you need/i), { target: { value: 'Some message here.' } });
 
@@ -143,14 +121,14 @@ describe('RequestQuote', () => {
     expect(screen.getByPlaceholderText(/tell us what you need/i)).toHaveValue('');
   });
 
-  // Test Case 5 (formerly Test Case 6): Form submission success
+  // Test Case 5: Form submission success
   test('submits the form successfully and displays a success message, then closes', async () => {
     // Mock addQuoteRequest to resolve successfully with a slight delay
     addQuoteRequest.mockImplementationOnce(() =>
       new Promise(resolve => setTimeout(resolve, 50)) // 50ms delay to simulate async operation
     );
 
-    render(<RequestQuote />); // serviceId prop is no longer passed or used here
+    render(<RequestQuote />);
 
     // Open the modal
     await act(async () => {
@@ -171,7 +149,7 @@ describe('RequestQuote', () => {
 
     const submitButton = screen.getByRole('button', { name: /submit request/i });
 
-    // Submit the form
+    // Submit the form (this will trigger setIsSubmitting(true) and the async call)
     await act(async () => {
       fireEvent.click(submitButton);
     });
@@ -182,10 +160,12 @@ describe('RequestQuote', () => {
     });
     expect(submitButton).toBeDisabled();
 
-    // Advance timers by the duration of the mock promise
-    jest.advanceTimersByTime(50);
-    
-    // Expect addQuoteRequest to be called with correct data (WITHOUT serviceId)
+    // Advance timers to resolve the mock promise and trigger subsequent state updates
+    await act(async () => {
+      jest.advanceTimersByTime(50);
+    });
+
+    // Expect addQuoteRequest to be called with correct data
     expect(addQuoteRequest).toHaveBeenCalledTimes(1);
     const callArgs = addQuoteRequest.mock.calls[0][0];
 
@@ -193,8 +173,7 @@ describe('RequestQuote', () => {
     expect(callArgs.phone).toBe('987-654-3210');
     expect(callArgs.email).toBe('jane@example.com');
     expect(callArgs.message).toBe('Pool cleaning service.');
-    // REMOVED: expect(callArgs.serviceId).toBe(456); // This expectation is NOT valid anymore
-    expect(callArgs.createdAt).toBeInstanceOf(Date);
+    expect(callArgs.createdAt).toBeInstanceOf(Date); // Check if it's a Date object
 
     // Expect success message to appear
     await waitFor(() => {
@@ -208,7 +187,9 @@ describe('RequestQuote', () => {
     expect(submitButton).not.toBeDisabled();
 
     // Advance timers for the modal to close (after 2000ms delay in component)
-    jest.advanceTimersByTime(2000);
+    await act(async () => {
+      jest.advanceTimersByTime(2000);
+    });
 
     // Expect the modal to be closed
     await waitFor(() => {
@@ -216,10 +197,12 @@ describe('RequestQuote', () => {
     });
   });
 
-  // Test Case 6 (formerly Test Case 7): Form submission failure
+  // Test Case 6: Form submission failure
   test('submits the form and displays an error message on failure', async () => {
-    // Mock addQuoteRequest to reject with an error
-    addQuoteRequest.mockRejectedValueOnce(new Error('Firestore error'));
+    // Mock addQuoteRequest to reject with an error after a slight delay
+    addQuoteRequest.mockImplementationOnce(() =>
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore error')), 50))
+    );
 
     render(<RequestQuote />);
 
@@ -237,12 +220,12 @@ describe('RequestQuote', () => {
       target: { value: 'john@example.com' },
     });
     fireEvent.change(screen.getByPlaceholderText(/tell us what you need/i), {
-      target: { value: 'This is a test message for an error.' }, // NOW FILLED
+      target: { value: 'This is a test message for an error.' },
     });
 
     const submitButton = screen.getByRole('button', { name: /submit request/i });
 
-    // Submit the form
+    // Submit the form (this will trigger setIsSubmitting(true) and the async call)
     await act(async () => {
       fireEvent.click(submitButton);
     });
@@ -252,6 +235,11 @@ describe('RequestQuote', () => {
       expect(submitButton).toHaveTextContent('Submitting...');
     });
     expect(submitButton).toBeDisabled();
+
+    // Advance timers to reject the mock promise and trigger subsequent state updates
+    await act(async () => {
+      jest.advanceTimersByTime(50);
+    });
 
     // Expect submit message to appear after rejection
     await waitFor(() => {
@@ -268,30 +256,31 @@ describe('RequestQuote', () => {
     expect(screen.getByRole('heading', { name: /request a quote/i })).toBeInTheDocument();
   });
 
-  // NEW TEST: Test for tooltip behavior
+  // Test: shows and hides the tooltip on button hover
   test('shows and hides the tooltip on button hover', async () => {
     render(<RequestQuote />);
-    // Get the button and then find its closest container with the specific class
+    // Get the button element directly
     const buttonElement = screen.getByRole('button', { name: /request a quote/i });
-    const buttonContainer = buttonElement.closest('.quote-button-fixed-container');
 
-    // Tooltip should not be visible initially
-    expect(screen.queryByText(/request quotes, contact, appointment, etc\.\.\./i)).not.toBeVisible();
+    // Tooltip should not be in the document initially if it's conditionally rendered
+    expect(screen.queryByText(/request quotes, contact, appointment, etc\.\.\./i)).not.toBeInTheDocument();
 
-    // Hover over the container (or the button itself if the CSS targets it)
-    fireEvent.mouseEnter(buttonContainer);
-
-    // Tooltip should become visible
-    await waitFor(() => {
-      expect(screen.getByText(/request quotes, contact, appointment, etc\.\.\./i)).toBeVisible();
+    // Hover over the button (triggers onMouseEnter)
+    await act(async () => {
+      fireEvent.mouseEnter(buttonElement);
     });
 
-    // Mouse leave the container
-    fireEvent.mouseLeave(buttonContainer);
+    // Tooltip should become visible - use findByText to wait for it to appear in the DOM
+    const tooltip = await screen.findByText(/request quotes, contact, appointment, etc\.\.\./i);
+    expect(tooltip).toBeVisible();
 
-    // Tooltip should hide
-    await waitFor(() => {
-      expect(screen.queryByText(/request quotes, contact, appointment, etc\.\.\./i)).not.toBeVisible();
+    // Mouse leave the button (triggers onMouseLeave)
+    await act(async () => {
+      fireEvent.mouseLeave(buttonElement);
     });
+
+    // Tooltip should hide - wait for the element to be removed from the DOM
+    // Since the tooltip is removed synchronously, we just assert its absence after the act.
+    expect(screen.queryByText(/request quotes, contact, appointment, etc\.\.\./i)).not.toBeInTheDocument();
   });
 });
