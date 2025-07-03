@@ -1,4 +1,3 @@
-// pages/ProfileAppointments.jsx
 import { useState } from 'react';
 import './ProfileStyles.css';
 
@@ -7,6 +6,7 @@ const ITEMS_PER_PAGE = 5;
 const ProfileAppointments = ({ appointments, isOwner, handleViewDetails }) => {
   const [showAll, setShowAll] = useState(false);
 
+  // The 'appointments' prop is already filtered and sorted by the parent Profile.jsx
   const displayedAppointments = showAll
     ? appointments
     : appointments.slice(0, ITEMS_PER_PAGE);

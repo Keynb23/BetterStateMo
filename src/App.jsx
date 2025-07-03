@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation} from 'react-router-dom'; 
+import { Routes, Route, useLocation} from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';
@@ -13,7 +13,11 @@ import Gallery from './components/Gallery.jsx';
 import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
-import RequestQuote from './context/RequestQuote';
+import RequestQuote from './context/RequestQuote'; // Assuming this is a context provider or similar
+
+// Import the Chatbot component and its data provider
+import Chatbot from './components/chatbot/Chatbot.jsx';
+import { ChatbotDataProvider } from './components/chatbot/Chatbot-data-context.jsx';
 
 
 function App() {
@@ -71,6 +75,12 @@ function App() {
         </Routes>
         <RequestQuote />
         <Footer />
+
+        <ChatbotDataProvider>
+          <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 1000 }}>
+            <Chatbot />
+          </div>
+        </ChatbotDataProvider>
       </div>
     </>
   );

@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer'); // Import Nodemailer
 
 admin.initializeApp(); // Initialize Firebase Admin SDK
 
+//================================================================================= UPDATE THESE STYLES AND IMPORT THE LOGO ======================
+
 // --- Nodemailer Transporter Setup ---
 // IMPORTANT: Use environment variables for sensitive info like email and password!
 // We'll set these using the Firebase CLI later.

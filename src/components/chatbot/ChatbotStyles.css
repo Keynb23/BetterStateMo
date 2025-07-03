@@ -1,0 +1,187 @@
+/* Base container for the chatbot */
+.chatbot-container {
+  position: fixed;
+  bottom: 10%;  
+  right: 1.5%;  
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  width: 100%;
+  max-width: 448px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--bg); /* Using global background color */
+  border-radius: var(--space-sm); /* Using global spacing variable for rounded corners */
+  box-shadow: var(--shadow-lg); /* Using global shadow variable */
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif; /* Aligned with global font */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Styles for when chatbot is closed (minimized) */
+.chatbot-closed {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md); /* Using global shadow variable */
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)); /* Using global color variables for gradient */
+  color: var(--bg); 
+  cursor: pointer;
+}
+
+/* Styles for when chatbot is open (maximized) */
+.chatbot-open {
+  height: 500px;
+  width: 100%;
+  max-width: 448px;
+  border-radius: var(--space-sm); /* Using global spacing variable for rounded corners */
+}
+
+/* Chat Header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md); /* Using global spacing variable */
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)); /* Using global color variables for gradient */
+  color: var(--text-dm); /* Using global text color for dark mode */
+  box-shadow: var(--shadow-md); /* Using global shadow variable */
+  border-top-left-radius: var(--space-sm); /* Using global spacing variable for rounded corners */
+  border-top-right-radius: var(--space-sm); /* Using global spacing variable for rounded corners */
+}
+
+.chat-title {
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+  font-weight: 600 !important;
+  color: var(--text-dm)
+}
+
+.chat-minimize-button, .chatbot-maximize-button {
+  background: none;
+  border: none;
+  color: var(--text-dm); /* Using global text color for dark mode */
+  cursor: pointer;
+  padding: var(--space-sm); /* Using global spacing variable */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .chat-minimize-button:hover, .chatbot-maximize-button:hover {
+} */
+
+/* Message Area */
+.message-area {
+  flex: 1;
+  padding: var(--space-md); /* Using global spacing variable */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md); /* Using global spacing variable */
+  background-color: var(--comp-bg-dark); /* Using global component background color */
+}
+
+.message-bubble-wrapper {
+  display: flex;
+}
+
+.user-message-wrapper {
+  justify-content: flex-end;
+}
+
+.bot-message-wrapper {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Keeping this specific shadow as it's lighter than global ones */
+}
+
+.user-message {
+  background-color: var(--color-primary); /* Using global primary color */
+  color: var(--text-dm); /* Using global text color for dark mode */
+  border-bottom-right-radius: 0;
+}
+
+.bot-message {
+  background-color: var(--color-primary);
+  /* background-color: var(--comp-bg-light);  */
+  color: var(--text-dm); /* Using global text color */
+  border-bottom-left-radius: 0;
+}
+
+.typing-indicator span {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Input Area */
+.input-form {
+  padding: var(--space-md); /* Using global spacing variable */
+  border-top: 1px solid var(--border-muted); /* Using global muted border color */
+  background-color: var(--bg); /* Using global background color */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-field {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-muted); /* Using global muted border color */
+  border-radius: var(--space-sm); /* Using global spacing variable for rounded corners */
+  outline: none;
+  transition: all 200ms ease-in-out;
+}
+
+.input-field:focus {
+  border-color: var(--color-primary); /* Using global primary color */
+  box-shadow: 0 0 0 2px oklch(50% 0.15 250 / 0.5); /* Direct rgba from primary color for focus ring */
+}
+
+.send-button {
+  margin-left: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--color-accent); /* Using global primary color */
+  color: var(--text-dm); /* Using global text color for dark mode */
+  border-radius: var(--space-sm); /* Using global spacing variable for rounded corners */
+  font-weight: 600;
+  box-shadow: var(--shadow-md); /* Using global shadow variable */
+  transition: all 200ms ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: var(--color-secondary); /* Using global primary dark color */
+  color: var(--text);
+}
+
+.send-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--color-primary); /* Using global colors for focus ring */
+}
+
+.send-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

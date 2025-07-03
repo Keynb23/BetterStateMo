@@ -13,7 +13,7 @@ const shuffleArray = (array) => {
   };
 
 const ProfileHeader = ({ user, isOwner, handleStartNewRequest }) => {
-  const { videos, pools } = useMedia();
+  const { pools } = useMedia();
   const [shuffledMediaItems, setShuffledMediaItems] = useState([]);
 
   useEffect(() => {
@@ -24,16 +24,10 @@ const ProfileHeader = ({ user, isOwner, handleStartNewRequest }) => {
         type: 'image',
         alt: `Pool image ${idx + 1}`,
       })),
-      ...(videos || []).map((src, idx) => ({
-        id: `video-${idx}`,
-        src,
-        type: 'video',
-        alt: `Video thumbnail ${idx + 1}`,
-      })),
     ];
     const shuffled = shuffleArray([...combinedItems]);
     setShuffledMediaItems(shuffled);
-  }, [videos, pools]);
+  }, [ pools]);
 
   return (
     <div className="Profile-Dashboard-Dashboard Profile-card-base">
@@ -42,7 +36,8 @@ const ProfileHeader = ({ user, isOwner, handleStartNewRequest }) => {
           {item.type === 'image' ? (
             <img src={item.src} alt={item.alt}/>
           ) : (
-            <video src={item.src} alt={item.alt} controls width="100%" />
+            // You can handle other media types here, e.g. video
+            null
           )}
         </div>
       ))}
@@ -57,7 +52,7 @@ const ProfileHeader = ({ user, isOwner, handleStartNewRequest }) => {
         <p className="Profile-Dashboard-text">
           {isOwner
             ? 'This is your administrative dashboard.'
-            : '=====NOT DONE STYLING=======Here you can manage your appointments and profile settings.'}
+            : 'Here you can manage your appointments and profile settings'}
         </p>
         {!isOwner && (
           <button onClick={handleStartNewRequest} className="Dashboard-newRequestBtn">

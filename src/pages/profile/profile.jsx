@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { collection, query, where, onSnapshot} from 'firebase/firestore';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './ProfileStyles.css';
 
 // Import the new components
@@ -9,8 +8,16 @@ import ProfileHeader from './ProfileHeader.jsx';
 import ProfileAppointments from './ProfileAppointments.jsx';
 import ProfileQuoteRequests from './ProfileQuoteRequests.jsx';
 import ProfileContactSubmissions from './ProfileContactSubmissions.jsx';
-import ProfileSettings from './ProfileSettings.jsx'; // This is now a self-contained component
+import ProfileSettings from './ProfileSettings.jsx';
 import ProfileDetailsPanel from './ProfileDetailsPanel.jsx';
+import ProfileRefreshButton from './ProfileRefreshButton.jsx';
+import ProfileSortButton from './ProfileSortButton.jsx';
+import {
+  getAppointments,
+  getContactSubmissions,
+  getQuoteRequests,
+  getCustomerAppointments,
+} from '../../lib/firestoreService.js'  
 
 const ITEMS_PER_PAGE = 5;
 
@@ -23,19 +30,56 @@ const Profile = () => {
 
   // Data states
   const [customerAppointments, setCustomerAppointments] = useState([]);
-  const [loadingCustomerAppointments, setLoadingCustomerAppointments] = useState(true);
-  const [errorCustomerAppointments, setErrorCustomerAppointments] = useState(null);
-
   const [adminAppointments, setAdminAppointments] = useState([]);
   const [quoteRequests, setQuoteRequests] = useState([]);
   const [contactSubmissions, setContactSubmissions] = useState([]);
-  const [loadingAdminData, setLoadingAdminData] = useState(true);
-  const [errorAdminData, setErrorAdminData] = useState(null);
+
+  // Loading states
+  const [isLoadingData, setIsLoadingData] = useState(true); // Combined loading for all data
+  const [errorData, setErrorData] = useState(null); // Combined error for all data
+  const [isRefreshing, setIsRefreshing] = useState(false); // For refresh button spinner
+
+  // Sorting state
+  const [currentSort, setCurrentSort] = useState('createdAtDesc'); // Default sort
 
   // Detail panel states
   const [selectedCustomerAppointment, setSelectedCustomerAppointment] = useState(null);
   const [selectedAdminItem, setSelectedAdminItem] = useState(null);
   const [selectedAdminCollection, setSelectedAdminCollection] = useState(null);
+
+  // Function to fetch all data
+  const fetchAllData = useCallback(async () => {
+    setIsRefreshing(true); // Start refreshing animation
+    setErrorData(null); // Clear previous errors
+    try {
+      if (isOwner) {
+        const [appointments, quotes, contacts] = await Promise.all([
+          getAppointments(),
+          getQuoteRequests(),
+          getContactSubmissions(),
+        ]);
+        setAdminAppointments(appointments);
+        setQuoteRequests(quotes);
+        setContactSubmissions(contacts);
+      } else if (user?.uid) {
+        const customerApts = await getCustomerAppointments(user.uid);
+        setCustomerAppointments(customerApts);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setErrorData('Failed to load data. Please try refreshing.');
+    } finally {
+      setIsRefreshing(false); // End refreshing animation
+      setIsLoadingData(false); // Initial load complete
+    }
+  }, [isOwner, user?.uid]); // Dependencies for useCallback
+
+  // Effect to fetch data on mount and when user/owner status changes
+  useEffect(() => {
+    if (!authLoading && db) { // Ensure Firebase is initialized and user auth state is known
+      fetchAllData();
+    }
+  }, [authLoading, db, fetchAllData]);
 
   // Effect to set initial tab based on customer/admin status
   useEffect(() => {
@@ -48,88 +92,13 @@ const Profile = () => {
     }
   }, [authLoading, isOwner]);
 
-
-  // Effect for customer appointments
-  useEffect(() => {
-    if (!authLoading && user && !isOwner && user.email && db) {
-      setLoadingCustomerAppointments(true);
-      setErrorCustomerAppointments(null);
-      const q = query(collection(db, 'appointments'), where('userId', '==', user.uid));
-      const unsubscribe = onSnapshot(
-        q,
-        (querySnapshot) => {
-          const appointments = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-          setCustomerAppointments(appointments);
-          setLoadingCustomerAppointments(false);
-        },
-        (error) => {
-          console.error('Error fetching customer appointments:', error);
-          setErrorCustomerAppointments('Failed to load your past appointments.');
-          setLoadingCustomerAppointments(false);
-        },
-      );
-      return () => unsubscribe();
-    }
-  }, [user, db, isOwner, authLoading]);
-
-  // Effect for admin data (appointments, quotes, contacts)
-  useEffect(() => {
-    if (!authLoading && user && isOwner && db) {
-      setLoadingAdminData(true);
-      setErrorAdminData(null);
-      const unsubscribes = [];
-
-      const unsubscribeAppointments = onSnapshot(
-        collection(db, 'appointments'),
-        (querySnapshot) =>
-          setAdminAppointments(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
-        (error) => {
-          console.error('Error fetching admin appointments:', error);
-          setErrorAdminData('Failed to load admin appointments.');
-        },
-      );
-      unsubscribes.push(unsubscribeAppointments);
-
-      const unsubscribeQuotes = onSnapshot(
-        collection(db, 'quoteRequests'),
-        (querySnapshot) =>
-          setQuoteRequests(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
-        (error) => {
-          console.error('Error fetching quote requests:', error);
-          setErrorAdminData('Failed to load quote requests.');
-        },
-      );
-      unsubscribes.push(unsubscribeQuotes);
-
-      const unsubscribeContacts = onSnapshot(
-        collection(db, 'contactSubmissions'),
-        (querySnapshot) => {
-          const contactSubmissions = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          contactSubmissions.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate());
-          setContactSubmissions(contactSubmissions);
-        },
-        (error) => {
-          console.error('Error fetching contact submissions:', error);
-          setErrorAdminData('Failed to load contact submissions.');
-        },
-      );
-      unsubscribes.push(unsubscribeContacts);
-
-      setLoadingAdminData(false); // Set to false after all subscriptions are set up
-      return () => unsubscribes.forEach((unsub) => unsub());
-    }
-  }, [user, db, isOwner, authLoading]);
-
   const handleStartNewRequest = () => {
     navigate('/setapt', {
       state: {
         customerInfo: {
           name: user.displayName || '',
           email: user.email || '',
-          phone: user.phoneNumber || '', // user.phoneNumber might not be directly from Firebase Auth if not set there.
+          phone: user.phoneNumber || '',
         },
       },
     });
@@ -152,44 +121,68 @@ const Profile = () => {
     setSelectedAdminCollection(null);
   };
 
-  const filterItems = (items) => {
-    if (!searchTerm) return items;
-    const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    return items.filter((item) => {
-      const nameMatch = item.name?.toLowerCase().includes(lowerCaseSearchTerm);
-      const emailMatch = item.email?.toLowerCase().includes(lowerCaseSearchTerm);
-      const phoneMatch = item.phone?.toLowerCase().includes(lowerCaseSearchTerm);
-      const addressMatch = item.address?.toLowerCase().includes(lowerCaseSearchTerm);
-      const dateMatch =
-        typeof item.date === 'string' && item.date.toLowerCase().includes(lowerCaseSearchTerm);
-      const timeMatch =
-        typeof item.time === 'string' && item.time.toLowerCase().includes(lowerCaseSearchTerm);
-      const messageMatch =
-        typeof item.message === 'string' &&
-        item.message.toLowerCase().includes(lowerCaseSearchTerm);
-      const servicesMatch = item.selectedServices?.some(
-        (service) => typeof service === 'string' && service.toLowerCase().includes(lowerCaseSearchTerm),
-      );
-      return (
-        nameMatch ||
-        emailMatch ||
-        phoneMatch ||
-        addressMatch ||
-        servicesMatch ||
-        dateMatch ||
-        timeMatch ||
-        messageMatch
-      );
-    });
+  // Sorting Logic
+  const sortData = (data, sortCriteria) => {
+    if (!data || data.length === 0) return [];
+    const sorted = [...data]; // Create a shallow copy to avoid mutating original state
+
+    switch (sortCriteria) {
+      case 'firstNameAsc':
+        return sorted.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      case 'firstNameDesc':
+        return sorted.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+      case 'lastNameAsc':
+        return sorted.sort((a, b) => {
+          const getLastName = (fullName) => fullName?.split(' ').pop() || '';
+          return getLastName(a.name).localeCompare(getLastName(b.name));
+        });
+      case 'lastNameDesc':
+        return sorted.sort((a, b) => {
+          const getLastName = (fullName) => fullName?.split(' ').pop() || '';
+          return getLastName(b.name).localeCompare(getLastName(a.name));
+        });
+      case 'createdAtDesc':
+        // Ensure createdAt is a Date object for comparison
+        return sorted.sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
+      case 'createdAtAsc':
+        return sorted.sort((a, b) => (a.createdAt?.getTime() || 0) - (b.createdAt?.getTime() || 0));
+      default:
+        return sorted; // Return default order (which is usually createdAtDesc from fetch)
+    }
   };
 
-  const filteredCustomerAppointments = filterItems(customerAppointments);
-  const filteredAdminAppointments = filterItems(adminAppointments);
-  const filteredQuoteRequests = filterItems(quoteRequests);
-  const filteredContactSubmissions = filterItems(contactSubmissions);
+  // Filter and Sort combined
+  const filterAndSortItems = (items) => {
+    const filtered = items.filter((item) => {
+      if (!searchTerm) return true;
+      const lowerCaseSearchTerm = searchTerm.toLowerCase();
+      const fieldsToSearch = [
+        item.name,
+        item.email,
+        item.phone,
+        item.address,
+        item.message,
+        item.date, // For appointments
+        item.time, // For appointments
+        ...(item.selectedServices || []), // For appointments
+        item.zipCode, // For quotes
+        item.serviceType // For quotes
+      ];
+      return fieldsToSearch.some(field =>
+        typeof field === 'string' && field.toLowerCase().includes(lowerCaseSearchTerm)
+      );
+    });
+    return sortData(filtered, currentSort);
+  };
+
+
+  const filteredAndSortedCustomerAppointments = filterAndSortItems(customerAppointments);
+  const filteredAndSortedAdminAppointments = filterAndSortItems(adminAppointments);
+  const filteredAndSortedQuoteRequests = filterAndSortItems(quoteRequests);
+  const filteredAndSortedContactSubmissions = filterAndSortItems(contactSubmissions);
 
   // Loading and Error states for the overall profile page
-  if (authLoading)
+  if (authLoading || isLoadingData)
     return (
       <div className="Profile-loadingWrapper">
         <p className="Profile-loadingText">Loading profile...</p>
@@ -201,7 +194,7 @@ const Profile = () => {
         <p className="Profile-errorMessage">You must be logged in to view this page.</p>
       </div>
     );
-  if (!user.emailVerified && !isOwner) // Only check for email verification for regular users
+  if (!user.emailVerified && !isOwner)
     return (
       <div className="Profile-loadingWrapper">
         <p className="Profile-errorMessage">Please verify your email to access your profile.</p>
@@ -210,51 +203,47 @@ const Profile = () => {
 
   // Render Owner Dashboard
   if (isOwner) {
-    if (loadingAdminData)
+    if (errorData)
       return (
         <div className="Profile-loadingWrapper">
-          <p className="Profile-loadingText">Loading admin dashboard data...</p>
-        </div>
-      );
-    if (errorAdminData)
-      return (
-        <div className="Profile-loadingWrapper">
-          <p className="Profile-errorMessage">{errorAdminData}</p>
+          <p className="Profile-errorMessage">{errorData}</p>
         </div>
       );
 
     return (
       <>
         <div className="Profile-wrapper">
-          <ProfileHeader user={user} isOwner={isOwner} /> {/* Pass user and isOwner */}
+          <ProfileHeader user={user} isOwner={isOwner} />
           <div className="Profile-main-container">
-            <div className="Profile-search-bar-container">
+            <div className="Profile-controls-row flex justify-between items-center mb-4">
               <input
                 type="text"
                 placeholder="Search by name, email, phone, address, etc."
-                className="Profile-search-input"
+                className="Profile-search-input flex-grow mr-4"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+              <ProfileRefreshButton onRefresh={fetchAllData} isLoading={isRefreshing} />
+              <ProfileSortButton onSortChange={setCurrentSort} currentSort={currentSort} />
             </div>
             <div className="Profile-tabs-container">
               <button
                 className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
                 onClick={() => setActiveTab('appointments')}
               >
-                Appointments ({filteredAdminAppointments.length})
+                Appointments ({filteredAndSortedAdminAppointments.length})
               </button>
               <button
                 className={`Profile-tab-button ${activeTab === 'quotes' ? 'active' : ''}`}
                 onClick={() => setActiveTab('quotes')}
               >
-                Quote Requests ({filteredQuoteRequests.length})
+                Quote Requests ({filteredAndSortedQuoteRequests.length})
               </button>
               <button
                 className={`Profile-tab-button ${activeTab === 'contacts' ? 'active' : ''}`}
                 onClick={() => setActiveTab('contacts')}
               >
-                Contact Submissions ({filteredContactSubmissions.length})
+                Contact Submissions ({filteredAndSortedContactSubmissions.length})
               </button>
               <button
                 className={`Profile-tab-button ${activeTab === 'settings' ? 'active' : ''}`}
@@ -267,7 +256,7 @@ const Profile = () => {
               <div className="Profile-tab-panel Profile-card-base">
                 {activeTab === 'appointments' && (
                   <ProfileAppointments
-                    appointments={filteredAdminAppointments}
+                    appointments={filteredAndSortedAdminAppointments}
                     isOwner={true}
                     handleViewDetails={handleViewAdminItemDetails}
                     ITEMS_PER_PAGE={ITEMS_PER_PAGE}
@@ -275,14 +264,14 @@ const Profile = () => {
                 )}
                 {activeTab === 'quotes' && (
                   <ProfileQuoteRequests
-                    quoteRequests={filteredQuoteRequests}
+                    quoteRequests={filteredAndSortedQuoteRequests}
                     handleViewDetails={handleViewAdminItemDetails}
                     ITEMS_PER_PAGE={ITEMS_PER_PAGE}
                   />
                 )}
                 {activeTab === 'contacts' && (
                   <ProfileContactSubmissions
-                    contactSubmissions={filteredContactSubmissions}
+                    contactSubmissions={filteredAndSortedContactSubmissions}
                     handleViewDetails={handleViewAdminItemDetails}
                     ITEMS_PER_PAGE={ITEMS_PER_PAGE}
                   />
@@ -304,16 +293,10 @@ const Profile = () => {
   }
 
   // Render Customer Dashboard
-  if (loadingCustomerAppointments)
+  if (errorData)
     return (
       <div className="Profile-loadingWrapper">
-        <p className="Profile-loadingText">Loading your appointments...</p>
-      </div>
-    );
-  if (errorCustomerAppointments)
-    return (
-      <div className="Profile-loadingWrapper">
-        <p className="Profile-errorMessage">{errorCustomerAppointments}</p>
+        <p className="Profile-errorMessage">{errorData}</p>
       </div>
     );
 
@@ -326,12 +309,15 @@ const Profile = () => {
           handleStartNewRequest={handleStartNewRequest}
         />
         <div className="Profile-main-container Profile-customer-layout">
+          <div className="Profile-controls-row flex justify-end items-center mb-4">
+            <ProfileRefreshButton onRefresh={fetchAllData} isLoading={isRefreshing} />
+          </div>
           <div className="Profile-tabs-container">
             <button
               className={`Profile-tab-button ${activeTab === 'appointments' ? 'active' : ''}`}
               onClick={() => setActiveTab('appointments')}
             >
-              My Appointments ({filteredCustomerAppointments.length})
+              My Appointments ({filteredAndSortedCustomerAppointments.length})
             </button>
             <button
               className={`Profile-tab-button ${activeTab === 'settings' ? 'active' : ''}`}
@@ -344,7 +330,7 @@ const Profile = () => {
             <div className="Profile-tab-panel Profile-card-base">
               {activeTab === 'appointments' && (
                 <ProfileAppointments
-                  appointments={filteredCustomerAppointments}
+                  appointments={filteredAndSortedCustomerAppointments}
                   isOwner={false} // Explicitly false for customer view
                   handleViewDetails={handleViewCustomerAppointmentDetails}
                   ITEMS_PER_PAGE={ITEMS_PER_PAGE}

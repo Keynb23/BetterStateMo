@@ -1,4 +1,3 @@
-// pages/ProfileContactSubmissions.jsx
 import { useState } from 'react';
 import './ProfileStyles.css';
 
@@ -7,6 +6,7 @@ const ITEMS_PER_PAGE = 5;
 const ProfileContactSubmissions = ({ contactSubmissions, handleViewDetails }) => {
   const [showAll, setShowAll] = useState(false);
 
+  // The 'contactSubmissions' prop is already filtered and sorted by the parent Profile.jsx
   const displayedContactSubmissions = showAll
     ? contactSubmissions
     : contactSubmissions.slice(0, ITEMS_PER_PAGE);

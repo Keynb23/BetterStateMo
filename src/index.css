@@ -3,8 +3,8 @@
   --color-primary: oklch(50% 0.15 250); /* A balanced, medium blue */
   --color-primary-light: oklch(80% 0.1 250);
   --color-primary-dark: oklch(24.396% 0.06082 245.744); 
-  --color-secondary: oklch(85% 0.05 85); /* Soft, warm beige/sand */
-  --color-secondary-dark: oklch(75% 0.06 85);
+  --color-secondary: oklch(86.763% 0.05994 84.468); /* Soft, warm beige/sand */
+  --color-secondary-dark: oklch(63.51% 0.10412 82.102);
   --color-accent: oklch(40% 0.2 140); /* A bright, energetic green (pool water/nature vibe) */
   /* --- UI Colors (Adjusted to new palette) --- */
   --danger: oklch(53.944% 0.20091 27.294); /* Red (unchanged - standard for alerts) */
