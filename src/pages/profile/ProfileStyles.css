@@ -1,4 +1,4 @@
-/* Profile Section */
+/* Profile Section - Base Styles (for screens > 1250px and general desktop) */
 .Profile-wrapper {
   background-color: var(--comp-bg-light);
   color: var(--text);
@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   padding: var(--space-xl) var(--space-md);
+  box-shadow: var(--shadow-md);
 }
 
 .Profile-loadingWrapper {
@@ -26,7 +27,7 @@
 .Profile-card-base {
   background-color: var(--comp-bg-light);
   border-radius: var(--space-md);
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: var(--shadow-md);
   padding: var(--space-lg);
   border: 1px solid var(--border-muted);
 }
@@ -38,21 +39,24 @@
   margin: var(--space-md);
   padding: var(--space-sm);
   gap: var(--space-md);
-  border-radius: 8px;
+  border-radius: var(--space-sm);
   color: var(--text);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--bg);
 }
 
 .Profile-Settings-subtitle {
   color: var(--color-primary);
-  margin-bottom: 20px;
+  margin-bottom: var(--space-md);
   font-size: 1.8em;
   text-align: center;
+  font-weight: 700;
 }
 
 .Profile-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--space-md);
 }
 
 .Profile-form-group {
@@ -61,15 +65,15 @@
 }
 
 .Profile-form-group label {
-  margin-bottom: 5px;
+  margin-bottom: var(--space-xs);
   font-weight: 500;
   color: var(--text);
 }
 
 .Profile-input {
-  padding: 10px 12px;
+  padding: var(--space-sm) var(--space-md);
   border: 1px solid var(--border);
-  border-radius: 5px;
+  border-radius: var(--space-xs);
   font-size: 1em;
   background-color: var(--bg);
   color: var(--text);
@@ -77,8 +81,8 @@
 }
 
 .Profile-input:focus {
-  border-color: var(--focus-border-color);
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
   outline: none;
 }
 
@@ -92,38 +96,52 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
 }
 
 .Profile-button {
-  padding: 10px 20px;
+  padding: var(--space-sm) var(--space-md);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--space-xs);
   font-size: 1em;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.Profile-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .Profile-editBtn,
 .Profile-saveBtn {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--text-dm);
 }
 
 .Profile-editBtn:hover,
 .Profile-saveBtn:hover {
-  background-color: var(--color-primary-light);
-  color: var(--text);
-  transform: translateY(-2px);
+  background-color: var(--color-primary-dark);
+  color: var(--text-dm);
 }
 
 .Profile-deleteBtn {
-    background-color: var(--danger);
+  background-color: var(--danger);
+  color: var(--text-dm);
+}
+
+.Profile-deleteBtn:hover {
+  background-color: oklch(45% 0.22 27.294); /* Darker red */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .Profile-cancelBtn {
-  background-color: var(--danger);
+  background-color: var(--color-secondary-dark);
   color: var(--text-dm);
 }
 
@@ -131,77 +149,139 @@
   background-color: var(--color-secondary);
   color: var(--text);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .Profile-successMessage {
-  color: var(--color-accent);
+  color: var(--success);
   text-align: center;
-  margin-top: 10px;
+  margin-top: var(--space-sm);
   font-weight: 500;
 }
 
 .Profile-errorMessage {
   color: var(--danger);
   text-align: center;
-  margin-top: 10px;
+  margin-top: var(--space-sm);
   font-weight: 500;
 }
 
+/* Profile Dashboard Section */
 .Profile-Dashboard-Dashboard {
-  margin-top: var(--space-lg);
+  margin-top: var(--space-xl);
   position: relative;
   width: 100%;
-  height: 350px;
-  background-color: var(--bg);
+  height: 400px;
+  /* This aspect-ratio determines the overall shape of your dashboard container */
+  /* For example, 2/1 means it's twice as wide as it is tall. */
+  aspect-ratio: 2 / 1;
+  min-height: 200px; /* Ensures a minimum visible height even if content is small */
+  background-color: var(--comp-bg-dark);
   margin-bottom: var(--space-xl);
   box-shadow: var(--shadow-lg);
   padding: var(--space-xl);
+  border-radius: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.dash-bg-item {
+  position: absolute;
+  height: 400px; /* Each item fills the full height of the dashboard */
+  width: calc(100% / 3); /* Each item takes 1/3 of the dashboard's width */
+  top: 0;
+  z-index: 1;
+}
+
+.dash-bg-item img,
+.dash-bg-item video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: opacity(0.4) blur(2px);
+  transition: transform 0.3s ease-in-out;
+  aspect-ratio: 2 / 3;
+  -webkit-filter: opacity(0.4) blur(2px);
+}
+
+/* Position the three background items */
+.dash-bg-item:nth-child(1) { left: 0; }
+.dash-bg-item:nth-child(2) { left: calc(100% / 3); }
+.dash-bg-item:nth-child(3) { left: calc(100% / 3 * 2); }
+/* Hide any additional items if there are more than 3 */
+.dash-bg-item:nth-child(n + 4) { display: none; }
+
+.dash-bg-item img:hover,
+.dash-bg-item video:hover {
+    transform: scale(1.03);
+}
+
+.Profile-Dashboard-title,
+.Profile-Dashboard-card {
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  max-width: 80%;
 }
 
 .Profile-Dashboard-title {
   margin-bottom: var(--space-md);
-  color: var(--color-primary);
+  color: var(--text-dm);
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   text-align: center;
-  text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15);
+  text-shadow: 2px 2px 4px oklch(0% 0 0 / 0.4);
 }
 
 .Profile-Dashboard-card {
-  background-color: var(--comp-bg-dark);
+  background-color: var(--comp-bg-light);
   padding: var(--space-md);
   border-radius: var(--space-sm);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-muted);
 }
 
 .Profile-Dashboard-subtitle {
   font-weight: 600;
   margin-bottom: var(--space-sm);
-  color: var(--color-secondary);
+  color: var(--color-primary-light);
 }
 
 .Profile-Dashboard-text {
-  color: var(--text-dm);
+  color: var(--text);
   line-height: 1.6;
 }
 
-
 .Dashboard-newRequestBtn {
-  position: absolute;
-  top: 80%;
-  right: 5%;
-  background-color: var(--color-primary);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: var(--color-accent);
+  color: var(--text-dm);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: 1.1em;
+  border-radius: var(--space-md);
+  position: relative;
+  bottom: auto;
+  right: auto;
+  margin-top: var(--space-md);
 }
 
 .Dashboard-newRequestBtn:hover {
-  background-color: var(--color-primary-light);
-  color: var(--text);
+  background-color: oklch(35% 0.22 140); /* Darker accent */
+  color: var(--text-dm);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
 }
 
+/* Main Content Layout */
 .Profile-main-container {
   position: relative;
-  left: 10%;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-areas:
@@ -210,7 +290,10 @@
     'content right';
   gap: var(--space-xl);
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   flex-grow: 1;
+  padding: 0 var(--space-md);
 }
 
 .Profile-search-bar-container {
@@ -226,7 +309,14 @@
   font-size: 1rem;
   color: var(--text);
   background-color: var(--bg);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Profile-search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  outline: none;
 }
 
 .Profile-tabs-container {
@@ -235,9 +325,10 @@
   gap: var(--space-xs);
   border-bottom: 2px solid var(--border-muted);
   margin-bottom: var(--space-md);
-  background-color: var(--bg);
+  background-color: var(--comp-bg-light);
   border-radius: var(--space-sm) var(--space-sm) 0 0;
   padding-top: var(--space-xs);
+  box-shadow: var(--shadow-sm);
 }
 
 .Profile-tab-button {
@@ -257,7 +348,8 @@
 
 .Profile-tab-button:hover {
   color: var(--color-primary);
-  background-color: var(--comp-bg-light);
+  background-color: var(--bg);
+  border-color: var(--color-primary-light);
 }
 
 .Profile-tab-button.active {
@@ -266,12 +358,17 @@
   font-weight: 600;
   background-color: var(--color-primary);
   border-radius: var(--space-sm) var(--space-sm) 0 0;
+  box-shadow: var(--shadow-sm);
 }
 
 .Profile-tab-content {
   grid-area: content;
   display: flex;
   flex-direction: column;
+  background-color: var(--comp-bg-light);
+  border-radius: 0 0 var(--space-sm) var(--space-sm);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .Profile-tab-panel {
@@ -289,19 +386,20 @@
 }
 
 .Profile-Appointments-dividedList > *:not(:last-child) {
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-muted);
   padding-bottom: var(--space-md);
 }
 
 .Profile-Appointments-clickableItem {
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
   padding: var(--space-sm);
   border-radius: var(--space-sm);
 }
 
 .Profile-Appointments-clickableItem:hover {
-  background-color: var(--comp-bg-light);
+  background-color: var(--bg);
+  transform: translateY(-1px);
 }
 
 .Profile-appointmentTitle,
@@ -322,7 +420,7 @@
 
 .Profile-Appointments-smallText {
   font-size: 0.85rem;
-  color: var(--text-subtle);
+  color: var(--text-muted);
 }
 
 .Profile-right-column {
@@ -335,49 +433,27 @@
 .Profile-details-panel,
 .Request-New-Service {
   position: sticky;
-  top: 5%;
-  right: 5%;
+  top: var(--space-xl);
   z-index: 10;
-  background-color: var(--bg);
-}
-
-.Profile-detail-subtitle,
-.Profile-subtitle {
-  font-weight: 700;
-  margin-bottom: var(--space-md);
-  color: var(--color-primary);
-  text-align: center;
-}
-
-.Profile-detailItem {
-  margin-bottom: var(--space-sm);
-  color: var(--text-muted);
-}
-
-.Profile-detailItem strong {
-  color: var(--text);
-}
-
-/* Note: There are two .Profile-button selectors, this one is for general buttons.
-   Ensure this doesn't conflict with the absolute-positioned one if not intended. */
-.Profile-button {
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--space-sm);
-  font-weight: 600;
-  transition: all 0.2s ease;
-  border: none;
-  cursor: pointer;
+  background-color: var(--comp-bg-light);
+  border-radius: var(--space-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-lg);
+  border: 1px solid var(--border-muted);
 }
 
 .Profile-requestServiceBtn {
   background-color: var(--color-secondary);
-  color: var(--text-dm);
+  color: var(--text);
   width: 100%;
   box-shadow: var(--shadow-sm);
+  border-radius: var(--space-md);
+  font-size: 1.1em;
+  padding: var(--space-md) var(--space-lg);
 }
 
 .Profile-requestServiceBtn:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -386,23 +462,38 @@
   margin-top: var(--space-md);
 }
 
-/* Profile Responsive Styles */
 
-/* Tablet and larger phones (landscape) */
+/* Media Queries */
+
+/* Max-width 1250px: Adjustments for slightly smaller desktops/laptops */
+@media (max-width: 1250px) {
+  .Profile-main-container {
+    max-width: 1000px; /* Constrain max-width a bit */
+    gap: var(--space-lg); /* Slightly reduced gap */
+  }
+
+  .Profile-details-panel,
+  .Request-New-Service {
+    padding: var(--space-md); /* Slightly less padding */
+  }
+}
+
+/* Max-width 1024px: Tablet Landscape / Smaller Laptop */
 @media (max-width: 1024px) {
   .Profile-wrapper {
     padding: var(--space-lg) var(--space-md);
   }
 
   .Profile-main-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack main columns (search, right, tabs, content) */
     grid-template-areas:
       'search'
       'right'
       'tabs'
       'content';
     gap: var(--space-lg);
-    left: 0; /* Reset left positioning */
+    margin: 0 auto;
+    padding: 0 var(--space-md);
   }
 
   .Profile-right-column {
@@ -411,10 +502,17 @@
 
   .Profile-details-panel,
   .Request-New-Service {
-    position: static;
+    position: static; /* No longer sticky */
     top: auto;
     right: auto;
     z-index: auto;
+    margin-bottom: var(--space-lg); /* Add margin when static */
+  }
+
+  /* Dashboard's 3-column layout persists, height responsive via aspect-ratio */
+  .Profile-Dashboard-Dashboard {
+    min-height: 180px; /* Adjust min-height for smaller screens */
+    aspect-ratio: 2.2 / 1; /* Slightly adjust overall dashboard ratio for smaller screens */
   }
 
   .Profile-tab-button {
@@ -427,28 +525,46 @@
   }
 
   .Profile-Settings-container {
-    padding: 18px;
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
   }
 
   .Profile-Settings-subtitle {
     font-size: 1.6em;
+    margin-bottom: var(--space-md);
   }
 
   .Profile-input {
-    padding: 9px 11px;
+    padding: var(--space-sm) var(--space-md);
     font-size: 0.95em;
   }
 
   .Profile-button {
-    padding: 9px 18px;
+    padding: var(--space-sm) var(--space-md);
     font-size: 0.95em;
+  }
+
+  .Dashboard-newRequestBtn {
+    position: static;
+    margin-top: var(--space-md);
+    width: auto;
+    align-self: center;
   }
 }
 
-/* Smaller tablets and large phones */
-@media (max-width: 650px) {
+/* Max-width 768px: Tablet Portrait / Large Phone Landscape */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.95rem; /* Slightly reduce base font size */
+  }
+
   .Profile-wrapper {
     padding: var(--space-lg) var(--space-sm);
+  }
+
+  .Profile-main-container {
+    padding: 0 var(--space-sm);
+    gap: var(--space-md); /* Reduced gap */
   }
 
   .Profile-tabs-container {
@@ -466,6 +582,8 @@
   .Profile-Dashboard-Dashboard {
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
+    min-height: 150px; /* Further adjust min-height */
+    aspect-ratio: 2.5 / 1; /* Make it even wider relative to its height */
   }
 
   .Profile-search-input {
@@ -489,17 +607,17 @@
   }
 
   .Profile-Settings-container {
-    padding: 15px;
-    margin-top: 15px;
+    padding: var(--space-md);
+    margin-top: var(--space-md);
   }
 
   .Profile-Settings-subtitle {
     font-size: 1.5em;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
   }
 
   .Profile-form {
-    gap: 12px;
+    gap: var(--space-sm);
   }
 
   .Profile-form-group label {
@@ -507,36 +625,48 @@
   }
 
   .Profile-input {
-    padding: 8px 10px;
+    padding: var(--space-xs) var(--space-sm);
     font-size: 0.9em;
   }
 
   .Profile-buttons-container {
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-sm);
   }
 
   .Profile-button {
     width: 100%;
-    padding: 10px 15px;
+    padding: var(--space-sm) var(--space-md);
     font-size: 0.9em;
+  }
+
+  .Profile-Dashboard-title {
+    font-size: clamp(1.8rem, 8vw, 2.5rem); /* Adjust clamp for smaller screens */
   }
 }
 
-/* Phones (portrait) */
+/* Max-width 450px: Smaller Phones */
 @media (max-width: 450px) {
+  .Profile-wrapper {
+    padding: var(--space-lg) var(--space-xs); /* Use even smaller horizontal padding */
+  }
+
+  .Profile-main-container {
+    padding: 0 var(--space-xs); /* Reduced padding for very small screens */
+  }
+
   .Profile-Settings-container {
-    padding: 12px;
-    margin-top: 10px;
+    padding: var(--space-sm);
+    margin-top: var(--space-sm);
   }
 
   .Profile-Settings-subtitle {
     font-size: 1.3em;
-    margin-bottom: 12px;
+    margin-bottom: var(--space-sm);
   }
 
   .Profile-form {
-    gap: 10px;
+    gap: var(--space-xs);
   }
 
   .Profile-form-group label {
@@ -544,55 +674,100 @@
   }
 
   .Profile-input {
-    padding: 7px 9px;
+    padding: var(--space-xs); /* Smaller padding */
     font-size: 0.85em;
   }
 
   .Profile-button {
-    padding: 9px 12px;
+    padding: var(--space-xs) var(--space-sm);
     font-size: 0.85em;
   }
-}
 
-/* Smaller phones */
-@media (max-width: 368px) {
-  .Profile-Settings-container {
-    padding: 10px;
-  }
-
-  .Profile-Settings-subtitle {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-
-  .Profile-input {
-    padding: 6px 8px;
-    font-size: 0.8em;
-  }
-
-  .Profile-button {
-    padding: 8px 10px;
-    font-size: 0.8em;
+  .Profile-Dashboard-Dashboard {
+    padding: var(--space-md); /* Reduced dashboard padding */
+    min-height: 120px; /* Smallest height for phone */
+    aspect-ratio: 3 / 1; /* Very wide for small phones */
   }
 }
 
-/* Very small screens */
+/* Max-width 340px: Very Small Phones */
 @media (max-width: 340px) {
+  .Profile-wrapper {
+    padding: var(--space-md) var(--space-xs); /* More vertical padding reduction */
+  }
+
   .Profile-Settings-container {
-    padding: 8px;
+    padding: var(--space-xs);
   }
 
   .Profile-Settings-subtitle {
     font-size: 1.1em;
+    margin-bottom: var(--space-xs);
   }
 
   .Profile-input {
-    padding: 5px 7px;
+    padding: 0.35rem; /* ~6px */
+    font-size: 0.8em;
+  }
+
+  .Profile-button {
+    padding: 0.4rem 0.6rem; /* ~6.5px 9.5px */
+    font-size: 0.8em;
+  }
+
+  .Profile-Dashboard-Dashboard {
+    padding: var(--space-sm);
+    min-height: 100px;
+    aspect-ratio: 3.5 / 1; /* Even wider */
+  }
+  /* Images will shrink automatically with dashboard's aspect-ratio */
+
+  .Profile-Dashboard-title {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  .Profile-tab-button {
+    font-size: 0.75rem; /* Smaller tab font */
+    padding: var(--space-xs);
+  }
+}
+
+/* Max-width 320px: iPhone SE / Smallest Common Phones */
+@media (max-width: 320px) {
+  body {
+    font-size: 0.9rem; /* Smallest base font size */
+  }
+
+  .Profile-Settings-container {
+    padding: 0.2rem; /* Minimum padding */
+  }
+
+  .Profile-Settings-subtitle {
+    font-size: 1em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .Profile-input {
+    padding: 0.3rem; /* Smallest input padding */
     font-size: 0.75em;
   }
 
   .Profile-button {
-    padding: 7px 9px;
+    padding: 0.35rem 0.5rem; /* Smallest button padding */
     font-size: 0.75em;
+  }
+
+  .Profile-Dashboard-Dashboard {
+    min-height: 80px; /* Smallest comfortable height */
+    aspect-ratio: 4 / 1; /* Likely very narrow images on this screen */
+    padding: var(--space-xs);
+  }
+
+  .Profile-Dashboard-title {
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+  }
+
+  .Profile-tab-button {
+    font-size: 0.7rem;
   }
 }

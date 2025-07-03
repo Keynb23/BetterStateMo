@@ -1,11 +1,12 @@
 // context/RequestQuote.jsx
 import { useState } from 'react';
-import { useBackendCart } from './BackendCart';
+// import { useBackendCart } from './BackendCart'; // No longer needed if addService isn't used
 import { addQuoteRequest } from '../lib/firestoreService';
 import './ContextStyles.css';
-import servicequote from '../assets/service-quote.png';
+import servicequote from '../assets/service-quote.png'; // Assuming you'll replace this image as planned
 
-const RequestQuote = ({ serviceId = null }) => {
+const RequestQuote = () => {
+  // Removed serviceId prop
   const [isActive, setIsActive] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -13,16 +14,17 @@ const RequestQuote = ({ serviceId = null }) => {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [showTooltip, setShowTooltip] = useState(false); // New state for tooltip
 
-  const { addService } = useBackendCart();
+  // const { addService } = useBackendCart(); // No longer needed
 
   // Handles opening/closing the quote request modal
   const toggleRequestQuote = () => {
     setIsActive((prev) => {
       const newState = !prev;
-      if (newState && serviceId) {
-        addService(serviceId);
-      }
+      // if (newState && serviceId) { // No longer relevant
+      //   addService(serviceId);
+      // }
       return newState;
     });
     if (!isActive) {
@@ -45,7 +47,7 @@ const RequestQuote = ({ serviceId = null }) => {
       phone,
       email,
       message,
-      serviceId: serviceId,
+      // serviceId: serviceId, // Removed this line
       createdAt: new Date(),
     };
 
@@ -70,7 +72,16 @@ const RequestQuote = ({ serviceId = null }) => {
 
   return (
     <div className="quote-button-fixed-container">
-      <button className="quote-button-image" onClick={toggleRequestQuote}>
+      {/* Pop-up text / Tooltip */}
+      {showTooltip && (
+        <span className="quote-button-tooltip">Request quotes, contact, appointment, etc...</span>
+      )}
+      <button
+        className="quote-button-image"
+        onClick={toggleRequestQuote}
+        onMouseEnter={() => setShowTooltip(true)} // Show tooltip on hover
+        onMouseLeave={() => setShowTooltip(false)} // Hide tooltip on mouse leave
+      >
         <img src={servicequote} alt="Request a Quote" />
       </button>
 
@@ -118,6 +129,7 @@ const RequestQuote = ({ serviceId = null }) => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="quote-form-textarea"
+                required // Changed to required as it's the primary request field
               />
               <button type="submit" className="quote-form-submit-button" disabled={isSubmitting}>
                 {isSubmitting ? 'Submitting...' : 'Submit Request'}

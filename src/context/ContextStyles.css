@@ -50,7 +50,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Request Quote Button */
+/* --- Request Quote Button Container --- */
 .quote-button-fixed-container {
   position: fixed;
   bottom: 15%;
@@ -239,4 +239,56 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+}
+
+/* --- NEW: Quote Button Tooltip Styles --- */
+.quote-button-tooltip {
+    position: absolute;
+    /* Adjust positioning relative to the button */
+    bottom: 100%; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px); /* Center horizontally and add some space */
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background for readability */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    white-space: nowrap; /* Keep text on one line */
+    font-size: 0.9em;
+    font-weight: 500;
+    z-index: 1000; /* Ensure it's on top of most elements */
+    opacity: 0; /* Start hidden */
+    visibility: hidden; /* Start hidden */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+/* Show tooltip when its parent (quote-button-fixed-container) is hovered */
+.quote-button-fixed-container:hover .quote-button-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* Slide up into view */
+}
+
+/* Optional: Add a small arrow to the tooltip */
+.quote-button-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -8px; /* Half of border-width to center the arrow */
+    border-width: 8px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent; /* Match tooltip background */
+}
+
+/* Media query for smaller screens to adjust tooltip position if needed */
+@media (max-width: 768px) {
+    .quote-button-fixed-container {
+        bottom: 10%; /* Adjust position for mobile */
+        right: 2%;
+    }
+    .quote-button-tooltip {
+        font-size: 0.8em; /* Smaller font on mobile */
+        padding: 6px 10px;
+    }
 }
