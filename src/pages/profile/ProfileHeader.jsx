@@ -13,7 +13,7 @@ const shuffleArray = (array) => {
   };
 
 const ProfileHeader = ({ user, isOwner, handleStartNewRequest }) => {
-  const { pools } = useMedia();
+  const { videos, pools } = useMedia();
   const [shuffledMediaItems, setShuffledMediaItems] = useState([]);
 
   useEffect(() => {
@@ -23,11 +23,17 @@ const ProfileHeader = ({ user, isOwner, handleStartNewRequest }) => {
         src,
         type: 'image',
         alt: `Pool image ${idx + 1}`,
-      }))
+      })),
+      ...(videos || []).map((src, idx) => ({
+        id: `video-${idx}`,
+        src,
+        type: 'video',
+        alt: `Video thumbnail ${idx + 1}`,
+      })),
     ];
     const shuffled = shuffleArray([...combinedItems]);
     setShuffledMediaItems(shuffled);
-  }, [pools]);
+  }, [videos, pools]);
 
   return (
     <div className="Profile-Dashboard-Dashboard Profile-card-base">

@@ -29,6 +29,7 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitMessage('');
 
+    // Removed createdAt: new Date() here. It will be added by serverTimestamp() in firestoreService.js
     const contactData = {
       name,
       phone,
@@ -122,10 +123,8 @@ const Contact = () => {
 
             <div className="confirm-section">
               {' '}
-              {/* Changed div class for better styling */}
               <label className="checkbox-container">
                 {' '}
-                {/* Label wraps checkbox for clickability */}
                 <input
                   type="checkbox"
                   checked={isConfirmed}
@@ -139,7 +138,7 @@ const Contact = () => {
             <button
               className="Submit-btn"
               type="submit"
-              disabled={isSubmitting || !isConfirmed || !name || !email || !phone || !message} // Disable if not confirmed or fields are empty
+              disabled={isSubmitting || !isConfirmed || !name || !email || !phone || !message}
             >
               {isSubmitting ? 'Sending...' : 'Submit'}
             </button>
