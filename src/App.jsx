@@ -4,7 +4,7 @@ import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';
 import Services from './pages/Services.jsx';
 import Home from './pages/Home.jsx';
-import SetApt from './pages/SetApt.jsx';
+import SetApt from './pages/Apt/SetApt.jsx';
 import LoginReg from './components/loginReg.jsx';
 import Profile from './pages/profile/profile.jsx';
 import ObjectionBlockers from './components/objectionBlockers.jsx';
@@ -13,8 +13,7 @@ import Gallery from './components/Gallery.jsx';
 import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
-import RequestQuote from './context/RequestQuote'; // Assuming this is a context provider or similar
-
+import RequestQuote from './context/RequestQuote'; 
 // Import the Chatbot component and its data provider
 import Chatbot from './components/chatbot/Chatbot.jsx';
 import { ChatbotDataProvider } from './components/chatbot/Chatbot-data-context.jsx';

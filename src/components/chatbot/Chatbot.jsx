@@ -1,4 +1,3 @@
-// Chatbot.jsx
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { addContactSubmission } from '../../lib/firestoreService';
 import './ChatbotStyles.css';
@@ -12,9 +11,29 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
-    const [isChatbotOpen, setIsChatbotOpen] = useState(false); // Controls minimized/default-open state
-    const [isChatbotExpanded, setIsChatbotExpanded] = useState(false); // NEW: Controls expanded state
-    const [showChatbot, setShowChatbot] = useState(false);
+
+    // Initialize isChatbotOpen state based on localStorage.
+    // If 'chatbot_is_minimized' is 'true' in localStorage, start as closed (false).
+    // Otherwise, start as open (true) to allow for the initial delayed pop-up or immediate display.
+    const [isChatbotOpen, setIsChatbotOpen] = useState(() => {
+        const wasMinimized = localStorage.getItem('chatbot_is_minimized') === 'true';
+        return !wasMinimized;
+    });
+
+    const [isChatbotExpanded, setIsChatbotExpanded] = useState(false);
+
+    // showChatbot controls the overall visibility of the chatbot container (including the minimized icon).
+    // It's initially hidden if it's the very first visit (to allow for the delayed pop-up).
+    // Otherwise, it's immediately visible (either open or showing the minimized icon).
+    const [showChatbot, setShowChatbot] = useState(() => {
+        const hasPoppedUpOnce = localStorage.getItem('chatbot_has_popped_up_once');
+        const wasMinimized = localStorage.getItem('chatbot_is_minimized') === 'true';
+
+        // If it has popped up before OR was explicitly minimized, show it immediately.
+        // Otherwise, hide it initially for the delayed pop-up on first load.
+        return hasPoppedUpOnce === 'true' || wasMinimized;
+    });
+
     const [conversationState, setConversationState] = useState({
         intent: 'initial_load',
         tempData: {},
@@ -29,8 +48,9 @@ const Chatbot = () => {
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null);
 
+    // Effect to scroll to bottom and focus input when messages or state change
     useEffect(() => {
-        if (!isTyping && isChatbotOpen) { // Only scroll if open
+        if (!isTyping && isChatbotOpen) { // Only scroll if chatbot is open
             scrollToBottom();
         }
         if (!isTyping && isChatbotOpen && conversationState.isInputEnabled && inputRef.current) {
@@ -38,17 +58,34 @@ const Chatbot = () => {
         }
     }, [messages, isTyping, isChatbotOpen, conversationState.isInputEnabled, conversationState.pendingButtons]);
 
+    // Effect for handling initial pop-up behavior on page load
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowChatbot(true);
-            setIsChatbotOpen(true);
-            if (messages.length === 0 && conversationState.intent === 'initial_load') {
-                 displayMainMenu(true);
-            }
-        }, 6000);
+        const hasPoppedUpOnce = localStorage.getItem('chatbot_has_popped_up_once');
+        const wasMinimized = localStorage.getItem('chatbot_is_minimized') === 'true';
 
-        return () => clearTimeout(timer);
-    }, []);
+        if (!hasPoppedUpOnce && !wasMinimized) {
+            // This is the very first time the chatbot is appearing and it wasn't explicitly minimized before.
+            // Apply the delayed pop-up.
+            const timer = setTimeout(() => {
+                setShowChatbot(true); // Make the chatbot container visible
+                setIsChatbotOpen(true); // Open the chatbot
+                // Display main menu only if it's the very first interaction
+                if (messages.length === 0 && conversationState.intent === 'initial_load') {
+                    displayMainMenu(true);
+                }
+                localStorage.setItem('chatbot_has_popped_up_once', 'true'); // Mark that it has popped up
+            }, 6000);
+            return () => clearTimeout(timer); // Cleanup the timer if component unmounts
+        } else if (wasMinimized) {
+            // If it was minimized in a previous session, ensure the minimized icon is visible immediately.
+            // The initial state of isChatbotOpen already sets it to false, so just ensure visibility.
+            setShowChatbot(true);
+        } else {
+            // If it has popped up once before and was not minimized, just show it immediately open.
+            // The initial state of isChatbotOpen already sets it to true, so just ensure visibility.
+            setShowChatbot(true);
+        }
+    }, []); // Empty dependency array means this effect runs only once on mount
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -262,16 +299,16 @@ const Chatbot = () => {
         }
         else {
             if (!isButton) {
-                 addUserMessage(userInteraction);
-                 nextBotMessage = knowledgeBase.defaultResponse;
-                 nextButtons = knowledgeBase.mainMenuOptions;
-                 intent = 'waiting_for_main_menu_selection';
-                 nextIsInputEnabled = false;
+                addUserMessage(userInteraction);
+                nextBotMessage = knowledgeBase.defaultResponse;
+                nextButtons = knowledgeBase.mainMenuOptions;
+                intent = 'waiting_for_main_menu_selection';
+                nextIsInputEnabled = false;
             } else {
-                 nextBotMessage = knowledgeBase.defaultResponse;
-                 nextButtons = knowledgeBase.mainMenuOptions;
-                 intent = 'waiting_for_main_menu_selection';
-                 nextIsInputEnabled = false;
+                nextBotMessage = knowledgeBase.defaultResponse;
+                nextButtons = knowledgeBase.mainMenuOptions;
+                intent = 'waiting_for_main_menu_selection';
+                nextIsInputEnabled = false;
             }
         }
 
@@ -311,12 +348,17 @@ const Chatbot = () => {
 
     return (
         <div className={`chatbot-container ${isChatbotOpen ? (isChatbotExpanded ? 'chatbot-expanded' : 'chatbot-open') : 'chatbot-closed'} ${showChatbot ? '' : 'hidden'}`}>
+            {/* Show the maximize button only if chatbot is not open and is visible */}
             {!isChatbotOpen && showChatbot && (
-                <button className="chatbot-maximize-button" onClick={() => setIsChatbotOpen(true)} aria-label="Open Chatbot">
+                <button className="chatbot-maximize-button" onClick={() => {
+                    setIsChatbotOpen(true);
+                    localStorage.setItem('chatbot_is_minimized', 'false'); // Save open state to localStorage
+                }} aria-label="Open Chatbot">
                     <MessageSquare size={24} />
                 </button>
             )}
 
+            {/* Render the full chatbot UI only if it's open */}
             {isChatbotOpen && (
                 <>
                     <div className="chat-header">
@@ -342,6 +384,7 @@ const Chatbot = () => {
                             <button className="chat-minimize-button" onClick={() => {
                                 setIsChatbotOpen(false);
                                 setIsChatbotExpanded(false); // Reset expanded state when minimizing
+                                localStorage.setItem('chatbot_is_minimized', 'true'); // Save minimized state to localStorage
                             }} aria-label="Minimize Chatbot">
                                 <Minus size={20} />
                             </button>

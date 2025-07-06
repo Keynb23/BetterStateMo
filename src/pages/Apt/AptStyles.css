@@ -1,0 +1,654 @@
+/* ==============================Set Appointment Section --------------------------------------------*/
+.Set-Apt-container {
+    background: linear-gradient(to top, var(--comp-bg-light), var(--bg));
+    color: var(--text);
+    /* Removed max-width, margin, display, flex-direction, justify-content, padding here
+       as these are now handled by the new container properties for background images */
+    position: relative; /* Allows absolute positioning of children relative to it */
+    min-height: 100vh; /* Ensures it takes full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the top, not center */
+    padding: var(--space-lg) var(--space-lg); /* Add some padding around the content */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    overflow: hidden; /* Hide anything that goes outside */
+}
+
+/* New styles for background images */
+.apt-background-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25%; /* Adjust as needed */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 100; /* Ensures they are behind the main content */
+    background-image: var(--bg-image-url); /* Uses the custom property from React */
+}
+
+.apt-background-left {
+    left: 0;
+}
+
+.apt-background-right {
+    right: 0;
+}
+
+.greetings-checker h1 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+    padding-top: var(--space-xl);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15);
+}
+
+.Set-Apt-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+    gap: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    width: 100%;
+    max-width: 900px; /* Limit the max width of the content wrapper */
+    margin: 0 auto; /* Center the content wrapper */
+    position: relative; /* Needed for z-index to work correctly against absolute children */
+    z-index: 1; /* Ensures content is above background images */
+    background-color: rgba(var(--bg-rgb), 0.9); /* Semi-transparent background for readability */
+    border-radius: var(--space-md); /* Match card border-radius */
+    box-shadow: var(--shadow-lg); /* Add shadow to make it stand out */
+    padding: var(--space-lg); /* Padding inside the content wrapper */
+    box-sizing: border-box;
+}
+
+.Set-Apt-step-card {
+    background-color: var(--bg);
+    border-radius: var(--space-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-xl);
+    border: 1px solid var(--border-muted);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    flex-shrink: 1;
+    flex-grow: 0;
+}
+
+.Set-Apt-step-card h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+}
+
+.Set-Apt-step-prompt {
+    color: var(--text-muted);
+    margin-bottom: var(--space-lg);
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.customer-apt-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: left;
+}
+
+.customer-apt-info-form label {
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+    display: block;
+}
+
+.calender,
+.TimeofDay,
+.scheduling-preference-section {
+    margin-bottom: var(--space-lg);
+    text-align: left;
+}
+
+.calender:last-child,
+.TimeofDay:last-child,
+.scheduling-preference-section:last-child {
+    margin-bottom: 0;
+}
+
+.customer-apt-info-form input {
+    padding: var(--space-sm);
+    margin-top: var(--space-xs);
+    width: 100%;
+    border-radius: var(--space-sm);
+    border: 1px solid var(--border-muted);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text);
+    background-color: var(--comp-bg-light);
+    box-shadow: var(--shadow-xs);
+    box-sizing: border-box;
+}
+
+.no-preference-message {
+    background-color: var(--color-bg);
+    border: 1px solid var(--border-subtle);
+    border-left: 5px solid var(--color-secondary);
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+    border-radius: var(--space-sm);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    text-align: left;
+    box-shadow: var(--shadow-xs);
+}
+
+.no-preference-message-review {
+    background-color: var(--comp-bg-light);
+    border: 1px solid var(--border-muted);
+    border-left: 5px solid var(--color-secondary);
+    padding: var(--space-sm);
+    margin-top: var(--space-md);
+    border-radius: var(--space-sm);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: left;
+    box-shadow: var(--shadow-xs);
+}
+
+.services-selection-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    text-align: left;
+}
+
+@media (min-width: 769px) {
+    .services-selection-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+}
+
+.services-selected-apt,
+.add-another-service {
+    background: none;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.services-selected-apt h3,
+.add-another-service h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.no-services-message {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: var(--space-md);
+}
+
+.services-selected-apt ul {
+    list-style: none;
+    padding: 0;
+}
+
+.services-selected-apt li {
+    background: var(--comp-bg-light);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-xs);
+    border-radius: var(--space-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-xs);
+    border: 1px solid var(--border-subtle);
+    color: var(--text);
+    font-weight: 500;
+    min-height: 40px;
+}
+
+.remove-btn {
+    background: var(--danger);
+    color: var(--text-dm);
+    border: none;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--space-sm);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    box-shadow: var(--shadow-xs);
+    margin-left: var(--space-sm);
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.remove-btn:hover {
+    background: red;
+    transform: translateY(-1px);
+}
+
+.unselected-service-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    width: 100%;
+}
+
+.unselected-service-btns button {
+    background-color: var(--color-primary);
+    color: var(--text-dm);
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--space-sm);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    font-weight: 600;
+    box-shadow: var(--shadow-xs);
+}
+
+.unselected-service-btns button:hover {
+    background-color: var(--info);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.review-step-card {
+    text-align: left;
+}
+
+.review-section {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.review-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: var(--space-md);
+}
+
+.review-section h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.review-section p,
+.review-section li {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.review-section strong {
+    color: var(--text);
+}
+
+.review-section ul {
+    list-style: disc;
+    margin-left: var(--space-md);
+}
+
+.Early-contact-prompt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    background-color: var(--comp-bg-light);
+    box-shadow: var(--shadow-xs);
+    border: 1px solid var(--border-subtle);
+    text-align: left;
+}
+
+.Early-contact-prompt p {
+    color: var(--text-muted);
+    flex-grow: 1;
+}
+
+#Early-contact-btn {
+    background-color: var(--color-primary);
+    color: var(--text-dm);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+#Early-contact-btn:hover {
+    background-color: var(--info);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.Early-contact-btn-clicked {
+    background-color: var(--color-accent) !important;
+    color: var(--text-dm) !important;
+    box-shadow: var(--shadow-inset);
+    transform: none !important;
+}
+
+.Early-contact-btn-clicked:hover {
+    background-color: var(--color-secondary) !important;
+    color: var(--text) !important;
+    transform: none !important;
+}
+
+.Set-Apt-navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-top: var(--space-xl);
+    padding-right: 0;
+    gap: var(--space-md);
+}
+
+.Set-Apt-navigation button {
+    width: 100%;
+    margin: 0;
+}
+
+.Set-Apt-nav-button {
+    padding: var(--space-md) var(--space-lg);
+    border: none;
+    border-radius: var(--space-md);
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+    flex-grow: 1;
+}
+
+.Set-Apt-nav-button.back-button {
+    background-color: var(--comp-bg-light);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    color: var(--text);
+}
+
+.Set-Apt-nav-button.back-button:hover {
+    background-color: var(--danger);
+    color: var(--text-dm);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.Set-Apt-nav-button.next-button {
+    background-color: var(--color-accent);
+    color: var(--text-dm);
+}
+
+.Set-Apt-nav-button.next-button:hover {
+    background-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.Set-Apt-nav-button.confirm-button {
+    background-color: var(--color-accent);
+    color: var(--text-dm);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.Set-Apt-nav-button.confirm-button:hover {
+    background-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.thank-you-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-xl);
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--bg);
+    border-radius: var(--space-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+}
+
+.thank-you-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.thank-you-title {
+    color: var(--color-primary);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: var(--space-md);
+}
+
+.thank-you-text {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.time-options-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-xs);
+}
+
+.time-option-btn {
+    background-color: var(--color-primary);
+    color: var(--text-dm);
+    border: 1px solid var(--info-dark);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--space-sm);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    flex-grow: 1;
+    min-width: 120px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.time-option-btn:hover {
+    background-color: var(--info);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+    color: var(--text);
+}
+
+.time-option-btn.selected {
+    background-color: var(--color-secondary);
+    color: var(--text);
+    border-color: var(--color-accent-dark);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    font-weight: 600;
+    transform: none;
+}
+
+.time-option-btn.selected:hover {
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+}
+
+.clear-time-btn {
+    background-color: var(--comp-bg-light);
+    color: var(--text);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.clear-time-btn:hover {
+    background-color: var(--danger);
+    color: var(--text);
+}
+
+/* Set Appointment Media Queries */
+@media (max-width: 1024px) {
+    .Set-Apt-container {
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .greetings-checker h1 {
+        font-size: clamp(2rem, 4.5vw, 3rem);
+        margin-bottom: var(--space-lg);
+        padding-top: var(--space-lg);
+    }
+
+    .Set-Apt-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-lg);
+    }
+
+    .Set-Apt-step-card {
+        padding: var(--space-lg);
+        max-width: 600px;
+    }
+
+    .Set-Apt-step-card h2 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .Set-Apt-navigation {
+        flex-direction: column;
+        gap: var(--space-md);
+        margin-top: var(--space-lg);
+        max-width: 600px;
+        align-items: center;
+        padding-right: 0;
+    }
+
+    .Set-Apt-nav-button {
+        width: 100%;
+        margin: 0;
+    }
+
+    .services-selection-container {
+        grid-template-columns: 1fr;
+    }
+
+    .review-section h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Hide background images on smaller screens for better focus on content */
+    .apt-background-image {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .greetings-checker h1 {
+        text-align: center;
+    }
+
+    .Set-Apt-step-card {
+        padding: var(--space-md);
+        max-width: 100%;
+    }
+
+    .Set-Apt-step-card h2 {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+    }
+
+    .Set-Apt-step-prompt {
+        font-size: 1rem;
+    }
+
+    .customer-apt-info-form input {
+        font-size: 0.95rem;
+        padding: var(--space-xs);
+    }
+
+    .services-selected-apt li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+        font-size: 0.95rem;
+    }
+
+    .remove-btn {
+        padding: var(--space-xs);
+        font-size: 0.8rem;
+        margin-left: 0;
+    }
+
+    .add-another-service h3 {
+        font-size: 1.1rem;
+    }
+
+    .unselected-service-btns {
+        justify-content: center;
+    }
+
+    .unselected-service-btns button {
+        font-size: 0.9rem;
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .Early-contact-prompt {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-sm);
+        padding: var(--space-sm);
+    }
+
+    .Early-contact-prompt p {
+        font-size: 0.9rem;
+    }
+
+    #Early-contact-btn {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+
+    .Set-Apt-nav-button {
+        font-size: 1rem;
+        padding: var(--space-sm);
+    }
+}

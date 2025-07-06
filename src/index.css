@@ -46,8 +46,9 @@
 }
 
 body, html {
-  background-color: var(--bg); /* Main background using a near-white shade */
-  color: var(--text); /* Default text color using a near-black shade */
+  /* background-color: var(--bg);  */
+  background-image: url('../assets/pools/Halfwall2.jpg'); /* Fixed line */
+  color: var(--text); 
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;

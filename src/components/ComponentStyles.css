@@ -585,6 +585,8 @@ html {
 
 /* Bottom Content (Social Media & Contacts) */
 .hero-bottom-content {
+  position: absolute;
+  bottom: 10%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

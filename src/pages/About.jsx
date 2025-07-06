@@ -1,6 +1,8 @@
 import { useMedia } from '../context/MediaContext';
 import './PageStyles.css';
 
+
+
 export default function About() {
   const { owners } = useMedia();
 

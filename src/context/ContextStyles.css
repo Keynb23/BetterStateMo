@@ -53,10 +53,12 @@
 /* --- Request Quote Button Container --- */
 .quote-button-fixed-container {
   position: fixed;
-  bottom: 10%;
+  bottom: 5%;
   left: 1.5%;
   z-index: 999;
 }
+
+
 
 /* --- Service Quote Image Button (inside the fixed container) --- */
 .quote-button-image {
@@ -284,7 +286,7 @@
 /* Media query for smaller screens to adjust tooltip position if needed */
 @media (max-width: 768px) {
     .quote-button-fixed-container {
-        bottom: 10%; /* Adjust position for mobile */
+        bottom: 5%; /* Adjust position for mobile */
         right: 2%;
     }
     .quote-button-tooltip {
@@ -292,3 +294,14 @@
         padding: 6px 10px;
     }
 }
+
+@media (max-width: 450px) {
+    .quote-button-fixed-container {
+        bottom: 2.5%; /* Adjust position for mobile */
+        right: 2%;
+    }
+    .quote-button-tooltip {
+        font-size: 0.6em; /* Smaller font on mobile */
+        padding: 4px 5px;
+    }
+  }

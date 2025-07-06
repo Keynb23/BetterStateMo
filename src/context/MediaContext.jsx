@@ -43,6 +43,21 @@ import pool35 from '../assets/pools/smallpop.jpg';
 import pool36 from '../assets/pools/Truck.jpg';
 import pool37 from '../assets/pools/waterPark.jpg';
 import pool38 from '../assets/pools/waterParkFilled.jpg';
+import pool39 from '../assets/pools/BrownBlue.jpg'; // app BG image
+import pool40 from '../assets/pools/BrownBlue2.jpg';  // app BG image
+import pool41 from '../assets/pools/BrownBlue3.jpg';  // app BG image
+import pool42 from '../assets/pools/DarkSquare1.jpg';
+import pool43 from '../assets/pools/DarkSquare2.jpg';  // app BG image
+import pool44 from '../assets/pools/Halfwall1.jpg';
+import pool45 from '../assets/pools/Halfwall2.jpg';
+import pool46 from '../assets/pools/Halfwall3.jpg';
+import pool47 from '../assets/pools/Halfwall4.jpg';
+import pool48 from '../assets/pools/LightBlueSqu.jpg'; // app BG image
+import pool49 from '../assets/pools/LightBlueSqu2.jpg'; // app BG image
+import pool50 from '../assets/pools/LightBlueSqu3.jpg';
+import pool51 from '../assets/pools/Rounded1.jpg'; // app BG image
+import pool52 from '../assets/pools/droneshot2.jpg'; // app BG image
+
 
 // logo import
 import Logo from '../assets/owners/Logo.png';
@@ -103,7 +118,31 @@ export const MediaProvider = ({ children }) => {
     pool36,
     pool37,
     pool38,
+    pool39,  // app BG image
+    pool40, // app BG image
+    pool41,  // app BG image
+    pool42,  
+    pool43, // app BG image
+    pool44,
+    pool45,
+    pool46,
+    pool47,
+    pool48, // app BG image
+    pool49, // app BG image
+    pool50,
+    pool51, // app BG image
+    pool52,  // app BG image
   ];
+
+  //  use these for Background = [
+  //   pool39,
+  //   pool40,
+  //   pool41,
+  //   pool43,
+  //   pool48,
+  //   pool49,
+  //   pool51,
+  // ];
 
   const videos = [Video1, Video2, EditedDroneVid];
 
