@@ -5,6 +5,10 @@ these pages/components need styled:
 ======================================
 NEED TO CREATE NEW TEST FOR SERVICE CONTEXT
 
+=============================
+
+make sure the contact section of the chatbot is connected to the firebase database
+
 ==========================================
 
  profile pages need style updated and media queries for profile page.
