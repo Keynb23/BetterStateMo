@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react';
+// import { useState } from 'react';
+import { useEffect } from 'react';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
 import './ComponentStyles.css';
-import EditedDroneVid from '../assets/videos/EditedDroneVid.mp4';
+// import EditedDroneVid from '../assets/videos/EditedDroneVid.mp4';
 import facebook from '../assets/socials/facebook.png';
 import instagram from '../assets/socials/instagram.png';
-import Logo from '../assets/owners/Logo.png'; // Make sure this path is correct
+import Logo from '../assets/owners/Logo.png'; 
+import BrownBlue from '../assets/pools/Halfwall4.jpg'; // this is the new bg img
 
 const Hero = () => {
-  const [videoLoaded, setVideoLoaded] = useState(false);
-
+  // const [videoLoaded, setVideoLoaded] = useState(false);
   // Effect to delay video rendering to prevent initial flicker
   useEffect(() => {
     const timer = setTimeout(() => {
-      setVideoLoaded(true);
-    }, 150); // Increased delay slightly to 150ms for more robustness
+      // setVideoLoaded(true);
+    }, 150); 
 
     return () => clearTimeout(timer);
   }, []);
@@ -27,8 +28,8 @@ const Hero = () => {
 
   return (
     <div className="hero-container">
-      {/* Conditionally render the background video after a slight delay */}
-      {videoLoaded && (
+      {/* Commented out video background */}
+      {/* {videoLoaded && (
         <div className="hero-background-video">
           <video autoPlay loop muted playsInline>
             <source src={EditedDroneVid} type="video/mp4" />
@@ -36,28 +37,31 @@ const Hero = () => {
           </video>
           <div className="video-overlay"></div>
         </div>
-      )}
+      )} */}
 
-      {/* Main content wrapper, centered and structured */}
+      {/* Image background added */}
+      <div className="hero-background-video">
+        <img src={BrownBlue} alt="Brown Blue Pool Background" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6)' }} />
+        <div className="video-overlay"></div>
+      </div>
+
       <div className="hero-content-wrapper">
-        {/* Top section: Logo and Main Title/Slogan */}
         <div className="hero-top-content">
           <div className="Hero-logo">
             <img src={Logo} alt="Better State LLC Logo" />
           </div>
           <div className="hero-title">
             <h1>BETTER STATE LLC</h1>
-            <p className="hero-slogan">Better Pools - Even Better Service</p>
+            
           </div>
+          <p className="hero-slogan">Enjoy your pool-We'll handle the rest</p>
         </div>
-
         {/* Call to Action Button */}
         <div className="hero-buttons">
           <button className="hero-button" onClick={() => scrollToSection('services')}>
             Explore Our Services
           </button>
         </div>
-
         {/* Bottom section: Social Media & Contacts */}
         <div className="hero-bottom-content">
           <div className="Hero-social-media">

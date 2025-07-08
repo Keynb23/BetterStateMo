@@ -1,48 +1,27 @@
 /* ==============================Set Appointment Section --------------------------------------------*/
 .Set-Apt-container {
-    background: linear-gradient(to top, var(--comp-bg-light), var(--bg));
+    /* background-color: var(--color-primary-dark); */
     color: var(--text);
-    /* Removed max-width, margin, display, flex-direction, justify-content, padding here
-       as these are now handled by the new container properties for background images */
-    position: relative; /* Allows absolute positioning of children relative to it */
-    min-height: 100vh; /* Ensures it takes full viewport height */
+    position: relative;
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Align content to the top, not center */
-    padding: var(--space-lg) var(--space-lg); /* Add some padding around the content */
-    box-sizing: border-box; /* Include padding in element's total width and height */
-    overflow: hidden; /* Hide anything that goes outside */
+    justify-content: flex-start;
+    padding: var(--space-lg) var(--space-lg);
+    box-sizing: border-box;
+    overflow: hidden; 
 }
 
-/* New styles for background images */
-.apt-background-image {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 25%; /* Adjust as needed */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 100; /* Ensures they are behind the main content */
-    background-image: var(--bg-image-url); /* Uses the custom property from React */
-}
-
-.apt-background-left {
-    left: 0;
-}
-
-.apt-background-right {
-    right: 0;
-}
 
 .greetings-checker h1 {
-    color: var(--color-primary);
+    color: var(--text-dm);
     margin-bottom: var(--space-lg);
-    padding-top: var(--space-xl);
+    padding: var(--space-xl) 0 var(--space-sm);
     font-size: clamp(2.5rem, 5vw, 3.5rem);
-    text-align: center;
-    text-shadow: 2px 2px 8px rgba(var(--color-primary-rgb), 0.15);
+    text-align: left;
+    text-shadow: 2px 2px 8px rgba(var(--color-primary), 0.15);
+    border-bottom: 2px solid var(--color-secondary);
 }
 
 .Set-Apt-content-wrapper {
@@ -51,26 +30,23 @@
     align-items: center;
     flex-grow: 1;
     justify-content: center;
-    gap: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    gap: var(--space-md);
+    padding-bottom: var(--space-md);
     width: 100%;
-    max-width: 900px; /* Limit the max width of the content wrapper */
-    margin: 0 auto; /* Center the content wrapper */
-    position: relative; /* Needed for z-index to work correctly against absolute children */
-    z-index: 1; /* Ensures content is above background images */
-    background-color: rgba(var(--bg-rgb), 0.9); /* Semi-transparent background for readability */
-    border-radius: var(--space-md); /* Match card border-radius */
-    box-shadow: var(--shadow-lg); /* Add shadow to make it stand out */
-    padding: var(--space-lg); /* Padding inside the content wrapper */
-    box-sizing: border-box;
+    max-width: 800px;
+    margin: 0 auto; 
+    position: relative; 
+    z-index: 1; 
+    background-color: var(--comp-bg-light);
+    border-radius: var(--space-md);
+    padding: var(--space-md); 
 }
 
 .Set-Apt-step-card {
-    background-color: var(--bg);
+    align-self: center;
+    background-color: var(--comp-bg-light);
     border-radius: var(--space-md);
-    box-shadow: var(--shadow-md);
-    padding: var(--space-xl);
-    border: 1px solid var(--border-muted);
+    padding: var(--space-lg);
     width: 100%;
     max-width: 600px;
     text-align: center;
@@ -134,7 +110,7 @@
 }
 
 .no-preference-message {
-    background-color: var(--color-bg);
+    background-color: var(--comp-bg-light);
     border: 1px solid var(--border-subtle);
     border-left: 5px solid var(--color-secondary);
     padding: var(--space-md);

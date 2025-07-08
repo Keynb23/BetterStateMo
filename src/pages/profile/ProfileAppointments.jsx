@@ -13,6 +13,7 @@ const ProfileAppointments = ({ appointments, isOwner, handleViewDetails }) => {
 
   return (
     <>
+    <div className="pro-apt-wrap">
       <h3 className="Profile-Appointments-subtitle">
         {isOwner ? 'All Appointments' : 'Your Past Appointments'}
       </h3>
@@ -61,9 +62,10 @@ const ProfileAppointments = ({ appointments, isOwner, handleViewDetails }) => {
                 {showAll ? 'Show Less' : 'Show All'}
               </button>
             </div>
-          )}
+            )}
         </>
       )}
+    </div>
     </>
   );
 };

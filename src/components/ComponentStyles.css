@@ -4,13 +4,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-lg);
-  background-color: rgba(0, 16, 46, 0.938);
+  background-color: var(--);
+  background-color: var(--color-primary-dark);
   color: var(--text-dm);
   height: 5rem;
   position: fixed;
   z-index: 21;
   width: 100%;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--bg);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   left: 0;
   right: 0;
   transition:
@@ -411,18 +413,12 @@
   font-size: 0.85rem;
 }
 
-/* General Body/HTML - to prevent horizontal scrolling */
-/* body,
-html {
-  overflow-x: hidden;
-  width: 100%;
-} */
-
 /* Hero Section */
 .hero-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -442,13 +438,14 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  filter: blur(5px);
 }
 
 .hero-background-video video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.6);
+  filter: brightness(.8);
   pointer-events: none;
 }
 
@@ -459,7 +456,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.541);
   z-index: 2;
   pointer-events: none;
 }
@@ -470,15 +467,14 @@ html {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content from the top */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  min-height: 100vh; /* Allow it to grow if content is too large, but ensure it covers 100vh */
+  min-height: 100vh;
   padding: var(--space-xl);
   text-align: center;
   color: var(--text-dm);
-  margin-top: var(--space-lg);
 }
 
 /* Top Content (Logo, Title, Slogan) */
@@ -487,8 +483,8 @@ html {
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
-  margin-top: var(--space-md); /* Assuming 5rem is average navbar height */
-  margin-bottom: var(--space-sm); /* Space before CTA button */
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Hero Logo */
@@ -508,8 +504,8 @@ html {
 /* Hero Title */
 .hero-title h1 {
   width: 1200px;
-  color: var(--color-primary-light);
-  font-size: clamp(3rem, 8vw, 8rem);
+  color: var(--text-dm);
+  font-size: 8rem !important;
   font-family:
     system-ui,
     -apple-system,
@@ -523,7 +519,6 @@ html {
     'Helvetica Neue',
     sans-serif;
   font-weight: 800;
-  text-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.7);
   white-space: normal;
   letter-spacing: -0.15rem;
   line-height: .9;
@@ -533,15 +528,19 @@ html {
 
 /* Hero Slogan */
 .hero-slogan {
+  position: absolute;
+  top: 40%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  color: var(--text-dm);
+  gap: var(--space-lg);
+  font-size: 2.75rem !important;
+  color: var(--color-secondary);
+  max-width: 600px;
   font-weight: 400;
-  margin-top: var(--space-xs);
-  padding-bottom: var(--space-lg);
+  padding: var(--space-md);
+  margin-left: var(--space-md);
 }
 
 /* Call to Action Button Container */
@@ -549,17 +548,19 @@ html {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: var(--space-lg);
-  margin-bottom: var(--space-md);
+  margin-top: 0;
+  margin-bottom: 0;
   z-index: 10;
 }
 
 /* Call to Action Button */
 .hero-button {
+  position: absolute;
+  bottom: 30%;
   padding: var(--space-md) var(--space-lg);
   background-color: var(--color-primary);
   color: var(--text-dm);
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
   font-weight: 500;
   cursor: pointer;
   transition:
@@ -588,17 +589,18 @@ html {
   position: absolute;
   bottom: 10%;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  margin-top: var(--space-sm);
-  background-color: rgba(0, 16, 46, 0.7);
   padding: var(--space-md) var(--space-lg);
   border-radius: var(--space-sm);
   box-shadow: var(--shadow-md);
   border: 1px solid rgba(255, 255, 255, 0.1);
   gap: var(--space-lg);
+  box-sizing: border-box;
+  margin-top: 0;
+  background-color: var(--color-primary-dark);
 }
 
 /* Hero Social Media */
@@ -644,13 +646,12 @@ html {
 /* Tablets (max-width: 1024px) */
 @media (max-width: 1024px) {
   .hero-content-wrapper {
-    margin: var(--space-xl);
-    padding: var(--space-xl);
+    padding: var(--space-lg);
+    gap: var(--space-lg);
   }
 
   .hero-top-content {
-    padding: var(--space-lg);
-    margin: var(--space-xl);
+    gap: var(--space-md);
   }
 
   .Hero-logo img {
@@ -659,31 +660,38 @@ html {
   }
 
   .hero-title h1 {
-    font-size: clamp(2.5rem, 6vw, 6rem);
+    font-size: 6rem !important;
     letter-spacing: -0.1rem;
-    padding-bottom: var(--space-lg);
-
+    padding-bottom: var(--space-md);
   }
 
   .hero-slogan {
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    top: 30%;
+    font-size: 3rem !important;
+    padding-bottom: 0;
   }
 
   .hero-buttons {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 0;
+    margin-top: 0;
   }
 
   .hero-button {
-    font-size: 1.25rem;
-    padding: var(--space-md) var(--space-lg);
-    width: 70%;
-    max-width: 300px;
+    position: absolute;
+    bottom: 30%;
+    font-size: 1.5rem !important;
+    padding: var(--space-sm) var(--space-md);
+    width: 95%;
+    max-width: 250px;
   }
 
   .hero-bottom-content {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-evenly;
     gap: var(--space-lg);
-    padding: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    position: absolute;
+    bottom: 10%;
   }
 }
 
@@ -693,16 +701,17 @@ html {
     min-height: 100vh;
     height: 100%;
   }
+
   .hero-content-wrapper {
-    margin: var(--space-md) !important;
+    padding: var(--space-md);
     height: auto;
-    justify-content: flex-start; /* Ensure items start from top */
-    gap: var(--space-md) !important;
+    justify-content: space-between;
+    gap: var(--space-md);
   }
 
   .hero-top-content {
-    margin-bottom: var(--space-lg);
-    gap: var(--space-lg);
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
   .Hero-logo img {
@@ -711,33 +720,39 @@ html {
   }
 
   .hero-title h1 {
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: 4rem !important;
     padding-bottom: var(--space-sm);
     letter-spacing: -0.1rem;
   }
 
   .hero-slogan {
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    margin-bottom: var(--space-xs);
-    padding-bottom: var(--space-md);
+    top: 40%;
+    font-size: 2.5rem !important;
+    padding-bottom: 0;
   }
 
   .hero-buttons {
-    margin-bottom: var(--space-lg);
-    margin-top: var(--space-xs);
+    margin-top: 0;
+    margin-bottom: var(--space-sm);
   }
 
   .hero-button {
-    font-size: 1.1rem;
-    padding: var(--space-sm) var(--space-lg);
-    width: 85%;
-    max-width: 280px;
+    position: absolute;
+    bottom: 33%;
+    font-size: 1.1rem !important;
+    padding: var(--space-sm) var(--space-md);
+    width: 95%;
+    max-width: 250px;
   }
 
   .hero-bottom-content {
-    width: 90%;
+    width: 100%;
     padding: var(--space-sm);
     gap: var(--space-md);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
   }
 
   .Hero-social-media img {
@@ -757,13 +772,21 @@ html {
 /* Small Phones (max-width: 480px) */
 @media (max-width: 480px) {
   .hero-content-wrapper {
-    padding: var(--space-xs); /* More aggressive padding reduction */
-    gap: var(--space-md);
+    padding: var(--space-sm);
+    gap: var(--space-sm);
   }
 
   .hero-top-content {
     margin-top: var(--space-xl);
-    padding-top: var(--space-xl);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-bottom-content {
+    position: absolute;
+    bottom: 10%;
+    padding: var(--space-md);
+    gap: var(--space-md);
   }
 
   .Hero-logo img {
@@ -772,17 +795,19 @@ html {
   }
 
   .hero-title h1 {
-    font-size: clamp(1.8rem, 4.5vw, 3rem);
-    letter-spacing: -0.1rem;
+    font-size: 2.5rem !important;
     padding-bottom: var(--space-xs);
   }
 
   .hero-slogan {
-    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    top: 40%;
+    font-size: 1.4rem !important;
   }
 
   .hero-button {
-    font-size: 1rem;
+    position: absolute;
+    bottom: 40%;
+    font-size: 1rem !important;
     padding: var(--space-sm) var(--space-md);
     width: 95%;
     max-width: 250px;
@@ -801,31 +826,27 @@ html {
     font-size: 1.1rem;
   }
 
-  /* Ensure long text breaks to prevent overflow */
   .hero-contact-text {
     word-break: break-word;
   }
 }
+
 /*============================== Objection Blockers =======================*/
 .objection-blockers-wrapper {
+  background-color: var(--color-primary-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: var(--space-xl) var(--space-md);
-  /* Add horizontal padding for better spacing */
   gap: var(--space-xl);
-  margin-top: var(--space-xl);
 }
 
 .objection-blockers-title {
-  border-bottom: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-secondary);
   font-size: 2.5rem;
-  /* Larger title for prominence */
-  color: var(--color-primary);
-  /* Use primary color for main headings */
+  color: var(--text-dm);
   margin-bottom: var(--space-lg);
-  /* Space below the title */
   text-align: center;
 }
 
@@ -834,12 +855,10 @@ html {
   align-items: flex-start;
   justify-content: center;
   gap: var(--space-lg);
-  /* Increase gap for more breathing room */
   padding: var(--space-md);
   flex-wrap: wrap;
   width: 100%;
   max-width: 1200px;
-  /* Increase max-width for more items per row on large screens */
 }
 
 .objection-block-item {
@@ -848,47 +867,31 @@ html {
   align-items: center;
   justify-content: flex-start;
   flex: 1 1 200px;
-  /* Allow items to grow/shrink but maintain a base width */
   max-width: 250px;
-  /* Slightly increase max-width for more content space */
   text-align: center;
   background-color: var(--comp-bg-light);
-  /* Light background for the card */
   border-radius: var(--space-md);
-  /* More rounded corners */
   padding: var(--space-lg);
-  /* Internal padding for content */
   box-shadow: var(--shadow-sm);
-  /* Subtle shadow for depth */
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-  /* Smooth hover effect */
 }
 
 .objection-block-item:hover {
   transform: translateY(-5px);
-  /* Slight lift on hover */
   box-shadow: var(--shadow-md);
-  /* More prominent shadow on hover */
 }
 
 .objection-block-item .obj-img {
   height: 120px;
-  /* Fixed height for consistent image size */
   width: 120px;
-  /* Fixed width for consistent image size */
   object-fit: contain;
-  /* Ensures the entire image is visible, no cropping */
   margin-bottom: var(--space-md);
   border-radius: 50%;
-  /* Make images circular */
   background-color: var(--color-light);
-  /* Light background for the image circle */
   padding: var(--space-sm);
-  /* Padding inside the circle */
   box-shadow: var(--shadow-xs);
-  /* Very subtle shadow on the image itself */
 }
 
 .img-text {
@@ -897,20 +900,14 @@ html {
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  /* Slightly larger base font size */
   color: var(--text-muted);
-  /* Use a muted text color for paragraphs */
   line-height: 1.5;
-  /* Improve readability */
 }
 
 .img-text h3 {
   font-size: 1.3rem;
-  /* Larger heading for item titles */
-  color: var(--color-secondary);
-  /* Use a secondary color for item headings */
-  margin-bottom: var(--space-xs);
-  /* Space between heading and paragraph */
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
   font-weight: 600;
 }
 
@@ -995,11 +992,11 @@ html {
   }
 }
 
-/*===================================== Gallery=============================================== */
+/* Gallery ============================================================= */
+/* Gallery ============================================================= */
 .gallery-container {
-  background-color: var(--comp-bg-light);
+  background-color: var(--color-primary-dark);
   position: relative;
-  height: 100%;
   min-height: 100vh;
   width: 100%;
   margin: var(--space-xl) auto;
@@ -1021,9 +1018,9 @@ html {
 
 .Gallery-title {
   padding: 1.5%;
-  color: var(--color-primary);
+  color: var(--text-dm);
   text-shadow: none;
-  border-bottom: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-secondary);
   font-weight: 400;
 }
 
@@ -1042,7 +1039,6 @@ html {
   margin-bottom: var(--space-md);
   border-radius: var(--space-sm);
   overflow: hidden;
-  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
   cursor: pointer;
   width: 100%;
   height: auto;
@@ -1095,7 +1091,8 @@ html {
 .modal-content {
   position: relative;
   background-color: var(--comp-bg-dark);
-  padding: var(--space-md);
+  /* Significantly increased padding to create more space around the media */
+  padding: var(--space-xl);
   border-radius: var(--space-sm);
   box-shadow: var(--shadow-lg);
   max-width: 90vw;
@@ -1105,12 +1102,14 @@ html {
   align-items: center;
   gap: var(--space-md);
   animation: slideIn 0.3s forwards;
+  box-sizing: border-box; /* Ensures padding is included in the max-width/height */
 }
 
 .modal-close-btn {
   position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
+  /* Position it relative to the modal-content's increased padding, further from the media */
+  top: var(--space-lg); /* Adjusted to move it further down into the modal's padding */
+  right: var(--space-lg); /* Adjusted to move it further left into the modal's padding */
   background: none;
   border: none;
   font-size: 2.5rem;
@@ -1119,7 +1118,7 @@ html {
   padding: 0.5rem;
   line-height: 1;
   transition: color 0.2s ease;
-  z-index: 1001;
+  z-index: 1001; /* Ensure it's on top of everything */
 }
 
 .modal-close-btn:hover {
@@ -1128,7 +1127,7 @@ html {
 
 .modal-media {
   max-width: 100%;
-  max-height: 70vh;
+  max-height: 80vh; /* This dictates the height of the video/image */
   display: block;
   object-fit: contain;
   border-radius: var(--space-sm);
@@ -1175,6 +1174,42 @@ html {
   }
 }
 
+/* Tablet (and larger phone) media queries */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: var(--space-xl); /* Keep generous padding */
+  }
+
+  .modal-close-btn {
+    font-size: 2.2rem;
+    top: var(--space-lg); /* Match desktop or slightly adjust */
+    right: var(--space-lg); /* Match desktop or slightly adjust */
+  }
+}
+
+.mute-vid-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers the text perfectly */
+  color: var(--text-muted-dm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-xs);
+  font-size: 1.2rem; /* Adjust font size as needed */
+  font-weight: 500;
+  pointer-events: none; /* Crucial: Allows clicks/taps to pass through to the video */
+  z-index: 50; /* Ensure it's above the video, but below the close button (z-index 1001) */
+  opacity: 1; /* Start fully visible */
+  transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+  text-align: center;
+  white-space: nowrap; /* Prevent text from wrapping on small screens unnecessarily */
+}
+
+.mute-indicator:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Small Phones (max-width: 480px) */
 @media (max-width: 480px) {
   .gallery {
     columns: 90px;
@@ -1184,14 +1219,33 @@ html {
     display: block;
   }
 
+    .mute-indicator {
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+  }
+
+   .mute-vid-text {
+    font-size: 1rem; /* Smaller font for small screens */
+    padding: var(--space-xs) var(--space-sm);
+  }
+
   .modal-content {
-    padding: var(--space-md);
+    max-width: 95vw;
+    max-height: 95vh;
+    padding: var(--space-lg); /* Ensure substantial padding on small screens too */
   }
 
   .modal-close-btn {
     font-size: 2rem;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: var(--space-md); /* Adjust for smaller screens to ensure visibility */
+    right: var(--space-md); /* Adjust for smaller screens to ensure visibility */
+  }
+
+  .modal-media {
+    max-height: 60vh;
   }
 
   .modal-info h2 {
@@ -1203,28 +1257,10 @@ html {
   }
 }
 
-@media (max-width: 480px) {
-  .gallery {
-    columns: 90px;
-    column-gap: var(--space-xs);
-    width: 100%;
-    padding: var(--space-md);
-    display: block;
-  }
-
-  .modal-content {
-    max-width: 95vw;
-    max-height: 95vh;
-  }
-
-  .modal-media {
-    max-height: 60vh;
-  }
-}
-
 /*===================== Reviews Section =====================*/
 .reviews-container {
-  background: linear-gradient(to top, var(--color-primary-light), var(--bg));
+  /* background: linear-gradient(to top, var(--color-primary-light), var(--bg)); */
+  background-color: var(--color-primary-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1237,15 +1273,15 @@ html {
 }
 
 .reviews-title {
-  border-bottom: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-secondary);
   font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--color-primary);
+  color: var(--text-dm);
   margin-bottom: var(--space-sm);
 }
 
 .reviews-container h3 {
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  color: var(--text-muted);
+  color: var(--text-dm);
   margin-bottom: var(--space-lg);
   font-weight: 400;
 }
@@ -1279,7 +1315,7 @@ html {
   height: 350px;
   width: 400px;
   flex-shrink: 0;
-  background-color: var(--color-secondary);
+  background-color: var(--comp-bg-light);
   border-radius: var(--space-md);
   padding: var(--space-lg);
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
@@ -1487,8 +1523,6 @@ html {
 
 /* ============================== Map ============================== */
 .footer-map {
-  margin-top: var(--space-md);
-  margin-left: var(--space-md);
   height: 80px;
   width: 80px;
   opacity: 0.8;

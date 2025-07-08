@@ -14,9 +14,6 @@ import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import RequestQuote from './context/RequestQuote'; 
-// Import the Chatbot component and its data provider
-import Chatbot from './components/chatbot/Chatbot.jsx';
-import { ChatbotDataProvider } from './components/chatbot/Chatbot-data-context.jsx';
 
 
 function App() {
@@ -74,12 +71,6 @@ function App() {
         </Routes>
         <RequestQuote />
         <Footer />
-
-        <ChatbotDataProvider>
-          <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 1000 }}>
-            <Chatbot />
-          </div>
-        </ChatbotDataProvider>
       </div>
     </>
   );

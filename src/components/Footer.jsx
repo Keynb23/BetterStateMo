@@ -3,11 +3,12 @@ import facebook from '../assets/socials/facebook.png';
 import instagram from '../assets/socials/instagram.png';
 import linkedin from '../assets/linkedin.blue.png';
 import Github from '../assets/github.purple.png';
-import Missouri from '../assets/states/Missouri.png';
 import natChem from '../assets/products/natchem.png';
 import poolFrog from '../assets/products/poolFrog.png';
 import sanitify from '../assets/products/sanitify.png';
 import SeaKlear from '../assets/products/SeaKlear.webp';
+import Missouri from '../assets/states/Missouri.png';
+
 
 export default function Footer() {
   return (
@@ -16,7 +17,6 @@ export default function Footer() {
         <div className="footer-column footer-about">
           <h1 className="footer-heading">Better State LLC</h1>
           <h2 className="footer-slogan">Better Pools & Better Service</h2>
-          <img className="footer-map" src={Missouri} alt="Missouri Service Area" />
         </div>
 
         <div className="footer-column footer-contact-info">
@@ -49,7 +49,11 @@ export default function Footer() {
               <img src={instagram} alt="instagram" />
             </a>
           </div>
+          
         </div>
+        <div className="MO-footer">
+            <img className="footer-map" src={Missouri} alt="Missouri Service Area" />
+          </div>
       </div>
 
       <div className="disclaimer-section">
@@ -62,6 +66,7 @@ export default function Footer() {
           with, or endorsement by, Better State LLC. We are simply proud to use these products for
           our customers.
         </p>
+        
         <div className="footer-products">
           <img className="Fproduct-Logos" src={sanitify} alt="Sanitify" />
           <img className="Fproduct-Logos" src={natChem} alt="NatChem" />
@@ -74,6 +79,7 @@ export default function Footer() {
         <p className="footer-description copyright-text">
           All rights reserved. 2025. Better State LLC.
         </p>
+        <a href="https://coatyourpool.com/" className="Othersite-link">Coat Your Pools</a>
         <div className="Devby">
           A Key'nB Production
           <div className="Devby-links">

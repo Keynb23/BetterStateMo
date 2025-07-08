@@ -1,40 +1,63 @@
 /* CSS VARIABLES (THEME) */
 :root {
-  --color-primary: oklch(50% 0.15 250); /* A balanced, medium blue */
+  --color-primary: oklch(50% 0.15 250);
+  /* A balanced, medium blue */
   --color-primary-light: oklch(80% 0.1 250);
-  --color-primary-dark: oklch(24.396% 0.06082 245.744); 
-  --color-secondary: oklch(86.763% 0.05994 84.468); /* Soft, warm beige/sand */
+  --color-primary-dark: oklch(24.396% 0.06082 245.744);
+  --color-secondary: oklch(86.763% 0.05994 84.468);
+  /* Soft, warm beige/sand */
   --color-secondary-dark: oklch(63.51% 0.10412 82.102);
-  --color-accent: oklch(40% 0.2 140); /* A bright, energetic green (pool water/nature vibe) */
+  --color-accent: oklch(40% 0.2 140);
+  /* A bright, energetic green (pool water/nature vibe) */
   /* --- UI Colors (Adjusted to new palette) --- */
-  --danger: oklch(53.944% 0.20091 27.294); /* Red (unchanged - standard for alerts) */
-  --warning: oklch(70.125% 0.12644 101.823); /* Orange (unchanged - standard for alerts) */
-  --success: var(--color-accent); /* Using brand green for success */
-  --info: var(--color-primary-light); /* Using lighter brand blue for info/buttons */
+  --danger: oklch(53.944% 0.20091 27.294);
+  /* Red (unchanged - standard for alerts) */
+  --warning: oklch(70.125% 0.12644 101.823);
+  /* Orange (unchanged - standard for alerts) */
+  --success: var(--color-accent);
+  /* Using brand green for success */
+  --info: var(--color-primary-light);
+  /* Using lighter brand blue for info/buttons */
   /* --- Shadows --- */
   --shadow-sm: 0 2px 4px oklch(11.02% 0.016 260.67 / 0.08);
   --shadow-md: 0 4px 15px oklch(11.02% 0.016 260.67 / 0.1);
   --shadow-lg: 0 8px 30px oklch(11.02% 0.016 260.67 / 0.12);
   /* --- Backgrounds (Incorporating black/white shades) --- */
-  --bg-dark: oklch(10% 0 260); /* Very dark, almost black */
-  --bg: oklch(98% 0 260); /* Almost white for main background */
-  --comp-bg-light: oklch(95% 0 260); /* Slightly off-white for light components */
-  --comp-bg-dark: oklch(20% 0 260); /* Dark grey for dark components */
+  --bg-dark: oklch(10% 0 260);
+  /* Very dark, almost black */
+  --bg: oklch(98% 0 260);
+  /* Almost white for main background */
+  --comp-bg-light: oklch(95% 0 260);
+  /* Slightly off-white for light components */
+  --comp-bg-dark: oklch(20% 0 260);
+  /* Dark grey for dark components */
   /* --- Text Colors (Adjusted for new backgrounds and black/white shades) --- */
-  --text-dm: oklch(96% 0 260); /* Dark mode text: near white */
-  --text: oklch(8% 0 260); /* Light mode text: near black */
-  --text-muted-dm: oklch(70% 0 260); /* Muted dark mode text: lighter grey */
-  --text-muted: oklch(40% 0 260); /* Muted light mode text: darker grey */
+  --text-dm: oklch(96% 0 260);
+  /* Dark mode text: near white */
+  --text: oklch(8% 0 260);
+  /* Light mode text: near black */
+  --text-muted-dm: oklch(70% 0 260);
+  /* Muted dark mode text: lighter grey */
+  --text-muted: oklch(40% 0 260);
+  /* Muted light mode text: darker grey */
   /* --- Depths (Adjusted for new palette) --- */
-  --highlight: var(--color-accent); /* Using accent for highlights */
-  --border: oklch(20% 0 260); /* Darker grey for borders */
-  --border-muted: oklch(50% 0 260); /* Medium grey for muted borders */
+  --highlight: var(--color-accent);
+  /* Using accent for highlights */
+  --border: oklch(20% 0 260);
+  /* Darker grey for borders */
+  --border-muted: oklch(50% 0 260);
+  /* Medium grey for muted borders */
   /* --- Spacing --- */
-  --space-xs: 0.25rem; /* 4px */
-  --space-sm: 0.5rem; /* 8px */
-  --space-md: 1rem; /* 16px */
-  --space-lg: 2rem; /* 32px */
-  --space-xl: 4rem; /* 64px */
+  --space-xs: 0.25rem;
+  /* 4px */
+  --space-sm: 0.5rem;
+  /* 8px */
+  --space-md: 1rem;
+  /* 16px */
+  --space-lg: 2rem;
+  /* 32px */
+  --space-xl: 4rem;
+  /* 64px */
 }
 
 /* GLOBAL RESET & BASE STYLES */
@@ -45,10 +68,11 @@
   font: inherit;
 }
 
-body, html {
-  /* background-color: var(--bg);  */
-  background-image: url('../assets/pools/Halfwall2.jpg'); /* Fixed line */
-  color: var(--text); 
+body,
+html,
+#root {
+  background-color: var(--color-primary-dark);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -57,7 +81,7 @@ body, html {
   width: 100%;
   height: 100%;
 }
-    
+
 body #root {
   width: 100%;
   min-height: 100vh;
@@ -73,7 +97,8 @@ h4,
 h5,
 h6 {
   font-weight: 600;
-  color: var(--text); /* Headings default to near-black */
+  color: var(--text);
+  /* Headings default to near-black */
   margin-bottom: var(--space-sm);
   line-height: 1.2;
   text-shadow: none;
@@ -102,7 +127,8 @@ p {
 
 /* LINKS & BUTTONS */
 a {
-  color: var(--color-primary); /* Links use the dominant blue */
+  color: var(--color-primary);
+  /* Links use the dominant blue */
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
@@ -116,8 +142,10 @@ button {
   cursor: pointer;
   border-radius: var(--space-sm);
   border: none;
-  background-color: var(--color-accent); /* Buttons use the vibrant green accent */
-  color: var(--text-dm); /* Text on buttons is near-white */
+  background-color: var(--color-accent);
+  /* Buttons use the vibrant green accent */
+  color: var(--text-dm);
+  /* Text on buttons is near-white */
   padding: var(--space-sm) var(--space-md);
   transition: opacity 0.2s ease;
 }
@@ -131,7 +159,8 @@ button:hover {
 /* Firefox */
 body {
   scrollbar-width: thin;
-  scrollbar-color: var(--text-muted) var(--bg); /* Scrollbar thumb accent, track background */
+  scrollbar-color: var(--text-muted) var(--bg);
+  /* Scrollbar thumb accent, track background */
 }
 
 /* Chrome, Edge, Safari */
