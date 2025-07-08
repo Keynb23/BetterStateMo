@@ -1,22 +1,23 @@
-import { RefreshCw, Loader2 } from 'lucide-react'; // Using Lucide React for icons
-import './ProfileStyles.css';
+// src/components/Profile/ProfileRefreshButton.jsx
+import { RefreshCw, Loader2 } from 'lucide-react';
+import './ProfileStyles.css'; // Ensure this path is correct
 
 const ProfileRefreshButton = ({ onRefresh, isLoading }) => {
-  return (
-    <button
-      onClick={onRefresh}
-      disabled={isLoading}
-      className={`Pro-Refresh-btn ${isLoading ? 'Pro-Refresh-btn--loading' : ''}`}
-      aria-label="Refresh data"
-    >
-      {isLoading ? (
-        <Loader2 className="Pro-Refresh-btn__icon Pro-Refresh-btn__icon--animate" />
-      ) : (
-        <RefreshCw className="Pro-Refresh-btn__icon" />
-      )}
-      {isLoading ? 'Refreshing...' : 'Refresh Data'}
-    </button>
-  );
+    return (
+        <button
+            onClick={onRefresh}
+            disabled={isLoading}
+            className={`action-button refresh-button ${isLoading ? 'loading' : ''}`} // Changed class names
+            aria-label="Refresh data"
+        >
+            {isLoading ? (
+                <Loader2 className="icon animate-spin" /> {/* Changed class name */}
+            ) : (
+                <RefreshCw className="icon" /> {/* Changed class name */}
+            )}
+            {isLoading ? 'Refreshing...' : 'Refresh Data'}
+        </button>
+    );
 };
 
 export default ProfileRefreshButton;

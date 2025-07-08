@@ -1,64 +1,72 @@
-import './ProfileStyles.css';
-import { useMedia } from '../../context/MediaContext';
-import { useState, useEffect } from 'react';
+// src/pages/Profile/ProfileHeader.jsx
+import './ProfileStyles.css'; // Assuming styles are here
+import { IoRefreshSharp } from 'react-icons/io5'; // Keeping this icon as it's desired
 
-const shuffleArray = (array) => {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-    }
-    return array;
+const ProfileHeader = ({
+  user,
+  isOwner,
+  handleStartNewRequest,
+  searchTerm,
+  setSearchTerm,
+  onRefresh,
+  isRefreshing,
+  onSortChange,
+  currentSort,
+}) => {
+  const isAdmin = isOwner; // For clarity
+
+  const handleSortChange = (e) => {
+    onSortChange(e.target.value);
   };
 
-const ProfileHeader = ({ user, isOwner, handleStartNewRequest }) => {
-  const { pools } = useMedia();
-  const [shuffledMediaItems, setShuffledMediaItems] = useState([]);
-
-  useEffect(() => {
-    const combinedItems = [
-      ...(pools || []).map((src, idx) => ({
-        id: `pool-${idx}`,
-        src,
-        type: 'image',
-        alt: `Pool image ${idx + 1}`,
-      })),
-    ];
-    const shuffled = shuffleArray([...combinedItems]);
-    setShuffledMediaItems(shuffled);
-  }, [ pools]);
-
   return (
-    <div className="Profile-Dashboard-Dashboard Profile-card-base">
-      {shuffledMediaItems.map((item) => (
-        <div className="dash-bg-item" key={item.id}>
-          {item.type === 'image' ? (
-            <img src={item.src} alt={item.alt}/>
-          ) : (
-            // You can handle other media types here, e.g. video
-            null
+    <div className="profile-header-container">
+      <div className="profile-header__background"></div>
+      <div className="profile-header">
+        {isAdmin ? (
+          <div className="profile-header__admin-dashboard">
+            <h1 className="profile-header__title">Owner Dashboard</h1>
+            <p className="profile-header__welcome-message">
+              Welcome, {user?.displayName || 'Admin'}!
+            </p>
+          </div>
+        ) : (
+          <div className="profile-header__user-profile">
+            <h1 className="profile-header__title">Your Profile</h1>
+            <p className="profile-header__subtitle">Manage your appointments and settings.</p>
+          </div>
+        )}
+
+        <div className="profile-header__actions">
+          <input
+            type="text"
+            placeholder="Search by name, email, phone, address..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="profile-header__search-input"
+          />
+          <button
+            onClick={onRefresh}
+            className={`profile-refresh-button ${isRefreshing ? 'profile-refresh-button--animating' : ''}`}
+            title="Refresh Data"
+            disabled={isRefreshing}
+          >
+            <IoRefreshSharp /> {/* This icon is now correctly imported from react-icons */}
+          </button>
+
+          <select value={currentSort} onChange={handleSortChange} className="profile-sort-button">
+            <option value="createdAtDesc">Date Created (Newest)</option>
+            <option value="createdAtAsc">Date Created (Oldest)</option>
+            <option value="firstNameAsc">Customer Name (A-Z)</option>
+            <option value="firstNameDesc">Customer Name (Z-A)</option>
+          </select>
+
+          {!isAdmin && (
+            <button onClick={handleStartNewRequest} className="button button--primary">
+              Start New Request
+            </button>
           )}
         </div>
-      ))}
-            
-      <h2 className="Profile-Dashboard-title">
-        {isOwner ? 'Owner Dashboard' : 'My Dashboard'}
-      </h2>
-      <div className="Profile-Dashboard-card">
-        <h3 className="Profile-Dashboard-subtitle">
-          Welcome, {user.displayName || user.email}!
-        </h3>
-        <p className="Profile-Dashboard-text">
-          {isOwner
-            ? 'This is your administrative dashboard.'
-            : 'Here you can manage your appointments and profile settings'}
-        </p>
-        {!isOwner && (
-          <button onClick={handleStartNewRequest} className="Dashboard-newRequestBtn">
-            Start a New Appointment/Quote Request
-          </button>
-        )}
       </div>
     </div>
   );

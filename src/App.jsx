@@ -6,13 +6,12 @@ import Services from './pages/Services.jsx';
 import Home from './pages/Home.jsx';
 import SetApt from './pages/Apt/SetApt.jsx';
 import LoginReg from './components/loginReg.jsx';
-import Profile from './pages/profile/profile.jsx';
+import ProfilePage from './pages/profile/profilePage.jsx';
 import ObjectionBlockers from './components/objectionBlockers.jsx';
 import Footer from './components/Footer.jsx';
 import Gallery from './components/Gallery.jsx';
 import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
-import ScrollToTop from './components/ScrollToTop.jsx';
 import RequestQuote from './context/RequestQuote'; 
 
 
@@ -47,7 +46,6 @@ function App() {
   return (
     <>
       <div className="app-container">
-        <ScrollToTop />
         <Navbar isVisible={isNavbarVisible} />
         <Routes>
           <Route
@@ -65,7 +63,7 @@ function App() {
           />
           <Route path="/setapt" element={<SetApt />} />
           <Route path="/login" element={<LoginReg />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
