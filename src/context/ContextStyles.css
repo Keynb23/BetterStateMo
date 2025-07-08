@@ -54,7 +54,7 @@
 .quote-button-fixed-container {
   position: fixed;
   bottom: 9%;
-  right: 2%;
+  left: 2%;
   z-index: 999;
 }
 

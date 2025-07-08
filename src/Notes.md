@@ -60,3 +60,22 @@ Maybe a donate page for a the VA hospital or something. Further lean into the Ve
 
 
 
+
+
+
+
+
+
+NOTES FO RABOUT SECTION:
+
+
+The meet cards should be like profile cards for facebook. Pic in top left, name, role, number, affiliation links, about them then maybe a pic of them doing something they enjoy.
+
+
+
+
+
+
+
+
+
