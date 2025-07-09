@@ -6,7 +6,7 @@ import Services from './pages/Services.jsx';
 import Home from './pages/Home.jsx';
 import SetApt from './pages/Apt/SetApt.jsx';
 import LoginReg from './components/loginReg.jsx';
-import ProfilePage from './pages/profile/profilePage.jsx';
+import ProfilePage from './pages/profile/ProfilePage.jsx';
 import ObjectionBlockers from './components/objectionBlockers.jsx';
 import Footer from './components/Footer.jsx';
 import Gallery from './components/Gallery.jsx';
@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
 import RequestQuote from './context/RequestQuote'; 
 
-// commenting for the commit
+// commit change
 function App() {
   const location = useLocation();
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
