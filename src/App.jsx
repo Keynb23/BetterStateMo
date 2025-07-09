@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import Reviews from './components/Reviews.jsx';
 import RequestQuote from './context/RequestQuote'; 
 
-
+// commenting for the commit
 function App() {
   const location = useLocation();
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
