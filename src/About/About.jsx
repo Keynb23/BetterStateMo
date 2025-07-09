@@ -1,5 +1,4 @@
-// src/pages/About/AboutDesktop.jsx
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useMedia } from '../../context/MediaContext'; // Adjust path as needed
 import closeup from '../../assets/Trucks/closeup.jpg'; // Adjust path as needed
 import WhiteBTtruck from '../../assets/Trucks/blackClose.jpg'; // Adjust path as needed

@@ -229,7 +229,6 @@ const ProfilePage = () => {
       {errorData && <p className="message message--error">{errorData}</p>}
       <div className="profile-main">
         {' '}
-        {/* flex column container for tabs/settings and details */}
         {/* ProfileTabs component handles tab navigation and content display for lists */}
         <ProfileTabs
           activeTab={activeTab}

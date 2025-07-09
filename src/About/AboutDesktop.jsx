@@ -1,8 +1,8 @@
 // src/pages/About/AboutDesktop.jsx
 import { useState, useCallback } from 'react';
-import { useMedia } from '../../context/MediaContext';
-import closeup from '../../assets/Trucks/closeup.jpg';
-import WhiteBTtruck from '../../assets/Trucks/blackClose.jpg';
+import { useMedia } from '../context/MediaContext';
+import closeup from '../assets/Trucks/closeup.jpg';
+import WhiteBTtruck from '../assets/Trucks/blackClose.jpg';
 import './AboutStyles.css';
 
 export default function AboutDesktop() {

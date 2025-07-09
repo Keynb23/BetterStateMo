@@ -1,8 +1,7 @@
-// src/pages/About/index.jsx (or AboutIndex.jsx)
-import React from 'react';
-import useMediaQuery from '../../context/useMediaQuery'; // Import the new hook
+import useMediaQuery from '../context/useMediaQuery'; // Import the new hook
 import AboutDesktop from './AboutDesktop';
 import AboutMobile from './AboutMobile';
+import { Fragment } from 'react';
 
 export default function About() {
     // Use the custom hook to determine if the screen matches a mobile breakpoint
@@ -10,8 +9,8 @@ export default function About() {
     const isMobile = useMediaQuery('(max-width: 768px)');
 
     return (
-        <React.Fragment>
+        <Fragment>
             {isMobile ? <AboutMobile /> : <AboutDesktop />}
-        </React.Fragment>
+        </Fragment>
     );
 }
