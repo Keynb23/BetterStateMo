@@ -529,7 +529,7 @@
 /* Hero Slogan */
 .hero-slogan {
   position: absolute;
-  top: 40%;
+  top: 45%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -556,7 +556,7 @@
 /* Call to Action Button */
 .hero-button {
   position: absolute;
-  bottom: 30%;
+  bottom: 25%;
   padding: var(--space-md) var(--space-lg);
   background-color: var(--color-primary);
   color: var(--text-dm);
