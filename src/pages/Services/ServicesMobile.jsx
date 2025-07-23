@@ -34,7 +34,7 @@ const serviceData = [
   },
   {
     id: 3,
-    title: 'Pool Services',
+    title: 'Pool Maintenance',
     icon: wrenchgeardark,
     desc: 'Maintain pristine water quality and optimal equipment performance with our regular pool servicing, tailored to your needs.',
     features: [

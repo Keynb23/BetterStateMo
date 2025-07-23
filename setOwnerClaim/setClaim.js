@@ -6,7 +6,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 // IMPORTANT: REPLACE THIS WITH THE EXACT EMAIL OF THE OWNER USER YOU CREATED IN FIREBASE AUTHENTICATION
-const ownerEmail = 'keynb50@gmail.com'; // <--- **REPLACE THIS WITH THE EMAIL YOU CREATED IN FIREBASE AUTHENTICATION**
+const ownerEmail = 'betterstatemo@gmail.com'; // <--- **REPLACE THIS WITH THE EMAIL YOU CREATED IN FIREBASE AUTHENTICATION**
 const ownerUid = ''; // Optional: if you know the UID from Firebase Auth, you can set it here.
 async function setOwnerCustomClaim() {
   try {

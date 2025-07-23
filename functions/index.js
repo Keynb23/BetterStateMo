@@ -16,7 +16,7 @@ let mailTransport = nodemailer.createTransport({
   },
 });
 
-const FRIEND_EMAIL = 'YOUR_FRIENDS_BUSINESS_EMAIL@example.com'; // <--- REPLACE THIS WITH YOUR ACTUAL EMAIL!
+const FRIEND_EMAIL = 'betterstatemo@gmail.com'; // <--- REPLACE THIS WITH YOUR ACTUAL EMAIL!
 const LOGO_URL = '../src/assets/owners/Logo.png'; 
 
 // Read the CSS file content once when the function is initialized
