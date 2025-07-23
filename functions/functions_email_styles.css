@@ -1,0 +1,93 @@
+/* functions/functions_email_styles.css */
+
+/* Global Email Body Styles */
+body {
+  font-family: 'Poppins', sans-serif; /* Link Poppins from Google Fonts in HTML */
+  line-height: 1.6;
+  background-color: oklch(24.396% 0.06082 245.744); /* --color-primary-dark */
+  color: oklch(96% 0 260); /* --text-dm */
+  padding: 20px;
+}
+
+/* Main Email Container */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: oklch(95% 0 260); /* --comp-bg-light */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px oklch(8% 0 260 / 0.1); /* --text with 0.1 opacity */
+  border: 1px solid oklch(20% 0 260); /* --border */
+  color: oklch(8% 0 260); /* --text */
+}
+
+/* Header Section */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Logo Styles */
+.logo {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+/* Title Styles (h1, h2 inside email) */
+.title {
+  color: oklch(50% 0.15 250); /* --color-primary */
+  font-size: 24px; /* Default for h1/h2 in email */
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Paragraph Styles */
+p {
+  margin-bottom: 15px;
+  color: oklch(8% 0 260); /* --text */
+  font-size: 16px;
+}
+
+/* Strong/Bold Text Styles */
+strong {
+  color: oklch(8% 0 260); /* --text */
+  font-weight: 600;
+}
+
+/* Horizontal Rule Styles */
+hr {
+  border: 0;
+  border-top: 1px solid oklch(50% 0 260); /* --border-muted */
+  margin: 25px 0;
+}
+
+/* Callout Box Styles (for messages/notes) */
+.callout-box {
+  padding: 15px;
+  border-left: 4px solid oklch(50% 0.15 250); /* --color-primary */
+  background-color: oklch(95% 0 260); /* --comp-bg-light */
+  border-radius: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: oklch(8% 0 260); /* --text */
+  border: 1px solid oklch(50% 0 260); /* --border-muted */
+}
+
+/* Footer Styles */
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 12px;
+  color: oklch(40% 0 260); /* --text-muted */
+}
+
+/* List Styles for services */
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  color: oklch(8% 0 260); /* --text */
+}

@@ -8,6 +8,7 @@ import { ServiceProvider } from './context/ServiceContext.jsx';
 import { BackendCartProvider } from './context/BackendCart.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import ScrollUp from './components/ScrollToTop.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx'; // 🔹 Add this
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,16 +18,18 @@ createRoot(document.getElementById('root')).render(
         v7_relativeSplatPath: true,
       }}
     >
-      <AuthProvider>
-        <BackendCartProvider>
-          <ServiceProvider>
-            <MediaProvider>
-              <ScrollUp />
-              <App />
-            </MediaProvider>
-          </ServiceProvider>
-        </BackendCartProvider>
-      </AuthProvider>
+      <ErrorBoundary> {/* 🔹 Wrap inside Error Boundary */}
+        <AuthProvider>
+          <BackendCartProvider>
+            <ServiceProvider>
+              <MediaProvider>
+                <ScrollUp />
+                <App />
+              </MediaProvider>
+            </ServiceProvider>
+          </BackendCartProvider>
+        </AuthProvider>
+      </ErrorBoundary>
     </BrowserRouter>
   </StrictMode>,
 );

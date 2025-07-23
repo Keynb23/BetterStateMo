@@ -1,6 +1,6 @@
 // src/context/ServiceContext.jsx
 import { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Keep this import
 import { useBackendCart } from './BackendCart';
 import { serviceTypes as allServiceTypes } from './serviceTypes';
 import './ContextStyles.css';
@@ -12,14 +12,14 @@ export const ServiceProvider = ({ children }) => {
   const [selectedServices, setSelectedServices] = useState([]);
 
   // toggleService now accepts the serviceTitle (string) directly
-  const toggleService = (title) => { // Changed 'id' to 'title'
+  const toggleService = (title) => {
     setSelectedServices((prev) =>
-      prev.includes(title) ? prev.filter((st) => st !== title) : [...prev, title], // Filter by title
+      prev.includes(title) ? prev.filter((st) => st !== title) : [...prev, title],
     );
   };
 
   // selectAllServices now accepts an array of serviceTitles (strings)
-  const selectAllServices = (allTitles) => { // Changed 'allIds' to 'allTitles'
+  const selectAllServices = (allTitles) => {
     setSelectedServices(allTitles);
   };
 
@@ -44,14 +44,14 @@ export const useServiceContext = () => useContext(ServiceContext);
 
 export const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
   const { selectedServices, toggleService } = useServiceContext();
-  const { addService } = useBackendCart(); // Keep this as serviceId for the cart if it expects ID
+  const { addService } = useBackendCart();
 
   const handleClick = () => {
-    toggleService(serviceTitle); // <--- IMPORTANT CHANGE: Pass the TITLE (string)
-    addService(serviceId); // Keep this as ID if useBackendCart needs the ID
+    toggleService(serviceTitle);
+    addService(serviceId);
   };
 
-  const isSelected = selectedServices.includes(serviceTitle); // <--- IMPORTANT CHANGE: Check by TITLE (string)
+  const isSelected = selectedServices.includes(serviceTitle);
 
   return (
     <button className={`service-btn ${isSelected ? 'selected' : ''}`} onClick={handleClick}>
@@ -62,21 +62,23 @@ export const SingleServiceBtn = ({ serviceId, serviceTitle }) => {
 };
 
 export const ServiceBtns = () => {
+  // Call useNavigate INSIDE the functional component
+  const navigate = useNavigate(); // <--- ADD THIS LINE
+
   const { selectedServices, selectAllServices, clearServices, serviceTypes } = useServiceContext();
-  const { addService } = useBackendCart(); // This part might still need IDs for the cart
+  const { addService } = useBackendCart();
 
   const handleSelectAll = () => {
-    // Get all service NAMES instead of IDs
-    const allTitles = serviceTypes.map((service) => service.title); // This is correct, as 'serviceTypes' has 'title'
-    const allIds = serviceTypes.map((service) => service.id); // Still need IDs if addService to BackendCart requires them
+    const allTitles = serviceTypes.map((service) => service.title);
+    const allIds = serviceTypes.map((service) => service.id);
 
     const areAllSelected = selectedServices.length === allTitles.length && allTitles.length > 0;
 
     if (areAllSelected) {
       clearServices();
     } else {
-      selectAllServices(allTitles); // <--- IMPORTANT CHANGE: Pass service NAMES (strings)
-      allIds.forEach((id) => addService(id)); // Keep this as ID for useBackendCart if necessary
+      selectAllServices(allTitles);
+      allIds.forEach((id) => addService(id));
     }
   };
 

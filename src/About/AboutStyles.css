@@ -1,524 +1,109 @@
-/* src/pages/About/AboutStyles.css */
+/* src/About/AboutStyles.css */
+/* Styles specifically for the main About Us content */
 
-/* Base container */
-.interactive-about-container {
-    background-color: var(--color-primary-dark);
-    color: var(--text-dm);
+/* Base container for the About page */
+.about-page-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    min-height: 80vh; /* Adjust as needed */
     padding: var(--space-xl) var(--space-md);
-    min-height: 100vh;
-    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-primary-dark); /* Assuming you have CSS variables */
+    color: var(--text-dm);
     overflow: hidden;
     position: relative;
 }
 
-/* Mini Navbar */
-.about-mini-navbar {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-xl);
-    background-color: var(--comp-bg-dark);
-    padding: var(--space-sm) var(--space-lg);
+/* Section for "About Us" content */
+.about-us-section {
+    background-color: var(--comp-bg-light); /* Lighter background for the content card */
     border-radius: var(--space-md);
-    box-shadow: var(--shadow-md);
-    z-index: 10;
-    position: sticky;
-    top: 0;
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    max-width: 900px; /* Adjust max width as needed */
     width: 100%;
-    max-width: 1200px;
-}
-
-.about-mini-navbar .nav-item {
-    background: none;
-    border: none;
-    color: var(--text-dm);
-    padding: var(--space-xs) var(--space-md);
-    font-size: 1.1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: var(--space-sm);
-}
-
-.about-mini-navbar .nav-item:hover,
-.about-mini-navbar .nav-item.active {
-    color: var(--text);
-    background-color: var(--color-secondary);
-}
-
-/* Desktop Styles (for screens wider than 768px) */
-@media (min-width: 769px) {
-    .interactive-columns-wrapper {
-        display: flex;
-        width: 100%;
-        height: 70vh; /* Fixed height for desktop columns to align */
-        gap: var(--space-sm); /* Slightly smaller gap for desktop columns */
-        transition: all 0.5s ease-out;
-        align-items: stretch; /* Stretch to fill height */
-        z-index: 5;
-        max-width: 1200px;
-        margin-top: var(--space-lg);
-    }
-
-    .interactive-column {
-        flex-grow: 1;
-        flex-shrink: 1;
-        background-color: var(--comp-bg-light);
-        border-radius: var(--space-md);
-        box-shadow: var(--shadow-lg);
-        overflow: hidden;
-        transition: all 0.5s ease-out; /* Transition for flex-basis, opacity, filter */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: var(--text);
-        padding: var(--space-md);
-        text-align: center;
-        cursor: pointer; /* Cursor indicates clickability */
-
-
-        /* Default desktop state - not collapsed or expanded yet */
-        opacity: 1;
-        filter: blur(0);
-        pointer-events: auto;
-    }
-
-    /* Initial widths for the columns when none are explicitly expanded */
-    .interactive-column.andrew-column {
-        flex-basis: 25%;
-    }
-
-    .interactive-column.about-column {
-        flex-basis: 50%;
-    }
-
-    .interactive-column.josh-column {
-        flex-basis: 25%;
-    }
-
-    /* Styles for the expanded desktop column */
-    .interactive-column.is-expanded {
-        flex-basis: 60%; /* Expands to take more space */
-        box-shadow: var(--shadow-lg), 0 0 20px var(--color-primary-light);
-        cursor: default; /* No longer clickable for expansion */
-        overflow-y: auto; /* Allow scrolling if content overflows */
-        filter: blur(0);
-        opacity: 1;
-        scrollbar-width: thin;
-        scrollbar-color: var(--text-muted) var(--comp-bg-light);
-    }
-    .interactive-column.is-expanded::-webkit-scrollbar {
-        width: 8px;
-    }
-    .interactive-column.is-expanded::-webkit-scrollbar-track {
-        background: var(--comp-bg-light);
-    }
-    .interactive-column.is-expanded::-webkit-scrollbar-thumb {
-        background-color: var(--text-muted);
-        border-radius: 4px;
-        border: 2px solid var(--comp-bg-light);
-    }
-
-    /* Styles for the collapsed/inactive desktop columns */
-    .interactive-column.is-collapsed {
-        flex-basis: 20%; /* Shrinks to take less space */
-        opacity: 0.25; /* Blur and lower opacity for inactive cards */
-        filter: blur(3px);
-        pointer-events: auto; /* STILL clickable to become active */
-        transition: all 0.5s ease-out, filter 0.5s ease-out; /* Smooth transition for blur */
-    }
-}
-
-
-/* Shared Content Styling (Applies to both desktop expanded columns and mobile columns) */
-.column-content {
-    width: 100%;
-    height: 100%; /* Ensure content fills the column height */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: var(--space-md);
-}
-
-.section-title {
-    margin: var(--space-md) 0 var(--space-xl);
+    text-align: center;
 }
 
 .section-title h1 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    color: var(--text);
-    border-bottom: 2px solid var(--color-accent);
-    padding-bottom: var(--space-xs);
-    max-width: none;
-    text-align: center;
-}
-
-.section-title h1::after {
-    content: none;
-}
-
-.About-Desktop-sec {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-md);
-}
-
-.about-Desk-p {
-    text-align: left;
-    font-weight: 400 !important;
-}
-
-
-.andrew-number,
-.Othersite-link {
-    color: var(--color-accent);
-    font-weight: 500;
+    color: var(--color-secondary); /* Assuming this is your accent color */
+    margin-bottom: var(--space-xl);
+    font-size: 2.5em;
+    font-weight: 700;
 }
 
 .about-sec-p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
     color: var(--text);
-    text-align: center;
-    line-height: 1.75;
-    margin-bottom: var(--space-sm);
-    font-size: 1rem;
 }
 
 .about-trucks-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: var(--space-md);
-    margin-top: var(--space-md);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .about-images {
-    max-width: 85%; /* Desktop: 85% for trucks in About Us section */
-    height: 120px;
-    object-fit: cover;
-    border-radius: var(--space-sm);
-    box-shadow: var(--shadow-sm);
-}
-
-.hidden-details {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.7s ease-out, opacity 0.5s ease-out 0.2s, margin-top 0.5s ease-out;
-    padding-top: 0;
-    font-size: 0.9rem;
-    text-align: left;
-    color: var(--text-muted);
-}
-
-.hidden-details.show {
-    max-height: 500px;
-    opacity: 1;
-    margin-top: var(--space-md);
-    padding-top: var(--space-sm);
-}
-
-/* Profile Card Specific Styles (Apply to desktop expanded and mobile) */
-.profile-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-    width: 100%;
-    padding: var(--space-sm);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: var(--space-sm);
-}
-
-.profile-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--color-accent);
-    flex-shrink: 0;
-}
-
-.profile-text {
-    flex-grow: 1;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.profile-text h2 {
-    font-size: 1.5rem;
-    color: var(--text);
-    margin-bottom: var(--space-xs);
-}
-
-.profile-role,
-.profile-tenure {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: var(--space-xxs);
-}
-
-.profile-contact {
-    width: 100%;
-    text-align: left;
-    margin-bottom: var(--space-md);
-    padding: 0 var(--space-sm) var(--space-sm) var(--space-sm);
-    border-bottom: 1px solid var(--text-muted-dm);
-}
-
-.profile-affiliations {
-    width: 100%;
-    text-align: left;
-    margin-bottom: var(--space-md);
-    padding: var(--space-md) var(--space-sm) 0 var(--space-sm);
-}
-
-.profile-contact p,
-.profile-affiliations p {
-    font-size: 0.95rem;
-    color: var(--text);
-    margin-bottom: var(--space-xs);
-}
-
-.contact-info,
-.Othersite-link {
-    color: var(--color-accent);
-    font-weight: 500;
-}
-
-.profile-bio {
-    width: 100%;
-    margin-bottom: var(--space-lg);
-    padding: 0 var(--space-sm);
-    text-align: left;
-}
-
-.profile-bio p {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: var(--space-sm);
-}
-
-.profile-enjoyment-pic {
-    width: 100%;
-    margin-top: auto; /* Pushes image to the bottom if column-content is flex-col */
-    display: flex;
-    justify-content: center;
-    padding: 0 var(--space-sm);
-}
-
-.enjoyment-image {
-    max-width: 85%; /* Desktop: 85% for profile enjoyment pics */
+    width: 100%; /* Default to full width for small screens */
+    max-width: 350px; /* Max width for images */
     height: auto;
-    border-radius: var(--space-md);
-    box-shadow: var(--shadow-sm);
+    border-radius: var(--space-sm);
+    box-shadow: var(--shadow-md);
     object-fit: cover;
-    margin-bottom: var(--space-md);
 }
 
+/* Media Queries for Responsiveness */
+@media (min-width: 769px) {
+    .about-trucks-container {
+        flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+    }
+}
 
-/* Mobile Styles (for screens 768px and smaller) */
 @media (max-width: 768px) {
-    .about-mini-navbar {
-        flex-wrap: wrap;
-        margin-bottom: var(--space-md); /* Reduced margin-bottom */
-        max-width: 95%;
-        padding: var(--space-md); /* Smaller padding for navbar on mobile */
-    }
-
-    .about-mini-navbar .nav-item {
-        font-size: 1rem; /* Slightly smaller font size for mobile nav items */
-        padding: var(--space-xxs) var(--space-sm); /* Adjust padding */
-    }
-
-    /* Hide the desktop columns wrapper entirely on mobile */
-    .interactive-columns-wrapper {
-        display: none;
-    }
-
-    /* Ensure individual interactive-column elements are not displayed/affected on mobile */
-    .interactive-column {
-        display: none;
-        opacity: 0;
-        filter: none;
-        pointer-events: none;
-    }
-
-    /* Show the mobile display container */
-    .mobile-column-display {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 380px; /* Adjusted max-width for smaller cards on iPhone Pro Max */
-        height: auto;
-        min-height: 50vh;
-        background-color: var(--comp-bg-light);
-        border-radius: var(--space-md);
-        box-shadow: var(--shadow-lg);
-        overflow: hidden;
-        padding: var(--space-sm);
-
-        transition: background-color 0.3s ease;
-        margin-top: var(--space-md); /* Reduced margin-top to bring closer to navbar */
-    }
-
-    .mobile-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        height: auto;
-        padding: var(--space-sm);
-
-        text-align: left;
-        opacity: 1;
-        filter: blur(0);
-        pointer-events: auto;
+    .about-us-section {
+        padding: var(--space-lg);
     }
 
     .section-title h1 {
-        font-size: 1.8rem;
-        text-align: center;
-        margin-bottom: var(--space-md);
+        font-size: 2em;
+        margin-bottom: var(--space-lg);
     }
 
     .about-sec-p {
-        text-align: left;
-        font-size: 0.95rem;
-        margin-bottom: var(--space-xs);
+        font-size: 1em;
+        margin-bottom: var(--space-md);
     }
 
     .about-trucks-container {
         flex-direction: column;
-        gap: var(--space-sm);
-        margin-top: var(--space-md);
+        gap: var(--space-md);
     }
     .about-images {
-        max-width: 75%;
-        height: auto;
-    }
-
-    /* Mobile Profile Card Specific Adjustments */
-    .mobile-section .column-content {
-        align-items: flex-start;
-        padding: 0;
-    }
-
-    .mobile-section .profile-header {
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        margin-bottom: var(--space-lg);
-        padding: var(--space-sm) 0;
-    }
-
-    .mobile-section .profile-image {
-        width: 70px;
-        height: 70px;
-    }
-
-    .mobile-section .profile-text h2 {
-        font-size: 1.4rem;
-    }
-
-    .mobile-section .profile-role,
-    .mobile-section .profile-tenure {
-        font-size: 0.85rem;
-    }
-
-    .mobile-section .profile-contact {
-        text-align: left;
-        padding: 0 var(--space-xxs) var(--space-sm) var(--space-xxs);
-        margin-bottom: var(--space-md);
-        border-bottom: 1px solid var(--text-muted-dm);
-    }
-
-    .mobile-section .profile-affiliations {
-        text-align: left;
-        padding: var(--space-md) var(--space-xxs) 0 var(--space-xxs);
-        margin-bottom: var(--space-md);
-    }
-
-    .mobile-section .profile-bio {
-        text-align: left;
-        padding: 0 var(--space-xxs);
-        margin-bottom: var(--space-md);
-    }
-
-    .mobile-section .profile-bio p {
-        margin-bottom: var(--space-xs);
-    }
-
-    .mobile-section .profile-enjoyment-pic {
-        margin-top: var(--space-md);
-    }
-
-    .mobile-section .enjoyment-image {
-        max-width: 75%;
-    }
-
-    .mobile-section .text-block {
-        text-align: left;
-        padding: 0;
-        margin-bottom: 0;
-    }
-
-    .mobile-section .text-block h2 {
-        text-align: left;
+        max-width: 75%; /* Adjust for mobile image size */
+        margin: 0 auto; /* Center images */
     }
 }
 
-/* Smallest Mobile Adjustments (optional, can fine-tune further) */
 @media (max-width: 480px) {
-    .interactive-about-container {
-        padding: var(--space-md) var(--space-sm);
-    }
-    .about-mini-navbar {
-        margin-bottom: var(--space-sm); /* Even smaller margin for very small screens */
-        padding: var(--space-xxs) var(--space-md);
-        font-size: 0.9rem;
-        height: 30px;
-    }
-    .about-mini-navbar .nav-item {
-        padding: var(--space-xxs) var(--space-sm);
-        font-size: 0.9rem;
-    }
-    .mobile-column-display {
-        max-width: 340px; /* Slightly smaller for very small screens */
-        margin-top: var(--space-md);
-    }
-    .mobile-section {
-        padding: var(--space-xs);
-    }
-
-    .section-title {
-        align-self: center;
-        margin-bottom: var(--space-md);
+    .about-us-section {
+        padding: var(--space-md);
     }
 
     .section-title h1 {
-        font-size: 1.5rem;
-    }
-
-    .about-sec-p {
-        padding: var(--space-sm);
-    }
-    .text-block p {
-        font-size: 0.9rem;
-    }
-    .profile-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .profile-text {
-        text-align: center;
+        font-size: 1.8em;
     }
 }
+
+/*
+    The following styles were removed as they are no longer relevant for the About page:
+    - .interactive-about-container (base container, replaced by .about-page-container)
+    - .about-mini-navbar (moved to Services.css if needed for owner slider, but not for About)
+    - .interactive-columns-wrapper (removed as owner profiles are gone)
+    - .interactive-column, .is-expanded, .is-collapsed (removed as owner profiles are gone)
+    - .mobile-column-display, .mobile-section, .profile-header, etc. (all owner-related mobile styles)
+*/

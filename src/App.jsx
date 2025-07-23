@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation} from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Contact from './pages/Contact.jsx';
-import About from './About/AboutIndex.jsx';
-import Services from './pages/Services.jsx';
+import About from './About/About.jsx'; // Updated import path for the About component
+import ServicesIndex from './pages/Services/ServicesIndex.jsx';
 import Home from './pages/Home.jsx';
 import SetApt from './pages/Apt/SetApt.jsx';
 import LoginReg from './components/loginReg.jsx';
@@ -53,7 +53,7 @@ function App() {
             element={
               <>
                 <section id="hero-section"><Home /></section>
-                <section id="services"><Services /></section>
+                <section id="services"><ServicesIndex /></section>
                 <section id="about"><About /></section>
                 <section id="contact"><Contact /></section>
                 <ObjectionBlockers />

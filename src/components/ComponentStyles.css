@@ -282,6 +282,8 @@
 
   .navbar-links.show {
     display: flex;
+    width: 100%;
+    left: 50%;
   }
 
   .Collapse-btn {

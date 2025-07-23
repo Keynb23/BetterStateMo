@@ -1,73 +1,47 @@
-import { useState, useCallback } from 'react';
-import { useMedia } from '../../context/MediaContext'; // Adjust path as needed
-import closeup from '../../assets/Trucks/closeup.jpg'; // Adjust path as needed
-import WhiteBTtruck from '../../assets/Trucks/blackClose.jpg'; // Adjust path as needed
-import './AboutStyles.css'; // Make sure this points to the new combined CSS file
+// src/About/About.jsx
+// This is the updated About page. It will only contain the general "About Us" content.
+// The "Meet the Owners" section has been moved to the bottom of this file.
+import closeup from '../assets/Trucks/closeup.jpg'; 
+import WhiteBTtruck from '../assets/Trucks/blackClose.jpg'; 
+import './AboutStyles.css'; 
 
-export default function AboutDesktop() {
-    const { owners } = useMedia(); // We don't need `isMobile` here directly, as this component IS desktop
-
-    // State for which section is active. Default to 'about' for desktop.
-    const [activeSection, setActiveSection] = useState('about');
-
-    // Handler for mouse enter (hover to expand)
-    const handleMouseEnter = useCallback((sectionName) => {
-        setActiveSection(sectionName);
-    }, []);
-
-    // Handler for mouse leave (collapse when mouse leaves wrapper)
-    const handleMouseLeave = useCallback(() => {
-        setActiveSection('about'); // Revert to 'about' as the default
-    }, []);
-
-    // Handler for mini-navbar clicks or column clicks (explicit expansion)
-    const handleSectionClick = useCallback((sectionName) => {
-        // Toggle if clicking the active section, otherwise set new active
-        setActiveSection(prev => (prev === sectionName ? 'about' : sectionName)); // If clicked active, revert to 'about'
-    }, []);
-
-    // Helper function to determine column class
-    const getColumnClass = useCallback((columnName) => {
-        let classes = `interactive-column ${columnName}-column`;
-        if (activeSection === columnName) {
-            classes += ' is-expanded'; // This column is expanded
-        } else { // Other columns are collapsed if something is expanded
-            classes += ' is-collapsed';
-        }
-        return classes;
-    }, [activeSection]);
-
+export default function About() {
     return (
-        <div className="interactive-about-container">
-            {/* Mini Navbar */}
-            <nav className="about-mini-navbar">
-                <button
-                    className={`nav-item ${activeSection === 'andrew' ? 'active' : ''}`}
-                    onClick={() => handleSectionClick('andrew')}
-                >
-                    Andrew
-                </button>
-                <button
-                    className={`nav-item ${activeSection === 'about' ? 'active' : ''}`}
-                    onClick={() => handleSectionClick('about')}
-                >
-                    About
-                </button>
-                <button
-                    className={`nav-item ${activeSection === 'josh' ? 'active' : ''}`}
-                    onClick={() => handleSectionClick('josh')}
-                >
-                    Joshua
-                </button>
-            </nav>
+        <div className="about-page-container">
+            <div className="about-us-section">
+                <div className="section-title">
+                    <h1>About Us</h1>
+                </div>
+                <p className="about-sec-p">
+                    Our mission is to ensure every pool in Mid-Missouri is sparkling clean, safe, and a
+                    source of enjoyment for its owners. We utilize the latest eco-friendly techniques
+                    and products to minimize environmental impact.
+                </p>
+                <p className="about-sec-p">
+                    Founded in 2023, with over 10 years of experience. Better State is dedicated to giving
+                    you Better Pools.
+                </p>
+                <p className="about-sec-p">
+                    Proudly serving Mid-Missouri with expert, eco-friendly pool cleaning services.
+                </p>
+                <p className="about-sec-p">
+                    We are built on Trust, Reliability, and Quality.
+                </p>
+                <div className="about-trucks-container">
+                    <img className="about-images" src={closeup} alt="Better State Truck" />
+                    <img className="about-images" src={WhiteBTtruck} alt="Better State Truck" />
+                </div>
+            </div>
+        </div>
+    );
+}
 
-            <div
-                className="interactive-columns-wrapper"
-                onMouseEnter={handleMouseEnter.bind(null, 'about')} // Hover on wrapper to reset to 'about'
-                onMouseLeave={handleMouseLeave} // Collapse all when leaving the wrapper
-            >
-                {/* Andrew's Section */}
-                <div
+
+
+// OWNER SECTION IF WE EVER NEED TO RE-ADD IT ------------------------------
+
+                /* Andrew's Section(I commented this out. I want to keep it commented out, just moved to the bottom of the file) */
+                /* <div
                     className={getColumnClass('andrew')}
                     onMouseEnter={handleMouseEnter.bind(null, 'andrew')}
                     onClick={() => handleSectionClick('andrew')}
@@ -89,40 +63,11 @@ export default function AboutDesktop() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */
 
-                {/* About Us Section */}
-                <div
-                    className={getColumnClass('about')}
-                    onMouseEnter={handleMouseEnter.bind(null, 'about')}
-                    onClick={() => handleSectionClick('about')}
-                >
-                    <div className="column-content">
-                        <div className="section-title">
-                            <h1>About Us</h1>
-                        </div>
-                        <p className="about-sec-p">
-                            Founded in 2023, with over 10 years of experience. Better State is dedicated to giving
-                            you Better Pools.
-                        </p>
-                        <p className="about-sec-p">
-                            Proudly serving Mid-Missouri with expert, eco-friendly pool cleaning services.
-                        </p>
-                        <p className="about-sec-p">
-                            We are built on Trust, Reliability, and Quality.
-                        </p>
-                        <div className="about-trucks-container">
-                            <img className="about-images" src={closeup} alt="Truck" />
-                            <img className="about-images" src={WhiteBTtruck} alt="Truck" />
-                        </div>
-                        <div className={`hidden-details ${activeSection === 'about' ? 'show' : ''}`}>
-                            <p>Our mission is to ensure every pool in Mid-Missouri is sparkling clean, safe, and a source of enjoyment for its owners. We utilize the latest eco-friendly techniques and products to minimize environmental impact.</p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Josh's Section */}
-                <div
+              
+                /* Josh's Section (I commented this out. I want to keep it commented out, just moved to the bottom of the file) */
+                /* <div
                     className={getColumnClass('josh')}
                     onMouseEnter={handleMouseEnter.bind(null, 'josh')}
                     onClick={() => handleSectionClick('josh')}
@@ -145,8 +90,4 @@ export default function AboutDesktop() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    );
-}
+                </div> */

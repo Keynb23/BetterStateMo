@@ -1,13 +1,11 @@
-// src/components/Service.jsx
-import './PageStyles.css';
 import { useState } from 'react';
-import { SingleServiceBtn, ServiceBtns, useServiceContext } from '../context/ServiceContext';
-
+import { SingleServiceBtn, ServiceBtns, useServiceContext } from '../../context/ServiceContext';
+import './Services.css'; 
 // import snowflakedark from '../assets/icons/snowflake-dark.png';
-import snowflakelight from '../assets/icons/snowflake-light.png';
-import sunny from '../assets/icons/sunny.png';
+import snowflakelight from '../../assets/icons/snowflake-light.png';
+import sunny from '../../assets/icons/sunny.png';
 // import wrenchgearlight from '../assets/icons/wrench-gear-light.png';
-import wrenchgeardark from '../assets/icons/wrench-gear.png';
+import wrenchgeardark from '../../assets/icons/wrench-gear.png';
 
 const serviceData = [
   {
