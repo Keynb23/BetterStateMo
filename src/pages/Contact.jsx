@@ -71,8 +71,7 @@ const Contact = () => {
           <div className="contact-message">
             <h3>Feel free to reach out to us with any questions</h3>
             <p>Email us at betterstatemo@gmail.com</p>
-            <p>Call us at 573-826-9529</p>
-            <p>Or 573-823-6325</p>
+            <p>Call us at 573-823-6325</p>
           </div>
         </div>
 

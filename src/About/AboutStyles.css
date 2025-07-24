@@ -4,15 +4,25 @@
 /* Base container for the About page */
 .about-page-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 80vh; /* Adjust as needed */
-    padding: var(--space-xl) var(--space-md);
-    box-sizing: border-box;
+    padding: var(--space-md);
     background-color: var(--color-primary-dark); /* Assuming you have CSS variables */
     color: var(--text-dm);
     overflow: hidden;
     position: relative;
+}
+
+.about-opening-text {
+    margin: 0 0 var(--space-xl);
+    padding: var(--space-sm);
+    color: var(--color-secondary);
+    text-align: center;
+    font-weight: 500 !important;
+    max-width: 700px;
+    width: 100%;
 }
 
 /* Section for "About Us" content */
@@ -26,9 +36,18 @@
     text-align: center;
 }
 
+.about-sec-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    max-width: 750px; 
+}
+
 .section-title h1 {
-    color: var(--color-secondary); /* Assuming this is your accent color */
-    margin-bottom: var(--space-xl);
+    color: var(--color-primary); /* Assuming this is your accent color */
+    margin: 0 0 var(--space-lg);
     font-size: 2.5em;
     font-weight: 700;
 }
@@ -36,24 +55,46 @@
 .about-sec-p {
     font-size: 1.1em;
     line-height: 1.7;
-    margin-bottom: var(--space-lg);
+    margin: 0 0 var(--space-md);
     color: var(--text);
+}
+
+.about-sec-footer {
+    /* font-size: 1.1em; */
+    /* line-height: 1.7; */
+    margin: var(--space-lg) 0;
+    color: var(--color-accent);
+    font-weight: 600 !important;
 }
 
 .about-trucks-container {
     display: flex;
     justify-content: center;
-    gap: var(--space-lg);
-    margin-top: var(--space-xl);
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: center;
+    width: 100%;
+    /* gap: var(--space-lg); */
+    margin-left: var(--space-sm);
+    flex-wrap: wrap; 
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+    border-radius: var(--space-sm);
+    /* background-color: var(--comp-bg-dark); */
 }
 
-.about-images {
-    width: 100%; /* Default to full width for small screens */
-    max-width: 350px; /* Max width for images */
+/* .about-images {
+    width: 100%; 
+    max-width: 350px; 
     height: auto;
     border-radius: var(--space-sm);
-    box-shadow: var(--shadow-md);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    object-fit: cover;
+} */
+
+.about-video {
+    width: 100%; 
+    max-width: 500px; 
+    height: 100%;
+    border-radius: var(--space-sm);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     object-fit: cover;
 }
 

@@ -1,47 +1,45 @@
 // src/About/About.jsx
 // This is the updated About page. It will only contain the general "About Us" content.
 // The "Meet the Owners" section has been moved to the bottom of this file.
-import closeup from '../assets/Trucks/closeup.jpg'; 
-import WhiteBTtruck from '../assets/Trucks/blackClose.jpg'; 
-import './AboutStyles.css'; 
+// import closeup from '../assets/Trucks/closeup.jpg';
+// import WhiteBTtruck from '../assets/Trucks/blackClose.jpg';
+import EditedDroneVid from '../assets/videos/EditedDroneVid.mp4';
+import './AboutStyles.css';
 
 export default function About() {
-    return (
-        <div className="about-page-container">
-            <div className="about-us-section">
-                <div className="section-title">
-                    <h1>About Us</h1>
-                </div>
-                <p className="about-sec-p">
-                    Our mission is to ensure every pool in Mid-Missouri is sparkling clean, safe, and a
-                    source of enjoyment for its owners. We utilize the latest eco-friendly techniques
-                    and products to minimize environmental impact.
-                </p>
-                <p className="about-sec-p">
-                    Founded in 2023, with over 10 years of experience. Better State is dedicated to giving
-                    you Better Pools.
-                </p>
-                <p className="about-sec-p">
-                    Proudly serving Mid-Missouri with expert, eco-friendly pool cleaning services.
-                </p>
-                <p className="about-sec-p">
-                    We are built on Trust, Reliability, and Quality.
-                </p>
-                <div className="about-trucks-container">
-                    <img className="about-images" src={closeup} alt="Better State Truck" />
-                    <img className="about-images" src={WhiteBTtruck} alt="Better State Truck" />
-                </div>
-            </div>
+  return (
+    <div className="about-page-container">
+      <h3 className="about-opening-text">
+        Proudly serving Mid-Missouri with expert, eco-friendly pool cleaning services.
+      </h3>
+      <div className="about-us-section">
+        <div className="section-title">
+          <h1>About Us</h1>
         </div>
-    );
+        <div className="about-sec-text">
+          <p className="about-sec-p">
+            Founded in 2023, with over 10 years of experience. Better State is dedicated to giving
+            you Better Piece of mind. Our mission is to ensure every pool in Mid-Missouri is
+            sparkling clean, safe, and a source of enjoyment for its owners. We utilize the latest
+            eco-friendly techniques and products to minimize environmental impact.
+          </p>
+
+          <h4 className="about-sec-footer">We are built on Trust, Reliability, and Quality.</h4>
+        </div>
+        <div className="about-trucks-container">
+            <video src={EditedDroneVid} autoPlay loop muted className="about-video" />
+          {/* <img className="about-images" src={closeup} alt="Better State Truck" /> */}
+          {/* <img className="about-images" src={WhiteBTtruck} alt="Better State Truck" /> */}
+        </div>
+      </div>
+    </div>
+  );
 }
-
-
 
 // OWNER SECTION IF WE EVER NEED TO RE-ADD IT ------------------------------
 
-                /* Andrew's Section(I commented this out. I want to keep it commented out, just moved to the bottom of the file) */
-                /* <div
+/* Andrew's Section(I commented this out. I want to keep it commented out, just moved to the bottom of the file) */
+/* <div
                     className={getColumnClass('andrew')}
                     onMouseEnter={handleMouseEnter.bind(null, 'andrew')}
                     onClick={() => handleSectionClick('andrew')}
@@ -65,9 +63,8 @@ export default function About() {
                     </div>
                 </div> */
 
-              
-                /* Josh's Section (I commented this out. I want to keep it commented out, just moved to the bottom of the file) */
-                /* <div
+/* Josh's Section (I commented this out. I want to keep it commented out, just moved to the bottom of the file) */
+/* <div
                     className={getColumnClass('josh')}
                     onMouseEnter={handleMouseEnter.bind(null, 'josh')}
                     onClick={() => handleSectionClick('josh')}

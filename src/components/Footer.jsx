@@ -5,7 +5,7 @@ import linkedin from '../assets/linkedin.blue.png';
 import Github from '../assets/github.purple.png';
 import natChem from '../assets/products/natchem.png';
 import poolFrog from '../assets/products/poolFrog.png';
-import sanitify from '../assets/products/sanitify.png';
+// import sanitify from '../assets/products/sanitify.png';
 import SeaKlear from '../assets/products/SeaKlear.webp';
 import Missouri from '../assets/states/Missouri.png';
 
@@ -68,7 +68,7 @@ export default function Footer() {
         </p>
         
         <div className="footer-products">
-          <img className="Fproduct-Logos" src={sanitify} alt="Sanitify" />
+          {/* <img className="Fproduct-Logos" src={sanitify} alt="Sanitify" /> */}
           <img className="Fproduct-Logos" src={natChem} alt="NatChem" />
           <img className="Fproduct-Logos" src={poolFrog} alt="PoolFrog" />
           <img className="Fproduct-Logos" src={SeaKlear} alt="SeaKlear" />
