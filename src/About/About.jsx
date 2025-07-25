@@ -1,8 +1,6 @@
 // src/About/About.jsx
 // This is the updated About page. It will only contain the general "About Us" content.
 // The "Meet the Owners" section has been moved to the bottom of this file.
-// import closeup from '../assets/Trucks/closeup.jpg';
-// import WhiteBTtruck from '../assets/Trucks/blackClose.jpg';
 import EditedDroneVid from '../assets/videos/EditedDroneVid.mp4';
 import './AboutStyles.css';
 
@@ -27,9 +25,17 @@ export default function About() {
           <h4 className="about-sec-footer">We are built on Trust, Reliability, and Quality.</h4>
         </div>
         <div className="about-trucks-container">
-            <video src={EditedDroneVid} autoPlay loop muted className="about-video" />
-          {/* <img className="about-images" src={closeup} alt="Better State Truck" /> */}
-          {/* <img className="about-images" src={WhiteBTtruck} alt="Better State Truck" /> */}
+          <video
+            src={EditedDroneVid}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="about-video"
+          >
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </div>

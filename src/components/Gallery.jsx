@@ -245,22 +245,18 @@ const Gallery = () => {
                   ref={mediaRef}
                 />
               ) : (
-                <>
-                  <video
-                    src={selectedMedia.src}
-                    alt={selectedMedia.alt}
-                    className="modal-media"
-                    autoPlay
-                    loop
-                    // Conditionally apply muted and controls based on isDesktop
-                    muted={!isDesktop || isMuted} // Muted if mobile, or if desktop AND user muted it
-                    playsInline
-                    controls={isDesktop} // ONLY show native controls on desktop
-                    ref={mediaRef}
-                  />
-                  {/* Conditionally render "tap to unmute" text only on mobile and when muted */}
-                  {!isDesktop && isMuted && <p className="mute-vid-text">Tap to Unmute</p>}
-                </>
+                <video
+                  src={selectedMedia.src}
+                  alt={selectedMedia.alt}
+                  className="modal-media"
+                  autoPlay
+                  loop
+                  muted // Always keep videos muted
+                  playsInline
+                  controls={isDesktop}
+                  ref={mediaRef}
+                  key={selectedMedia.id}
+                />
               )}
             </div>
           </div>
