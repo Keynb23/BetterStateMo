@@ -16,10 +16,9 @@ export default function About() {
         </div>
         <div className="about-sec-text">
           <p className="about-sec-p">
-            Veteran Owned, Founded in 2023, and over 10 years of experience. Better State is dedicated to giving
-            you Better Piece of mind. Our mission is to ensure every pool in Mid-Missouri is
-            sparkling clean, safe, and a source of enjoyment for its owners. We utilize the latest
-            eco-friendly techniques and products to minimize environmental impact.
+            Founded in 2023, Better State is a veteran-owned company with over 10 years of industry experience. 
+            We are dedicated to giving you better peace of mind. Our mission is to ensure every pool in Mid-Missouri is sparkling clean, safe, 
+            and a source of enjoyment for its owners. We use the latest eco-friendly techniques and products to minimize environmental impact.
           </p>
 
 
