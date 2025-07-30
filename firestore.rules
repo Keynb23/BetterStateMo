@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if the user is an 'owner' (admin)
+    function isOwner() {
+      // An owner must be authenticated and have the 'role: owner' custom claim.
+      return request.auth != null && request.auth.token.role == 'owner';
+    }
+
+    // Helper function to check if a user is signed in.
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if a user is authorized (signed in and not just public)
+    // This could be used for "authorized users" beyond owners if you add more roles later.
+    // For now, it's equivalent to isSignedIn() for non-owner actions.
+    function isAuthorizedUser() {
+      return isSignedIn();
+    }
+
+    // --- Rules for 'documents' collection ---
+    // Assuming 'documents' is primarily for admin/owner data.
+    match /documents/{documentId} {
+      allow read, update, delete: if isOwner();
+      // If there are public documents, you'd add:
+      // allow read: if resource.data.isPublic == true;
+    }
+
+    // --- Rules for 'appointments' collection ---
+    match /appointments/{appointmentId} {
+      // Any user (authenticated or unauthenticated) can create an appointment.
+      // Data validation ensures required fields are present and correctly typed.
+      // For authenticated users, `userId` must match their `uid`.
+      // For unauthenticated users, `userId` must not be present.
+      allow create: if
+          request.resource.data.name is string &&
+          request.resource.data.email is string &&
+          request.resource.data.phone is string &&
+          request.resource.data.address is string &&
+          request.resource.data.selectedServices is list &&
+          request.resource.data.selectedServices.size() > 0 &&
+          (request.resource.data.get('schedulingPreference', null) is string || request.resource.data.get('schedulingPreference', null) == null) &&
+          (request.resource.data.get('time', null) is string || request.resource.data.get('time', null) == null) &&
+          request.resource.data.createdAt is timestamp &&
+          request.resource.data.earlyContact is bool &&
+          (
+            (isSignedIn() && request.resource.data.userId == request.auth.uid) ||
+            (!isSignedIn() && request.resource.data.get('userId', null) == null)
+          );
+
+      // Authorized users can read their own appointments.
+      allow read: if isAuthorizedUser() && request.auth.uid == resource.data.userId;
+
+      // Owners can read, update, or delete all appointments.
+      allow read, update, delete: if isOwner();
+    }
+
+    // --- Rules for 'quoteRequests' collection (Quote Requests) ---
+    match /quoteRequests/{quoteId} {
+      // Any user (authenticated or unauthenticated) can create a quote request.
+      // Data validation ensures required fields are present and correctly typed.
+      // For authenticated users, `userId` must match their `uid`.
+      // For unauthenticated users, `userId` must not be present.
+      allow create: if
+          request.resource.data.name is string &&
+          request.resource.data.email is string &&
+          request.resource.data.phone is string &&
+          (request.resource.data.get('zipCode', null) is string || request.resource.data.get('zipCode', null) == null) &&
+          (request.resource.data.get('serviceType', null) is string || request.resource.data.get('serviceType', null) == null) &&
+          request.resource.data.message is string &&
+          request.resource.data.createdAt is timestamp &&
+          (
+            (isSignedIn() && request.resource.data.userId == request.auth.uid) ||
+            (!isSignedIn() && request.resource.data.get('userId', null) == null)
+          );
+
+      // Authorized users can read their own quote requests.
+      allow read: if isAuthorizedUser() && request.auth.uid == resource.data.userId;
+
+      // Only owners can read, update, or delete all quote requests.
+      allow read, update, delete: if isOwner();
+    }
+
+    // --- Rules for 'contactSubmissions' collection (Contact Form Submissions) ---
+match /contactSubmissions/{contactId} {
+  // Any user (authenticated or unauthenticated) can create a contact submission.
+  // Data validation ensures required fields are present and correctly typed.
+  // For authenticated users, `userId` must match their `uid`.
+  // For unauthenticated users, `userId` must not be present.
+  allow create: if
+      request.resource.data.name is string &&
+      request.resource.data.email is string &&
+      request.resource.data.phone is string &&
+      request.resource.data.message is string &&
+      request.resource.data.createdAt is timestamp &&
+      (
+        (isSignedIn() && request.resource.data.userId == request.auth.uid) ||
+        (!isSignedIn() && request.resource.data.get('userId', null) == null) // FIX IS HERE: Removed extra '.data'
+      );
+
+  // Authorized users can read their own contact submissions.
+  allow read: if isAuthorizedUser() && request.auth.uid == resource.data.userId;
+
+  // Only owners can read, update, or delete all contact submissions.
+  allow read, update, delete: if isOwner();
+}
+  }
+}

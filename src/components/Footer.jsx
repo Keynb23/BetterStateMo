@@ -49,7 +49,13 @@ export default function Footer() {
               <img src={instagram} alt="instagram" />
             </a>
           </div>
-          
+          <div className="coatPool">
+            <h3 className="column-title">Other Services</h3>
+          <p className="Othersite-text">
+            For more information on our other services, please visit our sister site:
+          </p>
+          <a href="https://coatyourpool.com/" className="Othersite-link">Coat Your Pools</a>
+          </div>
         </div>
         <div className="MO-footer">
             <img className="footer-map" src={Missouri} alt="Missouri Service Area" />
@@ -79,7 +85,6 @@ export default function Footer() {
         <p className="footer-description copyright-text">
           All rights reserved. 2025. Better State LLC.
         </p>
-        <a href="https://coatyourpool.com/" className="Othersite-link">Coat Your Pools</a>
         <div className="Devby">
           A Key'nB Production
           <div className="Devby-links">
