@@ -1,7 +1,5 @@
 // functions/index.js
 
-// eslint-disable-next-line no-unused-vars
-const functions = require('firebase-functions');
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
@@ -62,22 +60,24 @@ function generateEmailHtml(subjectLine, bodyContent) {
 // Function to send an email when a new appointment document is created in Firestore.
 exports.sendAppointmentEmailV2 = onDocumentCreated({
   document: 'appointments/{appointmentId}',
-  secrets: ['EMAIL_USER', 'EMAIL_PASSWORD'] // <--- NEW: Declare secrets here
+  secrets: ['EMAIL_USER', 'EMAIL_PASSWORD']
 }, async (event) => {
   console.log('sendAppointmentEmailV2 function triggered.');
+  // Add this console.log to ensure a visible change for deployment
+  console.log('--- FORCING REDEPLOY OF UPDATED CODE WITH OPTIONAL DATE/TIME ---');
+
   let mailTransport;
   try {
     mailTransport = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // <--- CHANGED: Use process.env
-        pass: process.env.EMAIL_PASSWORD, // <--- CHANGED: Use process.env
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
     console.log('Nodemailer transporter created successfully for sendAppointmentEmailV2.');
   } catch (configError) {
     console.error('Error creating Nodemailer transporter for sendAppointmentEmailV2:', configError);
-    // These specific lines will now reflect the environment variable status
     console.error('Environment Variable EMAIL_USER (sendAppointmentEmailV2):', process.env.EMAIL_USER ? '**** (set)' : '**** (NOT set)');
     console.error('Environment Variable EMAIL_PASSWORD (sendAppointmentEmailV2):', process.env.EMAIL_PASSWORD ? '**** (set)' : '**** (NOT set)');
     return null;
@@ -86,28 +86,32 @@ exports.sendAppointmentEmailV2 = onDocumentCreated({
   const newAppointment = event.data.data();
   const appointmentId = event.params.appointmentId;
 
+  // STRICTLY REQUIRED FIELDS:
   if (
     !newAppointment.name ||
     !newAppointment.email ||
-    !newAppointment.date ||
-    !newAppointment.time ||
     !newAppointment.address ||
-    !newAppointment.selectedServices
+    !newAppointment.selectedServices ||
+    newAppointment.selectedServices.length === 0
   ) {
-    console.error('Missing required appointment data for email:', newAppointment);
-    return null;
+    console.error('Missing REQUIRED appointment data for email (Name, Email, Address, Services):', newAppointment);
+    return null; // Don't proceed if core required fields are missing
   }
 
   const servicesListHtml = newAppointment.selectedServices
     .map((service) => `<li>${service}</li>`)
     .join('');
 
+  // Conditional HTML for Date and Time
+  const appointmentDate = newAppointment.date ? `<p><strong>Date:</strong> ${newAppointment.date}</p>` : '';
+  const appointmentTime = newAppointment.time ? `<p><strong>Time:</strong> ${newAppointment.time}</p>` : '';
+
   const emailBodyContent = `
       <p>Hello, a new appointment has been scheduled:</p>
       <hr class="hr">
       <p><strong>Appointment ID:</strong> ${appointmentId}</p>
-      <p><strong>Date:</strong> ${newAppointment.date}</p>
-      <p><strong>Time:</strong> ${newAppointment.time}</p>
+      ${appointmentDate}
+      ${appointmentTime}
       <p><strong>Customer Name:</strong> ${newAppointment.name}</p>
       <p><strong>Phone:</strong> ${newAppointment.phone || 'N/A'}</p>
       <p><strong>Email:</strong> ${newAppointment.email || 'N/A'}</p>
@@ -122,9 +126,10 @@ exports.sendAppointmentEmailV2 = onDocumentCreated({
     `;
 
   const mailOptions = {
-    from: `Better State LLC <${process.env.EMAIL_USER}>`, // <--- CHANGED: Use process.env
+    from: `Better State LLC <${process.env.EMAIL_USER}>`,
     to: FRIEND_EMAIL,
-    subject: `🎉 New Pool Cleaning Appointment: ${newAppointment.name} on ${newAppointment.date}`,
+    // Adjust subject line to always include name, and optionally date if present and valid
+    subject: `🎉 New Pool Cleaning Appointment: ${newAppointment.name}${typeof newAppointment.date === 'string' && newAppointment.date.length > 0 ? ` on ${newAppointment.date}` : ''}`,
     html: generateEmailHtml(`New Pool Cleaning Appointment Booked!`, emailBodyContent),
   };
 
@@ -141,7 +146,7 @@ exports.sendAppointmentEmailV2 = onDocumentCreated({
 // Function to send an email when a new quote request document is created in Firestore.
 exports.sendQuoteRequestEmailV2 = onDocumentCreated({
   document: 'quoteRequests/{quoteId}',
-  secrets: ['EMAIL_USER', 'EMAIL_PASSWORD'] // <--- NEW: Declare secrets here
+  secrets: ['EMAIL_USER', 'EMAIL_PASSWORD']
 }, async (event) => {
   console.log('sendQuoteRequestEmailV2 function triggered.');
   let mailTransport;
@@ -149,8 +154,8 @@ exports.sendQuoteRequestEmailV2 = onDocumentCreated({
     mailTransport = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // <--- CHANGED: Use process.env
-        pass: process.env.EMAIL_PASSWORD, // <--- CHANGED: Use process.env
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
     console.log('Nodemailer transporter created successfully for sendQuoteRequestEmailV2.');
@@ -187,7 +192,7 @@ exports.sendQuoteRequestEmailV2 = onDocumentCreated({
     `;
 
   const mailOptions = {
-    from: `Better State LLC <${process.env.EMAIL_USER}>`, // <--- CHANGED: Use process.env
+    from: `Better State LLC <${process.env.EMAIL_USER}>`,
     to: FRIEND_EMAIL,
     subject: `💰 New Quote Request: ${newQuote.name}`,
     html: generateEmailHtml(`New Quote Request Received!`, emailBodyContent),
@@ -206,7 +211,7 @@ exports.sendQuoteRequestEmailV2 = onDocumentCreated({
 // Function to send an email when a new contact submission document is created in Firestore.
 exports.sendContactEmailV2 = onDocumentCreated({
   document: 'contactSubmissions/{contactId}',
-  secrets: ['EMAIL_USER', 'EMAIL_PASSWORD'] // <--- NEW: Declare secrets here
+  secrets: ['EMAIL_USER', 'EMAIL_PASSWORD']
 }, async (event) => {
   console.log('sendContactEmailV2 function triggered.');
   let mailTransport;
@@ -214,8 +219,8 @@ exports.sendContactEmailV2 = onDocumentCreated({
     mailTransport = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // <--- CHANGED: Use process.env
-        pass: process.env.EMAIL_PASSWORD, // <--- CHANGED: Use process.env
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
     console.log('Nodemailer transporter created successfully for sendContactEmailV2.');
@@ -250,7 +255,7 @@ exports.sendContactEmailV2 = onDocumentCreated({
     `;
 
   const mailOptions = {
-    from: `Better State LLC <${process.env.EMAIL_USER}>`, // <--- CHANGED: Use process.env
+    from: `Better State LLC <${process.env.EMAIL_USER}>`,
     to: FRIEND_EMAIL,
     subject: `📧 New Contact Us Submission: ${newContact.name}`,
     html: generateEmailHtml(`New Contact Us Message!`, emailBodyContent),
