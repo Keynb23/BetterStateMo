@@ -54,7 +54,7 @@ export default function Footer() {
           <p className="Othersite-text">
             For more information on our other services, please visit our sister site:
           </p>
-          <a href="https://coatyourpool.com/" className="Othersite-link">Coat Your Pools</a>
+          <a href="https://coatyourpool.com/" className="Othersite-link">Coat Your Pool</a>
           </div>
         </div>
         <div className="MO-footer">
