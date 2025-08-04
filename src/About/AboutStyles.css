@@ -1,37 +1,33 @@
 /* src/About/AboutStyles.css */
-/* Styles specifically for the main About Us content */
 
 /* Base container for the About page */
 .about-page-container {
     display: flex;
+    margin-bottom: var(--space-xl);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 80vh; /* Adjust as needed */
+    min-height: 80vh;
+    /* Adjust as needed */
     padding: var(--space-md);
-    background-color: var(--color-primary-dark); /* Assuming you have CSS variables */
+    background-color: var(--color-primary-dark);
+    /* Assuming you have CSS variables */
     color: var(--text-dm);
     overflow: hidden;
     position: relative;
 }
 
-.about-opening-text {
-    margin: 0 0 var(--space-xl);
-    padding: var(--space-sm);
-    color: var(--color-secondary);
-    text-align: center;
-    font-weight: 500 !important;
-    max-width: 700px;
-    width: 100%;
-}
+
 
 /* Section for "About Us" content */
 .about-us-section {
-    background-color: var(--comp-bg-light); /* Lighter background for the content card */
+    background-color: var(--comp-bg-light);
+    /* Lighter background for the content card */
     border-radius: var(--space-md);
     padding: var(--space-xl);
     box-shadow: var(--shadow-lg);
-    max-width: 900px; /* Adjust max width as needed */
+    max-width: 900px;
+    /* Adjust max width as needed */
     width: 100%;
     text-align: center;
 }
@@ -42,29 +38,41 @@
     align-items: center;
     justify-content: center;
     text-align: left;
-    max-width: 750px; 
+    max-width: 750px;
+    margin-bottom: var(--space-xl);
+    
 }
 
 .section-title h1 {
-    color: var(--color-primary); /* Assuming this is your accent color */
-    margin: 0 0 var(--space-lg);
-    font-size: 2.5em;
-    font-weight: 700;
+  border-bottom: 2px solid var(--color-secondary);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--text-dm);
+}
+
+.about-sec-p-header {
+    font-size: 1.1em;
+    line-height: 1.6;
+    text-align: left;
+    color: var(--text);
+    text-indent: var(--space-lg);
 }
 
 .about-sec-p {
     font-size: 1.1em;
-    line-height: 1.7;
-    margin: 0 0 var(--space-md);
+    line-height: 1.6;
+    text-align: left;
     color: var(--text);
+    /* text-indent: var(--space-lg); */
 }
 
 .about-sec-footer {
     /* font-size: 1.1em; */
     /* line-height: 1.7; */
-    margin: var(--space-lg) 0;
+    margin-top: var(--space-md);
     color: var(--color-accent);
     font-weight: 600 !important;
+    text-align: center;
 }
 
 .about-trucks-container {
@@ -74,7 +82,7 @@
     width: 100%;
     /* gap: var(--space-lg); */
     margin-left: var(--space-xs);
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
     border-radius: var(--space-sm);
     /* background-color: var(--comp-bg-dark); */
@@ -90,8 +98,8 @@
 } */
 
 .about-video {
-    width: 100%; 
-    max-width: 500px; 
+    width: 100%;
+    max-width: 500px;
     height: 100%;
     border-radius: var(--space-sm);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -101,7 +109,8 @@
 /* Media Queries for Responsiveness */
 @media (min-width: 769px) {
     .about-trucks-container {
-        flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+        flex-wrap: nowrap;
+        /* Prevent wrapping on larger screens */
     }
 }
 
@@ -124,9 +133,12 @@
         flex-direction: column;
         gap: var(--space-md);
     }
+
     .about-images {
-        max-width: 75%; /* Adjust for mobile image size */
-        margin: 0 auto; /* Center images */
+        max-width: 75%;
+        /* Adjust for mobile image size */
+        margin: 0 auto;
+        /* Center images */
     }
 }
 
@@ -138,13 +150,18 @@
     .section-title h1 {
         font-size: 1.8em;
     }
-}
 
-/*
-    The following styles were removed as they are no longer relevant for the About page:
-    - .interactive-about-container (base container, replaced by .about-page-container)
-    - .about-mini-navbar (moved to Services.css if needed for owner slider, but not for About)
-    - .interactive-columns-wrapper (removed as owner profiles are gone)
-    - .interactive-column, .is-expanded, .is-collapsed (removed as owner profiles are gone)
-    - .mobile-column-display, .mobile-section, .profile-header, etc. (all owner-related mobile styles)
-*/
+    .about-sec-p {
+        font-size: 1em;
+        margin-bottom: var(--space-md);
+        max-width: 400px;
+    }
+
+    .about-sec-text {
+        text-align: left;
+        max-width: 400px;
+        padding: var(--space-sm);
+        font-weight: 500 !important;
+
+    }
+}

@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   margin: 0 auto;
   padding: var(--space-xl);
   box-sizing: border-box;
@@ -55,16 +55,18 @@
 }
 
 .contact-message h3 {
-  color: var(--color-primary);
+  color: var(--color-primary)!important;
   /* Heading in contact message uses the brand blue */
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-sm);
+  margin-top: var(--space-md);
   font-size: 1.8rem;
 }
 
 .contact-message p {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   font-size: 1.1rem;
-  line-height: 1.5;
+  line-height: 1.1;
+  font-weight: 500!important;
 }
 
 .Contact-right {
@@ -231,13 +233,13 @@
 /* Contact Media Queries (unchanged as they are layout/sizing related) */
 @media (max-width: 1024px) {
   .Contact-container {
-    padding: var(--space-lg);
+    padding: var(--space-md);
   }
 
   .Contact-content {
     flex-direction: column;
-    gap: var(--space-lg);
-    padding: var(--space-lg);
+    gap: var(--space-sm);
+    padding: var(--space-md);
   }
 
   .Contact-left {
@@ -268,7 +270,7 @@
 
 @media (max-width: 768px) {
   .Contact-container {
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-md) var(--space-md);
   }
 
   .Contact-right input,

@@ -7,18 +7,17 @@ import './AboutStyles.css';
 export default function About() {
   return (
     <div className="about-page-container">
-      <h3 className="about-opening-text">
-        Proudly serving Mid-Missouri with expert, eco-friendly pool cleaning services.
-      </h3>
-      <div className="about-us-section">
-        <div className="section-title">
+      <div className="section-title">
           <h1>About Us</h1>
         </div>
+      <div className="about-us-section">
+        
         <div className="about-sec-text">
-          <p className="about-sec-p">
-            Founded in 2023, Better State is a veteran-owned company with over 10 years of industry experience. 
-            We are dedicated to giving you better peace of mind. Our mission is to ensure every pool in Mid-Missouri is sparkling clean, safe, 
-            and a source of enjoyment for its owners. We use the latest eco-friendly techniques and products to minimize environmental impact.
+          <p className="about-sec-p-header">
+            Founded in 2023, Better State is a veteran-owned company with over 10 years of industry experience.</p>
+            <p className="about-sec-p">We are dedicated to giving you better peace of mind. Our mission is to ensure every pool in Mid-Missouri is sparkling clean, safe, 
+            and a source of enjoyment for its owners. </p> 
+            <p className="about-sec-p">We use the latest eco-friendly techniques and products to minimize environmental impact.
           </p>
 
 

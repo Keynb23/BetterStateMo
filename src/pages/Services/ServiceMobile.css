@@ -96,7 +96,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: var(--space-md) auto;
+  margin: 0;
   overflow: hidden;
   padding: var(--space-md);
 }
@@ -220,7 +220,7 @@
   gap: var(--space-md);
   width: 100%;
   max-width: 300px;
-  margin: var(--space-xl) auto var(--space-xl) auto;
+  margin: 0 auto var(--space-md) auto;
 }
 
 .SM-Service-global-btns-container .select-all-btn button,

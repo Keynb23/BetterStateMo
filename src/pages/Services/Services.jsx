@@ -56,8 +56,7 @@ const Service = () => {
   return (
     <section id="services" className="service-container">
       <h1 className="services-main-title">Our Pool Services</h1>
-      <div className="Service-sub"><h3>
-        Enjoy your pool - we'll handle the rest</h3></div>
+      
       {/* This is the service-mobile-text you were asking about */}
       <p className="service-mobile-text">
         Scroll down to schedule your appointment

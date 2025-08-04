@@ -104,10 +104,6 @@ export default function ServicesMobile() {
   return (
     <section id="services-mobile" className="SM-service-mobile-container">
       <h1 className="SM-services-main-title">Our Pool Services</h1>
-      <div className="SM-service-sub-mobile">
-        <h3>Enjoy your pool - we'll handle the rest</h3>
-      </div>
-
       <nav className="SM-Mobile-Service-navbar">
         {serviceData.map((service) => (
           <button

@@ -844,6 +844,17 @@
   gap: var(--space-xl);
 }
 
+.obj-opening-text {
+    padding: var(--space-sm);
+    color: var(--color-secondary);
+    text-align: center;
+    font-size: 1.25rem!important;
+    font-weight: 500 !important;
+    width: 100%;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--shadow-xl);
+}
+
 .objection-blockers-title {
   border-bottom: 2px solid var(--color-secondary);
   font-size: 2.5rem;
@@ -1689,11 +1700,11 @@
   }
 
   .footer-contact-info,
-  .footer-social-connect {
+  .footer-social-connect, .coatPool{
     align-items: center;
   }
 
-  .footer-social-media {
+  .footer-social-media, .coatPool {
     justify-content: center;
   }
 
