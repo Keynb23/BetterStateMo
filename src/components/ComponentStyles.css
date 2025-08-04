@@ -880,7 +880,10 @@
   align-items: center;
   justify-content: flex-start;
   flex: 1 1 200px;
+  margin-bottom: var(--space-lg);
   max-width: 250px;
+  height: 100%;
+  max-height: 360px;
   text-align: center;
   background-color: var(--comp-bg-light);
   border-radius: var(--space-md);
