@@ -39,7 +39,7 @@
     justify-content: center;
     text-align: left;
     max-width: 750px;
-    margin-bottom: var(--space-xl);
+    /* margin-bottom: var(--space-xl); */
     
 }
 

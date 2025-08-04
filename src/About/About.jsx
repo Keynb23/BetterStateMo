@@ -24,7 +24,7 @@ export default function About() {
           <h4 className="about-sec-footer">We are built on Trust, Reliability, and Quality.</h4>
 
         </div>
-        <div className="about-trucks-container">
+        {/* <div className="about-trucks-container">
           <video
             src={EditedDroneVid}
             autoPlay
@@ -36,7 +36,7 @@ export default function About() {
           >
             Your browser does not support the video tag.
           </video>
-        </div>
+        </div> */}
       </div>
     </div>
   );
