@@ -1,3 +1,4 @@
+// /pages/Services/ServicesMobile.jsx
 import { useState, useCallback, useRef } from 'react';
 import { SingleServiceBtn, ServiceBtns } from '../../context/ServiceContext';
 import snowflakelight from '../../assets/icons/snowflake-light.png';
@@ -49,14 +50,11 @@ const serviceData = [
 
 export default function ServicesMobile() {
   const sectionOrder = serviceData.map((service) => service.title);
-  // Removed duplicate declaration: const sectionOrder = ['Pool Opening', 'Pool Closing', 'Pool Services'];
   const [activeSection, setActiveSection] = useState('Pool Closing');
   const touchStartX = useRef(0);
   const touchStartY = useRef(0); // Add Y coordinate tracking
-  // Thresholds for swipe detection
   const SWIPE_X_THRESHOLD = 50; // Minimum horizontal distance for a swipe
   const SWIPE_Y_THRESHOLD = 30; // Maximum allowed vertical deviation for a horizontal swipe (reduce if needed)
-  // Handler for mini-navbar clicks
   const handleSectionClick = useCallback((sectionName) => {
     setActiveSection(sectionName);
   }, []);

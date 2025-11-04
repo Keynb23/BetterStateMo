@@ -1,5 +1,4 @@
-/* ServiceMobile.css */
-
+/* /pages/Services/ServiceMobile.css */
 .SM-service-mobile-container {
   position: relative;
   height: 100%;
@@ -13,7 +12,6 @@
   gap: var(--space-sm);
   background-color: var(--color-primary-dark);
 }
-
 .SM-services-main-title {
   display: flex;
   align-self: center;
@@ -24,7 +22,6 @@
   border-bottom: 2px solid var(--color-secondary);
   text-align: center;
 }
-
 /* Mobile-only H3 wrapper */
 .SM-service-sub-mobile {
   display: flex;
@@ -33,7 +30,6 @@
   width: 100%;
   margin: var(--space-xl) 0 var(--space-md);
 }
-
 .SM-service-sub-mobile h3 {
   font-size: 1.35rem !important;
   font-weight: 500 !important;
@@ -42,7 +38,6 @@
   margin: 0;
   padding: 0;
 }
-
 /* Mobile Navigation Bar (for selecting cards) */
 .SM-Mobile-Service-navbar {
   display: flex;
@@ -56,7 +51,6 @@
   box-shadow: var(--shadow-md);
   flex-wrap: wrap;
 }
-
 .SM-Mobile-Service-navbar .SM-nav-item {
   background-color: var(--color-primary);
   color: var(--text-dm);
@@ -72,22 +66,17 @@
   text-align: center;
   min-width: 90px;
 }
-
 .SM-Mobile-Service-navbar .SM-nav-item.active {
   background-color: var(--color-secondary);
   color: var(--text);
   box-shadow: var(--shadow-lg);
 }
-
 .SM-Mobile-Service-navbar .SM-nav-item:hover {
   background-color: var(--color-secondary);
   color: var(--text);
   box-shadow: var(--shadow-md);
 }
-
-
 /* ------------------- CORE STACKED CARD LOGIC ------------------- */
-
 .SM-mobile-Service-card-display {
   position: relative;
   width: 95%;
@@ -100,7 +89,6 @@
   overflow: hidden;
   padding: var(--space-md);
 }
-
 /* Styles for the individual service cards within the mobile view */
 .SM-service-item-content {
   background-color: var(--comp-bg-light);
@@ -122,14 +110,12 @@
   visibility: hidden;
   transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s;
 }
-
 /* This class will be applied to the CURRENTLY ACTIVE card */
 .SM-service-item-content.SM-active-card {
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
 }
-
 /* Reusing existing styles for internal card elements (SM-prefixed) */
 .SM-service-item-header {
   display: flex;
@@ -138,27 +124,23 @@
   gap: var(--space-md);
   margin-bottom: var(--space-md);
 }
-
 .SM-service-icon {
   width: 60px;
   height: 60px;
   object-fit: contain;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
 }
-
 .SM-service-item-title {
   color: var(--color-primary-dark);
   font-size: 1.8rem;
   margin-bottom: var(--space-sm);
 }
-
 .SM-service-item-description {
   margin-bottom: var(--space-md);
   line-height: 1.6;
   color: var(--text-muted);
   font-weight: 400;
 }
-
 .SM-service-features-list {
   list-style: none;
   padding: 0;
@@ -167,14 +149,12 @@
   width: 100%;
   max-width: 300px;
 }
-
 .SM-service-features-list li {
   color: var(--text);
   margin-bottom: var(--space-sm);
   position: relative;
   padding-left: var(--space-lg);
 }
-
 .SM-service-features-list li::before {
   content: '✔';
   color: var(--color-secondary);
@@ -182,13 +162,11 @@
   left: 0;
   top: 0;
 }
-
 .SM-service-item-btns {
   margin: auto;
   padding: 0 0 var(--space-md);
   width: 100%;
 }
-
 /* Ensure the button styles are consistent (targeting specifically within SM context) */
 .SM-service-item-btns .SS-btn button {
   width: 100%;
@@ -201,18 +179,15 @@
   transition: all 0.2s ease;
   box-shadow: var(--shadow-sm);
 }
-
 .SM-service-item-btns .SS-btn button:hover {
   background-color: var(--color-secondary);
   color: var(--text);
   box-shadow: var(--shadow-md);
 }
-
 .SM-service-item-btns .SS-btn button.selected {
   background-color: var(--color-secondary);
   color: var(--text);
 }
-
 .SM-Service-global-btns-container {
   display: flex;
   flex-direction: column;
@@ -222,7 +197,6 @@
   max-width: 300px;
   margin: 0 auto var(--space-md) auto;
 }
-
 .SM-Service-global-btns-container .select-all-btn button,
 .SM-Service-global-btns-container .set-apt-btn button {
   width: 100%;
@@ -238,13 +212,11 @@
   font-size: 1.1rem !important;
   background-color: var(--color-primary);
 }
-
 .SM-Service-global-btns-container .select-all-btn button:hover,
 .SM-Service-global-btns-container .set-apt-btn button:not(:disabled):hover {
   background-color: var(--color-primary-light);
   box-shadow: var(--shadow-md);
 }
-
 .SM-Service-global-btns-container .set-apt-btn button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -252,10 +224,7 @@
   color: var(--text-muted);
   box-shadow: none;
 }
-
-
 /* --- Specific Adjustments for Smaller Mobile Screens --- */
-
 @media (max-width: 450px) {
   .SM-service-mobile-container {
     padding: var(--space-md) var(--space-sm);
@@ -293,7 +262,6 @@
     min-width: 80px;
   }
 }
-
 @media (max-width: 350px) {
   .SM-service-mobile-container {
     padding: var(--space-sm) var(--space-xs);
@@ -326,7 +294,6 @@
     min-width: 70px;
   }
 }
-
 @media (max-width: 325px) {
   .SM-service-mobile-container {
     padding: var(--space-sm) 0;

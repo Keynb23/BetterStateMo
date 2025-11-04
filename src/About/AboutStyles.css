@@ -1,167 +1,155 @@
-/* src/About/AboutStyles.css */
+/* /src/About/AboutStyles.css */
 
 /* Base container for the About page */
 .about-page-container {
-    display: flex;
-    margin-bottom: var(--space-xl);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    /* Adjust as needed */
-    padding: var(--space-md);
-    background-color: var(--color-primary-dark);
-    /* Assuming you have CSS variables */
-    color: var(--text-dm);
-    overflow: hidden;
-    position: relative;
+  display: flex;
+  margin-bottom: var(--space-xl);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: var(--space-md);
+  background-color: var(--color-primary-dark);
+  color: var(--text-dm);
+  overflow: hidden;
+  position: relative;
 }
 
-
+/* Section Title */
+.section-title h1 {
+ border-bottom: 2px solid var(--color-secondary);
+ text-align: center;
+ margin-bottom: var(--space-xl);
+ color: var(--text-dm);
+}
 
 /* Section for "About Us" content */
 .about-us-section {
-    background-color: var(--comp-bg-light);
-    /* Lighter background for the content card */
-    border-radius: var(--space-md);
-    padding: var(--space-xl);
-    box-shadow: var(--shadow-lg);
-    max-width: 900px;
-    /* Adjust max width as needed */
-    width: 100%;
-    text-align: center;
+  background-color: var(--comp-bg-light);
+  /* Lighter background for the content card */
+  border-radius: var(--space-md);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-lg);
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
 }
 
 .about-sec-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-    max-width: 750px;
-    /* margin-bottom: var(--space-xl); */
-    
+  display: flex;
+  flex-direction: column;
+  /* Set to justify text */
+  text-align: justify;
 }
 
-.section-title h1 {
-  border-bottom: 2px solid var(--color-secondary);
+/* NEW: Style for the H2 sub-heading */
+.about-sec-h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1.2;
   text-align: center;
-  margin-bottom: var(--space-xl);
-  color: var(--text-dm);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
 }
 
+/* Header paragraph (History/Experience) - Adjusted to be justified */
 .about-sec-p-header {
-    font-size: 1.1em;
-    line-height: 1.6;
-    text-align: left;
-    color: var(--text);
-    text-indent: var(--space-lg);
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: justify; /* Changed to justify */
+  color: var(--text);
+  margin-bottom: var(--space-lg);
+  /* Removed text-indent */
 }
 
+/* Standard paragraphs - Adjusted to be justified */
 .about-sec-p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    text-align: left;
-    color: var(--text);
-    /* text-indent: var(--space-lg); */
+  font-size: 1.1em;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: justify; /* Changed to justify */
+  color: var(--text);
+  /* Removed text-indent */
 }
 
+/* Footer (Slogan/CTA) */
 .about-sec-footer {
-    /* font-size: 1.1em; */
-    /* line-height: 1.7; */
-    margin-top: var(--space-md);
-    color: var(--color-accent);
-    font-weight: 600 !important;
-    text-align: center;
+  font-size: 1.1em;
+  margin-top: var(--space-xl); /* Increased top margin */
+  color: var(--color-accent); /* Changed color to match accent/secondary */
+  font-weight: 700 !important; /* Increased weight */
+  text-align: center; /* Centered the slogan */
 }
 
-.about-trucks-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    /* gap: var(--space-lg); */
-    margin-left: var(--space-xs);
-    flex-wrap: wrap;
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
-    border-radius: var(--space-sm);
-    /* background-color: var(--comp-bg-dark); */
-}
-
-/* .about-images {
-    width: 100%; 
-    max-width: 350px; 
-    height: auto;
-    border-radius: var(--space-sm);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    object-fit: cover;
-} */
-
-.about-video {
-    width: 100%;
-    max-width: 500px;
-    height: 100%;
-    border-radius: var(--space-sm);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    object-fit: cover;
-}
+/* ... (Rest of the CSS remains the same) ... */
 
 /* Media Queries for Responsiveness */
 @media (min-width: 769px) {
-    .about-trucks-container {
-        flex-wrap: nowrap;
-        /* Prevent wrapping on larger screens */
-    }
+  .about-trucks-container {
+    flex-wrap: nowrap;
+  }
 }
 
 @media (max-width: 768px) {
-    .about-us-section {
-        padding: var(--space-lg);
-    }
+  .about-us-section {
+    padding: var(--space-lg);
+  }
 
-    .section-title h1 {
-        font-size: 2em;
-        margin-bottom: var(--space-lg);
-    }
+  .section-title h1 {
+    font-size: 2em;
+    margin-bottom: var(--space-lg);
+  }
 
-    .about-sec-p {
-        font-size: 1em;
-        margin-bottom: var(--space-md);
-    }
+  .about-sec-h2 {
+    font-size: 1.3em;
+  }
 
-    .about-trucks-container {
-        flex-direction: column;
-        gap: var(--space-md);
-    }
+  .about-sec-p {
+    font-size: 1em;
+    margin-bottom: var(--space-md);
+    text-align: left; /* Keep left alignment on smaller screens */
+  }
 
-    .about-images {
-        max-width: 75%;
-        /* Adjust for mobile image size */
-        margin: 0 auto;
-        /* Center images */
-    }
+  .about-sec-p-header {
+    text-align: left; /* Keep left alignment on smaller screens */
+  }
+
+  .about-trucks-container {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .about-images {
+    max-width: 75%;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 480px) {
-    .about-us-section {
-        padding: var(--space-md);
-    }
+  .about-us-section {
+    padding: var(--space-md);
+  }
 
-    .section-title h1 {
-        font-size: 1.8em;
-    }
+  .section-title h1 {
+    font-size: 1.8em;
+  }
 
-    .about-sec-p {
-        font-size: 1em;
-        margin-bottom: var(--space-md);
-        max-width: 400px;
-    }
+  .about-sec-h2 {
+    font-size: 1.1em;
+  }
+  .about-sec-p {
+    font-size: 1em;
+    margin-bottom: var(--space-md);
+    max-width: 400px;
+  }
 
-    .about-sec-text {
-        text-align: left;
-        max-width: 400px;
-        padding: var(--space-sm);
-        font-weight: 500 !important;
+  .about-sec-text {
+    text-align: left;
+    max-width: 400px;
+    padding: var(--space-sm);
+    font-weight: 500 !important;
 
-    }
+  }
 }

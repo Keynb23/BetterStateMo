@@ -6,305 +6,302 @@
 }
 /* ----------------------------Contact Section------------------------------- */
 .Contact-container {
-  background-color: var(--color-primary-dark);
-  color: var(--text);
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  padding: var(--space-xl);
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
+ background-color: var(--color-primary-dark);
+ color: var(--text);
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ height: 100%;
+ margin: 0 auto;
+ padding: var(--space-xl);
+ box-sizing: border-box;
+ justify-content: center;
+ align-items: center;
 }
 
 .Contact-container h1 {
-  border-bottom: 2px solid var(--color-secondary);
-  text-align: center;
-  margin-bottom: var(--space-xl);
-  color: var(--text-dm);
+ border-bottom: 2px solid var(--color-secondary);
+ text-align: center;
+ margin-bottom: var(--space-xl);
+ color: var(--text-dm);
 }
 
 .Contact-content {
-  background-color: var(--comp-bg-light);
-   /* background-color: var(--comp-bg-dark); */
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-xl);
-  width: 100%;
-  max-width: 1400px;
-  border-radius: var(--space-md);
-  padding: var(--space-lg);
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  /* Default text color within the content card (near-black) */
+ /*   REMOVED: background-color: var(--comp-bg-light); 
+  The background is now applied to the left and right children
+ */
+ background-color: transparent; /* Ensure no residual background color */
+ display: flex;
+ justify-content: space-between;
+ gap: 0; /* Remove gap so the two halves touch seamlessly */
+ width: 100%;
+ max-width: 1400px;
+ border-radius: var(--space-md);
+ /* Apply shadow to the wrapper for a consistent border look */
+ box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+ overflow: hidden; /* Important for clean border radius */
 }
 
+/* 🌟 NEW STYLES for Dark Left Side */
 .Contact-left {
-  flex-basis: 45%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-right: var(--space-lg);
+ flex-basis: 40%; /* Slightly smaller basis for contact info */
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ padding: var(--space-xl) var(--space-lg); /* Padding on all sides */
+ 
+ /* --- COLOR CHANGES --- */
+ background-color: var(--color-primary); /* Dark Blue Background */
+ color: var(--text-dm); /* Light Text Color */
+ /* --- COLOR CHANGES --- */
 }
 
 .contact-message {
-  color: var(--text);
-  /* color: var(--text-dm); */
-  text-align: center;
+ color: var(--text-dm); /* Text color must be light for dark background */
+ text-align: center;
 }
 
 .contact-message h3 {
-  color: var(--color-primary)!important;
-  /* Heading in contact message uses the brand blue */
-  margin-bottom: var(--space-sm);
-  margin-top: var(--space-md);
-  font-size: 1.8rem;
+ color: var(--color-secondary) !important; /* Accent color for the heading */
+ margin-bottom: var(--space-sm);
+ margin-top: var(--space-md);
+ font-size: 1.8rem;
 }
 
 .contact-message p {
-  margin-bottom: var(--space-sm);
-  font-size: 1.1rem;
-  line-height: 1.1;
-  font-weight: 500!important;
+ margin-bottom: var(--space-sm);
+ font-size: 1.1rem;
+ line-height: 1.1;
+ font-weight: 500 !important;
 }
 
+/* 🌟 NEW STYLES for Light Right Side (Form) */
 .Contact-right {
-  flex-basis: 55%;
+ flex-basis: 60%; /* Slightly larger basis for the form */
+ background-color: var(--comp-bg-light); /* Light Background */
+ padding: var(--space-xl); /* Padding to separate content from edge */
 }
 
 .Contact-right form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  color: var(--text);
-  /* color: var(--text-muted-dm); */
+ display: flex;
+ flex-direction: column;
+ gap: var(--space-md);
+ color: var(--text);
 }
 
 .form-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-
+ flex: 1;
+ display: flex;
+ flex-direction: column;
 }
 
 .Contact-right label {
-
-  font-weight: 500;
-  margin-bottom: var(--space-sm);
-  /* color: var(--text-muted-dm); */
-  color: var(--text-muted);
-  /* color: var(--text); */
+ font-weight: 500;
+ margin-bottom: var(--space-sm);
+ color: var(--text-muted);
 }
 
 .Contact-right input,
 .Contact-right textarea {
-  padding: var(--space-md);
-  background-color: var(--bg);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: var(--space-sm);
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
+ padding: var(--space-md);
+ background-color: var(--bg);
+ color: var(--text);
+ border: 1px solid var(--border);
+ border-radius: var(--space-sm);
+ font-size: 1rem;
+ font-family: 'Poppins', sans-serif;
+ transition:
+  border-color 0.3s ease,
+  box-shadow 0.3s ease;
+ width: 100%;
+ box-sizing: border-box;
 }
 
 .Contact-right input:focus,
 .Contact-right textarea:focus {
-  border-color: 1px solid var(--color-primary-light);
-   outline: none;
-  box-shadow: 0 0 0 3px oklch(50% 0.15 250 / 0.2);
-  /* A transparent version of primary blue */
+ border-color: 1px solid var(--color-primary-light);
+ outline: none;
+ box-shadow: 0 0 0 3px oklch(50% 0.15 250 / 0.2);
 }
 
 .Contact-right textarea {
-  resize: vertical;
-  min-height: 120px;
+ resize: vertical;
+ min-height: 120px;
 }
 
+/* Checkbox and Button styles remain unchanged and work on the light background */
 .confirm-section {
-  margin-top: var(--space-sm);
-  margin-bottom: var(--space-md);
-  display: flex;
-  align-items: flex-start;
+ margin-top: var(--space-sm);
+ margin-bottom: var(--space-md);
+ display: flex;
+ align-items: flex-start;
 }
-
 .checkbox-container {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  font-size: 0.95rem;
-
+ display: flex;
+ align-items: center;
+ cursor: pointer;
+ user-select: none;
+ font-size: 0.95rem;
 }
-
 .checkbox-container input[type='checkbox'] {
-  display: none;
+ display: none;
 }
-
 .checkbox-custom {
-  min-width: 1.25rem;
-  height: 1.25rem;
-  border: 2px solid var(--border);
-  border-radius: 0.25rem;
-  margin-right: var(--space-sm);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease-in-out;
-  background-color: var(--comp-bg-light);
-  position: relative;
+ min-width: 1.25rem;
+ height: 1.25rem;
+ border: 2px solid var(--border);
+ border-radius: 0.25rem;
+ margin-right: var(--space-sm);
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ transition: all 0.2s ease-in-out;
+ background-color: var(--comp-bg-light);
+ position: relative;
 }
-
 .checkbox-container input[type='checkbox']:checked+.checkbox-custom {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
+ background-color: var(--color-accent);
+ border-color: var(--color-accent);
 }
-
 .checkbox-custom::after {
-  content: '';
-  position: absolute;
-  width: 0.5rem;
-  height: 0.8rem;
-  border: solid var(--text-dm);
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg) scale(0);
-  opacity: 0;
-  transition:
-    transform 0.2s ease-in-out,
-    opacity 0.2s ease-in-out;
+ content: '';
+ position: absolute;
+ width: 0.5rem;
+ height: 0.8rem;
+ border: solid var(--text-dm);
+ border-width: 0 3px 3px 0;
+ transform: rotate(45deg) scale(0);
+ opacity: 0;
+ transition:
+  transform 0.2s ease-in-out,
+  opacity 0.2s ease-in-out;
 }
-
 .checkbox-container input[type='checkbox']:checked+.checkbox-custom::after {
-  transform: rotate(45deg) scale(1);
-  opacity: 1;
+ transform: rotate(45deg) scale(1);
+ opacity: 1;
 }
-
 .Submit-btn {
-  padding: var(--space-md) var(--space-lg);
-  border: none;
-  background-color: var(--color-accent);
-  color: var(--text-dm);
-  border-radius: var(--space-sm);
-  font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease,
-    opacity 0.3s ease;
-  align-self: flex-start;
-  margin-top: var(--space-sm);
+ padding: var(--space-md) var(--space-lg);
+ border: none;
+ background-color: var(--color-accent);
+ color: var(--text-dm);
+ border-radius: var(--space-sm);
+ font-weight: 600;
+ font-size: 1.1rem;
+ cursor: pointer;
+ transition:
+  background-color 0.3s ease,
+  transform 0.2s ease,
+  opacity 0.3s ease;
+ align-self: flex-start;
+ margin-top: var(--space-sm);
 }
-
 .Submit-btn:hover:not(:disabled) {
-  background-color: var(--color-primary);
-  /* Hover state uses the primary blue */
-  transform: translateY(-2px);
+ background-color: var(--color-primary);
+ transform: translateY(-2px);
 }
-
 .Submit-btn:disabled {
-  background-color: var(--border-muted);
-  /* Disabled button background muted border color */
-  color: var(--text-muted);
-  /* Disabled button text muted color */
-  cursor: not-allowed;
-  opacity: 0.7;
-  transform: none;
+ background-color: var(--border-muted);
+ color: var(--text-muted);
+ cursor: not-allowed;
+ opacity: 0.7;
+ transform: none;
 }
-
 .submit-feedback {
-  margin-top: var(--space-md);
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
-  padding: var(--space-sm);
-  border-radius: var(--space-xs);
-  background-color: oklch(50% 0.15 250 / 0.1);
-  /* Light transparent blue for feedback */
-  color: var(--color-primary);
-  /* Feedback text uses brand blue */
+ margin-top: var(--space-md);
+ font-size: 1rem;
+ font-weight: 500;
+ text-align: center;
+ padding: var(--space-sm);
+ border-radius: var(--space-xs);
+ background-color: oklch(50% 0.15 250 / 0.1);
+ color: var(--color-primary);
 }
 
-/* Contact Media Queries (unchanged as they are layout/sizing related) */
+
+/* --- MEDIA QUERIES --- */
 @media (max-width: 1024px) {
-  .Contact-container {
-    padding: var(--space-md);
-  }
+ .Contact-container {
+  padding: var(--space-md);
+ }
+ .Contact-content {
+  flex-direction: column;
+  gap: 0; /* Important: No gap */
+  padding: 0; /* Important: No padding on content wrapper */
+ }
+ .Contact-left {
+  /* On mobile, left side spans full width, keep its own internal padding */
+  flex-basis: auto;
+  padding: var(--space-lg) var(--space-md); 
+  border-radius: var(--space-md) var(--space-md) 0 0; /* Only top corners rounded */
+ }
+ .Contact-right {
+  /* On mobile, right side spans full width, keep its own internal padding */
+  flex-basis: auto;
+  padding: var(--space-lg) var(--space-md);
+  border-radius: 0 0 var(--space-md) var(--space-md); /* Only bottom corners rounded */
+ }
 
-  .Contact-content {
-    flex-direction: column;
-    gap: var(--space-sm);
-    padding: var(--space-md);
-  }
+ .Contact-left, .Contact-right {
+  text-align: center;
+ }
+ .contact-message {
+  padding: 0;
+  text-align: center;
+ }
 
-  .Contact-left {
-    text-align: center;
-    padding-right: 0;
-    padding-bottom: var(--space-md);
-  }
+ .contact-message h3 {
+  padding-bottom: var(--space-md);
+ }
 
-  .contact-message {
-    padding: 0;
-    text-align: center;
-  }
+ .Submit-btn {
+  align-self: stretch;
+  width: 100%;
+ }
 
-  .contact-message h3 {
-    padding-bottom: var(--space-md);
-  }
-
-  .Submit-btn {
-    align-self: stretch;
-    width: 100%;
-  }
-
-  .checkbox-container {
-    justify-content: center;
-    text-align: center;
-  }
+ .checkbox-container {
+  justify-content: center;
+  text-align: center;
+ }
 }
 
 @media (max-width: 768px) {
-  .Contact-container {
-    padding: var(--space-md) var(--space-md);
-  }
+ .Contact-container {
+  padding: var(--space-md) var(--space-md);
+ }
 
-  .Contact-right input,
-  .Contact-right textarea {
-    padding: var(--space-sm);
-    font-size: 0.95rem;
-  }
+ .Contact-right input,
+ .Contact-right textarea {
+  padding: var(--space-sm);
+  font-size: 0.95rem;
+ }
 
-  .Submit-btn {
-    padding: var(--space-md) var(--space-lg);
-  }
+ .Submit-btn {
+  padding: var(--space-md) var(--space-lg);
+ }
 }
 
 @media (max-width: 480px) {
-  .Contact-container {
-    padding: var(--space-md);
-  }
+ .Contact-container {
+  padding: var(--space-md);
+ }
 
-  .Contact-right input,
-  .Contact-right textarea {
-    font-size: 0.9rem;
-    padding: var(--space-sm);
-  }
+ .Contact-right input,
+ .Contact-right textarea {
+  font-size: 0.9rem;
+  padding: var(--space-sm);
+ }
 
-  .Submit-btn {
-    padding: var(--space-sm) var(--space-md);
-  }
+ .Submit-btn {
+  padding: var(--space-sm) var(--space-md);
+ }
 
-  .checkbox-container {
-    font-size: 0.85rem;
-  }
+ .checkbox-container {
+  font-size: 0.85rem;
+ }
 
-  .checkbox-custom {
-    min-width: 1.1rem;
-    height: 1.1rem;
-  }
+ .checkbox-custom {
+  min-width: 1.1rem;
+  height: 1.1rem;
+ }
 }

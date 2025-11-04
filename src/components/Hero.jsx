@@ -51,7 +51,7 @@ const Hero = () => {
             <img src={Logo} alt="Better State LLC Logo" />
           </div>
           <div className="hero-title">
-            <h1>BETTER STATE LLC</h1>
+            <h1>BetterStatePools</h1>
             
           </div>
           <p className="hero-slogan">Enjoy your pool-We'll handle the rest</p>

@@ -1,4 +1,6 @@
-/* Service STyles ------------------------------------------------------------------- */
+/* /pages/Services/Services.css */
+
+/* Service Section Styling */
 .service-container {
   position: relative;
   height: 100%;
@@ -23,7 +25,7 @@
   border-bottom: 2px solid var(--color-secondary);
 }
 
-/* Original H3 (Desktop version) - Target the wrapper div for layout */
+/* Original H3 (Desktop version) - No longer used by JSX, but kept for safety */
 .Service-sub {
   display: flex;
   justify-content: center;
@@ -32,7 +34,6 @@
   margin: var(--space-xl) 0 var(--space-md);
 }
 
-/* Styles for the h3 *inside* the desktop Service-sub div */
 .Service-sub h3 {
   font-size: 1.35rem !important;
   font-weight: 500 !important;
@@ -47,8 +48,7 @@
   display: none;
 }
 
-
-/* Your mobile-only text section */
+/* Mobile-only text section */
 .service-mobile-text {
   display: none;
   padding: var(--space-md);
@@ -79,6 +79,49 @@
   background-color: var(--color-primary-dark);
 }
 
+/* New: Mini Navbar for Desktop/Tablet */
+.Mobile-Service-navbar {
+  display: none;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) 0;
+  width: 100%;
+  margin-bottom: var(--space-lg);
+  background-color: var(--comp-bg-dark);
+  border-radius: var(--space-sm);
+  box-shadow: var(--shadow-md);
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  background-color: var(--color-primary);
+  color: var(--text-dm);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease-in-out;
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 90px;
+}
+
+.nav-item:active {
+  background-color: var(--color-secondary);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+}
+
+.nav-item:hover {
+  background-color: var(--color-secondary);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+}
+
+/* Service-main-content (Old vertical menu wrapper - mostly deprecated) */
 .Service-main-content {
   position: relative;
   height: auto;
@@ -92,89 +135,9 @@
   padding: var(--space-sm);
 }
 
-.Service-menuP {
-  display: flex;
-  text-align: center;
-  color: var(--text-dm);
-  flex-direction: column;
-  max-width: 600px;
-  margin: var(--space-md) auto var(--space-xl) auto;
-  line-height: var(--space-lg);
-  font-weight: 400 !important;
-}
+/* Deleted: .service-menu-items, .service-menu-list, .service-menu-item, etc. */
 
-.service-menu-items {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-xl) var(--space-sm);
-  width: 100%;
-  margin-top: var(--space-xl);
-  background-color: var(--color-primary-dark);
-  border-radius: var(--space-sm);
-}
-
-.service-menu-list {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  align-items: center;
-  list-style: none;
-}
-
-.service-menu-item {
-  background-color: var(--color-primary);
-  color: var(--text-dm);
-  border: none;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--space-sm);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
-  transition: all 0.25s ease-in-out;
-  width: 180px;
-  text-align: center;
-  margin-bottom: var(--space-xs);
-}
-
-.service-menu-item:hover {
-  background-color: var(--color-secondary);
-  color: var(--text);
-  box-shadow: var(--shadow-lg);
-}
-
-.active-menu-item {
-  background-color: var(--color-secondary);
-  color: var(--text);
-  border: none;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--space-sm);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: var(--shadow-lg);
-  transition: all 0.25s ease-in-out;
-  width: 180px;
-  text-align: center;
-  margin-bottom: var(--space-xs);
-}
-
-.active-menu-item:hover {
-  background-color: var(--color-primary-light);
-  color: var(--text);
-  box-shadow: var(--shadow-xl);
-}
-
-.service-menu-item.highlighted-menu-item {
-  background-color: var(--color-primary-light);
-  color: var(--text);
-  box-shadow: var(--shadow-md);
-}
-
+/* Global Buttons Container */
 .Service-global-btns-container {
   display: flex;
   flex-direction: column;
@@ -185,6 +148,7 @@
   margin: var(--space-xxl) auto var(--space-xl) auto;
 }
 
+/* ... Global Button Styles ... (Kept as is) */
 .Service-global-btns-container .select-all-btn button,
 .Service-global-btns-container .set-apt-btn button {
   width: 100%;
@@ -224,6 +188,7 @@
   padding: var(--space-sm);
 }
 
+/* ... Service Item Card Styles ... (Kept as is) */
 .service-item-card {
   background-color: var(--comp-bg-light);
   color: var(--text);
@@ -326,56 +291,38 @@
 /* Media Queries */
 @media (min-width: 768px) {
 
-  /* Hide mobile-only elements on desktop */
   .service-mobile-text,
   .service-sub-mobile {
-    /* Hide the mobile closing line div */
     display: none;
   }
 
-  /* Show the desktop H3 wrapper div */
   .Service-sub {
     display: flex;
-    /* Ensure it's visible on desktop */
   }
 
+  /* NEW MINI NAVBAR STYLING */
+  .Mobile-Service-navbar {
+    display: flex;
+    /* Show the new horizontal navbar */
+    margin-top: var(--space-lg);
+  }
+
+  .Mobile-Service-navbar .nav-item {
+    font-size: 1rem;
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  /* DESKTOP/TABLET LAYOUT ADJUSTMENTS */
   .services-body-content {
-    flex-direction: row;
-    align-items: flex-start;
+    /* Override mobile row layout to be column-based and centered */
+    flex-direction: column;
+    align-items: center;
     gap: var(--space-xl);
   }
 
   .Service-main-content {
-    flex-shrink: 0;
-    max-width: 250px;
-    align-items: flex-start;
-    padding-right: var(--space-lg);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .Service-menuP {
-    text-align: left;
-    margin: var(--space-md) 0 var(--space-xl) 0;
-  }
-
-  .service-menu-items {
-    display: flex;
-    /* Ensure menu items are visible on desktop */
-    padding: 0;
-    margin-top: var(--space-lg);
-    align-items: flex-start;
-  }
-
-  .service-menu-list {
-    align-items: flex-start;
-  }
-
-  .service-menu-item,
-  .active-menu-item,
-  .service-menu-item.highlighted-menu-item {
-    width: 100%;
-    text-align: left;
-    padding-left: var(--space-lg);
+    display: none;
+    /* Explicitly hide the old vertical menu wrapper */
   }
 
   .Service-global-btns-container {
@@ -386,9 +333,11 @@
     flex-grow: 1;
     margin-top: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Allow three cards across on wide screens */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-xl);
     padding: var(--space-sm);
+    max-width: 1200px;
   }
 
   .service-item-card {
@@ -400,4 +349,3 @@
     justify-content: flex-start;
   }
 }
-
