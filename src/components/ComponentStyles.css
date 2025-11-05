@@ -508,7 +508,7 @@
   width: 1200px;
   color: var(--text-dm);
   font-size: 8rem !important;
-  font-family: Lato;
+  /* font-family: Lato; */
   font-weight: 800;
   white-space: normal;
   letter-spacing: -0.1rem;

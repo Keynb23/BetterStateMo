@@ -1,18 +1,14 @@
 // functions/index.js
-
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 
-
 admin.initializeApp();
-
 
 const FRIEND_EMAIL = 'betterstatemo@gmail.com'; // <--- REPLACE THIS WITH YOUR ACTUAL EMAIL!
 const LOGO_URL = 'https://firebasestorage.googleapis.com/v0/b/better-state-llc.firebasestorage.app/o/Logo1.png?alt=media&token=3b293ba-4548-4867-8900-a49267b8c349';
-
 
 let emailCss = '';
 try {
@@ -55,7 +51,6 @@ function generateEmailHtml(subjectLine, bodyContent) {
     </html>
   `;
 }
-
 
 // Function to send an email when a new appointment document is created in Firestore.
 exports.sendAppointmentEmailV2 = onDocumentCreated({
@@ -141,7 +136,6 @@ exports.sendAppointmentEmailV2 = onDocumentCreated({
   }
   return null;
 });
-
 
 // Function to send an email when a new quote request document is created in Firestore.
 exports.sendQuoteRequestEmailV2 = onDocumentCreated({

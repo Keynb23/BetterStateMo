@@ -28,17 +28,6 @@ const Hero = () => {
 
   return (
     <div className="hero-container">
-      {/* Commented out video background */}
-      {/* {videoLoaded && (
-        <div className="hero-background-video">
-          <video autoPlay loop muted playsInline>
-            <source src={EditedDroneVid} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="video-overlay"></div>
-        </div>
-      )} */}
-
       {/* Image background added */}
       <div className="hero-background-video">
         <img src={BrownBlue} alt="Brown Blue Pool Background" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6)' }} />

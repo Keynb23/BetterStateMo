@@ -15,7 +15,7 @@ export default function Footer() {
     <div className="footer-container">
       <div className="footer-top-columns">
         <div className="footer-column footer-about">
-          <h1 className="footer-heading">Better State LLC</h1>
+          <h1 className="footer-heading">BetterStatePools</h1>
           <h2 className="footer-slogan">Better Pools & Better Service</h2>
         </div>
 
@@ -48,13 +48,6 @@ export default function Footer() {
             >
               <img src={instagram} alt="instagram" />
             </a>
-          </div>
-          <div className="coatPool">
-            <h3 className="column-title">Other Services</h3>
-          <p className="Othersite-text">
-            For more information on our other services, please visit our sister site:
-          </p>
-          <a href="https://coatyourpool.com/" className="Othersite-link">Coat Your Pool</a>
           </div>
         </div>
         <div className="MO-footer">
