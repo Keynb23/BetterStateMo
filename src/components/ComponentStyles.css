@@ -874,6 +874,7 @@
   max-width: 250px;
   height: 100%;
   max-height: 360px;
+  min-height: 360px;
   text-align: center;
   background-color: var(--comp-bg-light);
   border-radius: var(--space-md);
@@ -997,8 +998,6 @@
     font-size: 1.1rem;
   }
 }
-
-/* Gallery ============================================================= */
 /* Gallery ============================================================= */
 .gallery-container {
   background-color: var(--color-primary-dark);
