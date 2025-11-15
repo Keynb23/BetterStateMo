@@ -9,7 +9,6 @@ import poolFrog from '../assets/products/poolFrog.png';
 import SeaKlear from '../assets/products/SeaKlear.webp';
 import Missouri from '../assets/states/Missouri.png';
 
-
 export default function Footer() {
   return (
     <div className="footer-container">
@@ -51,8 +50,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="MO-footer">
-            <img className="footer-map" src={Missouri} alt="Missouri Service Area" />
-          </div>
+          <img className="footer-map" src={Missouri} alt="Missouri Service Area" />
+        </div>
       </div>
 
       <div className="disclaimer-section">
@@ -65,7 +64,7 @@ export default function Footer() {
           with, or endorsement by, Better State LLC. We are simply proud to use these products for
           our customers.
         </p>
-        
+
         <div className="footer-products">
           {/* <img className="Fproduct-Logos" src={sanitify} alt="Sanitify" /> */}
           <img className="Fproduct-Logos" src={natChem} alt="NatChem" />
@@ -79,8 +78,16 @@ export default function Footer() {
           All rights reserved. 2025. Better State LLC.
         </p>
         <div className="Devby">
-          A Key'nB Production
+          Developed & Designed by -
           <div className="Devby-links">
+            <a
+              href="https://keyn-b.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="portfolio-link"
+            >
+              Key'nB
+            </a>
             <a
               href="https://www.linkedin.com/in/key-n-brosdahl-5320b3353/"
               target="_blank"
@@ -91,7 +98,6 @@ export default function Footer() {
             <a href="https://github.com/Keynb23" target="_blank" rel="noopener noreferrer">
               <img src={Github} alt="GitHub" />
             </a>
-            <a className="portfolio-link"> Portfolio link </a>
           </div>
         </div>
       </div>
