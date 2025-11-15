@@ -2,7 +2,6 @@ import { createContext, useContext } from 'react';
 
 // import images
 import andrew from '../assets/owners/andrew.jpg';
-import josh from '../assets/owners/josh.jpg';
 
 // import pools images (example)
 import pool1 from '../assets/pools/apt.complex.jpg';
@@ -75,7 +74,6 @@ const MediaContext = createContext();
 export const MediaProvider = ({ children }) => {
   const owners = {
     andrew,
-    josh,
     Logo,
   };
   // 1 is 0, 2 is 1, etc.

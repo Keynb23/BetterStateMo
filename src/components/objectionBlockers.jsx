@@ -8,9 +8,7 @@ import './ComponentStyles.css';
 export default function ObjectionBlockers() {
   return (
     <section className="objection-blockers-wrapper">
-      <h3 className="obj-opening-text">
-        Proudly serving Mid-Missouri with expert eco-friendly pool cleaning services.
-      </h3>
+
       {' '}
       {/* Changed to <section> for semantic HTML */}
       <h2 className="objection-blockers-title">Why Choose Us?</h2> {/* Added a title */}
@@ -50,6 +48,9 @@ export default function ObjectionBlockers() {
             <p>We pride ourselves on punctuality and consistent, high-quality service.</p>
           </div>
         </div>
+              <h3 className="obj-opening-text">
+        Proudly serving Mid-Missouri with expert eco-friendly pool cleaning services.
+      </h3>
       </div>
     </section>
   );

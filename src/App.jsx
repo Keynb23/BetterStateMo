@@ -55,9 +55,9 @@ function App() {
                 <section id="hero-section"><Home /></section>
                 <section id="services"><ServicesIndex /></section>
                 <section id="about"><About /></section>
-                <section id="contact"><Contact /></section>
                 <ObjectionBlockers />
                 <Reviews />
+                <section id="contact"><Contact /></section>
               </>
             }
           />
