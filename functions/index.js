@@ -1,22 +1,28 @@
-// functions/index.js
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 
-admin.initializeApp();
+// Initialize Admin SDK
+if (admin.apps.length === 0) {
+  admin.initializeApp();
+}
 
-const FRIEND_EMAIL = 'betterstatemo@gmail.com'; // <--- REPLACE THIS WITH YOUR ACTUAL EMAIL!
+// Import the Scheduled Sync Function
+const { syncGoogleReviews } = require('./scheduledSyncReviews');
+
+const FRIEND_EMAIL = 'betterstatemo@gmail.com'; 
 const LOGO_URL = 'https://firebasestorage.googleapis.com/v0/b/better-state-llc.firebasestorage.app/o/Logo1.png?alt=media&token=3b293ba-4548-4867-8900-a49267b8c349';
 
+// Global CSS Loader
 let emailCss = '';
 try {
   const cssFilePath = path.join(__dirname, 'functions_email_styles.css');
   emailCss = fs.readFileSync(cssFilePath, 'utf8');
   console.log('Successfully loaded email CSS styles globally.');
 } catch (error) {
-  console.error('Error loading email CSS file during global initialization:', error);
+  console.error('Error loading email CSS file:', error);
 }
 
 function generateEmailHtml(subjectLine, bodyContent) {
@@ -28,10 +34,7 @@ function generateEmailHtml(subjectLine, bodyContent) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>${subjectLine}</title>
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-      <style>
-        /* Embedded CSS from functions_email_styles.css */
-        ${emailCss}
-      </style>
+      <style>${emailCss}</style>
     </head>
     <body>
       <div class="container">
@@ -39,9 +42,7 @@ function generateEmailHtml(subjectLine, bodyContent) {
           <img src="${LOGO_URL}" alt="Better State LLC Logo" class="logo1">
           <h1 class="title">${subjectLine}</h1>
         </div>
-
         ${bodyContent}
-
         <div class="footer">
           <p>Best regards,<br>The Better State LLC Team</p>
           <p>&copy; ${new Date().getFullYear()} Better State LLC. All rights reserved.</p>
@@ -52,52 +53,38 @@ function generateEmailHtml(subjectLine, bodyContent) {
   `;
 }
 
-// Function to send an email when a new appointment document is created in Firestore.
+// --- CLOUD FUNCTIONS EXPORTS ---
+
+// 1. Google Review Sync
+exports.syncGoogleReviews = syncGoogleReviews;
+
+// 2. Appointment Email Function
 exports.sendAppointmentEmailV2 = onDocumentCreated({
   document: 'appointments/{appointmentId}',
   secrets: ['EMAIL_USER', 'EMAIL_PASSWORD']
 }, async (event) => {
-  console.log('sendAppointmentEmailV2 function triggered.');
-  // Add this console.log to ensure a visible change for deployment
-  console.log('--- FORCING REDEPLOY OF UPDATED CODE WITH OPTIONAL DATE/TIME ---');
-
+  console.log('sendAppointmentEmailV2 triggered.');
+  
   let mailTransport;
   try {
     mailTransport = nodemailer.createTransport({
       service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD },
     });
-    console.log('Nodemailer transporter created successfully for sendAppointmentEmailV2.');
-  } catch (configError) {
-    console.error('Error creating Nodemailer transporter for sendAppointmentEmailV2:', configError);
-    console.error('Environment Variable EMAIL_USER (sendAppointmentEmailV2):', process.env.EMAIL_USER ? '**** (set)' : '**** (NOT set)');
-    console.error('Environment Variable EMAIL_PASSWORD (sendAppointmentEmailV2):', process.env.EMAIL_PASSWORD ? '**** (set)' : '**** (NOT set)');
+  } catch (err) {
+    console.error('Transport error:', err);
     return null;
   }
 
   const newAppointment = event.data.data();
   const appointmentId = event.params.appointmentId;
 
-  // STRICTLY REQUIRED FIELDS:
-  if (
-    !newAppointment.name ||
-    !newAppointment.email ||
-    !newAppointment.address ||
-    !newAppointment.selectedServices ||
-    newAppointment.selectedServices.length === 0
-  ) {
-    console.error('Missing REQUIRED appointment data for email (Name, Email, Address, Services):', newAppointment);
-    return null; // Don't proceed if core required fields are missing
+  if (!newAppointment.name || !newAppointment.email || !newAppointment.address || !newAppointment.selectedServices) {
+    console.error('Missing REQUIRED appointment data.');
+    return null;
   }
 
-  const servicesListHtml = newAppointment.selectedServices
-    .map((service) => `<li>${service}</li>`)
-    .join('');
-
-  // Conditional HTML for Date and Time
+  const servicesListHtml = newAppointment.selectedServices.map((service) => `<li>${service}</li>`).join('');
   const appointmentDate = newAppointment.date ? `<p><strong>Date:</strong> ${newAppointment.date}</p>` : '';
   const appointmentTime = newAppointment.time ? `<p><strong>Time:</strong> ${newAppointment.time}</p>` : '';
 
@@ -112,77 +99,47 @@ exports.sendAppointmentEmailV2 = onDocumentCreated({
       <p><strong>Email:</strong> ${newAppointment.email || 'N/A'}</p>
       <p><strong>Address:</strong> ${newAppointment.address || 'N/A'}</p>
       <p><strong>Services Selected:</strong></p>
-      <ul>
-        ${servicesListHtml}
-      </ul>
+      <ul>${servicesListHtml}</ul>
       <p><strong>Contact early if available:</strong> ${newAppointment.earlyContact ? 'Yes' : 'No'}</p>
       <hr class="hr">
-      <p>Please log in to your Firebase Console (Firestore Database > 'appointments' collection) for full details and to manage this appointment.</p>
+      <p>Please log in to your Firebase Console for full details.</p>
     `;
 
   const mailOptions = {
     from: `Better State LLC <${process.env.EMAIL_USER}>`,
     to: FRIEND_EMAIL,
-    // Adjust subject line to always include name, and optionally date if present and valid
-    subject: `🎉 New Pool Cleaning Appointment: ${newAppointment.name}${typeof newAppointment.date === 'string' && newAppointment.date.length > 0 ? ` on ${newAppointment.date}` : ''}`,
+    subject: `🎉 New Pool Cleaning Appointment: ${newAppointment.name}`,
     html: generateEmailHtml(`New Pool Cleaning Appointment Booked!`, emailBodyContent),
   };
 
   try {
     await mailTransport.sendMail(mailOptions);
-    console.log('New appointment email sent successfully to', FRIEND_EMAIL);
-  } catch (_error) {
-    console.error('Error sending appointment email:', _error);
+    console.log('Appointment email sent successfully.');
+  } catch (e) {
+    console.error('Error sending email:', e);
   }
   return null;
 });
 
-// Function to send an email when a new quote request document is created in Firestore.
+// 3. Quote Request Email Function
 exports.sendQuoteRequestEmailV2 = onDocumentCreated({
   document: 'quoteRequests/{quoteId}',
   secrets: ['EMAIL_USER', 'EMAIL_PASSWORD']
 }, async (event) => {
-  console.log('sendQuoteRequestEmailV2 function triggered.');
-  let mailTransport;
-  try {
-    mailTransport = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-    console.log('Nodemailer transporter created successfully for sendQuoteRequestEmailV2.');
-  } catch (configError) {
-    console.error('Error creating Nodemailer transporter for sendQuoteRequestEmailV2:', configError);
-    console.error('Environment Variable EMAIL_USER (sendQuoteRequestEmailV2):', process.env.EMAIL_USER ? '**** (set)' : '**** (NOT set)');
-    console.error('Environment Variable EMAIL_PASSWORD (sendQuoteRequestEmailV2):', process.env.EMAIL_PASSWORD ? '**** (set)' : '**** (NOT set)');
-    return null;
-  }
+  let mailTransport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD },
+  });
 
   const newQuote = event.data.data();
-  const quoteId = event.params.quoteId;
-
-  if (!newQuote.name || !newQuote.email || !newQuote.phone || !newQuote.message) {
-    console.error('Missing required quote request data for email:', newQuote);
-    return null;
-  }
-
   const emailBodyContent = `
       <p>A new quote request has been submitted:</p>
       <hr class="hr">
-      <p><strong>Request ID:</strong> ${quoteId}</p>
       <p><strong>Customer Name:</strong> ${newQuote.name}</p>
       <p><strong>Phone:</strong> ${newQuote.phone}</p>
       <p><strong>Email:</strong> ${newQuote.email}</p>
-      <p><strong>Zip Code (if provided):</strong> ${newQuote.zipCode || 'N/A'}</p>
-      <p><strong>Service Type (if selected):</strong> ${newQuote.serviceType || 'N/A'}</p>
       <p><strong>Message:</strong></p>
-      <p class="callout-box">
-        ${newQuote.message}
-      </p>
-      <hr class="hr">
-      <p>Please log in to your Firebase Console (Firestore Database > 'quoteRequests' collection) for full details.</p>
+      <p class="callout-box">${newQuote.message}</p>
     `;
 
   const mailOptions = {
@@ -192,60 +149,28 @@ exports.sendQuoteRequestEmailV2 = onDocumentCreated({
     html: generateEmailHtml(`New Quote Request Received!`, emailBodyContent),
   };
 
-  try {
-    await mailTransport.sendMail(mailOptions);
-    console.log('New quote request email sent successfully to', FRIEND_EMAIL);
-  } catch (_error) {
-    console.error('Error sending quote request email:', _error);
-  }
+  await mailTransport.sendMail(mailOptions);
   return null;
 });
 
-
-// Function to send an email when a new contact submission document is created in Firestore.
+// 4. Contact Submission Email Function
 exports.sendContactEmailV2 = onDocumentCreated({
   document: 'contactSubmissions/{contactId}',
   secrets: ['EMAIL_USER', 'EMAIL_PASSWORD']
 }, async (event) => {
-  console.log('sendContactEmailV2 function triggered.');
-  let mailTransport;
-  try {
-    mailTransport = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-    console.log('Nodemailer transporter created successfully for sendContactEmailV2.');
-  } catch (configError) {
-    console.error('Error creating Nodemailer transporter for sendContactEmailV2:', configError);
-    console.error('Environment Variable EMAIL_USER (sendContactEmailV2):', process.env.EMAIL_USER ? '**** (set)' : '**** (NOT set)');
-    console.error('Environment Variable EMAIL_PASSWORD (sendContactEmailV2):', process.env.EMAIL_PASSWORD ? '**** (set)' : '**** (NOT set)');
-    return null;
-  }
+  let mailTransport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD },
+  });
 
   const newContact = event.data.data();
-  const contactId = event.params.contactId;
-
-  if (!newContact.name || !newContact.email || !newContact.message) {
-    console.error('Missing required contact submission data for email:', newContact);
-    return null;
-  }
-
   const emailBodyContent = `
-      <p>A new message has been submitted through the Contact Us form:</p>
+      <p>A new message from Contact Us form:</p>
       <hr class="hr">
-      <p><strong>Submission ID:</strong> ${contactId}</p>
       <p><strong>Customer Name:</strong> ${newContact.name}</p>
-      <p><strong>Phone:</strong> ${newContact.phone || 'N/A'}</p>
       <p><strong>Email:</strong> ${newContact.email}</p>
       <p><strong>Message:</strong></p>
-      <p class="callout-box">
-        ${newContact.message}
-      </p>
-      <hr class="hr">
-      <p>Please log in to your Firebase Console (Firestore Database > 'contactSubmissions' collection) for full details.</p>
+      <p class="callout-box">${newContact.message}</p>
     `;
 
   const mailOptions = {
@@ -255,11 +180,6 @@ exports.sendContactEmailV2 = onDocumentCreated({
     html: generateEmailHtml(`New Contact Us Message!`, emailBodyContent),
   };
 
-  try {
-    await mailTransport.sendMail(mailOptions);
-    console.log('New contact email sent successfully to', FRIEND_EMAIL);
-  } catch (_error) {
-    console.error('Error sending contact email:', _error);
-  }
+  await mailTransport.sendMail(mailOptions);
   return null;
 });
