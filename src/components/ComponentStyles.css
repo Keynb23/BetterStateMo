@@ -12,7 +12,9 @@
   z-index: 21;
   width: 100%;
   border-bottom: 1px solid var(--bg);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   left: 0;
   right: 0;
   transition:
@@ -447,7 +449,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(.8);
+  filter: brightness(0.8);
   pointer-events: none;
 }
 
@@ -469,14 +471,16 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
+  /* This spreads the Top, Button, and Bottom sections out naturally */
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px; /* Increased to allow wider layout */
   min-height: 100vh;
-  padding: var(--space-xl);
+  padding: var(--space-lg); /* Reduced padding to save vertical space */
   text-align: center;
   color: var(--text-dm);
+  box-sizing: border-box;
 }
 
 /* Top Content (Logo, Title, Slogan) */
@@ -505,94 +509,56 @@
 
 /* Hero Title */
 .hero-title h1 {
-  width: 1200px;
+  width: 100%;
+  max-width: 90vw;
   color: var(--text-dm);
-  font-size: 8rem !important;
-  /* font-family: Lato; */
+  /* Use clamp instead of !important 8rem */
+  font-size: clamp(2.5rem, 10vw, 7rem) !important;
   font-weight: 800;
-  white-space: normal;
-  letter-spacing: -0.1rem;
-  line-height: .9;
-  text-align: center;
-  margin-top: var(--space-lg);
-  padding-bottom: var(--space-md);
+  letter-spacing: -0.05rem;
+  line-height: 1.1;
+  margin-top: var(--space-md);
 }
 
 /* Hero Slogan */
 .hero-slogan {
-  position: absolute;
-  top: 45%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-lg);
-  font-size: 2.75rem !important;
+  position: relative; /* Changed from absolute */
+  font-size: clamp(1.2rem, 3vw, 2.5rem) !important;
   color: var(--color-secondary);
-  max-width: 600px;
+  max-width: 800px;
+  margin: var(--space-md) auto;
   font-weight: 400;
-  padding: var(--space-md);
-  margin-left: var(--space-md);
 }
 
-/* Call to Action Button Container */
+/* Hero Button Container */
 .hero-buttons {
-  width: 100%;
+  flex-grow: 1; /* Pushes the bottom content down */
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 0;
-  margin-bottom: 0;
-  z-index: 10;
 }
 
-/* Call to Action Button */
+/* Hero Button - REMOVED position: absolute */
 .hero-button {
-  position: absolute;
-  bottom: 25%;
-  padding: var(--space-md) var(--space-lg);
-  background-color: var(--color-primary);
-  color: var(--text-dm);
-  font-size: 1.5rem !important;
-  font-weight: 500;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-  width: auto;
-  max-width: 80%;
-  border-radius: var(--space-xs);
-  border: none;
-  box-shadow:
-    rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px,
-    rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px,
-    rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  position: relative;
+  padding: var(--space-md) var(--space-xl);
+  font-size: clamp(1rem, 2vw, 1.5rem) !important;
+  /* ... keep your existing box-shadow and colors ... */
 }
 
-.hero-button:hover {
-  background-color: var(--info);
-  color: var(--text);
-  transform: translateY(-2px);
-}
-
-/* Bottom Content (Social Media & Contacts) */
+/* Bottom Content - REMOVED position: absolute */
 .hero-bottom-content {
-  position: absolute;
-  bottom: 10%;
+  position: relative; /* Changed from absolute */
   display: flex;
-  /* flex-wrap: wrap; */
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  padding: var(--space-md) var(--space-lg);
+  max-width: 900px;
+  padding: var(--space-md);
+  background-color: rgba(0, 0, 0, 0.3); /* Glassmorphism look */
+  backdrop-filter: blur(10px);
   border-radius: var(--space-sm);
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  gap: var(--space-lg);
-  box-sizing: border-box;
-  margin-top: 0;
-  background-color: var(--color-primary-dark);
+  margin-top: var(--space-lg);
 }
 
 /* Hero Social Media */
@@ -639,7 +605,11 @@
 @media (max-width: 1024px) {
   .hero-content-wrapper {
     padding: var(--space-lg);
-    gap: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers everything vertically */
+    gap: var(--space-md);
+    height: 100vh;
   }
 
   .hero-top-content {
@@ -652,15 +622,22 @@
   }
 
   .hero-title h1 {
-    font-size: 6rem !important;
-    letter-spacing: -0.1rem;
-    padding-bottom: var(--space-md);
+    /* REMOVE the 1200px width */
+    width: 100%;
+    max-width: 100%;
+    /* Use clamp: Min 3rem, Scaler 8vw, Max 5.5rem */
+    font-size: clamp(3rem, 8vw, 5.5rem) !important;
+    line-height: 1.1;
+    margin-bottom: 0;
   }
 
   .hero-slogan {
-    top: 30%;
-    font-size: 3rem !important;
-    padding-bottom: 0;
+    /* REMOVE position: absolute */
+    position: static;
+    font-size: clamp(1.5rem, 4vw, 2.2rem) !important;
+    margin: 0 auto;
+    padding: var(--space-sm);
+    max-width: 90%;
   }
 
   .hero-buttons {
@@ -669,21 +646,21 @@
   }
 
   .hero-button {
-    position: absolute;
-    bottom: 30%;
-    font-size: 1.5rem !important;
-    padding: var(--space-sm) var(--space-md);
-    width: 95%;
-    max-width: 250px;
+    /* REMOVE position: absolute */
+    position: static;
+    margin-top: var(--space-lg);
+    font-size: 1.25rem !important;
+    width: auto;
+    min-width: 200px;
+    align-self: center;
   }
 
   .hero-bottom-content {
-    flex-direction: row;
-    justify-content: space-evenly;
-    gap: var(--space-lg);
-    padding: var(--space-md) var(--space-lg);
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-around;
   }
 }
 
@@ -835,14 +812,14 @@
 }
 
 .obj-opening-text {
-    padding: var(--space-sm);
-    color: var(--color-secondary);
-    text-align: center;
-    font-size: 1.5rem!important;
-    font-weight: 500 !important;
-    width: 100%;
-    margin-top: var(--space-xl);
-    margin-bottom: var(--space-xl);
+  padding: var(--space-sm);
+  color: var(--color-secondary);
+  text-align: center;
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  width: 100%;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
 }
 
 .objection-blockers-title {
@@ -1224,7 +1201,7 @@
     display: block;
   }
 
-    .mute-indicator {
+  .mute-indicator {
     bottom: var(--space-sm);
     right: var(--space-sm);
     font-size: 1.2rem;
@@ -1232,7 +1209,7 @@
     height: 35px;
   }
 
-   .mute-vid-text {
+  .mute-vid-text {
     font-size: 1rem; /* Smaller font for small screens */
     padding: var(--space-xs) var(--space-sm);
   }
@@ -1635,7 +1612,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   font-size: 0.8rem;
   color: var(--text-muted-dm);
   gap: var(--space-sm);
@@ -1649,12 +1626,24 @@
 
 /* Glitch wiggle animation */
 @keyframes link-wiggle {
-  0%   { transform: skewX(20deg); }
-  20%  { transform: skewX(-10deg); }
-  40%  { transform: skewX(30deg); }
-  60%  { transform: skewX(-15deg); }
-  80%  { transform: skewX(5deg); }
-  100% { transform: skewX(0deg); }
+  0% {
+    transform: skewX(20deg);
+  }
+  20% {
+    transform: skewX(-10deg);
+  }
+  40% {
+    transform: skewX(30deg);
+  }
+  60% {
+    transform: skewX(-15deg);
+  }
+  80% {
+    transform: skewX(5deg);
+  }
+  100% {
+    transform: skewX(0deg);
+  }
 }
 
 .portfolio-link {
@@ -1668,14 +1657,13 @@
 
 /* Glitch effect on hover */
 .portfolio-link:hover {
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
   animation: link-wiggle 0.25s 1;
-  text-shadow: 
+  text-shadow:
     2px 1px rgba(246, 0, 153, 0.8),
     -2px -1px rgba(15, 210, 255, 0.8),
     0px -1px rgba(255, 210, 0, 1);
 }
-
 
 .Devby-links img {
   width: 18px;
@@ -1689,7 +1677,6 @@
   filter: none;
   cursor: pointer;
 }
-
 
 /* ========== Responsive Safety ========== */
 @media screen and (max-width: 768px) {
@@ -1715,11 +1702,13 @@
   }
 
   .footer-contact-info,
-  .footer-social-connect, .coatPool{
+  .footer-social-connect,
+  .coatPool {
     align-items: center;
   }
 
-  .footer-social-media, .coatPool {
+  .footer-social-media,
+  .coatPool {
     justify-content: center;
   }
 
