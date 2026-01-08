@@ -10,13 +10,15 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "22"
+    "node": "20"
   },
   "main": "index.js",
   "dependencies": {
+    "axios": "^1.13.2",
     "firebase-admin": "^13.4.0",
     "firebase-functions": "^6.4.0",
-    "nodemailer": "^7.0.5"
+    "nodemailer": "^7.0.5",
+    "sentiment": "^5.0.2"
   },
   "devDependencies": {
     "eslint": "^9.28.0",

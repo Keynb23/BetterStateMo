@@ -1,3 +1,4 @@
+// /src/lib/firestoreService.js
 import { db, auth } from './../context/AuthContext.jsx'; // Import auth
 import { collection, addDoc, serverTimestamp, getDocs, query, orderBy, where } from 'firebase/firestore'; // Import necessary Firestore functions
 

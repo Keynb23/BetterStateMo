@@ -1,3 +1,5 @@
+//  I'm prettu sure this is not being used. 
+// Will delete later
 import './ComponentStyles.css';
 
 export default function Testimonial() {
@@ -12,4 +14,4 @@ export default function Testimonial() {
     </>
   );
 }
-``;
+;

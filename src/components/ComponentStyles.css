@@ -1238,20 +1238,17 @@
     font-size: 0.9rem;
   }
 }
-
 /*===================== Reviews Section =====================*/
 .reviews-container {
-  /* background: linear-gradient(to top, var(--color-primary-light), var(--bg)); */
+  position: relative; 
   background-color: var(--color-primary-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-width: 100%;
-  gap: var(--space-lg);
+  padding: var(--space-xl) var(--space-md);
+  gap: var(--space-md);
   text-align: center;
-  color: var(--text);
-  overflow: hidden;
 }
 
 .reviews-title {
@@ -1268,154 +1265,48 @@
   font-weight: 400;
 }
 
-.reviews {
-  display: flex;
+.brand_hider {
+  background-color: var(--color-primary-dark);
+  /* border: 1px solid white; */
   width: 100%;
-  overflow: hidden;
-  padding: var(--space-md);
+  height: 60px;
+  position: absolute;
+  bottom: 85px;
+  z-index: 10; 
+  pointer-events: none; 
 }
 
-.reviews-track {
-  display: flex;
-  flex-shrink: 0;
-  animation: scrollReviews 120s linear infinite;
-  /* Adjust '120s' for speed */
-  gap: 2rem;
+/* Targets the specific branding wrapper and the button itself */
+[class*="Carousel-module__branding"],
+[class*="Branding-module__container"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+/* Ensure the injected featurable widget matches the site theme */
+#featurable-ca2a761d-f9d6-426a-aa61-453c29b316b6 {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 450px;
 }
 
-@keyframes scrollReviews {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-3424px);
-  }
-}
-
-.review-cards {
-  height: 350px;
-  width: 400px;
-  flex-shrink: 0;
-  background-color: var(--comp-bg-light);
-  border-radius: var(--space-md);
-  padding: var(--space-lg);
-  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.review-cards h4 {
-  font-size: 1.25rem;
-  color: var(--color-primary);
-  margin-bottom: var(--space-sm);
-  font-weight: 600;
-}
-
-.review-cards p {
-  font-size: 1rem;
-  color: var(--text);
-  line-height: 1.6;
-  margin-bottom: 0;
-  white-space: normal;
-  /* Added: Allow text to wrap within the paragraph */
-  overflow-wrap: break-word;
-  /* Ensure long words break */
-}
-
-/* Reviews Media Queries */
 @media (max-width: 768px) {
   .reviews-container {
     padding: var(--space-lg) var(--space-sm);
-    gap: var(--space-md);
   }
 
-  .reviews-title {
-    font-size: 2.25rem;
-  }
-
-  .reviews-container h3 {
-    font-size: 1.2rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .reviews {
-    padding: 0;
-  }
-
-  .reviews-track {
-    gap: var(--space-md);
-  }
-
-  .review-cards {
-    width: 300px;
-    height: 320px;
-    padding: var(--space-md);
-  }
-
-  .review-cards h4 {
-    font-size: 1.1rem;
-  }
-
-  .review-cards p {
-    font-size: 0.95rem;
-  }
-
-  @keyframes scrollReviews {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(-2528px);
-    }
+  /* @media (max-width: 767px) { */
+  .brand_hider {
+    bottom: 45px; /* Shifted down for the mobile widget layout */
+    height: 75px;
   }
 }
+/* } */
 
-@media (max-width: 480px) {
-  .reviews-container {
-    padding: var(--space-md) var(--space-xs);
-    gap: var(--space-md);
-  }
-
-  .reviews-title {
-    font-size: 2rem;
-  }
-
-  .reviews-container h3 {
-    font-size: 1rem;
-  }
-
-  .reviews-track {
-    gap: var(--space-sm);
-  }
-
-  .review-cards {
-    width: 250px;
-    height: 300px;
-    padding: var(--space-sm);
-  }
-
-  .review-cards h4 {
-    font-size: 1rem;
-  }
-
-  .review-cards p {
-    font-size: 0.9rem;
-  }
-
-  @keyframes scrollReviews {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(-2064px);
-    }
-  }
-}
 
 /* ====================================Footer======================================== */
 .footer-container {
