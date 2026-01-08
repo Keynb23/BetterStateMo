@@ -1,61 +1,63 @@
-# Better State LLC Web App
+Better State LLC | Production Web App
+A professional, high-performance website developed for Better State LLC (Better State Pools). This platform is a live production site currently used by customers to explore services and interact with the brand. It features a custom "Subtle USA & Poolside" aesthetic that balances clean professionalism with inviting design. 
++2
 
-A modern, responsive website for Better State LLC. Built with React and React Router, this project is currently focused on navigation, structure, and component planning.
+🚀 Project Overview
+The goal of this project was to redesign and rebuild a local business website to improve clarity, accessibility, and usability for a broad user demographic.  By transitioning to a modern React-based architecture, the site now offers a seamless experience for customers looking for pool services and consultations.
++1
 
-## 🧱 Project Overview
+🛠️ Technical Implementation
+Component-Based Architecture
 
-This is the beginning of a React-based website for Better State LLC. The goal is to deliver a clean, accessible UI with a subtle USA + swimming pool-inspired color theme.
+Scalability: Engineered a modular, component-based architecture using React JSX to ensure the codebase is easy to maintain and expand as the business grows. 
 
-## 📁 File & Folder Structure
+Consistency: Each component (Navbar, Hero, Service Cards) is paired with its own CSS file, keeping logic and styles encapsulated.
 
-- `src/components/`
-  - Contains all reusable UI components (Navbar, HamburgerBtn, etc.)
-  - Each component is documented with inline notes for clarity and future development
-- `src/pages/`
-  - Placeholder for route-based page components (e.g. Home, About Us, Contact)
-- `src/App.jsx`
-  - Sets up routes and renders persistent layout components (e.g. Navbar)
+Global Styling: All design tokens, including the "Poolside" color palette and typography, are managed via CSS variables in the :root selector for instant site-wide updates.
 
-## ✅ Features So Far
+Performance & Deployment
 
-- Responsive `Navbar` with working hamburger menu
-- Navigation links using React Router (`react-router-dom`)
-- Mobile-friendly toggle menu with animation and styling
-- Color theme uses CSS variables with a "subtle USA / poolside" aesthetic
-- Clean file structure prepared for scalable development
+Frontend: Built with Vite and React for optimized load times and a smooth Single Page Application (SPA) feel. 
 
-## 🎨 Color Scheme
 
-The design uses custom CSS variables defined in `index.css`:
+Hosting: Deployed via Vercel to ensure high availability and fast performance for local customers. 
 
-- `--usa-dark`: Midnight Green
-- `--usa-white`: Snow White
-- `--usa-blue`: Oceanic Blue
-- `--usa-red`: Subtle Coral Red
-- `--sky-blue`: Celeste Accent
 
-## 📌 Notes for Developers
+Backend: Integrated with Firebase to handle backend requirements and data management. 
 
-- All components include inline comments for understanding and extension
-- Mobile-first design with flexbox and media queries in `Navbar`
-- Hamburger button is animated with toggle state via `useState`
+✅ Live Features
+Responsive Navigation: A mobile-first Navbar with custom animations and a functional hamburger menu for easy browsing on any device.
 
-## 🛠️ Coming Soon
+Service Discovery: Clear, intuitive layout of company services designed to drive customer engagement.
 
-- Route pages: Home, About Us images, Contact, What We Do, Book Online
-- Single page application
-- Scroll animations and section-based layout
-- Backend integration with Firebase and Vercel Deployment
+Production Stability: A fully functional, bug-free environment currently serving real-world traffic at betterstatepools.com.
 
-## 🧑‍💻 Getting Started
+🎨 Design System (index.css)
+The site utilizes a curated color palette defined in the global CSS:
 
-To run the project locally:
+--usa-dark: Midnight Green (Primary Brand)
 
-```bash
+--usa-blue: Oceanic Blue (Water/Pool Theme)
+
+--sky-blue: Celeste (Accent/Highlights)
+
+--usa-white: Snow White (Clean Backgrounds)
+
+--usa-red: Subtle Coral Red (Calls to Action)
+
+🧑‍💻 Local Setup
+To run this project locally for review:
+
+Bash
+
+# Clone the repository
+git clone [repository-url]
+
+# Install dependencies
 npm install
+
+# Start the development server
 npm run dev
 
-
-
-<a href="http://www.freepik.com"></a>
-```
+Developed by Key'n Brosdahl – Focused on translating design intent into polished, production-ready UI. 
++1

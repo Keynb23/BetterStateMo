@@ -17,7 +17,7 @@ export default function About() {
  {/* NEW: History and Experience Paragraph */}
  <p className="about-sec-p-header">
 BetterStatePools was officially founded in 2023, 
-yet our team brings over 10 years of professional experience to every pool we service. 
+yet our team brings 15+ years of professional experience to every pool we service. 
 We understand that your pool is a major investment and a place for relaxation and it should be treated that way.
  </p>
 
